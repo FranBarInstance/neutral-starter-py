@@ -3,13 +3,22 @@
         "locale": {
             "trans": {
                 "es": {
-                    "Install APP": "Instalar APP"
+                    "Install APP": "Instalar APP",
+                    "The application": "La aplicación",
+                    "Internet connection required": "Conexión a Internet requerida",
+                    "No connection": "Sin conexión"
                 },
                 "fr": {
-                    "Install APP": "Installer APP"
+                    "Install APP": "Installer APP",
+                    "The application": "L'application",
+                    "Internet connection required": "Connexion Internet requise",
+                    "No connection": "Sans connexion"
                 },
                 "de": {
-                    "Install APP": "Installiere APP"
+                    "Install APP": "Installiere APP",
+                    "The application": "Die Anwendung",
+                    "Internet connection required": "Internetverbindung erforderlich",
+                    "No connection": "Ohne Verbindung"
                 }
             }
         },

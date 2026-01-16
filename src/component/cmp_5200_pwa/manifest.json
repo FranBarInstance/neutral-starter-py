@@ -5,9 +5,14 @@
     "version": "0.0.0",
     "route": "",
     "config": {
+        "static-dir": "pwa",
         "enable": true,
         "navbar_times": 2,
         "theme_color": "#375A7F",
-        "background_color": "#ffffff"
+        "background_color": "#ffffff",
+        "public-has-icons": false,
+        "public-has-manifest": false,
+        "public-has-service-worker": false,
+        "public-has-offline": false
     }
 }
