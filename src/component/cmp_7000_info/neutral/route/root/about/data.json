@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "About Neutral TS PWA",
+                "description": "About Neutral TS PWA Skeleton for PWA in Python",
+                "h1": "About"
+            }
+        }
+    }
+}

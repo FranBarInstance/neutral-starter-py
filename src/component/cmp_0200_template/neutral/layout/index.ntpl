@@ -1,0 +1,57 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Util snippets
+*:}
+{:include; {:flg; require :} >> #/util-snippets.ntpl :}
+
+{:*
+    Snippets of this template
+*:}
+{:include; {:flg; require :} >> #/template-snippets.ntpl :}
+
+{:*
+    Snippets for navbar and drawer
+*:}
+{:include; {:flg; require :} >> #/template-nav-snippets.ntpl :}
+
+{:*
+    Spin
+*:}
+{:snip; {:;local::theme-spin:} :}
+
+{:*
+    Register component-init.ntpl
+    When a component needs to set global values.
+*:}
+{:snip; core:include-components-register-ntpl :}
+
+{:*
+    Route snippets if it exists
+*:}
+{:include; {:;CURRENT_NEUTRAL_ROUTE:}/index-snippets.ntpl :}
+
+{:*
+    Content of the route or 404
+*:}
+{:include;
+    {:;CURRENT_NEUTRAL_ROUTE:}/{:;CURRENT_COMP_ROUTE:}/content-snippets.ntpl
+:}{:else;
+    {:exit; 404 :}
+:}
+
+{:*
+    For local overrides
+*:}
+{:include; {:;CURRENT_NEUTRAL_ROUTE:}/custom-snippets.ntpl :}
+
+{:*
+    Render theme, ajax requests do not show the theme
+*:}
+{:bool; CONTEXT->HEADERS->Requested-With-Ajax >>
+    {:include; {:flg; require :} >> #/template-ajax.ntpl :}
+:}{:else;
+    {:include; {:flg; require :} >> #/template.ntpl :}
+:}
+
+{:^;:}

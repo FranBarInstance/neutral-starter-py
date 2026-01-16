@@ -1,0 +1,66 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Register snippets
+*:}
+
+{:snip; mail-theme-head-begin >>
+    <title>{:trans; ref:email-register-title :}</title>
+:}
+
+{:snip; mail-theme-blocks >>
+
+    {:code;
+        {:param; url-link >> {:;mail_data->url_home:} :}
+        {:param; url-img >> {:;mail_data->logo:} :}
+        {:param; text >> {:;mail_data->brand_text:} :}
+        {:snip; mail-theme-brand :}
+    :}
+
+    {:code;
+        {:param; url-link >> {:;mail_data->url_home:} :}
+        {:param; url-img >> {:;mail_data->cover:} :}
+        {:param; img-text >> {:;mail_data->cover_text:} :}
+        {:snip; mail-theme-block-img-hero :}
+    :}
+
+    {:code;
+        {:param; h1 >> {:trans; ref:email-register-subject :} :}
+        {:param; p1 >> {:trans; ref:email-register-text :} :}
+        {:param; p2 >> :}
+        {:param; p3 >> :}
+        {:param; p4 >> :}
+        {:param; p5 >> :}
+        {:snip; mail-theme-block-text :}
+    :}
+
+    {:code;
+        {:param; url-link >> {:;mail_data->auth_link:} :}
+        {:param; txt-link >> {:trans; ref:email-register-btn-text :} :}
+        {:snip; mail-theme-block-button-primary :}
+    :}
+
+    {:code;
+        {:param; h1 >> {:trans; ref:email-pin-subject :} :}
+        {:param; p1 >> {:trans; ref:email-register-pin-text :} :}
+        {:param; p2 >> :}
+        {:param; p3 >> :}
+        {:param; p4 >> :}
+        {:param; p5 >> :}
+        {:param; p2 >> :}
+        {:snip; mail-theme-block-text :}
+    :}
+
+    {:code;
+        {:param; txt >> {:;mail_data->auth_pin:} :}
+        {:snip; mail-theme-block-outline :}
+    :}
+
+    {:code;
+        {:param; h1 >>  :}
+        {:param; p1 >> {:trans; ref:email-register-expires :} {:trans; ref:email-register-if-expires :} :}
+        {:param; p2 >> {:trans; ref:email-register-tanks :} :}
+        {:snip; mail-theme-block-text :}
+    :}
+
+:}

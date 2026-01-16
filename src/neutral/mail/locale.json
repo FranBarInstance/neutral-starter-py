@@ -1,0 +1,69 @@
+{
+    "trans": {
+        "en": {
+            "ref:email-pin-subject": "Login PIN",
+            "ref:email-pin-text": "Use the following PIN to log in to your user session:",
+
+            "ref:email-reminder-title": "Password reminder",
+            "ref:email-reminder-subject": "Password reminder",
+            "ref:email-reminder-text": "With this button you can access without a password:",
+            "ref:email-reminder-btn-text": "Access without password",
+            "ref:email-reminder-pin-text": "If requested, use the following PIN:",
+            "ref:email-reminder-not-subject": "Email not found in reminder",
+            "ref:email-reminder-not-text1": "No user with this email address has been found:",
+            "ref:email-reminder-not-text2": "Maybe you are registered with a different email address?",
+            "ref:email-reminder-send-ok-text": "If you are registered with this account you will receive a link to login, if you are not registered with this account it will be indicated in the email.",
+            "ref:email-reminder-send-ko-title": "Error sending e-mail",
+            "ref:email-reminder-send-ko-text": "An error occurred while sending the message, please try again later.",
+            "ref:email-reminder-expires": "This link expires after {:;mail_data->expires:} hours.",
+            "ref:email-reminder-if-expires": "If it expires you can request a reminder.",
+            "ref:email-reminder-tanks": "Thank you for participating.",
+
+            "ref:email-register-title": "Login without password.",
+            "ref:email-register-link": "To access.",
+            "ref:email-register-subject": "Confirm your registration",
+            "ref:email-register-text": "With the following button you can confirm your registration:",
+            "ref:email-register-btn-text": "Confirm registration",
+            "ref:email-register-pin-text": "If requested, use the following PIN:",
+            "ref:email-register-expires": "This link expires after {:;mail_data->expires:} hours.",
+            "ref:email-register-if-expires": "If it expires you can request a reminder.",
+            "ref:email-register-tanks": "Thank you for participating."
+        },
+        "es": {
+            "ref:email-pin-subject": "PIN de acceso",
+            "ref:email-pin-text": "Utilice el siguiente PIN para acceder a su sesión de usuario:",
+
+            "ref:email-reminder-title": "Recordatorio de contraseña",
+            "ref:email-reminder-subject": "Recordatorio de contraseña",
+            "ref:email-reminder-text": "Con este botón puede acceder sin contraseña:",
+            "ref:email-reminder-btn-text": "Acceder sin contraseña",
+            "ref:email-reminder-pin-text": "Si se le solicita, utilice el siguiente PIN:",
+            "ref:email-reminder-not-subject": "Email no encontrado en recordatorio",
+            "ref:email-reminder-not-text1": "No se ha encontrado ningún usuario con esta dirección de correo electrónico:",
+            "ref:email-reminder-not-text2": "¿Quizás está registrado con una dirección de correo electrónico diferente?",
+            "ref:email-reminder-send-ok-text": "Si está registrado con esta cuenta recibirá un enlace para iniciar sesión, si no está registrado con esta cuenta se le indicará en el correo electrónico.",
+            "ref:email-reminder-send-ko-title": "Error al enviar el correo electrónico",
+            "ref:email-reminder-send-ko-text": "Se produjo un error al enviar el mensaje, por favor inténtelo de nuevo más tarde.",
+            "ref:email-reminder-expires": "Este enlace expira después de {:;mail_data->expires:} horas.",
+            "ref:email-reminder-if-expires": "Si expira puede solicitar un recordatorio.",
+            "ref:email-reminder-tanks": "Gracias por participar.",
+
+            "ref:email-register-title": "Acceso sin contraseña.",
+            "ref:email-register-link": "Para acceder.",
+            "ref:email-register-subject": "Confirmar su registro",
+            "ref:email-register-text": "Con el siguiente botón puede confirmar su registro:",
+            "ref:email-register-btn-text": "Confirmar registro",
+            "ref:email-register-pin-text": "Si se le solicita, utilice el siguiente PIN:",
+            "ref:email-register-expires": "Este enlace expira después de {:;mail_data->expires:} horas.",
+            "ref:email-register-if-expires": "Si expira puede solicitar un recordatorio.",
+            "ref:email-register-tanks": "Gracias por participar.",
+
+            "This message was generated in:": "Este mensaje fue generado en:",
+            "From URL:": "Desde la URL:",
+            "From user IP:": "Desde la IP:",
+            "Link:": "Enlace:",
+            "Terms of use": "Condiciones de uso",
+            "Subscriptions": "Suscripciones"
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:snip; settheme_0yt2sa-menu-theme >>
+    <a title="{:trans; Theme :}" class="list-group-item list-group-item-action item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-themes-theme-collapse">
+        <i class="{:;local::x-icon-theme:}" aria-hidden="true"></i> {:trans; Theme :} ({:;local::current->theme->theme:})
+    </a>
+    <div class="collapse menu-collapse ms-3" id="menu-drawer-themes-theme-collapse">
+        {:each; local::current->theme->allow_themes key theme >>
+            <a href="?{:;THEME_KEY:}={:;theme:}" class="list-group-item list-group-item-action">
+                ▪ <span class="ms-2">{:trans; {:;theme:} :}</span>
+            </a>
+        :}
+    </div>
+:}
+
+{:snip; settheme_0yt2sa-menu-theme-colors >>
+    <a title="{:trans; Colors :}" class="list-group-item list-group-item-action item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-themes-color-collapse">
+        <i class="{:;local::x-icon-color:}" aria-hidden="true"></i> {:trans; Color :} ({:;local::current->theme->color:})
+    </a>
+    <div class="collapse menu-collapse ms-3" id="menu-drawer-themes-color-collapse">
+        {:each; local::current->theme->allow_colors key color >>
+            <a href="?{:;THEME_COLOR_KEY:}={:;color:}" class="list-group-item list-group-item-action">
+                ▪ <span class="ms-2">{:trans; {:;color:} :}</span>
+            </a>
+        :}
+    </div>
+:}

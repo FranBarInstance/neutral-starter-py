@@ -1,0 +1,20 @@
+{
+    "uuid": "rrss_0yt2sa",
+    "name": "Read RSS",
+    "description": "Read RSS feed and show it in a list",
+    "version": "0.0.0",
+    "route": "/rrss",
+    "config": {
+        "cache_seconds": 300,
+        "rsss_default": "BBC",
+        "rrss_urls": {
+            "BBC": "https://feeds.bbci.co.uk/news/rss.xml",
+            "TechCrunch": "https://techcrunch.com/feed/",
+            "Hackaday": "https://hackaday.com/feed/",
+            "CNET": "https://www.cnet.com/rss/news/",
+            "NASA": "https://nasawatch.com/feed/",
+            "The Register": "https://www.theregister.com/headlines.rss",
+            "Ars Technica": "https://arstechnica.com/feed/"
+        }
+    }
+}

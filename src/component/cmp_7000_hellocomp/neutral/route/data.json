@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Hello Component",
+                "description": "Component example, ilustrates the basic structure of a component",
+                "h1": "Hello Component"
+            }
+        }
+    }
+}

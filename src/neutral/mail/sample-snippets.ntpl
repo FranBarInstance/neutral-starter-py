@@ -1,0 +1,111 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Register snippets
+*:}
+
+{:snip; mail-theme-head-begin >>
+    <title>{:trans; Mail title :}</title>
+    <meta name="name" content="content">
+    <style></style>
+:}
+
+{:snip; mail-theme-footer >>
+    snip; mail-theme-footer <br>
+    https://mail-theme-footer
+    <br><br>
+    {:trans; Terms of use :} - {:trans; Subscriptions :}
+:}
+
+{:snip; mail-theme-blocks >>
+
+    {:*
+        Blocks can be repeated as many times as needed.
+    *:}
+
+    {:code;
+        {:param; url-link >> {:;mail_data->url_home:} :}
+        {:param; url-img >> {:;mail_data->logo:} :}
+        {:param; text >> mail-theme-brand :}
+        {:snip; mail-theme-brand :}
+    :}
+
+    {:code;
+        {:param; url-link >> {:;mail_data->url_home:} :}
+        {:param; url-img >> https://picsum.photos/400/200 :}
+        {:param; img-text >> mail-theme-block-img-hero :}
+        {:snip; mail-theme-block-img-hero :}
+    :}
+
+    {:code;
+        {:param; h1 >> mail-theme-block-text h1 (optional) :}
+        {:param; p1 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p2 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p3 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p4 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p5 >> mail-theme-block-text p 1 (optional) :}
+        {:snip; mail-theme-block-text :}
+    :}
+
+    {:code;
+        {:param; url-link >> https://... :}
+        {:param; txt-link >> mail-theme-block-button-primary :}
+        {:snip; mail-theme-block-button-primary :}
+    :}
+
+    {:snip; mail-theme-block-spacer :}
+    {:code;
+        {:param; txt >> mail-theme-block-outline :}
+        {:snip; mail-theme-block-outline :}
+    :}
+    {:snip; mail-theme-block-spacer :}
+
+    {:snip; mail-theme-block-spacer-bg :}
+    {:code;
+        {:param; p1 >> mail-theme-block-background p1 :}
+        {:snip; mail-theme-block-background :}
+    :}
+    {:snip; mail-theme-block-spacer-bg :}
+
+    {:code;
+        {:param; url-img1 >> https://picsum.photos/400/200?1  :}
+        {:param; p1 >> mail-theme-block-columns-2 p1 :}
+        {:param; url-img2 >> https://picsum.photos/400/200?2  :}
+        {:param; p2 >> mail-theme-block-columns-2 p2 :}
+        {:snip; mail-theme-block-columns-2 :}
+    :}
+
+    {:code;
+        {:param; url-img1 >> https://picsum.photos/400/200?3  :}
+        {:param; p1 >> mail-theme-block-columns-3 p1 :}
+        {:param; url-img2 >> https://picsum.photos/400/200?4  :}
+        {:param; p2 >> mail-theme-block-columns-3 p2 :}
+        {:param; url-img3 >> https://picsum.photos/400/200?5  :}
+        {:param; p3 >> mail-theme-block-columns-3 p3 :}
+        {:snip; mail-theme-block-columns-3 :}
+    :}
+
+    {:code;
+        {:param; url-img >> https://picsum.photos/400/200?6  :}
+        {:param; h2 >>mail-theme-block-img-left h2 :}
+        {:param; p >>mail-theme-block-img-left p :}
+        {:snip; mail-theme-block-img-left :}
+    :}
+
+    {:code;
+        {:param; url-img >> https://picsum.photos/400/200?7 :}
+        {:param; h2 >>mail-theme-block-img-right h2 :}
+        {:param; p >>mail-theme-block-img-right p :}
+        {:snip; mail-theme-block-img-right :}
+    :}
+
+    {:code;
+        {:param; h1 >> mail-theme-block-text h1 (optional) :}
+        {:param; p1 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p2 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p3 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p4 >> mail-theme-block-text p 1 (optional) :}
+        {:param; p5 >> mail-theme-block-text p 1 (optional) :}
+        {:snip; mail-theme-block-text :}
+    :}
+:}

@@ -1,0 +1,62 @@
+{:* Copyright (C) 2025 https://github.com/FranBar1966/neutral-pwa-py (See LICENCE) *:}
+
+{:*
+    Data for this route
+    ------------------
+*:}
+{:data; {:flg; require :} >> #/data.json :}
+
+{:*
+    Locale for this route
+    ---------------------
+*:}
+{:locale; {:flg; require :} >> #/locale.json :}
+
+{:*
+    Disable carousel
+    ----------------
+*:}
+{:snip; current:template:body-carousel >> :}
+
+{:*
+    Disable lateral bar
+    -------------------
+*:}
+{:snip; current:template:body-lateral-bar >> :}
+
+{:*
+    Overwrite page heading
+    ----------------------
+*:}
+{:snip; current:template:page-h1 >>
+    <div class="container my-3">
+        <h1 class="border-bottom p-2">{:trans; {:;local::current->route->h1:} :} {:trans; (Overwrite) :}</h1>
+    </div>
+:}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::theme-container-class:}">
+        <h3>{:trans; Test One :}</h3>
+        <p>{:trans; Example of a simple component, Test One. :}</p>
+    </div>
+    <div class="{:;local::theme-container-class:}">
+        {:snip; hellocomp_0yt2sa-test :}
+    </div>
+    <div class="{:;local::theme-container-class:} mt-5">
+        {:snip; hellocomp_0yt2sa-info :}
+    </div>
+:}
+
+{:*
+    This file does not produce output. By placing {:;:} at the end we force output
+    so that constructs like the following work:
+
+        {:include;
+            file-snippets.ntpl
+        :}{:else;
+            {:exit; 404 :}
+        :}
+
+    Note: {:;:} or {:^;:} to force output
+*:}
+{:^;:}

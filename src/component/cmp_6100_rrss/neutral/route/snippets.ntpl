@@ -1,0 +1,155 @@
+
+{:snip; current:template:head:rrss_0yt2sa >>
+    <style>
+        .rrss-wrapper img {
+            width: 180px !important;
+            padding: 5px;
+            height: auto;
+        }
+    </style>
+:}
+
+{:snip; current:template:body-end:rrss_0yt2sa >>
+    <script>
+        function rrss_feed_script() {
+            document.querySelectorAll('.rrss-wrapper').forEach(wrapper => {
+                wrapper.querySelectorAll('a').forEach(ele => {
+                    const href = ele.getAttribute('href');
+                    if (href && /^http/.test(href)) {
+                        const linkUrl = new URL(href);
+                        if (linkUrl.hostname !== window.location.hostname) {
+                            ele.setAttribute('target', '_blank');
+                            ele.setAttribute('rel', 'noopener noreferrer');
+                        }
+                    }
+                });
+            });
+            document.querySelectorAll('.published-date').forEach(span => {
+                const fechaUTC = span.textContent;
+                const fechaLocal = new Date(fechaUTC);
+                span.textContent = fechaLocal.toLocaleString(undefined, {
+                    year: '2-digit',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                }).replace(",", "");
+            });
+        }
+        window.addEventListener('neutralFetchCompleted', function(evt) {
+            rrss_feed_script()
+        });
+        window.addEventListener('load', (event) => {
+            rrss_feed_script()
+        })
+    </script>
+:}
+
+{:snip; rrss:urls-buttons >>
+    {:snip; rrss:btn-text-muted:{:;local::rrss_name:} >>
+        text-muted border-dark
+    :}
+    <div class="text-center text-md-start">
+        {:each; local::rrss_urls name url >>
+            <a href="/rrss/rss/{:;name:}" class="btn btn-sm btn-light my-1 me-1 me-md-2 click-load-spin {:;local::x-icon-rss:} {:snip; rrss:btn-text-muted:{:;name:} :}"> {:;name:}</a>
+        :}
+    </div>
+:}
+
+{:snip; rrss:urls-buttons-next >>
+    {:snip; rrss:btn-text-muted:{:;local::rrss_name:} >>
+        text-muted border-dark
+    :}
+    <div class="text-center text-md-start">
+    {:each; local::rrss_urls name url >>
+        <button
+            class="btn btn-sm btn-light neutral-fetch-click click-load-spin my-1 me-1 me-md-2 {:snip; rrss:btn-text-muted:{:;name:} :}"
+            data-url="{:;rrss_0yt2sa->manifest->route:}/ajax/{:;name:}"
+            data-wrap="rrss-wrapper-next"
+        ><span class="{:;local::x-icon-rss:}"></span> {:;name:}</button>
+    :}
+    </div>
+:}
+
+{:snip; rrss:feed-entries-entries >>
+    <div class="row g-3 mt-1 mb-3">
+    {:each; local::rrss_feed_entries key entry >>
+        <div class="col-md-6 col-12">
+            <div class="card h-100">
+                <div class="card-body h-100">
+                    <h4 class="card-title">
+                        {:;entry->title:}
+                        <span class="ms-1">
+                            <a href="https://duckduckgo.com/?ia=web&q={:replace; /"/ / >> {:;entry->title:} :}" title="{:trans; Alternate sources :}" target="_blank" rel="noopener noreferrer" class="card-link text-decoration-none"><span class="{:;local::x-icon-open-in-new:}"></span></a>
+                        </span>
+                    </h4>
+                    {:filled; entry->tags->0->term >>
+                        <h6 class="card-subtitle mb-2 text-muted mt-2">{:;entry->tags->0->term:}</h6>
+                    :}
+                    <p class="card-text">{:coalesce; {:;entry->summary:} {:;entry->description:} :}</p>
+                </div>
+                <div class="card-body border-top">
+                    <div class="row">
+                        <div class="col">
+                            <a href="{:;entry->link:}" target="_blank" rel="noopener noreferrer" class="badge -rounded-pill bg-light text-muted text-decoration-none {:;local::x-icon-open-in-new:}">{:trans; Source :}</a>
+                        </div>
+                        <div class="col text-end">
+                            <span class="badge -rounded-pill bg-light text-muted published-date">{:;entry->published:}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    :}{:else;
+        <div class="form-text text-center alert alert-dismissible alert-light py-3 mt-3">
+            <span class="{:;local::x-icon-error:}"></span> {:trans; No publications :}
+        </div>
+    :}
+    </div>
+:}
+
+{:snip; rrss:feed-entries >>
+    {:!filled; local::rrss_feed_error >>
+        <div id="rrss-wrapper" class="rrss-wrapper">
+            {:snip; rrss:urls-buttons :}
+            {:snip; rrss:feed-entries-entries :}
+            <div id="rrss-wrapper-next" class="mb-3 rrss-wrapper">
+                <div class="">
+                    {:snip; rrss:urls-buttons-next :}
+                </div>
+            </div>
+        <div>
+    :}{:else;
+        <div id="rrss-wrapper">
+            <h1 class="">RSS Error</h1>
+            {:snip; rrss:urls-buttons :}
+            <div class="form-text alert alert-dismissible alert-danger" >
+                <span class="{:;local::x-icon-error:}"></span> {:trans; ERROR: :} {:trans; {:;local::rrss_feed_error:} :}
+            </div>
+        </div>
+    :}
+:}
+
+{:snip; rrss:play-ajax >>
+    {:fetch; |{:;rrss_0yt2sa->manifest->route:}/ajax/{:param; rrss_name :}|visible| >>
+        <div class="text-center p-5">{:snip; spin-2x :}</div>
+    :}
+:}
+
+{:snip; rrss:play-static >>
+    {:cache; /{:;rrss_0yt2sa->manifest->config->cache_seconds:}/rrss_0yt2sa-feed-entries-{:param; rrss_name :}/1/ >>
+        {:obj; #/../obj/rss.json >>
+            {:snip; rrss:feed-entries :}
+        :}
+    :}
+:}
+
+{:snip; rrss:play >>
+    {:code;
+        {:param; rrss_name >> {:;rrss_name:} :}
+        {:param; rrss_url >> {:;local::rrss_urls->{:;rrss_name:}:} :}
+        {:param; rrss_valid_names >> {:;local::rrss_valid_names:} :}
+        {:snip; rrss:play-static :}
+    :}
+:}

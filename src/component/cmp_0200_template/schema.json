@@ -1,0 +1,53 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "en": {
+                    "ref:tab-changes:reload_msg": "For changes in another tab it is necessary to reload this one. Reload?"
+                },
+                "es": {
+                    "ref:tab-changes:reload_msg": "Por cambios en otra pestaña es necesario recargar esta. Recargar?",
+                    "Error loading this complement": "Error cargando este complemento",
+                    "An error has occurred": "Se ha producido un error",
+                    "Go home": "Volver al inicio",
+                    "Menu": "Menú",
+                    "Install APP": "Instalar APP",
+                    "Previous": "Anterior",
+                    "Next": "Siguiente",
+                    "Form ERROR!": "¡Error en el formulario!",
+                    "(This page requires security cookies)": "(Esta página requiere cookies de seguridad)",
+                    "Please reload the page and try again, if the error persists contact the admin.": "Por favor recarga la página e intenta de nuevo, si el error persiste contacta al administrador.",
+                    "Not Found": "No encontrado"
+                },
+                "fr": {
+                    "ref:tab-changes:reload_msg": "Pour que les modifications apportées à un autre onglet soient prises en compte, il est nécessaire de recharger celui-ci. Recharger?",
+                    "Error loading this complement": "Erreur lors du chargement de ce complément",
+                    "An error has occurred": "Une erreur est survenue",
+                    "Go home": "Retourner à l'accueil",
+                    "Menu": "Menu",
+                    "Install APP": "Installer APP",
+                    "Previous": "Précédent",
+                    "Next": "Suivant",
+                    "Form ERROR!": "Erreur dans le formulaire!",
+                    "(This page requires security cookies)": "(Diese Seite erfordert Sicherheitscookies)",
+                    "Please reload the page and try again, if the error persists contact the admin.": "Bitte die Seite neu laden und erneut versuchen, wenn der Fehler weiterhin besteht, kontaktieren Sie den Administrator.",
+                    "Not Found": "Nicht gefunden"
+                },
+                "de": {
+                    "ref:tab-changes:reload_msg": "Für Änderungen in einer anderen Registerkarte ist es notwendig, diese zu laden. Laden?",
+                    "Error loading this complement": "Fehler beim Laden dieses  Add-ons",
+                    "An error has occurred": "Ein Fehler ist aufgetreten",
+                    "Go home": "Zurück zur Startseite",
+                    "Menu": "Menü",
+                    "Install APP": "Installiere APP",
+                    "Previous": "Vorherige",
+                    "Next": "Nächste",
+                    "Form ERROR!": "Fehler im Formular!",
+                    "(This page requires security cookies)": "(Diese Seite erfordert Sicherheitscookies)",
+                    "Please reload the page and try again, if the error persists contact the admin.": "Bitte die Seite neu laden und erneut versuchen, wenn der Fehler weiterhin besteht, kontaktieren Sie den Administrator.",
+                    "Not Found": "Nicht gefunden"
+                }
+            }
+        }
+    }
+}

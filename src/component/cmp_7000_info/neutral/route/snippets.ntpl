@@ -1,0 +1,106 @@
+{:* Copyright (C) 2025 https://github.com/FranBar1966/neutral-pwa-py (See LICENCE) *:}
+
+{:snip; info:sample-body-main-content >>
+    <div class="lead text-muted">
+        <p>{:trans; {:;local::current->route->description:} :}</p>
+    </div>
+    <section class="mb-3">
+        <div class="row">
+            <div class="col-12">
+                <h3 class="mb-4">Vestibulum faucibus erat</h3>
+                <p class="fs-5 text-muted mb-4">
+                    <em>Mauris iaculis vitae diam vel ullamcorper.</em>
+                    Donec eu tellus ut ex elementum convallis. Duis a lacus sit amet urna tincidunt blandit eu imperdiet lacus.
+                </p>
+                <p class="mb-5">
+                    Sed vel magna et diam tristique euismod. Vestibulum faucibus erat dolor, eu congue elit imperdiet at.
+                    Suspendisse congue enim vel imperdiet fermentum. Curabitur in maximus risus. Aliquam erat volutpat.
+                </p>
+                <figure class="border-start border-4 border-primary ps-4 mb-5">
+                    <blockquote class="blockquote mb-2">
+                        <p class="fst-italic">
+                            “Sed vel magna et diam tristique euismod. Vestibulum faucibus erat dolor, eu congue elit imperdiet at.”
+                        </p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer">
+                        Marcus Tullius, <cite>Fundator</cite>
+                    </figcaption>
+                </figure>
+                <div class="row align-items-center mb-5">
+                    <div class="col-lg-5 mb-4 mb-lg-0">
+                        <img
+                            src="https://picsum.photos/600/400?random={:rand; 100..999 :}"
+                            alt="Placeholder image"
+                            class="img-fluid rounded-3 shadow-sm"
+                        >
+                    </div>
+                    <div class="col-lg-7">
+                        <h3 class="h4 fw-semibold mb-3">Nullam elementum</h3>
+                        <p>
+                            Phasellus venenatis, justo sit amet placerat rhoncus, tellus nisl placerat quam,
+                            vel fringilla ex justo et magna. Nam lacus lectus, scelerisque in imperdiet sit amet.
+                        </p>
+                        <p>
+                            Donec posuere ullamcorper libero. Nulla in purus in ipsum posuere accumsan. Nam gravida,
+                            dui sit amet bibendum luctus, erat lorem sodales massa, sed commodo velit nibh quis elit.
+                            Phasellus nec feugiat velit. Pellentesque consectetur, nibh id consequat dignissi.
+                        </p>
+                    </div>
+                </div>
+                <div class="bg-light rounded-3 p-4 p-md-5 mb-5">
+                    <h3 class="h4 fw-semibold mb-4">Principia Nostra</h3>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <h4 class="h6 text-uppercase text-primary mb-2">Integritas</h4>
+                            <p class="small text-muted mb-0">
+                                Donec erat nisl, iaculis nec varius vitae, pellentesque ut dolor.
+                            </p>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <h4 class="h6 text-uppercase text-primary mb-2">Innovatio</h4>
+                            <p class="small text-muted mb-0">
+                                Aliquam vitae libero vitae enim aliquet dictum efficitur ultrices velit.
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="h6 text-uppercase text-primary mb-2">Excellentia</h4>
+                            <p class="small text-muted mb-0">
+                                Integer luctus suscipit lacus id tristique. Sed enim dolor, sodales pharetra.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h3 class="h4 fw-semibold mb-4">Praecipua Momentis</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <strong class="text-primary">2015</strong>
+                            <span class="ms-2">Curabitur in maximus risus. Aliquam erat volutpat.</span>
+                        </li>
+                        <li class="mb-3">
+                            <strong class="text-primary">2018</strong>
+                            <span class="ms-2">Sed vel magna et diam tristique euismod.</span>
+                        </li>
+                        <li class="mb-3">
+                            <strong class="text-primary">2020</strong>
+                            <span class="ms-2">Eu congue elit imperdiet at. Suspendisse congue enim.</span>
+                        </li>
+                        <li>
+                            <strong class="text-primary">2023</strong>
+                            <span class="ms-2">Phasellus venenatis, justo sit amet placerat rhoncus.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="border-top pt-4 mb-3">
+                    <p class="mb-0 text-muted">
+                        Aliquam porta cursus ante vitae bibendum. Donec quis nisl vel turpis porttitor aliquam.
+                        Mauris risus arcu, ultrices quis lobortis non, accumsan id velit. Nunc egestas nibh
+                        sagittis erat vestibulum vehicula.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+:}

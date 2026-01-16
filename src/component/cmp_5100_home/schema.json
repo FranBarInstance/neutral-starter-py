@@ -1,0 +1,61 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "es": {
+                    "Home": "Inicio",
+                    "Main": "Principal"
+                },
+                "fr": {
+                    "Home": "Accueil",
+                    "Main": "Principal"
+                },
+                "de": {
+                    "Home": "Startseite",
+                    "Main": "Hauptseite"
+                }
+            }
+        },
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "main": {
+                            "name": "Main",
+                            "tabs": "main",
+                            "icon": "x-icon-menu"
+                        }
+                    },
+                    "session:true": {
+                        "main": {
+                            "name": "Main",
+                            "tabs": "main",
+                            "icon": "x-icon-menu"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:": {
+                    "main": {
+                        "home": {
+                            "text": "Home",
+                            "link": "/",
+                            "icon": "x-icon-home"
+                        }
+                    }
+                },
+                "session:true": {
+                    "main": {
+                        "home": {
+                            "text": "Home",
+                            "link": "/",
+                            "icon": "x-icon-home"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "data": {}
+}

@@ -1,0 +1,41 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Data for all {:;hellocomp_0yt2sa->manifest->route:}/* routes
+    ------------------------------------------------------------
+*:}
+{:data; {:flg; require :} >> #/data.json :}
+
+{:*
+    Locale for all {:;hellocomp_0yt2sa->manifest->route:}/* routes
+    --------------------------------------------------------------
+    Only locale file for the current language is loaded
+*:}
+{:locale;
+    #/locale-{:lang;:}.json
+:}{:else;
+    {:locale; #/locale-en.json :}
+:}
+
+{:*
+    Snippet for all {:;hellocomp_0yt2sa->manifest->route:}/* routes
+    ---------------------------------------------------------------
+*:}
+{:snip; hellocomp_0yt2sa-info >>
+<pre>
+  <strong>RESULT</strong>
+  foo: {:;local::foo:}
+  dispatch_result: {:bool; dispatch_result >> True :}{:else; False :}
+
+  <strong>COMPONENT INFO</strong>
+  This is the path: {:;CONTEXT->PATH:}
+  CURRENT_COMP_ROUTE: {:;CURRENT_COMP_ROUTE:}
+  CURRENT_COMP_UUID: {:;CURRENT_COMP_UUID:}
+  CURRENT_COMP_NAME: {:;CURRENT_COMP_NAME:}
+  Component name: {:;hellocomp_0yt2sa->name:}
+  Name: {:;hellocomp_0yt2sa->manifest->name:}
+  Description: {:;hellocomp_0yt2sa->manifest->description:}
+  Version: {:;hellocomp_0yt2sa->manifest->version:}
+  Manage Route: {:;hellocomp_0yt2sa->manifest->route:}
+</pre>
+:}

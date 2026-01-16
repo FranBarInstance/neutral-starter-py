@@ -1,0 +1,11 @@
+{
+    "uuid": "locale_0yt2sa",
+    "name": "Locale",
+    "description": "Provides locale configuration",
+    "version": "0.0.0",
+    "route": "",
+    "config": {
+        "menu-drawer-enable": true,
+        "menu-navbar-enable": true
+    }
+}

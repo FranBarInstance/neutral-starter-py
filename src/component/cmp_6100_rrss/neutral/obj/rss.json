@@ -1,0 +1,13 @@
+{
+    "engine": "Python",
+    "file": "{:;rrss_0yt2sa->path:}/src/rss.py",
+    "schema": false,
+    "venv": "{:;VENV_DIR:}",
+    "params": {
+        "rrss_name": "{:param; rrss_name :}",
+        "rrss_url": "{:param; rrss_url :}",
+        "rrss_valid_names": "{:param; rrss_valid_names :}"
+    },
+    "callback": "main",
+    "template": ""
+}

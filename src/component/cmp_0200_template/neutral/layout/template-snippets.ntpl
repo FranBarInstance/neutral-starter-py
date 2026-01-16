@@ -1,0 +1,405 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+
+{:snip; current:template:nav-cache-key >>
+    {:;local::current->theme->theme:}
+    {:;local::current->theme->color:}
+    {:;HAS_SESSION:}
+:}
+
+{:snip; current:template:cache-key >>
+    {:;local::current->theme->theme:}
+    {:;local::current->theme->color:}
+    {:;CONTEXT->HEADERS->Requested-With-Ajax:}
+    {:;HAS_SESSION:}
+:}
+
+{:snip; current:template:error-cache-key >>
+    {:;local::current->theme->theme:}
+    {:;local::current->theme->color:}
+    {:;HAS_SESSION:}
+    {:;CONTEXT->HEADERS->Requested-With-Ajax:}
+    {:;HTTP_ERROR->code:}
+    {:;HTTP_ERROR->text:}
+    {:;HTTP_ERROR->param:}
+:}
+
+{:snip; current:template:modals >>
+    <div class="modal p-1 py-md-4" id="templateHelp" tabindex="-1" role="dialog">
+        <div class="modal-dialog shadow">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h1 class="modal-title fs-6" id="exampleModal3Label">Modal title</h1>
+                    {:snip; util-modal-back-button :}
+                </div>
+                <div class="modal-body p-3 px-4 pb-1">
+                    <div class="text-center p-4">{:snip; spin-2x :}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+:}
+
+{:*
+    Page heading
+    ------------
+*:}
+{:snip; current:template:page-h1 >>
+    {:filled; local::current->route->h1 >>
+        <div class="container my-3">
+            <h1 class="border-bottom p-2">{:trans; {:;local::current->route->h1:} :}</h1>
+        </div>
+    :}
+:}
+
+{:*
+    Carousel
+    --------
+*:}
+{:snip; current:template:body-carousel >>
+    {:snip; carousel-active-0 >>
+        active
+    :}
+    {:filled; local::current->theme->carousel >>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {:each; local::current->theme->carousel key image >> {:;:}
+                    <div class="carousel-item {:snip; carousel-active-{:;key:} :}" data-bs-interval="8000">
+                        <img src="{:;image:}" class="d-block w-100">
+                    </div>
+                :}
+            </div>
+            {:filled; local::current->theme->carousel->1 >>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{:trans; Previous :}</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">{:trans; Next :}</span>
+                </button>
+            :}
+        </div>
+    :}
+:}
+
+
+{:*
+    heading size small
+    ------------------
+*:}
+{:snip; current:template:heading-small >>
+    <style>
+        h1, .h1 {
+            font-size: 1.6rem;
+        }
+        h2, .h2 {
+            font-size: 1.5rem;
+        }
+        h3, .h3 {
+            font-size: 1.4rem;
+        }
+        h4, .h4 {
+            font-size: 1.3rem;
+        }
+        h5, .h5 {
+            font-size: 1.2rem;
+        }
+        h6, .h6 {
+            font-size: 1.1rem;
+        }
+    </style>
+:}
+
+{:*
+    heading size medium
+    ------------------
+*:}
+{:snip; current:template:heading-medium >>
+    <style>
+        h1, .h1 {
+            font-size: 2.1rem;
+        }
+        h2, .h2 {
+            font-size: 1.9rem;
+        }
+        h3, .h3 {
+            font-size: 1.7rem;
+        }
+        h4, .h4 {
+            font-size: 1.5rem;
+        }
+        h5, .h5 {
+            font-size: 1.3rem;
+        }
+        h6, .h6 {
+            font-size: 1.1rem;
+        }
+    </style>
+:}
+
+{:*
+    Theme default footer
+    --------------------
+*:}
+{:snip; current:template:body-footer >>
+    <footer class="-mt-auto">
+        <div class="container">
+            <div class="text-center w-100 mx-auto">
+                <hr class="mx-2">
+                <div>
+                    <p>
+                        Neutral TS:
+                        <a href="https://docs.rs/neutralts/latest/neutralts/">Docs</a> -
+                        <a href="https://crates.io/crates/neutralts">Crate</a> -
+                        <a href="https://github.com/FranBarInstance/neutralts">Repository</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+:}
+
+
+{:*
+    theme-spin
+    ------------------
+*:}
+{:snip; current:template:spin-set-spin1 >>
+    {:snip; spin-1x >>
+        <div class="spin spinner-grow spinner-grow-sm mx-1" role="status"></div>
+    :}
+    {:snip; spin-lg >>
+        <div class="spin spinner-grow spinner-grow mx-1" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+    :}
+    {:snip; spin-2x >>
+        <div class="spin spinner-grow spinner-grow mx-1" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+    :}
+    {:snip; spin-3x >>
+        <div class="spin spinner-grow spinner-grow mx-1" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+    :}
+    {:snip; spin-4x >>
+        <div class="spin spinner-grow spinner-grow mx-1" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+    :}
+    {:snip; spin-5x >>
+        <div class="spin spinner-grow spinner-grow mx-1" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+    :}
+:}
+
+{:snip; current:template:spin-set-spin2 >>
+    {:snip; spin-1x >>
+        <div class="spin spinner-border spinner-border-sm mx-1" role="status"></div>
+    :}
+    {:snip; spin-lg >>
+        <div class="spin spinner-border spinner-border mx-1" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+    :}
+    {:snip; spin-2x >>
+        <div class="spin spinner-border spinner-border mx-1" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+    :}
+    {:snip; spin-3x >>
+        <div class="spin spinner-border spinner-border mx-1" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+    :}
+    {:snip; spin-4x >>
+        <div class="spin spinner-border spinner-border mx-1" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+    :}
+    {:snip; spin-5x >>
+        <div class="spin spinner-border spinner-border mx-1" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+    :}
+:}
+
+{:snip; current:template:spin-set-spin3 >>
+    {:snip; spin-1x >>
+        <div class="spin spinner-border spinner-border-sm mx-1 border-bottom-0" role="status"></div>
+    :}
+    {:snip; spin-lg >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+    :}
+    {:snip; spin-2x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+    :}
+    {:snip; spin-3x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+    :}
+    {:snip; spin-4x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+    :}
+    {:snip; spin-5x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+    :}
+:}
+
+{:snip; current:template:spin-set-spin4 >>
+    {:snip; spin-1x >>
+        <div class="spin spinner-border spinner-border-sm mx-1 border-bottom-0 border-start-0" role="status"></div>
+    :}
+    {:snip; spin-lg >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+    :}
+    {:snip; spin-2x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+    :}
+    {:snip; spin-3x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+    :}
+    {:snip; spin-4x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+    :}
+    {:snip; spin-5x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+    :}
+:}
+
+{:snip; current:template:spin-set-spin5 >>
+    {:snip; spin-1x >>
+        <div class="spin spinner-border spinner-border-sm mx-1 border-bottom-0 border-top-0" role="status"></div>
+    :}
+    {:snip; spin-lg >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+    :}
+    {:snip; spin-2x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+    :}
+    {:snip; spin-3x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+    :}
+    {:snip; spin-4x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+    :}
+    {:snip; spin-5x >>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+    :}
+:}
+
+{:snip; current:template:spin-set-spin6 >>
+    {:snip; spin-1x >>
+        <div class="spin spinner-border spinner-border-sm mx-1 border-start-0 border-end-0" role="status"></div>
+    :}
+    {:snip; spin-lg >>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+    :}
+    {:snip; spin-2x >>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+    :}
+    {:snip; spin-3x >>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+    :}
+    {:snip; spin-4x >>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+    :}
+    {:snip; spin-5x >>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+    :}
+:}
+
+
+{:*
+    Theme workaround
+    ----------------
+*:}
+{:snip; current:template:theme-workaround-css:litera >>
+    <style>
+        @media (max-width: 767px) {
+            .input-group-text {
+                padding: .5rem .9rem;
+            }
+        }
+    </style>
+:}
+
+{:snip; current:template:theme-workaround-css:journal >>
+    <style>
+        .nav-brand-text {
+            margin-bottom: 6px;
+        }
+    </style>
+:}
+
+{:snip; current:template:theme-workaround-css:sketchy >>
+    <style>
+        .nav-brand-text {
+            margin-bottom: -4px;
+        }
+        .form-check-input {
+            padding: .50rem .50rem;
+        }
+    </style>
+:}
+
+{:snip; neutral.js >>
+    <script>
+        var neutral_submit_loading = '{:snip; spin-1x :}';
+        var neutral_submit_timeout = 9000;
+        var neutral_submit_error = ' {:trans; Form ERROR! :} ';
+        var neutral_submit_error_delay = 5500;
+        var neutral_submit_delay = 400;
+        var script_container_hash = '{:;script_container_hash:}';
+        window.addEventListener('neutralFetchCompleted', function(evt) {
+            if (!evt.detail.url.includes('://')) {
+                const scriptContainer = evt.detail.element.querySelector('.script-container');
+                if (scriptContainer && scriptContainer.dataset.hash === script_container_hash) {
+                    const scripts = scriptContainer.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.text = script.textContent;
+                        document.body.appendChild(newScript);
+                    });
+                }
+            }
+            fetch_form_reset()
+            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+            const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        });
+        function fetch_form_reset() {
+            document.querySelectorAll('.fetch-form-button-reset').forEach((e)=>{
+                e.classList.remove('fetch-form-button-reset');
+                function handleClick(){
+                    e.disabled = true;
+                    e.innerHTML = '{:snip; spin-1x :}';
+                    setTimeout(()=>{
+                        neutral_fetch(e.form,e.form.getAttribute('action'),e.form.dataset.wrap);
+                    }, 300);
+                }
+                e.addEventListener('click',handleClick);
+            });
+        }
+        window.addEventListener('load', (event) => {
+            fetch_form_reset()
+        });
+        window.addEventListener('load', (event) => {
+            const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+            const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        });
+        function set_load_spin() {
+            document.querySelectorAll('.click-load-spin').forEach((e)=>{
+                e.classList.remove('click-load-spin');
+                function handleClick(){
+                    const e_html = e.innerHTML;
+                    e.innerHTML = '{:snip; spin-1x :}';
+                    e.disabled = true;
+                    e.dataset.restore_html = e_html;
+                    e.classList.add('click-load-spin-restorable');
+                    setTimeout(()=>{
+                        e.disabled = false;
+                        e.innerHTML = e.dataset.restore_html;
+                    }, 15500);
+                }
+                e.addEventListener('click',handleClick);
+            });
+        }
+        window.addEventListener('neutralFetchCompleted', function(evt) {
+            set_load_spin()
+        });
+        window.addEventListener('load', (evt) => {
+            set_load_spin()
+        });
+        window.addEventListener('pagehide', function(evt) {
+            document.querySelectorAll('.click-load-spin-restorable').forEach((e)=>{
+                e.classList.remove('click-load-spin-restorable');
+                e.innerHTML = e.dataset.restore_html;
+            });
+        });
+    </script>
+    <script src="{:;current->site->static:}js/neutral.min.js"></script>
+:}
+
+{:^;:}

@@ -1,0 +1,48 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "es": {
+                    "Install APP": "Instalar APP"
+                },
+                "fr": {
+                    "Install APP": "Installer APP"
+                },
+                "de": {
+                    "Install APP": "Installiere APP"
+                }
+            }
+        },
+        "data": {
+            "menu": {
+                "session:": {
+                    "main": {
+                        "pwa": {
+                            "text": "Install APP",
+                            "link": "#",
+                            "icon": "x-icon-webapp",
+                            "class": "pwa_0yt2sa-install-show  pwa_0yt2sa-install-click",
+                            "prop": {
+                                "style": "display: none;"
+                            }
+                        }
+                    }
+                },
+                "session:true": {
+                    "main": {
+                        "pwa": {
+                            "text": "Install APP",
+                            "link": "#",
+                            "icon": "x-icon-webapp",
+                            "class": "pwa_0yt2sa-install-show  pwa_0yt2sa-install-click",
+                            "prop": {
+                                "style": "display: none;"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "data": {}
+}

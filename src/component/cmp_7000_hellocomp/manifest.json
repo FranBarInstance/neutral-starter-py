@@ -1,0 +1,7 @@
+{
+    "uuid": "hellocomp_0yt2sa",
+    "name": "Hello Component",
+    "description": "Component example, ilustrates the basic structure of a component",
+    "version": "0.0.0",
+    "route": "/hello-component"
+}

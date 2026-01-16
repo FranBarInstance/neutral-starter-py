@@ -1,0 +1,10 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::theme-container-class:}">
+        <h3>test_template_route</h3>
+    </div>
+:}
+
+{:^;:}

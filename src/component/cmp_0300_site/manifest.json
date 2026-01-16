@@ -1,0 +1,7 @@
+{
+    "uuid": "site_0yt2sa",
+    "name": "Site",
+    "description": "Provides site data and locale menu",
+    "version": "0.0.0",
+    "route": ""
+}

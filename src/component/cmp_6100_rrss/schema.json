@@ -1,0 +1,87 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "es": {
+                    "Read RSS": "Leer RSS",
+                    "Alternate sources": "Fuentes alternativas",
+                    "Source": "Fuente",
+                    "No publications": "Sin publicaciones",
+                    "news": "noticias",
+                    "No RSS URL provided": "No se proporcionó URL de RSS",
+                    "No RSS name provided": "No se proporcionó nombre de RSS",
+                    "Invalid RSS name": "Nombre de RSS inválido",
+                    "No feed or entries found": "No se encontraron feed o entradas"
+                },
+                "fr": {
+                    "Read RSS": "Lire RSS",
+                    "Alternate sources": "Sources alternatives",
+                    "Source": "Source",
+                    "No publications": "Sans publications",
+                    "news": "actualités",
+                    "No RSS URL provided": "URL de RSS non fournie",
+                    "No RSS name provided": "Nom de RSS non fourni",
+                    "Invalid RSS name": "Nom de RSS invalide",
+                    "No feed or entries found": "Aucun flux ou entrée trouvée"
+                },
+                "de": {
+                    "Read RSS": "RSS lesen",
+                    "Alternate sources": "Alternativen Quellen",
+                    "Source": "Quelle",
+                    "No publications": "Ohne Publikationen",
+                    "news": "Nachrichten",
+                    "No RSS URL provided": "RSS-URL nicht angegeben",
+                    "No RSS name provided": "RSS-Name nicht angegeben",
+                    "Invalid RSS name": "RSS-Name ungültig",
+                    "No feed or entries found": "Kein Feed oder Einträge gefunden"
+                }
+            }
+        },
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "rrss": {
+                            "name": "RRSS",
+                            "tabs": "rrss",
+                            "icon": "x-icon-rss"
+                        }
+                    },
+                    "session:true": {
+                        "rrss": {
+                            "name": "RRSS",
+                            "tabs": "rrss",
+                            "icon": "x-icon-rss"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:": {
+                    "rrss": {
+                        "root": {
+                            "text": "Read RSS",
+                            "link": "[:;data->rrss_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-rss"
+                        }
+                    }
+                },
+                "session:true": {
+                    "rrss": {
+                        "root": {
+                            "text": "Read RSS",
+                            "link": "[:;data->rrss_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-rss"
+                        }
+                    }
+                }
+            },
+            "rrss_default": "",
+            "rrss_urls": {},
+            "rrss_valid_names": ""
+        }
+    },
+    "data": {
+        "rrss_name": ""
+    }
+}

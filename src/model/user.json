@@ -1,0 +1,37 @@
+{
+    "get-pin": {
+        "@portable": "SELECT pin FROM pin WHERE target = :target and userId = :userId and pin = :pin and expires > :now"
+    },
+    "get-pin-by-token": {
+        "@portable": "SELECT target, userId, pin FROM pin WHERE token = :token and expires > :now"
+    },
+    "delete-pin": {
+        "@portable": "DELETE FROM pin WHERE target = :target and userId = :userId and pin = :pin"
+    },
+    "delete-disabled": {
+        "@portable": "DELETE FROM user_disabled WHERE reason = :reason and userId = :userId"
+    },
+    "get-by-login": {
+        "@portable": "SELECT\n    user.userId,\n    user.password,\n    user.birthdate,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_disabled.reason AS 'user_disabled.reason',\n    user_disabled.description AS 'user_disabled.description',\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale'\nFROM user\nLEFT JOIN user_disabled ON user_disabled.userId = user.userId\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nWHERE user.login = :login\n"
+    },
+    "check-exists": {
+        "@portable": "SELECT COUNT(*) as count FROM user WHERE login = :login"
+    },
+    "create": {
+        "@portable": [
+            "INSERT INTO user (userId, login, password, birthdate, lasttime, created, modified) VALUES (:userId, :login, :password, :birthdate, :lasttime, :created, :modified)",
+            "INSERT INTO user_profile (profileId, userId, region, locale, alias, properties, lasttime, created, modified) VALUES (:profileId, :userId, :region, :locale, :alias, :properties, :lasttime, :created, :modified)",
+            "INSERT INTO user_email (email, userId, main, created) VALUES (:email, :userId, :main, :created)",
+            "INSERT INTO user_disabled (reason, userId, created, modified) VALUES (:reason, :userId, :created, :modified)",
+            "INSERT INTO user_disabled (reason, userId, created, modified) VALUES (:reason, :userId, :created, :modified)",
+            "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires);\n"
+        ]
+    },
+    "insert-pin": {
+        "@portable":  "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires)\nON CONFLICT (target, userId) DO UPDATE\nSET\n    pin = excluded.pin,\n    token = excluded.token,\n    created = excluded.created,\n    expires = excluded.expires;\n",
+        "@sqlite":  "@portable",
+        "@postgresql":  "@portable",
+        "@mysql":  "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires)\nON DUPLICATE KEY UPDATE\n    pin = VALUES(pin),\n    token = VALUES(token),\n    created = VALUES(created),\n    expires = VALUES(expires);\n",
+        "@mariadb":  "@mysql"
+    }
+}

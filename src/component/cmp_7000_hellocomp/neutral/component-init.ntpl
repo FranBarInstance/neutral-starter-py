@@ -1,0 +1,9 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Snippet available in all app
+    ----------------------------
+*:}
+{:snip; hellocomp_0yt2sa-test >>
+    Test global snippet
+:}

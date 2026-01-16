@@ -1,0 +1,20 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE) *:}
+
+{:snip; current:template:meta-title-description >>
+    <title>{:trans; {:;rrss_name:} :} {:trans; news :} | {:trans; {:;current->site->name:} :}</title>
+    <meta name="description" content="{:trans; RSS news in :} {:trans; {:;rrss_name:} :}" />
+:}
+
+{:snip; current:template:page-h1 >>
+    <div class="container my-3">
+        <h1 class="border-bottom p-2">{:trans; {:;rrss_name:} :} {:trans; news :}</h1>
+    </div>
+:}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::theme-container-class:}">
+        {:snip; rrss:play :}
+    </div>
+:}
+
+{:^;:}

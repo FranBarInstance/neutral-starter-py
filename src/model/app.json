@@ -1,0 +1,12 @@
+{
+    "sentence-example": {
+        "@portable":  "SELECT 1",
+        "@sqlite":  "@portable",
+        "@mysql":  "SELECT 1",
+        "@mariadb":  "@mysql",
+        "@postgresql":  "@portable"
+    },
+    "uid-create": {
+        "@portable":  "INSERT INTO uid (uid, target, created) VALUES (:uid, :target, :created)"
+    }
+}

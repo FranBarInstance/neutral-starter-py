@@ -1,0 +1,157 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    navbar right menu
+    -----------------
+*:}
+{:snip; current:template:main-navbar-right-content >>
+    <ul class="navbar-nav ms-auto">
+        {:each; local::navbar->menu->session:{:;HAS_SESSION:} none menu >>
+
+            {:filled; menu->dropdown >>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="language"><i class="{:;local::{:;menu->icon:}:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; {:;menu->name:} :}</span></a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                        {:each; menu->dropdown none menu >>
+                            <a href="{:;menu->link:}" class="dropdown-item {:;menu->class:}" {:^each; menu->prop name value >>{:;:} {:;name:}="{:;value:}" :}>
+                                <i class="{:;local::{:;menu->icon:}:}" aria-hidden="true"></i> <span class="">{:trans; {:;menu->name:} :}</span>
+                            </a>
+                        :}
+                    </div>
+                </li>
+            :}{:else;
+                {:filled; menu >>
+                    <li class="nav-item">
+                        <a href="{:;menu->link:}" class="nav-link {:;menu->class:}" {:^each; menu->prop name value >>{:;:} {:;name:}="{:;value:}" :}>
+                            <i class="{:;local::{:;menu->icon:}:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; {:;menu->name:} :}</span>
+                        </a>
+                    </li>
+                :}
+            :}
+        :}
+    </ul>
+:}
+
+{:*
+    Main navbar
+*:}
+{:snip; current:template:main-navbar >>
+    <nav id="main-navbar" class="main-navbar main-navbar-visible d-block {:;local::theme_config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->class:} {:;local::theme-body-navbar-class :} {:;local::theme-body-navbar-size :}" data-bs-theme="{:;local::theme_config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->theme:}">
+        <div class="container">
+            <button class="navbar-nav btn border-0 shadow-none p-0 px-1 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#theme-drawer" aria-controls="theme-drawer">
+                <span title="{:trans; Menu :}" class="navbar-toggler-icon disabled"></span>
+            </button>
+            <a href="{:;local::menu->session:{:;HAS_SESSION:}->main->home->link:}" class="navbar-brand mx-1 me-md-3" style="height: 37px; display: flex; align-items: center;">
+                <span class="page-is-loading small" style="margin-top: 2px; margin-left: 2px; margin-right: 10px;">{:snip; spin-1x :}</span>
+                <span class="page-has-loaded nav-brand-text me-md-2" style="display: none;">{:trans; {:;current->site->name:} :}</span>
+            </a>
+            <ul class="template-main-navbar-right-content navbar-nav ms-auto">
+                {:snip; current:template:main-navbar-right-content :}
+            </ul>
+        </div>
+        <div class="container template-main-navbar-bottom-content navbar-nav">
+            {:snip; current:template:main-navbar-bottom-content :}
+        </div>
+        <div class="container template-main-navbar-notices-content navbar-nav">
+            {:snip; current:template:main-navbar-notices-content :}
+        </div>
+    </nav>
+    <div id="main-navbar-hidden" style="position: relative; visibility: hidden;"></div>
+:}
+
+{:*
+    Main drawer
+*:}
+{:snip; current:template:main-drawer >>
+    <div class="offcanvas offcanvas-start shadow theme-drawer" tabindex="-1" id="theme-drawer" aria-labelledby="theme-drawer-label" style="width: 350px; max-width: 100%;" data-bs-theme="">
+        <div class="offcanvas-header px-1 bg-body-tertiary {:;local::theme-body-navbar-size :}" data-bs-dismiss="offcanvas">
+            <div class="navbar-brand d-flex align-items-center ms-2">
+                <span class="mx-2 nav-brand-text">{:trans; {:;local::drawer->name:} :}</span>
+            </div>
+            <i class="ssss {:;local::x-icon-back:} theme-drawer-close btn btn-link me-2 ms-auto" data-bs-dismiss="offcanvas" aria-hidden="true"></i>
+        </div>
+        <div class="offcanvas-body p-0">
+            <div class="d-flex align-items-start mt-2" id="theme-drawer-body-content">
+                <div class="nav flex-column nav-pills me-2 border-end" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
+                    {:each; local::drawer->menu->session:{:;HAS_SESSION:} tabs menu >>
+                        {:filled; menu >>
+                            <button title="{:trans; {:;menu->name:} :}" class="drawer-btn nav-link py-1 px-2 m-3 mb-2" id="theme-drawer-tabs-main-btn" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="true">
+                                <i class="{:;local::{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
+                            </button>
+                        :}
+                    :}
+                </div>
+                <div class="tab-content text-truncate me-2 mt-3 w-100 min-vh-75" id="theme-drawer-tabs-content" style="_min-height:74vh">
+                    {:each; local::menu->session:{:;HAS_SESSION:} tabs menu >>
+                        <div class="tab-pane fade" id="theme-drawer-tabs-{:;tabs:}" role="tabpanel" aria-labelledby="theme-drawer-{:;tabs:}">
+                            <div class="list-group">
+                                {:each; menu key opt >>
+                                    {:array; opt >>
+                                        <a href="{:;opt->link:}" class="list-group-item list-group-item-action mb-1 {:;opt->class:}"{:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
+                                            <i class="{:;local::{:;opt->icon:}:}" aria-hidden="true"></i> <span>{:trans; {:;opt->text:} :}</span>
+                                        </a>
+                                    :}{:else;
+                                        {:snip; {:;opt:} :}
+                                    :}
+                                :}
+                            </div>
+                        </div>
+                    :}
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas-footer">
+            <div class="text-center w-100 mx-auto mb-3">
+                <hr class="mx-3">
+                {:*  <button class="pwa_0yt2sa-install-show  pwa_0yt2sa-install-click btn btn-light mdi mdi-monitor-cellphone-star"> {:trans; Install APP :}</button>  *:}
+            </div>
+        </div>
+        <script>window.addEventListener('load', (event) => { document.getElementById("theme-drawer-tabs-main-btn").click(); });</script>
+    </div>
+:}
+
+{:*
+    Lateral bar
+*:}
+{:snip; current:template:body-lateral-bar >>
+    <div class="container p-0">
+        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 ps-0 link-body-emphasis text-decoration-none border-bottom">
+            <span class="fs-5 {:;local::x-icon-webapp:} me-2"></span> <span class="fs-5 fw-semibold">Neutral TS Starter Py</span>
+        </a>
+        <a href="https://github.com/FranBarInstance/" class="mb-3">
+            <img src="{:;current->site->static:}img/neutral.jpg" width="100%" alt="Neutral TS logo">
+        </a>
+        <div class="list-group list-group-flush border-bottom scrollarea">
+            <a href="https://github.com/FranBarInstance/neutralts" class="list-group-item list-group-item-action py-3 lh-sm">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">Neutral TS</strong>
+                    <small class="text-body-secondary"></small>
+                </div>
+                <div class="mb-1 small">Neutral TS is a template engine for the Web, designed to work with any programming language (language-agnostic) via IPC/Package and natively as library/crate in Rust. </div>
+            </a>
+            <a href="https://github.com/FranBarInstance/neutraltemplate" class="list-group-item list-group-item-action py-3 lh-sm">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">Neutral TS Python</strong>
+                    <small class="text-body-secondary"></small>
+                </div>
+                <div class="mb-1 small">Python package for Neutral TS.</div>
+            </a>
+            <a href="https://github.com/FranBarInstance/neutral-starter-py" class="list-group-item list-group-item-action py-3 lh-sm">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">Neutral TS Starter Py</strong>
+                    <small class="text-body-secondary"></small>
+                </div>
+                <div class="mb-1 small">Modular scaffold for building Progressive Web Applications (PWA) using Python (Flask) on the backend and Neutral TS as a universal templating engine. </div>
+            </a>
+            <a href="https://github.com/FranBarInstance/neutralts-docs" class="list-group-item list-group-item-action py-3 lh-sm">
+                <div class="d-flex w-100 align-items-center justify-content-between">
+                    <strong class="mb-1">Neutral TS Docs</strong>
+                    <small class="text-body-secondary"></small>
+                </div>
+                <div class="mb-1 small">Neutral TS documentation.</div>
+            </a>
+        </div>
+    </div>
+:}
+
+{:^;:}

@@ -1,0 +1,5 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:+bool; pwa_0yt2sa->manifest->config->enable >>
+    {:include; {:flg; require :} >> {:;pwa_0yt2sa->path:}/neutral/snippets.ntpl :}
+:}

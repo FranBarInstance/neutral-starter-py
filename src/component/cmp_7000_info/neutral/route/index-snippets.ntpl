@@ -1,0 +1,21 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+
+{:*
+    Locale for all {:;info_0yt2sa->manifest->route:}/* routes
+    ---------------------------------------------------------
+    Only locale file for the current language is loaded
+*:}
+{:locale;
+    #/locale-{:lang;:}.json
+:}{:else;
+    {:locale; #/locale-en.json :}
+:}
+
+{:include; #/snippets.ntpl :}
+
+{:*
+    Disable carousel in all /info routes
+    -----------------------------------
+*:}
+{:snip; current:template:body-carousel >> :}

@@ -1,0 +1,8 @@
+{
+    "uuid": "settheme_0yt2sa",
+    "name": "Set Theme",
+    "description": "Provides data for set theme and theme menu",
+    "version": "0.0.0",
+    "route": "",
+    "config": {}
+}

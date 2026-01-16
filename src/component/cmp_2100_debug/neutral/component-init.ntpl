@@ -1,0 +1,5 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:+bool; current_app_debug >>
+    {:^include; {:flg; require :} >> {:;debug_0yt2sa->path:}/neutral/snippets.ntpl :}
+:}

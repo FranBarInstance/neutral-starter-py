@@ -1,0 +1,215 @@
+{
+    "inherit": {
+        "data": {
+            "theme-container-class": "container p-0 p-md-2",
+            "theme-body-main-class": "",
+            "theme-body-lateral-bar": "",
+            "theme-body-class": "",
+            "theme-body-navbar-class": "navbar navbar-expand fixed-top border-top-0",
+            "theme-body-navbar-size": "py-2 py-md-3",
+            "theme-spin": "current:template:spin-set-spin3",
+            "theme_config": {
+                "zephyr": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    },
+                    "dark_theme": {
+                        "class": "bg-body-tertiary",
+                        "theme": "dark"
+                    }
+                },
+                "bootstrap": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "flatly": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "brite": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "light"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "cerulean": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "cosmo": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "journal": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "litera": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "simplex": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                },
+                "united": {
+                    "primary": {
+                        "class": "bg-primary",
+                        "theme": "dark"
+                    },
+                    "dark": {
+                        "class": "bg-dark",
+                        "theme": "dark"
+                    },
+                    "light": {
+                        "class": "bg-light",
+                        "theme": "light"
+                    },
+                    "tertiary": {
+                        "class": "bg-body-tertiary",
+                        "theme": ""
+                    }
+                }
+            },
+            "current": {
+                "theme":  {
+                    "theme": "flatly",
+                    "color": "primary",
+                    "allow_themes": [
+                        "flatly"
+                    ],
+                    "allow_colors": [
+                        "primary"
+                    ],
+                    "carousel": [
+                        "/img/carousel.jpg"
+                    ]
+                }
+            }
+        }
+    },
+    "data": {}
+}

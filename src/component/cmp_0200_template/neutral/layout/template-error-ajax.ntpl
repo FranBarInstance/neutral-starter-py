@@ -1,0 +1,15 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+<div class="text-center my-2">
+    <h6 class="border-bottom pb-2">{:trans; Error loading this complement :}</h6>
+    <p class="lead text-muted">{:;HTTP_ERROR->code:} - {:trans; {:;HTTP_ERROR->text:} :}</p>
+    {:filled; HTTP_ERROR->param >>
+        <p class="">{:trans; {:;HTTP_ERROR->param:} :}</p>
+    :}
+</div>
+{:!cache;
+    {:bool; current_app_debug >>
+        {:!include; {:;current->template->dir:}/layout/debug-snippets.ntpl :}
+        {:snip; comp-debug-button-data :}
+    :}
+:}

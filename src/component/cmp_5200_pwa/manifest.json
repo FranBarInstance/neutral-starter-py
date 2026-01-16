@@ -1,0 +1,13 @@
+{
+    "uuid": "pwa_0yt2sa",
+    "name": "PWA",
+    "description": "Provides PWA features",
+    "version": "0.0.0",
+    "route": "",
+    "config": {
+        "enable": true,
+        "navbar_times": 2,
+        "theme_color": "#375A7F",
+        "background_color": "#ffffff"
+    }
+}

@@ -1,0 +1,55 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:snip; {:flg; static :} collapse-debug-id >>
+    {:rand; 10000..99999 :}
+:}
+
+{:snip; comp-debug-button-textarea >>
+<button class="btn btn-light btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{:snip; collapse-debug-id :}0" aria-expanded="false" aria-controls="collapse{:snip; collapse-debug-id :}">
+    d:data
+</button>
+<pre class="collapse" id="collapse{:snip; collapse-debug-id :}0" style="font-family: monospace;">
+<textarea style="width: 100%; height: 600px; font-family: monospace;" readonly>
+{:debug; data :}
+</textarea>
+</pre>
+:}
+
+{:snip; comp-debug-button-data >>
+<button class="btn btn-light btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{:snip; collapse-debug-id :}1" aria-expanded="false" aria-controls="collapse{:snip; collapse-debug-id :}1">
+    d:data
+</button>
+<pre class="collapse" id="collapse{:snip; collapse-debug-id :}1" style="font-family: monospace;">
+{:&debug; data :}
+</pre>
+:}
+
+{:snip; comp-debug-button-local-data >>
+<button class="btn btn-light btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{:snip; collapse-debug-id :}4" aria-expanded="false" aria-controls="collapse{:snip; collapse-debug-id :}4">
+    d:local::data
+</button>
+<pre class="collapse" id="collapse{:snip; collapse-debug-id :}4" style="font-family: monospace;">
+{:&debug; inherit->data :}
+</pre>
+:}
+
+
+{:snip; comp-debug-button-context >>
+<button class="btn btn-light btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{:snip; collapse-debug-id :}2" aria-expanded="false" aria-controls="collapse{:snip; collapse-debug-id :}2">
+    d:context
+</button>
+<pre class="collapse" id="collapse{:snip; collapse-debug-id :}2" style="font-family: monospace;">
+{:&debug; data->CONTEXT :}
+</pre>
+:}
+
+{:snip; comp-debug-button-full >>
+<button class="btn btn-light btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{:snip; collapse-debug-id :}3" aria-expanded="false" aria-controls="collapse{:snip; collapse-debug-id :}3">
+    d:full
+</button>
+<pre class="collapse" id="collapse{:snip; collapse-debug-id :}3" style="font-family: monospace;">
+{:&debug; full-schema :}
+</pre>
+:}
+
+{:^;:}

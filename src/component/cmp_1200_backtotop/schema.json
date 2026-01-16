@@ -1,0 +1,20 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "en": {
+                    "ref:backtotop:go-top": "Go to top of page"
+                },
+                "es": {
+                    "ref:backtotop:go-top": "Volver arriba"
+                },
+                "fr": {
+                    "ref:backtotop:go-top": "Retour en haut de page"
+                },
+                "de": {
+                    "ref:backtotop:go-top": "Zurück zur oberen Seite"
+                }
+            }
+        }
+    }
+}

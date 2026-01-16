@@ -1,0 +1,25 @@
+{
+    "inherit": {
+        "locale": {
+            "current": "en",
+            "trans": {
+                "en": {
+                    "Internal Server Error": "Internal Server Error",
+                    "An internal error occurred in app.": "An internal error occurred in app."
+                },
+                "es": {
+                    "Internal Server Error": "Error interno del servidor",
+                    "An internal error occurred in app.": "Se produjo un error interno en la aplicación."
+                },
+                "fr": {
+                    "Internal Server Error": "Erreur interne du serveur",
+                    "An internal error occurred in app.": "Une erreur interne s'est produite dans l'application."
+                },
+                "de": {
+                    "Internal Server Error": "Interner Serverfehler",
+                    "An internal error occurred in app.": "Ein interner Fehler ist in der Anwendung aufgetreten."
+                }
+            }
+        }
+    }
+}

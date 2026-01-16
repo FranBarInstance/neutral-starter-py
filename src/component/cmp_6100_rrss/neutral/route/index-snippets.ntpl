@@ -1,0 +1,9 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE) *:}
+
+{:*
+    Disable carousel
+    ----------------
+*:}
+{:snip; current:template:body-carousel >> :}
+
+{:include; {:flg; require :} >> #/snippets.ntpl :}

@@ -1,0 +1,5 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:cache; /{:;current->template->cache_seconds:}/{:snip; current:template:cache-key :}/ >>
+    {:include; {:flg; require :} >> #/index.ntpl :}
+:}

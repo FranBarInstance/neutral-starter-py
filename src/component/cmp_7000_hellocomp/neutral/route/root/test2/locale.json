@@ -1,0 +1,20 @@
+{
+    "__comment_:trans": "This translation will be available for this specific route",
+    "trans": {
+        "es": {
+            "Test Two": "Test Dos",
+            "Hello Component Test Two": "Hola Componente Test Dos",
+            "Example of a simple component, Test Two.": "Ejemplo de un componente simple, Test Dos."
+        },
+        "fr": {
+            "Test Two": "Test Deux",
+            "Hello Component Test Two": "Composant Hello Test Deux",
+            "Example of a simple component, Test Two.": "Exemple d'un composant simple, Test Deux."
+        },
+        "de": {
+            "Test Two": "Test Zwei",
+            "Hello Component Test Two": "Hallo Komponente Test Zwei",
+            "Example of a simple component, Test Two.": "Beispiel einer einfachen Komponente, Test Zwei."
+        }
+    }
+}

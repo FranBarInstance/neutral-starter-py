@@ -1,0 +1,91 @@
+{
+    "inherit": {
+        "locale": {
+            "current": "en",
+            "trans": {
+                "en": {
+                    "ref:locale:en": "English",
+                    "ref:locale:es": "Español",
+                    "ref:locale:de": "Deutsch",
+                    "ref:locale:fr": "Français",
+                    "Language": "Language"
+                },
+                "es": {
+                    "ref:locale:en": "English",
+                    "ref:locale:es": "Español",
+                    "ref:locale:de": "Deutsch",
+                    "ref:locale:fr": "Français",
+                    "Language": "Idioma"
+                },
+                "fr": {
+                    "ref:locale:en": "English",
+                    "ref:locale:es": "Español",
+                    "ref:locale:de": "Deutsch",
+                    "ref:locale:fr": "Français",
+                    "Language": "Langue"
+                },
+                "de": {
+                    "ref:locale:en": "English",
+                    "ref:locale:es": "Español",
+                    "ref:locale:de": "Deutsch",
+                    "ref:locale:fr": "Français",
+                    "Language": "Sprache"
+                }
+            }
+        },
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "setting": {
+                            "name": "Setting",
+                            "tabs": "language",
+                            "icon": "x-icon-setting"
+                        }
+                    },
+                    "session:true": {
+                        "setting": {
+                            "name": "Setting",
+                            "tabs": "language",
+                            "icon": "x-icon-setting"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:": {
+                    "setting": {
+                        "language": "locale_0yt2sa-menu-language"
+                    }
+                },
+                "session:true": {
+                    "setting": {
+                        "language": "locale_0yt2sa-menu-language"
+                    }
+                }
+            },
+            "navbar": {
+                "menu": {
+                    "session:": {
+                        "language": {}
+                    },
+                    "session:true": {
+                        "language": {}
+                    }
+                }
+            }
+        }
+    },
+    "data": {
+        "current": {
+            "site": {
+                "languages": [
+                    "en",
+                    "es",
+                    "fr",
+                    "de"
+                ]
+            }
+        }
+    }
+}

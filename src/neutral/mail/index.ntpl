@@ -1,0 +1,31 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Generic locale if it exists
+*:}
+{:^locale; {:flg; require :} >> #/locale.json :}
+
+{:*
+    Data
+*:}
+{:^data; {:flg; require :} >> #/local-data.json :}
+
+{:*
+    Overwrite the data for the color theme if any
+*:}
+{:^data; #/local-data-{:;mail_data->theme-color:}.json :}
+
+{:*
+    Snippet for content
+*:}
+{:^include; {:flg; require :} >> #/{:;mail_data->template:}-snippets.ntpl :}
+
+{:*
+    App init and configure snippet
+*:}
+{:^include; {:flg; require :} >> #/theme-snippets.ntpl :}
+
+{:*
+    Render theme.
+*:}
+{:^include; {:flg; require :} >> #/theme.ntpl :}

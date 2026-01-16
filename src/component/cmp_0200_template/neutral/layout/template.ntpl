@@ -1,0 +1,76 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:^;:}<!DOCTYPE html>
+<html lang="{:lang;:}" data-bs-theme="">
+    <head>
+        <meta charset="utf-8" />
+        {:snip;
+            current:template:meta-title-description
+        :}{:else;
+            <title>{:trans; {:;local::current->route->title:} :}</title>
+            <meta name="description" content="{:trans; {:;local::current->route->description:} :}" />
+        :}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Neutral TS" />
+        {:defined; local::current->route->robots >>
+            <meta name="robots" content="{:;local::current->route->robots:}" />
+        :}
+        {:each; local::current->route->meta name content >>
+            <meta name="{:;name:}" content="{:;content:}" />
+        :}
+        {:each; COMPONENTS_MAP_BY_UUID component none >>
+            {:snip; current:template:head:{:;component:} :}
+        :}
+        {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
+    </head>
+    <body class="{:;local::theme-body-class:}">
+        {:snip; current-theme-body-start :}
+        {:cache; /{:;current->template->nav_cache_seconds:}/{:snip; current:template:nav-cache-key :}/ >>
+            {:snip; current:template:main-navbar :}
+            {:snip; current:template:main-drawer :}
+            {:snip; current:template:body-carousel :}
+        :}
+        {:snip; current:template:page-h1 :}
+        <div class="container mt-4" style="min-height: calc(100vh - 160px);">
+            {:snip; theme-body-start :}
+            {:snip; current-route-page-title :}
+            {:eval; {:snip; current:template:body-lateral-bar :} >>
+                <div class="row">
+                    <div class="col-lg break-long-words">
+                        <main class="{:;local::theme-body-main-class:}">
+                            {:snip; current:template:body-main-content :}
+                        </main>
+                    </div>
+                    <div class="col-auto fixed-col break-long-words {:;local::theme-body-lateral-bar:}">
+                        {:;__eval__:}
+                    </div>
+                </div>
+            :}{:else;
+                <div class="row">
+                    <div class="col-12 break-long-words">
+                        <main class="{:;local::theme-body-main-class:}">
+                            {:snip; current:template:body-main-content :}
+                        </main>
+                    </div>
+                </div>
+            :}
+            {:snip; theme-body-end :}
+        </div>
+        {:!cache;
+            {:snip; comp-debug-button-context :}
+            {:snip; comp-debug-button-data :}
+            {:snip; comp-debug-button-local-data :}
+        :}
+        {:snip; current:template:body-footer :}
+        {:snip; current:template:modals :}
+        {:snip; neutral.js :}
+
+        {:each; COMPONENTS_MAP_BY_UUID component none >>
+            {:snip; current:template:body-end:{:;component:} :}
+        :}
+        <script>var lib_config = { cookie_tab: '{:;TAB_CHANGES_KEY:}', reload_msg: '{:trans; ref:tab-changes:reload_msg :}'};</script>
+        <script src="{:;current->site->static:}js/lib.min.js"></script>
+        <script src="{:;current->site->static:}js/modal-dynamic.min.js"></script>
+        <script src="{:;current->site->static:}js/modal-close-on-back.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+{
+    "uuid": "template_0yt2sa",
+    "name": "Template",
+    "description": "Provides a template layout for entire application",
+    "version": "0.0.0",
+    "route": "",
+    "config": {}
+}

@@ -1,0 +1,40 @@
+{
+    "inherit": {
+        "locale": {
+            "current": "en",
+            "trans": {
+                "en": {},
+                "es": {
+                    "Setting": "Configuración"
+                },
+                "fr": {
+                    "Setting": "Paramètres"
+                },
+                "de": {
+                    "Setting": "Einstellungen"
+                }
+            }
+        },
+        "data": {
+            "drawer": {
+                "name": "Neutral TS"
+            },
+            "current": {
+                "theme": {},
+                "route": {
+                    "title": "Neutral TS PWA !",
+                    "description": "Neutral TS Skeleton for PWA in Python !"
+                }
+            }
+        }
+    },
+    "data": {
+        "current": {
+            "template": {},
+            "site": {
+                "title": "Neutral TS PWA !",
+                "description": "Neutral TS Skeleton for PWA in Python !"
+            }
+        }
+    }
+}

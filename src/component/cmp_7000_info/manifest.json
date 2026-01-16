@@ -1,0 +1,7 @@
+{
+    "uuid": "info_0yt2sa",
+    "name": "Info",
+    "description": "Provides skeleton pages for info, about, help, etc.",
+    "version": "0.0.0",
+    "route": "/info"
+}

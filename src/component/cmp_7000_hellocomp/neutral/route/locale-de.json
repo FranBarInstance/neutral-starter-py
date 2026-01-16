@@ -1,0 +1,11 @@
+{
+    "__comment_:trans": "This translation will be available for the entire Component",
+    "trans": {
+        "de": {
+            "Hello Component": "Hallo-Komponente",
+            "Component example, ilustrates the basic structure of a component": "Komponentenbeispiel, veranschaulicht die grundlegende Struktur einer Komponente",
+            "Example of a simple component": "Komponentenbeispiel, veranschaulicht die grundlegende Struktur einer Komponente",
+            "Hello from hello component": "Hallo vom hello component"
+        }
+    }
+}

@@ -1,0 +1,9 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:snip; current:template:body-main-content :}
+{:!cache;
+    {:bool; current_app_debug >>
+        {:!include; {:;current->template->dir:}/layout/debug-snippets.ntpl :}
+        {:snip; comp-debug-button-data :}
+    :}
+:}

@@ -1,0 +1,54 @@
+{
+    "config": {
+        "comments": "remove",
+        "cache_prefix": "neutral-cache",
+        "cache_dir": "",
+        "cache_on_post": false,
+        "cache_on_get": true,
+        "cache_on_cookies": true,
+        "cache_disable": false,
+        "filter_all": false,
+        "disable_js": true,
+        "debug_expire": 0,
+        "debug_file": ""
+    },
+    "inherit": {
+        "locale": {
+            "current": "en",
+            "trans": {}
+        },
+        "data": {},
+        "snippets": {},
+        "declare": {}
+    },
+    "data": {
+        "CONTEXT": {
+            "CONFIG": {},
+            "GET": {},
+            "POST": {},
+            "HEADERS": {},
+            "FILES": {},
+            "COOKIES": {},
+            "SESSION": {},
+            "UTOKEN": "",
+            "ENV": {}
+        },
+        "CURRENT_NEUTRAL_ROUTE": "",
+        "CURRENT_COMP_ROUTE": "",
+        "CURRENT_COMP_UUID": "",
+        "CURRENT_COMP_NAME": "",
+        "mail_data": {},
+        "HTTP_ERROR": {},
+        "dispatch_result": false,
+        "app": {
+            "forms": {
+                "_form": {
+                    "__comment_:form": "unused",
+                    "check_fields": [],
+                    "validation": {},
+                    "rules": {}
+                }
+            }
+        }
+    }
+}

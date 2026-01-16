@@ -1,0 +1,103 @@
+{
+    "__comment_:locale:trans": "The menu translation must be available globally for the entire application",
+    "inherit": {
+        "locale": {
+            "trans": {
+                "en": {},
+                "es": {
+                    "Hello Component": "Componente Hola",
+                    "Test One": "Test Uno",
+                    "Test Two": "Test Dos",
+                    "Test Error 404": "Test Error 404"
+                },
+                "fr": {
+                    "Hello Component": "Composant Bonjour",
+                    "Test One": "Test Un",
+                    "Test Two": "Test Deux",
+                    "Test Error 404": "Test Erreur 404"
+                },
+                "de": {
+                    "Hello Component": "Hallo-Komponente",
+                    "Test One": "Test Eins",
+                    "Test Two": "Test Zwei",
+                    "Test Error 404": "Test Fehler 404"
+                }
+            }
+        },
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "hello-tab": {
+                            "name": "Hello",
+                            "tabs": "hello-tab",
+                            "icon": "x-icon-greeting"
+                        }
+                    },
+                    "session:true": {
+                        "hello-tab": {
+                            "name": "Hello",
+                            "tabs": "hello-tab",
+                            "icon": "x-icon-greeting"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:": {
+                    "hello-tab": {
+                        "hello": {
+                            "text": "Hello Component",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-greeting"
+                        },
+                        "test1": {
+                            "text": "Test One",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/test1",
+                            "icon": "x-icon-info"
+                        },
+                        "test2": {
+                            "text": "Test Two",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/test2",
+                            "icon": "x-icon-info"
+                        },
+                        "testerror": {
+                            "text": "Test Error 404",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/non-existent-route",
+                            "icon": "x-icon-info"
+                        }
+                    }
+                },
+                "session:true": {
+                    "hello-tab": {
+                        "hello": {
+                            "text": "Hello Component",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-greeting"
+                        },
+                        "test1": {
+                            "text": "Test One",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/test1",
+                            "icon": "x-icon-info"
+                        },
+                        "test2": {
+                            "text": "Test Two",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/test2",
+                            "icon": "x-icon-info"
+                        },
+                        "testerror": {
+                            "text": "Test Error 404",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/non-existent-route",
+                            "icon": "x-icon-info"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "data": {
+        "hello-component": {
+            "hello": "Hello from hello component"
+        }
+    }
+}

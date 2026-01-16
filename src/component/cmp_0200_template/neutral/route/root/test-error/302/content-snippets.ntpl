@@ -1,0 +1,4 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*  {:exit; 302 >> https://crates.io/crates/neutralts :}  *:}
+{:redirect; 302 >> https://crates.io/crates/neutralts :}

@@ -1,0 +1,29 @@
+{
+    "__comment_:trans": "This translation will be available for this specific route",
+    "trans": {
+        "en": {
+            "Test One": "Test One",
+            "Hello Component Test One": "Hello Component Test One",
+            "Example of a simple component, Test One.": "Example of a simple component, Test One.",
+            "(Overwrite)": "(Overwrite)"
+        },
+        "es": {
+            "Test One": "Test Uno",
+            "Hello Component Test One": "Hola Componente Test Uno",
+            "Example of a simple component, Test One.": "Ejemplo de un componente simple, Test Uno.",
+            "(Overwrite)": "(Sobrescrito)"
+        },
+        "fr": {
+            "Test One": "Test Un",
+            "Hello Component Test One": "Composant Hello Test Un",
+            "Example of a simple component, Test One.": "Exemple d'un composant simple, Test Un.",
+            "(Overwrite)": "(Écraser)"
+        },
+        "de": {
+            "Test One": "Test Eins",
+            "Hello Component Test One": "Hallo Komponente Test Eins",
+            "Example of a simple component, Test One.": "Beispiel einer einfachen Komponente, Test Eins.",
+            "(Overwrite)": "(Überschreiben)"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "inherit": {
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "main": {},
+                        "user": {},
+                        "theme": {},
+                        "rrss": {},
+                        "setting": {},
+                        "info": {}
+                    },
+                    "session:true": {
+                        "main": {},
+                        "user": {},
+                        "theme": {},
+                        "rrss": {},
+                        "setting": {},
+                        "info": {}
+                    }
+                }
+            },
+            "navbar": {
+                "menu": {
+                    "session:": {
+                        "signin": {},
+                        "signup": {},
+                        "language": {}
+                    },
+                    "session:true": {
+                        "signoff": {},
+                        "language": {}
+                    }
+                }
+            }
+        }
+    }
+}

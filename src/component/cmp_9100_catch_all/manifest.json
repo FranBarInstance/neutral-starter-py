@@ -1,0 +1,7 @@
+{
+    "uuid": "catch_all_0yt2sa",
+    "name": "Catch All",
+    "description": "Provides fallback routes",
+    "version": "0.0.0",
+    "route": ""
+}

@@ -1,0 +1,463 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+
+{:*
+    param: url-link
+    param: url-img
+    param: text
+*:}
+{:snip; mail-theme-brand >>
+    <tr>
+        <td style="background-color: {:;local::block-background-brand-color:};">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="width: 44px; height: 55px;">
+                        <p style="text-align: center; margin: 12px; margin-left: 10px;">
+                            <a target="_blank" href="{:param;url-link:}">
+                                <img src="{:param;url-img:}" width="" height="28" border="0" style="width: auto; height: 28px; margin-top: 4px;">
+                            </a>
+                        </p>
+                    </td>
+                    <td style="height: 55px;">
+                        <h2 style="font-family: sans-serif; font-size: 18px; line-height: 18px; margin-top: 14px; color: {:;local::block-brand-color:}; font-weight: normal;">
+                            <a target="_blank" href="{:param;url-link:}" style="text-decoration: none; color: {:;local::block-brand-color:};">
+                                {:param;text:}
+                            </a>
+                        </h2>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+:}
+
+{:*
+    param: url-link
+    param: url-img
+    param: img-text
+*:}
+{:snip; mail-theme-block-img-hero >>
+    <tr>
+        <td style="background-color: {:;local::block-background-brand-color:};">
+            <a target="_blank" href="{:param;url-link:}">
+                <img src="{:param;url-img:}" width="680" height="" alt="{:param;img-text:}" title="{:param;img-text:}" border="0" style="width: 100%; max-width: 680px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 15px; color: {:;local::block-color:}; margin: auto; display: block;" class="g-img">
+            </a>
+        </td>
+    </tr>
+:}
+
+{:*
+    param: h1
+    param: p1
+    param: p2
+    param: p3
+    param: p4
+    param: p5
+*:}
+{:snip; mail-theme-block-text >>
+    <tr>
+        <td style="background-color: {:;local::block-background-color:};">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="padding: 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:};">
+                        {:eval; {:param; h1 :} >>
+                            <h1 style="margin: 0 0 10px; font-size: 25px; line-height: 30px; color: {:;local::block-h1-color:}; font-weight: normal;">{:;__eval__:}</h1>
+                        :}
+                        {:eval; {:param;p1:} >>
+                            <p style="margin: 0 0 10px 0;">{:;__eval__:}</p>
+                        :}
+                        {:eval; {:param;p2:} >>
+                            <p style="margin: 0 0 10px 0;">{:;__eval__:}</p>
+                        :}
+                        {:eval; {:param;p3:} >>
+                            <p style="margin: 0 0 10px 0;">{:;__eval__:}</p>
+                        :}
+                        {:eval; {:param;p4:} >>
+                            <p style="margin: 0 0 10px 0;">{:;__eval__:}</p>
+                        :}
+                        {:eval; {:param;p5:} >>
+                            <p style="margin: 0 0 10px 0;">{:;__eval__:}</p>
+                        :}
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+:}
+
+{:*
+    param: url-link
+    param: txt-link
+*:}
+{:snip; mail-theme-block-button-primary >>
+    <tr>
+        <td style="background-color: {:;local::block-background-color:};">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="padding: 5px 1px 10px 1px;">
+                        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
+                            <tr>
+                                <td class="button-td button-td-primary" style="border-radius: 4px; background: {:;local::button-primary-background-color:};">
+                                    <a class="button-a button-a-primary" href="{:param;url-link:}" target="_blank" style="background: {:;local::button-primary-background-color:}; border: 1px solid {:;local::button-primary-border-color:}; font-family: sans-serif; font-size: 16px; line-height: 16px; text-decoration: none; padding: 13px 17px; color: {:;local::button-primary-color:}; display: block; border-radius: 4px;">{:param;txt-link:}</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+:}
+
+{:*
+    param: txt
+*:}
+{:snip; mail-theme-block-outline >>
+    <tr>
+        <td style="background-color: {:;local::block-background-color:};">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                    <td style="padding: 5px 1px 10px 1px;">
+                        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
+                            <tr>
+                                <td class="button-td button-td-primary" style="border-radius: 4px; background: {:;local::button-primary-background-color:};">
+                                    <span style="background: {:;local::block-background-color:}; border: 1px solid {:;local::button-primary-border-color:}; font-family: sans-serif; font-size: 24px; line-height: 18px; letter-spacing: 3px; text-decoration: none; padding: 13px 17px; color: {:;local::theme-block-color:}; display: block; border-radius: 4px;">{:param;txt:}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+:}
+
+{:*
+    param: p1
+*:}
+{:snip; mail-theme-block-background >>
+    <tr>
+        <!-- Bulletproof Background Images c/o https://backgrounds.cm -->
+        <td style="text-align: center; background-color: {:;local::background-color:};">
+            <!--[if gte mso 9]>
+            <v:image xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="border: 0; display: inline-block; width: 680px; height: 180px;" src="https://via.placeholder.com/680x180/222222/666666" />
+            <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="border: 0; display: inline-block; position: absolute; width: 680px; height: 180px;">
+            <v:fill opacity="0%" color="{:;local::background-color:}" />
+            <![endif]-->
+            <div>
+                <!--[if mso]>
+                <table align="center" role="presentation" border="0" cellspacing="0" cellpadding="0" width="500">
+                <tr>
+                <td width="500">
+                <![endif]-->
+                <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:500px; margin: auto;">
+                    <tr>
+                        <td style="text-align: center; padding: 40px 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::theme-color:};">
+                            <p style="margin: 0;">{:param;p1:}</p>
+                        </td>
+                    </tr>
+                </table>
+                <!--[if mso]>
+                </td>
+                </tr>
+                </table>
+                <![endif]-->
+            </div>
+            <!--[if gte mso 9]>
+            </v:fill>
+            </v:rect>
+            </v:image>
+            <![endif]-->
+        </td>
+    </tr>
+:}
+
+{:*
+    param: url-img1
+    param: p1
+    param: url-img2
+    param: p2
+*:}
+{:snip; mail-theme-block-columns-2 >>
+    <tr>
+        <td align="center" valign="top" style="font-size:0; padding: 10px; background-color: {:;local::block-background-color:};">
+            <!--[if mso]>
+            <table role="presentation" border="0" cellspacing="0" cellpadding="0" width="660">
+            <tr>
+            <td valign="top" width="330">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; width:100%; min-width:200px; max-width:330px; vertical-align:top;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 10px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px; text-align: left;">
+                                <tr>
+                                    <td>
+                                        <img src="{:param;url-img1:}" width="310" height="" border="0" alt="image" style="width: 100%; max-width: 310px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::theme-block-color:};" class="center-on-narrow">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:}; padding-top: 10px;" class="stack-column-center">
+                                        <p style="margin: 0;">{:param;p1:}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            <td valign="top" width="330">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; width:100%; min-width:200px; max-width:330px; vertical-align:top;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 10px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px;text-align: left;">
+                                <tr>
+                                    <td>
+                                        <img src="{:param;url-img2:}" width="310" height="" border="0" alt="image" style="width: 100%; max-width: 310px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:};" class="center-on-narrow">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:}; padding-top: 10px;" class="stack-column-center">
+                                        <p style="margin: 0;">{:param;p2:}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+:}
+
+{:*
+    param: url-img1
+    param: p1
+    param: url-img2
+    param: p2
+    param: url-img3
+    param: p3
+*:}
+{:snip; mail-theme-block-columns-3 >>
+    <tr>
+        <td align="center" valign="top" style="font-size:0; padding: 10px; background-color: {:;local::block-background-color:};">
+            <!--[if mso]>
+            <table role="presentation" border="0" cellspacing="0" cellpadding="0" width="660">
+            <tr>
+            <td valign="top" width="220">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; max-width: 220px; min-width:160px; vertical-align:top; width:100%;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 10px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px;text-align: left;">
+                                <tr>
+                                    <td>
+                                        <img src="{:param; url-img1 :}" width="200" height="" border="0" alt="image" style="width: 100%; max-width: 200px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:};" class="center-on-narrow">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:}; padding-top: 10px;" class="stack-column-center">
+                                        <p style="margin: 0;">{:param;p1:}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            <td valign="top" width="220">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; max-width: 220px; min-width:160px; vertical-align:top; width:100%;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 10px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px;text-align: left;">
+                                <tr>
+                                    <td>
+                                        <img src="{:param;url-img2:}" width="200" height="" border="0" alt="image" style="width: 100%; max-width: 200px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:};" class="center-on-narrow">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:}; padding-top: 10px;" class="stack-column-center">
+                                        <p style="margin: 0;">{:param;p2:}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            <td valign="top" width="220">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; max-width: 220px; min-width:160px; vertical-align:top; width:100%;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td style="padding: 10px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-size: 14px;text-align: left;">
+                                <tr>
+                                    <td>
+                                        <img src="{:param;url-img3:}" width="200" height="" border="0" alt="imabe" style="width: 100%; max-width: 200px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:};" class="center-on-narrow">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:}; padding-top: 10px;" class="stack-column-center">
+                                        <p style="margin: 0;">{:param;p3:}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+:}
+
+{:*
+    param: url-img
+    param: h2
+    param: p
+*:}
+{:snip; mail-theme-block-img-left >>
+    <tr>
+        <td dir="ltr" height="100%" valign="top" width="100%" style="font-size:0; padding: 10px; background-color: {:;local::block-background-color:};">
+            <!--[if mso]>
+            <table role="presentation" border="0" cellspacing="0" cellpadding="0" width="660" style="width: 660px;">
+            <tr>
+            <td valign="top" width="220" style="width: 220px;">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; max-width: 220px; min-width:160px; vertical-align:top; width:100%;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td dir="ltr" style="padding: 0 10px 10px 10px;">
+                            <img src="{:param;url-img:}" width="200" height="" border="0" alt="image" class="center-on-narrow" style="width: 100%; max-width: 200px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 15px; color: {:;local::block-color:};">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            <td valign="top" width="440" style="width: 440px;">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; max-width: 440px; min-width:280px; vertical-align:top;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td dir="ltr" style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:}; padding: 10px 10px 0; text-align: left;" class="center-on-narrow">
+                            <h2 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 18px; line-height: 22px; color: {:;local::block-h1-color:}; font-weight: bold;">{:param;h2:}</h2>
+                            <p style="margin: 0 0 10px 0;">{:param;p:}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+:}
+
+{:*
+    param: url-img
+    param: h2
+    param: p
+*:}
+{:snip; mail-theme-block-img-right >>
+    <tr>
+        <!-- dir=rtl is where the magic happens. This can be changed to dir=ltr to swap the alignment on wide while maintaining stack order on narrow. -->
+        <td dir="rtl" height="100%" valign="top" width="100%" style="font-size:0; padding: 10px; text-align: left; background-color: {:;local::block-background-color:};">
+            <!--[if mso]>
+            <table role="presentation" border="0" cellspacing="0" cellpadding="0" width="660" style="width: 660px;">
+            <tr>
+            <td valign="top" width="220" style="width: 220px;">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; max-width: 220px; min-width:160px; vertical-align:top; width:100%;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td dir="ltr" style="padding: 0 10px 10px 10px;">
+                            <img src="{:param;url-img:}" width="200" height="" border="0" alt="image" class="center-on-narrow" style="width: 100%; max-width: 200px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 15px; color: {:;local::block-color:};">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            <td valign="top" width="440" style="width: 440px;">
+            <![endif]-->
+            <div style="display:inline-block; margin: 0 -1px; max-width: 440px; min-width:280px; vertical-align:top;" class="stack-column">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                        <td dir="ltr" style="font-family: sans-serif; font-size: 15px; line-height: 20px; color: {:;local::block-color:}; padding: 10px 10px 0; text-align: left;" class="center-on-narrow">
+                            <h2 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 18px; line-height: 22px; color: {:;local::block-h1-color:}; font-weight: bold;">{:param;h2:}</h2>
+                            <p style="margin: 0 0 10px 0;">{:param;p:}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </td>
+    </tr>
+:}
+
+{:snip; mail-theme-block-spacer >>
+    <tr>
+        <td aria-hidden="true" height="20" style="font-size: 0px; line-height: 0px; background-color: {:;local::block-background-color:};">
+            &nbsp;
+        </td>
+    </tr>
+:}
+
+{:snip; mail-theme-block-spacer-bg >>
+    <tr>
+        <td aria-hidden="true" height="20" style="font-size: 0px; line-height: 0px;">
+            &nbsp;
+        </td>
+    </tr>
+:}
+
+{:*  {:snip; mail-theme-footer >>
+    <webversion style="color: {:snip; mail-theme-color :}; text-decoration: underline; font-weight: bold;">View as a Web Page</webversion>
+    <br><br>
+    Company Name<br><span class="unstyle-auto-detected-links">123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890</span>
+    <br><br>
+    <unsubscribe style="color: {:snip; mail-theme-color :}; text-decoration: underline;">unsubscribe</unsubscribe>
+:}  *:}
+
+
+{:*  {:snip; mail-theme-footer >>
+    {:trans; This message was generated in: :}<br>
+    {:snip; theme-url-home :}
+    <br><br>
+    {:filled; currentEmail>originIp >>
+        {:trans; From user IP: :}<br>
+        {:;currentEmail>originIp:}
+        <br><br>
+    :}
+    {:trans; Terms of use :} - {:trans; Subscriptions :}
+:}  *:}
+
+{:^;:}

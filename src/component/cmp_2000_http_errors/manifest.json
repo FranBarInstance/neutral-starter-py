@@ -1,0 +1,7 @@
+{
+    "uuid": "http_errors_0yt2sa",
+    "name": "HTTP Errors",
+    "description": "Provides http errors handler",
+    "version": "0.0.0",
+    "route": ""
+}

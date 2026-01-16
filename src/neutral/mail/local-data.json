@@ -1,0 +1,15 @@
+{
+    "data": {
+        "theme-color": "#ffffff",
+        "background-color": "#333333",
+        "block-background-brand-color": "#ffffff",
+        "block-brand-color": "#555555",
+        "block-background-color": "#ffffff",
+        "block-color": "#555555",
+        "block-h1-color": "#333333",
+        "button-primary-background-color": "#375A7F",
+        "button-primary-color": "#ffffff",
+        "button-primary-border-color": "#375A7F",
+        "button-primary-hover-color": "#2C3E4F"
+    }
+}

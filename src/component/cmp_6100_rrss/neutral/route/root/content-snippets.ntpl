@@ -1,0 +1,26 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE) *:}
+
+{:*
+    Disable carousel
+    ----------------
+*:}
+{:snip; current:template:body-carousel >> :}
+
+{:snip; current:template:meta-title-description >>
+    <title>{:trans; {:;rrss_name:} :} - RSS</title>
+    <meta name="description" content="{:trans; {:;rrss_name:} :} - RSS" />
+:}
+
+{:snip; current:template:page-h1 >>
+    <div class="container my-3">
+        <h1 class="border-bottom p-2">{:trans; {:;rrss_name:} :} - RSS</h1>
+    </div>
+:}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::theme-container-class:}">
+        {:snip; rrss:play :}
+    </div>
+:}
+
+{:^;:}

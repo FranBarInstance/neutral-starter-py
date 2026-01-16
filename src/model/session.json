@@ -1,0 +1,17 @@
+{
+    "get": {
+        "@portable": "SELECT\n    sessionId,\n    userId,\n    ua,\n    properties,\n    modified,\n    expire\nFROM session\nWHERE sessionId = :sessionId AND open = :open AND expire > :now\n"
+    },
+    "create": {
+        "@portable": "INSERT INTO session (\n    sessionId,\n    open,\n    userId,\n    ua,\n    properties,\n    modified,\n    created,\n    expire\n)\nVALUES (\n    :sessionId,\n    :open,\n    :userId,\n    :ua,\n    :properties,\n    :modified,\n    :created,\n    :expire\n)\n"
+    },
+    "close": {
+        "@portable": "UPDATE session SET open = :open, modified = :modified WHERE sessionId = :sessionId"
+    },
+    "update": {
+        "@portable": "UPDATE session SET modified = :modified, expire = :expire WHERE sessionId = :sessionId"
+    },
+    "delete": {
+        "@portable": "DELETE FROM session WHERE sessionId = :sessionId"
+    }
+}

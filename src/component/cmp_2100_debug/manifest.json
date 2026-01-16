@@ -1,0 +1,8 @@
+{
+    "uuid": "debug_0yt2sa",
+    "name": "Debug",
+    "description": "Provides debug data",
+    "version": "0.0.0",
+    "route": "",
+    "config": {}
+}

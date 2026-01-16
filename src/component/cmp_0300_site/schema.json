@@ -1,0 +1,52 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "en": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skeleton for PWA in Python"
+                },
+                "es": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skeleton for PWA in Python"
+                },
+                "fr": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skeleton for PWA in Python"
+                },
+                "de": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skeleton for PWA in Python"
+                }
+            }
+        },
+        "data": {
+            "navbar": {
+                "menu": {
+                    "session:": {
+                        "language": {}
+                    },
+                    "session:true": {
+                        "language": {}
+                    }
+                }
+            }
+        }
+    },
+    "data": {
+        "current": {
+            "site": {
+                "name": "Neutral TS !",
+                "title": "Neutral TS PWA !",
+                "description": "Neutral TS Skeleton for PWA in Python !",
+                "cover": "/img/cover.jpg",
+                "logo": "/img/logo.jpg",
+                "static": "/"
+            }
+        }
+    }
+}

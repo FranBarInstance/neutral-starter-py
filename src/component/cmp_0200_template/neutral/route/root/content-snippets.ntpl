@@ -1,0 +1,11 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:data; #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::theme-container-class:}">
+        <h3>Home</h3>
+    </div>
+:}
+
+{:^;:}

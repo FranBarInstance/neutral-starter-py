@@ -1,0 +1,82 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:snip; current:template:head:pwa_0yt2sa >>
+    {:;:}
+    <meta name="application-name" content="{:trans; {:;current->site->name:} :}" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="{:;pwa_0yt2sa->manifest->config->theme_color:}" />
+    <meta name="msapplication-TileColor" content="{:;pwa_0yt2sa->manifest->config->theme_color:}" />
+    <meta name="background-color" content="{:;pwa_0yt2sa->manifest->config->background_color:}" />
+    <meta name="apple-mobile-web-app-title" content="{:trans; {:;current->site->name:} :}" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link href="{:;current->site->static:}pwa/32.png"  rel="icon" type="image/png" sizes="32x32" />
+    <link href="{:;current->site->static:}pwa/192.png" rel="icon" type="image/png" sizes="192x192" />
+    <link href="{:;current->site->static:}pwa/512.png" rel="icon" type="image/png" sizes="512x512" />
+    <link rel="manifest" href="{:;current->site->static:}pwa/manifest.json" />
+:}
+
+{:snip; current:template:body-end:pwa_0yt2sa >>
+    <script>
+        window.addEventListener('load', () => {
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js')
+            }
+            const pwa_install_clicks = document.querySelectorAll('.pwa_0yt2sa-install-click');
+            const pwa_install_shows = document.querySelectorAll('.pwa_0yt2sa-install-show');
+            let deferredPrompt;
+            pwa_install_shows.forEach(element => {element.style.display = 'none';});
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                pwa_install_shows.forEach(element => {element.style.display = 'block';});
+                send_cookie_install_count();
+                pwa_install_clicks.forEach(element => {
+                    element.removeEventListener('click', handleInstallClick);
+                    element.addEventListener('click', handleInstallClick);
+                });
+            });
+            function handleInstallClick() {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then(() => {
+                        deferredPrompt = null;
+                    });
+                }
+            }
+            window.addEventListener('appinstalled', () => {
+                pwa_install_shows.forEach(element => {element.style.display = 'none';});
+                deferredPrompt = null;
+            });
+        });
+        function send_cookie_install_count() {
+            let pwa_0yt2sa_count = document.cookie.replace(/(?:(?:^|.*;\s*)pwa_0yt2sa_count\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            let pwa_0yt2sa_times = {:;pwa_0yt2sa->manifest->config->navbar_times:} - 1;
+            let currentValue = pwa_0yt2sa_count ? parseInt(pwa_0yt2sa_count) : null;
+            if (currentValue === null || currentValue > 0) {
+                let newValue = currentValue === null ? pwa_0yt2sa_times : currentValue - 1;
+                document.cookie = "pwa_0yt2sa_count=" + newValue + "; path=/";
+            }
+        }
+    </script>
+:}
+
+{:snip; pwa_0yt2sa-main-navbar-bottom-install >>
+    <button style="display: none" class="nav-link mx-auto pwa_0yt2sa-install-show  pwa_0yt2sa-install-click  {:;local::x-icon-webapp:}"> {:trans; Install APP :}</button>
+:}
+
+{:bool; pwa_0yt2sa->manifest->config->navbar_times >>
+    {:!filled; CONTEXT->COOKIES->pwa_0yt2sa_count >>
+        {:* first time *:}
+        {:snip; {:flg; static :} current:template:main-navbar-bottom-content >>
+            {:snip; current:template:main-navbar-bottom-content :}
+            {:snip; pwa_0yt2sa-main-navbar-bottom-install :}
+        :}
+    :}
+    {:bool; CONTEXT->COOKIES->pwa_0yt2sa_count >>
+        {:snip; {:flg; static :} current:template:main-navbar-bottom-content >>
+            {:snip; current:template:main-navbar-bottom-content :}
+            {:snip; pwa_0yt2sa-main-navbar-bottom-install :}
+        :}
+    :}
+:}
