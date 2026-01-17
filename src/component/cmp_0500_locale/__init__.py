@@ -1,6 +1,6 @@
 """Component locale - Init"""
 
-from app.config import Config  # pylint: disable=import-error
+from app.config import Config
 
 
 def init_component(component, component_schema, _schema):

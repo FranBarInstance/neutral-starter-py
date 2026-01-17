@@ -2,7 +2,7 @@
 
 from flask import Response, send_from_directory
 
-from app.config import Config  # pylint: disable=import-error
+from app.config import Config
 
 from . import bp  # pylint: disable=no-name-in-module
 

@@ -2,7 +2,7 @@
 
 """Hello component dispatcher."""
 
-from core.dispatcher import Dispatcher  # pylint: disable=import-error
+from core.dispatcher import Dispatcher
 
 
 class DispatcherHelloComp(Dispatcher):

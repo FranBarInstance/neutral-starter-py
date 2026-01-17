@@ -3,7 +3,7 @@
 from flask import current_app, request
 from werkzeug.exceptions import HTTPException
 
-from core.dispatcher import Dispatcher  # pylint: disable=import-error
+from core.dispatcher import Dispatcher
 
 from . import bp  # pylint: disable=no-name-in-module
 

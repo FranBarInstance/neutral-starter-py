@@ -4,9 +4,9 @@ import os
 
 from flask import Response, request, send_from_directory
 
-from app.config import Config  # pylint: disable=import-error
-from app.extensions import limiter  # pylint: disable=import-error
-from core.dispatcher import Dispatcher  # pylint: disable=import-error
+from app.config import Config
+from app.extensions import limiter
+from core.dispatcher import Dispatcher
 
 from . import bp  # pylint: disable=no-name-in-module
 

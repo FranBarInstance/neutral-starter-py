@@ -2,7 +2,7 @@
 
 """Dispatcher for Read RSS."""
 
-from core.dispatcher import Dispatcher  # pylint: disable=import-error
+from core.dispatcher import Dispatcher
 
 
 class DispatcherRrss(Dispatcher):

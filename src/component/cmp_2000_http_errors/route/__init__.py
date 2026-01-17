@@ -1,6 +1,6 @@
 """Blueprint initialization for errors module."""
 
-from app.components import create_blueprint  # pylint: disable=import-error
+from app.components import create_blueprint
 
 
 def init_blueprint(component, component_schema, _schema):

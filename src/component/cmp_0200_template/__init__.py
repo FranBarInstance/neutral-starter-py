@@ -1,6 +1,6 @@
 """Template Component - Inicialización"""
 
-from app.components import set_current_template  # pylint: disable=import-error
+from app.components import set_current_template
 
 
 def init_component(component, component_schema, _schema):
