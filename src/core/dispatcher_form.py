@@ -33,7 +33,7 @@ class DispatcherForm(Dispatcher):
         """Initialize form dispatcher with request context and validation rules."""
         super().__init__(req, comp_route, neutral_route, ltoken, ftoken_field_name)
         self._form_name = form_name
-        self.schema_data[self._form_name] = {
+        self.schema_data[form_name] = {
             "error": {
                 "form": {
                     "ltoken": None,
@@ -47,9 +47,9 @@ class DispatcherForm(Dispatcher):
         }
         self.error = self.schema_data[self._form_name]['error']
         self.form_submit = self.schema_data[self._form_name]['is_submit']
-        self.field_rules = self.schema_data['app']['forms'][form_name]['rules']
-        self.form_validation = self.schema_data['app']['forms'][form_name]['validation']
-        self.form_check_fields = self.schema_data['app']['forms'][form_name]['check_fields']
+        self.field_rules = self.schema_data['app']['forms'][self._form_name]['rules']
+        self.form_validation = self.schema_data['app']['forms'][self._form_name]['validation']
+        self.form_check_fields = self.schema_data['app']['forms'][self._form_name]['check_fields']
 
     def valid_form_tokens_get(self) -> bool:
         """Validate form tokens for GET requests."""
