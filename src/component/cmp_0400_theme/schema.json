@@ -1,9 +1,6 @@
 {
     "inherit": {
         "data": {
-            "form-class": "forms-bt5-clean border border-0",
-            "form-field-spacing": "mb-2",
-            "form-field-send-spacing": "mt-3",
             "theme-container-class": "container p-0 p-md-2",
             "theme-body-main-class": "",
             "theme-body-lateral-bar": "",

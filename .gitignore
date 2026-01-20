@@ -59,7 +59,3 @@ coverage.xml
 .DS_Store
 docs/_build/
 .idea/
-
-
-/public/expanse
-src/component/cmp_0200_template/neutral/layout/form-snippets.ntpl
