@@ -3,7 +3,7 @@
 {:data; #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::theme-container-class:}">
+    <div class="{:;local::current->theme->class->container:}">
         {:snip; info:sample-body-main-content :}
     </div>
 :}

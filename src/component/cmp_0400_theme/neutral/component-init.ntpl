@@ -8,4 +8,37 @@
 
 {:snip; current:template:body-end:theme_0yt2sa >>
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        function handleThemeLightDarkToggle() {
+            const html = document.documentElement;
+            const currentTemeMode = html.getAttribute('data-bs-theme');
+            const newTemeMode = currentTemeMode === 'dark' ? 'light' : 'dark';
+            const mainNavBarEle = document.getElementById('main-navbar');
+            document.cookie = `dark-mode-on=${newTemeMode === 'dark' ? '1' : '0'}; path=/; max-age=2592000`;
+            html.setAttribute('data-bs-theme', newTemeMode);
+            if (newTemeMode === 'dark' ) {
+                mainNavBarEle.classList.add('bg-body-tertiary');
+                mainNavBarEle.setAttribute('data-bs-theme', 'dark');
+            } else {
+                mainNavBarEle.classList.remove('bg-body-tertiary');
+                mainNavBarEle.classList.add('{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->class:}');
+                mainNavBarEle.setAttribute('data-bs-theme', '{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->theme:}');
+            }
+        }
+    </script>
+    <script>
+        const darkModeOn = document.cookie.split('; ').find(row => row.startsWith('dark-mode-on='))?.split('=')[1];
+        if (darkModeOn === '1') {
+            handleThemeLightDarkToggle();
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggles = document.querySelectorAll('.theme-light-dark-toggle');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    handleThemeLightDarkToggle(this);
+                });
+            });
+        });
+    </script>
 :}

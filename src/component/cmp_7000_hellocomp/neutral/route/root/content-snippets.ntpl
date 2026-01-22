@@ -11,11 +11,11 @@
     ------------
 *:}
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::theme-container-class:}">
+    <div class="{:;local::current->theme->class->container:}">
         <h3>{:trans; {:;hello-component->hello:} :}</h3>
         <p>{:trans; Example of a simple component :}</p>
     </div>
-    <div class="{:;local::theme-container-class:} mt-5">
+    <div class="{:;local::current->theme->class->container:} mt-5">
         {:snip; hellocomp_0yt2sa-info :}
     </div>
 :}

@@ -70,7 +70,8 @@
             "x-icon-greeting": "x-icon mdi mdi-human-greeting-variant",
             "x-icon-open-in-new": "x-icon mdi mdi-open-in-new",
             "x-icon-chat": "x-icon mdi mdi-chat-outline",
-            "x-icon-map": "x-icon mdi mdi-map"
+            "x-icon-map": "x-icon mdi mdi-map",
+            "x-icon-theme-light-dark": "x-icon mdi mdi-theme-light-dark"
         }
     }
 }

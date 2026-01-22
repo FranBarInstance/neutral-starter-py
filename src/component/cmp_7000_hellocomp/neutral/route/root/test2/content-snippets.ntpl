@@ -23,14 +23,14 @@
 :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::theme-container-class:}">
+    <div class="{:;local::current->theme->class->container:}">
         <h3>{:trans; Test Two :}</h3>
         <p>{:trans; Example of a simple component, Test Two. :}</p>
     </div>
-    <div class="{:;local::theme-container-class:}">
+    <div class="{:;local::current->theme->class->container:}">
         {:snip; hellocomp_0yt2sa-test :}
     </div>
-    <div class="{:;local::theme-container-class:} mt-5">
+    <div class="{:;local::current->theme->class->container:} mt-5">
         {:snip; hellocomp_0yt2sa-info :}
     </div>
 :}

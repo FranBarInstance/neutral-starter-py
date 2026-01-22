@@ -18,7 +18,7 @@
 {:*
     Spin
 *:}
-{:snip; {:;local::theme-spin:} :}
+{:snip; {:;local::current->theme->spin:} :}
 
 {:*
     Register component-init.ntpl

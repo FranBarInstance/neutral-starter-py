@@ -1,7 +1,7 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::theme-container-class:}">
+    <div class="{:;local::current->theme->class->container:}">
         <div class="row">
             {:for; n 1..12 >>
                 <div class="col-12 col-md-4 mb-4">

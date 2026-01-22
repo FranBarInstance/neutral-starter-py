@@ -189,7 +189,7 @@
 
 
 {:*
-    theme-spin
+    current->theme->spin
     ------------------
 *:}
 {:snip; current:template:spin-set-spin1 >>

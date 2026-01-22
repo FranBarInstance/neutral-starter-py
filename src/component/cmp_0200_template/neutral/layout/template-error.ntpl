@@ -18,7 +18,7 @@
         :}
         {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
     </head>
-    <body class="{:;local::theme-body-class:}">
+    <body class="{:;local::current->theme->class->body:}">
         {:snip; current-theme-body-start :}
         {:snip; current:template:main-navbar :}
         {:snip; current:template:main-drawer :}

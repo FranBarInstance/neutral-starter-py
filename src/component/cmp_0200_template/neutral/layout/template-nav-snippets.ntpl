@@ -36,7 +36,7 @@
     Main navbar
 *:}
 {:snip; current:template:main-navbar >>
-    <nav id="main-navbar" class="main-navbar main-navbar-visible d-block {:;local::theme_config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->class:} {:;local::theme-body-navbar-class :} {:;local::theme-body-navbar-size :}" data-bs-theme="{:;local::theme_config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->theme:}">
+    <nav id="main-navbar" class="main-navbar main-navbar-visible d-block {:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->class:} {:;local::current->theme->class->body_navbar :} {:;local::current->theme->class->body_navbar_size :}" data-bs-theme="{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->theme:}">
         <div class="container">
             <button class="navbar-nav btn border-0 shadow-none p-0 px-1 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#theme-drawer" aria-controls="theme-drawer">
                 <span title="{:trans; Menu :}" class="navbar-toggler-icon disabled"></span>
@@ -64,7 +64,7 @@
 *:}
 {:snip; current:template:main-drawer >>
     <div class="offcanvas offcanvas-start shadow theme-drawer" tabindex="-1" id="theme-drawer" aria-labelledby="theme-drawer-label" style="width: 350px; max-width: 100%;" data-bs-theme="">
-        <div class="offcanvas-header px-1 bg-body-tertiary {:;local::theme-body-navbar-size :}" data-bs-dismiss="offcanvas">
+        <div class="offcanvas-header px-1 bg-body-tertiary {:;local::current->theme->class->body_navbar_size :}" data-bs-dismiss="offcanvas">
             <div class="navbar-brand d-flex align-items-center ms-2">
                 <span class="mx-2 nav-brand-text">{:trans; {:;local::drawer->name:} :}</span>
             </div>

@@ -23,7 +23,7 @@
         :}
         {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
     </head>
-    <body class="{:;local::theme-body-class:}">
+    <body class="{:;local::current->theme->class->body:}">
         {:snip; current-theme-body-start :}
         {:cache; /{:;current->template->nav_cache_seconds:}/{:snip; current:template:nav-cache-key :}/ >>
             {:snip; current:template:main-navbar :}
@@ -37,18 +37,18 @@
             {:eval; {:snip; current:template:body-lateral-bar :} >>
                 <div class="row">
                     <div class="col-lg break-long-words">
-                        <main class="{:;local::theme-body-main-class:}">
+                        <main class="{:;local::current->theme->class->body_main:}">
                             {:snip; current:template:body-main-content :}
                         </main>
                     </div>
-                    <div class="col-auto fixed-col break-long-words {:;local::theme-body-lateral-bar:}">
+                    <div class="col-auto fixed-col break-long-words {:;local::current->theme->class->body_lateral_bar:}">
                         {:;__eval__:}
                     </div>
                 </div>
             :}{:else;
                 <div class="row">
                     <div class="col-12 break-long-words">
-                        <main class="{:;local::theme-body-main-class:}">
+                        <main class="{:;local::current->theme->class->body_main:}">
                             {:snip; current:template:body-main-content :}
                         </main>
                     </div>
