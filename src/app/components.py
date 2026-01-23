@@ -130,6 +130,9 @@ class Components:
 
                 if self.app.debug:
                     print(f"✓ Main module initialized: {component['name']} uuid:{uuid}")
+            else:
+                # Update schema
+                merge_dict(self.schema, self.component_schema[uuid])
 
     def _register_blueprints(self):
         """Registers route blueprints if present."""
