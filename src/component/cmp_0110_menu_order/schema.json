@@ -27,7 +27,7 @@
                         "language": {}
                     },
                     "session:true": {
-                        "signoff": {},
+                        "signout": {},
                         "language": {}
                     }
                 }
