@@ -4,9 +4,7 @@ from app.config import Config
 from utils.tokens import (
     utoken_extract,
     utoken_update,
-    # ftoken_create,
     ltoken_create,
-    # ltoken_check
 )
 from utils.sbase64url import sbase64url_md5
 from .schema import Schema
@@ -18,13 +16,12 @@ from .template import Template
 class Dispatcher:
     """Main request dispatcher class."""
 
-    def __init__(self, req, comp_route, neutral_route=None, ltoken=None, ftoken_field_name=None):
+    def __init__(self, req, comp_route, neutral_route=None, ltoken=None):
         """Initialize dispatcher with request, route and optional tokens."""
         self.req = req
         self._comp_route = f'{Config.COMP_ROUTE_ROOT}/{comp_route}'.strip("/")
         self._neutral_route = neutral_route
         self._ltoken = ltoken
-        self._ftoken_name = ftoken_field_name
         self.schema = Schema(self.req)
         self.schema_data = self.schema.properties['data']
         self.schema_local_data = self.schema.properties['inherit']['data']

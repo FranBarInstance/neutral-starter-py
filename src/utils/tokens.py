@@ -1,11 +1,14 @@
 """Token utility functions."""
 
-import time
 import secrets
+import time
+
 import regex as re
-from constants import * # pylint: disable=wildcard-import,unused-wildcard-import
+
 from app.config import Config
-from .sbase64url import sbase64url_encode, sbase64url_sha256, sbase64url_md5
+from constants import NOW
+
+from .sbase64url import sbase64url_md5
 
 
 # Get user token or create if it does not exist.
@@ -97,56 +100,6 @@ def utoken_valid(utoken):
     Returns True if token matches required pattern.
     """
     return re.match(r'^[A-Za-z0-9\-\_]{22,43}$', utoken)
-
-
-def ftoken_create(key, fetch_id, form_id, user_token) -> dict:
-    """
-    Create a form token for CSRF protection.
-    Returns dictionary with token data and metadata.
-    """
-    timestamp = int(time.time())
-    expire = timestamp + Config.FTOKEN_EXPIRES_SECONDS
-    data = str(key) + str(expire) + str(Config.SECRET_KEY) + str(user_token)
-    b64_hash = sbase64url_sha256(data)
-    return {
-        "name": "ftoken." + str(expire),
-        "value": b64_hash,
-        "fetch_id": fetch_id,
-        "form_id": form_id
-    }
-
-
-def ftoken_check(field_key_name, data, user_token) -> bool:
-    """
-    Validate form token to prevent CSRF attacks.
-    Returns True if token is valid and not expired.
-    """
-    field_key = data.get(field_key_name) or None
-    expire = None
-    token_name = None
-    token_value = None
-
-    for k, v in data.items():
-        if k.startswith('ftoken.'):
-            token_name = k
-            token_value = v
-            token_split = k.split('.')
-            expire = token_split[1]
-
-    if not field_key or not expire or not token_name or not token_value:
-        return False
-
-    if NOW > int(expire):
-        return False
-
-    key = sbase64url_encode(field_key)
-    hash_string = str(key) + str(expire) + str(Config.SECRET_KEY) + str(user_token)
-    b64_hash = sbase64url_sha256(hash_string)
-
-    if token_value == b64_hash:
-        return True
-
-    return False
 
 
 def ltoken_create(token, secret=Config.SECRET_KEY) -> str:

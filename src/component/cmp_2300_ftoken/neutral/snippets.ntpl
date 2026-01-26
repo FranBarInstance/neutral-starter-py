@@ -1,0 +1,60 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE) *:}
+
+{:*
+    ftoken
+    ------
+
+    If the form token is not updated due to an error, the submit button will be disabled.
+
+    The field that contains the value for the token:
+        <input
+            type=" ... "
+            id=" ... "
+            name=" ... "
+            value=" ... "
+            class="... ftoken-field-key ftoken-field-value"
+            data-ftokenid="ftoken-id"
+            required
+        >
+
+    Generate the token input:
+        {:code;
+            {:param; ftoken_fetch_id >> any-id :}
+            {:param; ftoken_form_id >> ftoken-id :}
+            {:snip; ftoken:form-field :}
+        :}
+
+*:}
+
+{:snip; ftoken:form-field-field >>
+    <div id="{:;ftoken->fetch_id:}{:else; {:param; ftoken_fetch_id :} :}" class="d-none ftoken-field-ftoken" data-url="/ftoken" data-wrap="" data-formid="{:;ftoken->form_id:}{:else; {:param; ftoken_form_id :} :}">
+        <input type="hidden" name="{:;ftoken->name:}{:else; none :}" value="{:;ftoken->value:}{:else; none :}">
+    </div>
+:}
+
+{:snip; ftoken:form-field-error >>
+    <div class="mx-0 mb-0  mt-3">
+        <div id="forms-login-error-alert" class="alert alert-dismissible alert-danger">
+            {:trans; ref:ftoken:error :}
+        </div>
+    </div>
+:}
+
+{:snip; ftoken:form-field >>
+    {:bool; ftoken->name >>
+        {:bool; CONTEXT->HEADERS->Requested-With-Ajax >>
+            {:snip; ftoken:form-field-field :}
+        :}{:else;
+            {:snip; ftoken:form-field-error :}
+        :}
+    :}{:else;
+        {:snip; ftoken:form-field-field :}
+    :}
+:}
+
+{:moveto; /body >>
+    <script>const FTOKEN_EXPIRES_SECONDS = {:;FTOKEN_EXPIRES_SECONDS:};</script>
+    <script src="/ftoken/ftoken.min.js"></script>
+:}
+
+{:^;:}

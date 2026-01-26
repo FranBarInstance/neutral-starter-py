@@ -1,0 +1,10 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE) *:}
+
+{:snip; current:template:body-main-content >>
+    {:snip; ftoken:form-field :}
+:}
+
+{:*
+    {:;:} To detect if it has been loaded with else
+*:}
+{:^;:}

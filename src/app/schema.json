@@ -40,10 +40,9 @@
         "mail_data": {},
         "HTTP_ERROR": {},
         "dispatch_result": false,
-        "app": {
+        "core": {
             "forms": {
-                "_form": {
-                    "__comment_:form": "unused",
+                "_unused_form": {
                     "check_fields": [],
                     "validation": {},
                     "rules": {}

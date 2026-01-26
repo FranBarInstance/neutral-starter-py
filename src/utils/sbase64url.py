@@ -2,10 +2,10 @@
 
 """Base64URL encoding/decoding with MD5 hash support."""
 
-import hashlib
 import base64
-import zlib
+import hashlib
 import secrets
+import zlib
 
 
 def sbase64url_encode(text):

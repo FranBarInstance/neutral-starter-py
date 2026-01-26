@@ -1,0 +1,20 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "en": {
+                    "ref:ftoken:error": "TOKEN ERROR: please reload the page."
+                },
+                "es": {
+                    "ref:ftoken:error": "ERROR DE TOKEN: por favor recargue la página."
+                },
+                "fr": {
+                    "ref:ftoken:error": "ERREUR DE TOKEN: veuillez recharger la page."
+                  },
+                "de": {
+                    "ref:ftoken:error": "TOKEN FEHLER: bitte laden Sie die Seite neu."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "uuid": "ftoken_0yt2sa",
+    "name": "ftoken",
+    "description": "Token for forms security, provides snippets and js files",
+    "version": "0.0.0",
+    "route": "/ftoken",
+    "required": {
+        "component": {
+            "cryptojs_0yt2sa": "0.0.x"
+        }
+    }
+}

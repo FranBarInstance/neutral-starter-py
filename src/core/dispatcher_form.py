@@ -9,15 +9,7 @@ import fnmatch
 import regex
 import dns.resolver
 from constants import * # pylint: disable=wildcard-import,unused-wildcard-import
-# from tokens import (
-#     # utoken_extract,
-#     # utoken_update,
-#     # ftoken_create,
-#     ftoken_check,
-#     # ltoken_create,
-#     ltoken_check
-# )
-from utils.tokens import ftoken_check, ltoken_check
+from utils.tokens import ltoken_check
 from .dispatcher import Dispatcher
 
 class DispatcherForm(Dispatcher):
@@ -29,15 +21,14 @@ class DispatcherForm(Dispatcher):
     - Error handling and reporting
     """
 
-    def __init__(self, req, comp_route, neutral_route=None, ltoken=None, ftoken_field_name=None, form_name="form"):
+    def __init__(self, req, comp_route, neutral_route=None, ltoken=None, form_name="form"):
         """Initialize form dispatcher with request context and validation rules."""
-        super().__init__(req, comp_route, neutral_route, ltoken, ftoken_field_name)
+        super().__init__(req, comp_route, neutral_route, ltoken)
         self._form_name = form_name
         self.schema_data[form_name] = {
             "error": {
                 "form": {
                     "ltoken": None,
-                    "ftoken": None,
                     "validation": None,
                     "already_session": None
                 },
@@ -47,9 +38,9 @@ class DispatcherForm(Dispatcher):
         }
         self.error = self.schema_data[self._form_name]['error']
         self.form_submit = self.schema_data[self._form_name]['is_submit']
-        self.field_rules = self.schema_data['app']['forms'][self._form_name]['rules']
-        self.form_validation = self.schema_data['app']['forms'][self._form_name]['validation']
-        self.form_check_fields = self.schema_data['app']['forms'][self._form_name]['check_fields']
+        self.field_rules = self.schema_data['core']['forms'][self._form_name]['rules']
+        self.form_validation = self.schema_data['core']['forms'][self._form_name]['validation']
+        self.form_check_fields = self.schema_data['core']['forms'][self._form_name]['check_fields']
 
     def valid_form_tokens_get(self) -> bool:
         """Validate form tokens for GET requests."""
@@ -65,15 +56,6 @@ class DispatcherForm(Dispatcher):
         # Check that the link to the form has a correct token.
         if not ltoken_check(self._ltoken, self.schema_data['CONTEXT']['UTOKEN']):
             self.error['form']['ltoken'] = "true"
-            return False
-
-        # User field token error
-        if not ftoken_check(
-            self._ftoken_name,
-            self.schema_data['CONTEXT']['POST'],
-            self.schema_data['CONTEXT']['UTOKEN']
-        ):
-            self.error['form']['ftoken'] = "true"
             return False
 
         return True
