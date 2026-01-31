@@ -35,25 +35,25 @@ A typical component (like `cmp_7000_hellocomp`) follows this structure:
 
 ```
 src/component/cmp_name/
-├── manifest.json                     # Registration metadata (UUID, name, route)
-├── schema.json                       # Global data, menu, and translations
-├── custom.json                       # Local user overrides (DO NOT DISTRIBUTE)
-├── __init__.py                       # Main initialization (e.g., sys.path setup)
-├── lib/                              # Internal component libraries
-├── static/                           # Component-specific static assets
-├── tests/                            # Pytest test suite for the component
-├── route/                            # Backend (Python/Flask)
-│   ├── __init__.py                   # Blueprint creation & config
-│   ├── routes.py                     # Route definitions
-│   └── dispatcher_name.py            # Custom Business Logic (optional)
-└── neutral/                          # Frontend (NTPL)
-    ├── component-init.ntpl           # Global snippets (available app-wide)
-    └── route/                        # Component-specific templates
-        ├── index-snippets.ntpl       # Snippets shared across this component
-        ├── locale.json               # Translations (merged with schema)
-        └── root/                     # Template mapping to routes
-            ├── content-snippets.ntpl # Template for the root route (/)
-            └── [subroute]/           # Folder for subroutes (e.g., /test1)
+├── manifest.json                         # Registration metadata (UUID, name, route)
+├── schema.json                           # Global data, menu, and translations
+├── custom.json                           # Local user overrides (DO NOT DISTRIBUTE)
+├── __init__.py                           # Main initialization (e.g., sys.path setup)
+├── lib/                                  # Internal component libraries
+├── static/                               # Component-specific static assets
+├── tests/                                # Pytest test suite for the component
+├── route/                                # Backend (Python/Flask)
+│   ├── __init__.py                       # Blueprint creation & config
+│   ├── routes.py                         # Route definitions
+│   └── dispatcher_name.py                # Custom Business Logic (optional)
+└── neutral/                              # Frontend (NTPL)
+    ├── component-init.ntpl               # Global snippets (available app-wide)
+    └── route/                            # Component-specific templates
+        ├── index-snippets.ntpl           # Snippets shared across this component
+        ├── locale.json                   # Translations (merged with schema)
+        └── root/                         # Template mapping to routes
+            ├── content-snippets.ntpl     # Template for the root route (/)
+            └── [subroute]/               # Folder for subroutes (e.g., /test1)
                 └── content-snippets.ntpl
 ```
 
