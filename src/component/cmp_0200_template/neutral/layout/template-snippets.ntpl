@@ -30,7 +30,7 @@
             <div class="modal-content">
                 <div class="modal-header py-2">
                     <h1 class="modal-title fs-6" id="exampleModal3Label">Modal title</h1>
-                    {:snip; util-modal-back-button :}
+                    {:snip; util:modal-back-button :}
                 </div>
                 <div class="modal-body p-3 px-4 pb-1">
                     <div class="text-center p-4">{:snip; spin-2x :}</div>
