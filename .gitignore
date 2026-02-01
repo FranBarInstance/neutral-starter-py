@@ -10,7 +10,7 @@
 !/tmp/README.md
 /config/*
 !/config/README.md
-!/config/config/.env.example
+!/config/.env.example
 /storage/*
 !/storage/README.md
 /src/component/*_local/
