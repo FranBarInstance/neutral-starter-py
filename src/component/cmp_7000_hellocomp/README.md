@@ -19,6 +19,7 @@ This module is the reference implementation for components in the **Neutral PWA*
 
 ## 2. File Architecture
 
+```text
 src/component/cmp_7000_hellocomp/
 ├── __init__.py                       # Component entry point & sys.path setup
 ├── manifest.json                     # Registration metadata
@@ -48,6 +49,7 @@ src/component/cmp_7000_hellocomp/
 └── tests/                            # Component-specific tests
     ├── conftest.py                   # Test configuration and fixtures
     └── test_hellocomp.py             # Route and Dispatcher verification
+```
 
 ## 3. High-Level Concepts
 
