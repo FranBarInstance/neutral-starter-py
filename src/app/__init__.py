@@ -18,6 +18,36 @@ from .extensions import cache, limiter
 def add_security_headers(response):
     """Add security headers to the response."""
     response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+
+    # Content Security Policy
+    # We build the policy dynamically based on the configuration whitelist.
+    from flask import current_app
+
+    def get_csp_string(key):
+        return " ".join(filter(None, current_app.config.get(key, [])))
+
+    scripts = get_csp_string('CSP_ALLOWED_SCRIPT')
+    styles = get_csp_string('CSP_ALLOWED_STYLE')
+    images = get_csp_string('CSP_ALLOWED_IMG')
+    fonts = get_csp_string('CSP_ALLOWED_FONT')
+    connects = get_csp_string('CSP_ALLOWED_CONNECT')
+
+    csp = (
+        f"default-src 'self'; "
+        f"script-src 'self' 'unsafe-inline' {scripts}; "
+        f"style-src 'self' 'unsafe-inline' {styles}; "
+        f"img-src 'self' data: {images}; "
+        f"font-src 'self' {fonts}; "
+        f"connect-src 'self' {connects}; "
+        f"frame-ancestors 'none'; "
+        f"base-uri 'self'; "
+        f"form-action 'self';"
+    )
+    response.headers['Content-Security-Policy'] = csp
+
     return response
 
 def create_app(config_class=Config, debug=False):

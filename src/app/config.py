@@ -131,3 +131,10 @@ class Config: # pylint: disable=too-few-public-methods
         DB_FILES = f"sqlite:///{Path(DB_FILES_PATH).joinpath(f'{DB_FILES_NAME}')}"
     else:
         DB_FILES = f"{DB_FILES_TYPE}://{DB_FILES_USER}:{DB_FILES_PASSWORD}@{DB_FILES_HOST}:{DB_FILES_PORT}/{DB_FILES_NAME}"
+
+    # CSP Whitelist - Convert comma separated strings to lists
+    CSP_ALLOWED_SCRIPT = config.get('CSP_ALLOWED_SCRIPT', '').split(',')
+    CSP_ALLOWED_STYLE = config.get('CSP_ALLOWED_STYLE', '').split(',')
+    CSP_ALLOWED_IMG = config.get('CSP_ALLOWED_IMG', '').split(',')
+    CSP_ALLOWED_FONT = config.get('CSP_ALLOWED_FONT', '').split(',')
+    CSP_ALLOWED_CONNECT = config.get('CSP_ALLOWED_CONNECT', '').split(',')

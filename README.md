@@ -93,6 +93,23 @@ Configuration is handled in layers:
 2.  **Per Component**: `schema.json` within each component.
 3.  **Customization**: `custom.json` (ignored by git) allows overriding local configurations without affecting the codebase.
 
+## Security & CSP
+
+The application implements a strict **Content Security Policy (CSP)**. By default, external resources are blocked unless explicitly allowed in the configuration.
+
+To ensure the core theme and components work correctly, you **must** whitelist the necessary CDNs in your `config/.env` file:
+
+```ini
+# Security Content-Security-Policy (CSP) allowed domains
+CSP_ALLOWED_SCRIPT=https://cdnjs.cloudflare.com
+CSP_ALLOWED_STYLE=https://cdnjs.cloudflare.com,https://fonts.googleapis.com
+CSP_ALLOWED_IMG=https://picsum.photos,https://fastly.picsum.photos
+CSP_ALLOWED_FONT=https://cdnjs.cloudflare.com,https://fonts.gstatic.com
+CSP_ALLOWED_CONNECT=https://cdnjs.cloudflare.com,https://picsum.photos,https://fastly.picsum.photos
+```
+
+If you add new external resources (JS, CSS, fonts), remember to update these variables to avoid console errors and broken layouts.
+
 ## Deployment
 
 For production, use a WSGI server like Gunicorn pointing to `src/wsgi.py`:
