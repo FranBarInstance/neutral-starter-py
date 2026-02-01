@@ -34,6 +34,8 @@ class Config: # pylint: disable=too-few-public-methods
     STATIC_FOLDER = os.path.join(BASE_DIR, "..", "public")
     STATIC_CACHE_CONTROL = config.get('STATIC_CACHE_CONTROL', "max-age=14400")
 
+    LIMITER_STORAGE_URI = config.get('LIMITER_STORAGE_URI', 'memory://')
+
     DEFAULT_LIMITS = config.get('DEFAULT_LIMITS', "3600/hour")
     STATIC_LIMITS = config.get('STATIC_LIMITS', "7200/hour")
     SIGNIN_LIMITS = config.get('SIGNIN_LIMITS', "3 per 30 minutes")

@@ -9,13 +9,12 @@ from utils.utils import get_ip
 from .config import Config
 
 # Initialize Flask-Limiter for rate limiting
-# _FIXME: In production need storage like Redis or Memcached
-# @limiter.limit not working with memory:// storage
-# https://flask-limiter.readthedocs.io/en/stable/storage.html#memory-storage
+# Storage backends supported by Flask-Limiter: memory://, redis://, memcached://, mongodb://
+# Default is memory (no setup required). For production with multiple workers use Redis or Memcached
 limiter = Limiter(
     key_func=get_ip,
     default_limits=[Config.DEFAULT_LIMITS],
-    storage_uri="memory://"
+    storage_uri=Config.LIMITER_STORAGE_URI
 )
 
 # Cache
