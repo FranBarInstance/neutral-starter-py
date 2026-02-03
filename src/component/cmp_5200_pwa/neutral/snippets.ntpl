@@ -10,14 +10,14 @@
     <meta name="apple-mobile-web-app-title" content="{:trans; {:;current->site->name:} :}" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <link href="{:;current->site->static:}pwa/32.png"  rel="icon" type="image/png" sizes="32x32" />
-    <link href="{:;current->site->static:}pwa/192.png" rel="icon" type="image/png" sizes="192x192" />
-    <link href="{:;current->site->static:}pwa/512.png" rel="icon" type="image/png" sizes="512x512" />
-    <link rel="manifest" href="{:;current->site->static:}pwa/manifest.json" />
+    <link nonce="{:;CSP_NONCE:}" href="{:;current->site->static:}pwa/32.png"  rel="icon" type="image/png" sizes="32x32" />
+    <link nonce="{:;CSP_NONCE:}" href="{:;current->site->static:}pwa/192.png" rel="icon" type="image/png" sizes="192x192" />
+    <link nonce="{:;CSP_NONCE:}" href="{:;current->site->static:}pwa/512.png" rel="icon" type="image/png" sizes="512x512" />
+    <link nonce="{:;CSP_NONCE:}" rel="manifest" href="{:;current->site->static:}pwa/manifest.json" />
 :}
 
 {:snip; current:template:body-end:pwa_0yt2sa >>
-    <script>
+    <script nonce="{:;CSP_NONCE:}">
         window.addEventListener('load', () => {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/service-worker.js')
@@ -25,11 +25,11 @@
             const pwa_install_clicks = document.querySelectorAll('.pwa_0yt2sa-install-click');
             const pwa_install_shows = document.querySelectorAll('.pwa_0yt2sa-install-show');
             let deferredPrompt;
-            pwa_install_shows.forEach(element => {element.style.display = 'none';});
+            pwa_install_shows.forEach(element => {element.classList.add('d-none');});
             window.addEventListener('beforeinstallprompt', (e) => {
                 e.preventDefault();
                 deferredPrompt = e;
-                pwa_install_shows.forEach(element => {element.style.display = 'block';});
+                pwa_install_shows.forEach(element => {element.classList.remove('d-none');});
                 send_cookie_install_count();
                 pwa_install_clicks.forEach(element => {
                     element.removeEventListener('click', handleInstallClick);
@@ -45,7 +45,7 @@
                 }
             }
             window.addEventListener('appinstalled', () => {
-                pwa_install_shows.forEach(element => {element.style.display = 'none';});
+                pwa_install_shows.forEach(element => {element.classList.add('d-none');});
                 deferredPrompt = null;
             });
         });
@@ -62,7 +62,7 @@
 :}
 
 {:snip; pwa_0yt2sa-main-navbar-bottom-install >>
-    <button style="display: none" class="nav-link mx-auto pwa_0yt2sa-install-show  pwa_0yt2sa-install-click  {:;local::x-icon-webapp:}"> {:trans; Install APP :}</button>
+    <button class="nav-link mx-auto pwa_0yt2sa-install-show pwa_0yt2sa-install-click d-none {:;local::x-icon-webapp:}"> {:trans; Install APP :}</button>
 :}
 
 {:bool; pwa_0yt2sa->manifest->config->navbar_times >>

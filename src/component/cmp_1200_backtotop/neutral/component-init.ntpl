@@ -1,12 +1,12 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:snip; current:template:head:backtotop_0yt2sa >>
-    <link rel="stylesheet" href="{:;current->site->static:}css/backtotop.min.css" />
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}css/backtotop.min.css" />
 :}
 
 {:snip; current:template:body-end:backtotop_0yt2sa >>
-    <button type="buttom" id="back-to-top" class="back-to-top" style="display: none" title="{:trans; ref:backtotop:go-top :}" aria-label="{:trans; ref:backtotop:go-top :}">
+    <button type="buttom" id="back-to-top" class="back-to-top d-none" title="{:trans; ref:backtotop:go-top :}" aria-label="{:trans; ref:backtotop:go-top :}">
         <span><i class="{:;local::x-icon-up:} x-icon-24px"></i></span>
     </button>
-    <script src="{:;current->site->static:}js/backtotop.min.js"></script>
+    <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/backtotop.min.js"></script>
 :}

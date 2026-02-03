@@ -7,7 +7,7 @@
 {:snip; mail-theme-head-begin >>
     <title>{:trans; Mail title :}</title>
     <meta name="name" content="content">
-    <style></style>
+    <style nonce="{:;CSP_NONCE:}"></style>
 :}
 
 {:snip; mail-theme-footer >>

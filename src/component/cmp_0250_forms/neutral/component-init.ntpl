@@ -46,7 +46,7 @@
 :}
 
 {:snip; form:field-error >>
-    <div id="forms-login-error-alert" class="form-text alert alert-dismissible alert-danger m-0 p-2 py-1 border-top-0" style="margin-top: -2px !important;">
+    <div id="forms-login-error-alert" class="form-text alert alert-dismissible alert-danger m-0 p-2 py-1 border-top-0 mt-minus-2px">
         <span class="{:;local::x-icon-error:}"></span> {:trans; {:param; msg :} :}{:else; ERROR :} {:param; field :} {:trans; See help. :}
     </div>
 :}

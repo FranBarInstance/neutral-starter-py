@@ -138,3 +138,8 @@ class Config: # pylint: disable=too-few-public-methods
     CSP_ALLOWED_IMG = config.get('CSP_ALLOWED_IMG', '').split(',')
     CSP_ALLOWED_FONT = config.get('CSP_ALLOWED_FONT', '').split(',')
     CSP_ALLOWED_CONNECT = config.get('CSP_ALLOWED_CONNECT', '').split(',')
+
+    # CSP Unsafe options (optional) - enable only when necessary
+    CSP_ALLOWED_SCRIPT_UNSAFE_INLINE = config.get('CSP_ALLOWED_SCRIPT_UNSAFE_INLINE', 'False').lower() == 'true'
+    CSP_ALLOWED_SCRIPT_UNSAFE_EVAL = config.get('CSP_ALLOWED_SCRIPT_UNSAFE_EVAL', 'False').lower() == 'true'
+    CSP_ALLOWED_STYLE_UNSAFE_INLINE = config.get('CSP_ALLOWED_STYLE_UNSAFE_INLINE', 'False').lower() == 'true'

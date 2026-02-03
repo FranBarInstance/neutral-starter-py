@@ -37,7 +37,7 @@
 {:snip; current:template:body-end:settheme_0yt2sa >>
     {:bool; settheme_0yt2sa->manifest->config->menu-drawer-enable >>
         {:filled; local::current->theme->allow_themes->1 >>
-            <script>
+            <script nonce="{:;CSP_NONCE:}">
                 document.addEventListener('DOMContentLoaded', () => {
                     const icons = document.querySelectorAll(`a[href="?{:;THEME_KEY:}={:;local::current->theme->theme:}"] .x-icon`);
                     icons.forEach(icon => {
@@ -47,7 +47,7 @@
             </script>
         :}
         {:filled; local::current->theme->allow_colors->1 >>
-            <script>
+            <script nonce="{:;CSP_NONCE:}">
                 document.addEventListener('DOMContentLoaded', () => {
                     const icons = document.querySelectorAll(`a[href="?{:;THEME_COLOR_KEY:}={:;local::current->theme->color:}"] .x-icon`);
                     icons.forEach(icon => {

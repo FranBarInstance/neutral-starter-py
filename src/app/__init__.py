@@ -17,14 +17,19 @@ from .extensions import cache, limiter
 
 def add_security_headers(response):
     """Add security headers to the response."""
+    from flask import g  # pylint: disable=import-outside-toplevel
+
     response.headers['X-Frame-Options'] = 'DENY'
     response.headers['X-Content-Type-Options'] = 'nosniff'
     response.headers['X-XSS-Protection'] = '1; mode=block'
     response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
 
+    # Get nonce from Flask.g
+    nonce = getattr(g, 'csp_nonce', None)
+    nonce_str = f" 'nonce-{nonce}'" if nonce else ""
+
     # Content Security Policy
-    # We build the policy dynamically based on the configuration whitelist.
-    from flask import current_app
+    from flask import current_app  # pylint: disable=import-outside-toplevel
 
     def get_csp_string(key):
         return " ".join(filter(None, current_app.config.get(key, [])))
@@ -35,10 +40,29 @@ def add_security_headers(response):
     fonts = get_csp_string('CSP_ALLOWED_FONT')
     connects = get_csp_string('CSP_ALLOWED_CONNECT')
 
+    # CSP Unsafe options
+    # Note: When unsafe-inline or unsafe-eval is used, nonce is not compatible
+    script_unsafe = []
+    if current_app.config.get('CSP_ALLOWED_SCRIPT_UNSAFE_INLINE'):
+        script_unsafe.append("'unsafe-inline'")
+    if current_app.config.get('CSP_ALLOWED_SCRIPT_UNSAFE_EVAL'):
+        script_unsafe.append("'unsafe-eval'")
+
+    style_unsafe = []
+    if current_app.config.get('CSP_ALLOWED_STYLE_UNSAFE_INLINE'):
+        style_unsafe.append("'unsafe-inline'")
+
+    # Determine if nonce should be used (not compatible with unsafe-inline)
+    use_nonce = nonce and not script_unsafe and not style_unsafe
+    nonce_str = f" 'nonce-{nonce}'" if use_nonce else ""
+
+    script_unsafe_str = f" {' '.join(script_unsafe)}" if script_unsafe else ""
+    style_unsafe_str = f" {' '.join(style_unsafe)}" if style_unsafe else ""
+
     csp = (
         f"default-src 'self'; "
-        f"script-src 'self' 'unsafe-inline' {scripts}; "
-        f"style-src 'self' 'unsafe-inline' {styles}; "
+        f"script-src 'self'{nonce_str}{script_unsafe_str} {scripts}; "
+        f"style-src 'self'{nonce_str}{style_unsafe_str} {styles}; "
         f"img-src 'self' data: {images}; "
         f"font-src 'self' {fonts}; "
         f"connect-src 'self' {connects}; "

@@ -23,7 +23,7 @@
         {:snip; current:template:main-navbar :}
         {:snip; current:template:main-drawer :}
         {:snip; current:template:page-h1 :}
-        <div class="container mt-4" style="min-height: calc(100vh - 160px);">
+        <div class="container mt-4 template-main-container">
             {:snip; theme-body-start :}
             <main class="">
                 <div class="container mt-3 text-center">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="container">
                     <div class="row text-center">
-                        <div style="font-size: 150px;">{:;HTTP_ERROR->code:}</div>
+                        <div class="error-code-lg">{:;HTTP_ERROR->code:}</div>
                         <a class="fs-5 text text-decoration-none" href="/"><i class="{:;local::x-icon-home:}" aria-hidden="true"></i>  {:trans; Go home :}</a>
                     </div>
                 </div>
@@ -54,9 +54,9 @@
         {:each; COMPONENTS_MAP_BY_UUID component none >>
             {:snip; current:template:body-end:{:;component:} :}
         :}
-        <script>var lib_config = { cookie_tab: '{:;TAB_CHANGES_KEY:}', reload_msg: '{:trans; ref:tab-changes:reload_msg :}'};</script>
-        <script src="{:;current->site->static:}js/lib.min.js"></script>
-        <script src="{:;current->site->static:}js/modal-dynamic.min.js"></script>
-        <script src="{:;current->site->static:}js/modal-close-on-back.min.js"></script>
+        <script nonce="{:;CSP_NONCE:}">var lib_config = { cookie_tab: '{:;TAB_CHANGES_KEY:}', reload_msg: '{:trans; ref:tab-changes:reload_msg :}'};</script>
+        <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/lib.min.js"></script>
+        <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/modal-dynamic.min.js"></script>
+        <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/modal-close-on-back.min.js"></script>
     </body>
 </html>

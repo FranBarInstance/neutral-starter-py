@@ -6,15 +6,36 @@
 
     If the form token is not updated due to an error, the submit button will be disabled.
 
+    A "no robot" checkbox offers only minimal protection against automation. While it may
+    be sufficient in some cases, stronger protection requires an additional system. The
+    challenge is that the ftoken sometimes needs user interaction to update. Asking the
+    user to click a checkbox labeled "update ftoken" is not ideal, which is why this
+    alternative system was chosen.
+
     The field that contains the value for the token:
         <input
             type=" ... "
-            id=" ... "
+            id="user-email"
             name=" ... "
             value=" ... "
             class="... ftoken-field-key ftoken-field-value"
             data-ftokenid="ftoken-id"
+            data-ftoken-onfocus-reset="notrobot"
             required
+        >
+
+        <input
+            type="hidden"
+            id="notrobot-hidden"
+            value="true"
+        >
+
+        <input
+            type="checkbox"
+            id="notrobot"
+            class="form-check-input"
+            value="..."
+            data-ftoken-onclick-remove="notrobot-hidden"
         >
 
     Generate the token input:
@@ -53,8 +74,8 @@
 :}
 
 {:moveto; /body >>
-    <script>const FTOKEN_EXPIRES_SECONDS = {:;FTOKEN_EXPIRES_SECONDS:};</script>
-    <script src="/ftoken/ftoken.min.js"></script>
+    <script nonce="{:;CSP_NONCE:}">const FTOKEN_EXPIRES_SECONDS = {:;FTOKEN_EXPIRES_SECONDS:};</script>
+    <script nonce="{:;CSP_NONCE:}" src="/ftoken/ftoken.min.js"></script>
 :}
 
 {:^;:}

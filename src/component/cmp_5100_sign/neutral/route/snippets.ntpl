@@ -3,7 +3,7 @@
 {:snip; sign:template:body-main-content >>
     <div class="container p-0">
         <div class="row justify-content-center">
-            <div class="col-md-9 col-lg-7 col-12" style="max-width: 550px;">
+            <div class="col-md-9 col-lg-7 col-12 max-w-550px">
                 <div class="card border-light mb-3 mt-md-4">
                     <div class="card-body px-md-4 pb-md-4 pt-md-3 p-2">
                         {:snip; {:param; form :}-wrapper :}

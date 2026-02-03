@@ -1,18 +1,4 @@
 (() => {
-    // If the form with ftoken is on a page
-    window.addEventListener('load', (event) => {
-        // the order of execution is important
-        ftoken_field_ftoken(event);
-        ftoken_field_key(event);
-    });
-
-    // If the form with ftoken is on a page loaded with ajax
-    window.addEventListener('neutralFetchCompleted', (event) => {
-        // the order of execution is important
-        ftoken_field_ftoken(event);
-        ftoken_field_key(event);
-    });
-
     var renew_ftoken = {};
     function ftoken_field_key(event) {
         document.querySelectorAll('.ftoken-field-key').forEach((e) => {
@@ -45,6 +31,23 @@
         });
     }
 
+    function ftoken_OnfocusReset() {
+        document.querySelectorAll('[data-ftoken-onfocus-reset]').forEach(input => {
+            input.addEventListener('focus', function() {
+                const checkboxId = this.dataset.ftokenOnfocusReset;
+                const checkbox = document.getElementById(checkboxId);
+                if (checkbox) { checkbox.checked = false; }
+            });
+        });
+        document.querySelectorAll('[data-ftoken-onclick-remove]').forEach(element => {
+            element.addEventListener('click', function() {
+                const elementIdToRemove = this.dataset.ftokenOnclickRemove;
+                const elementToRemove = document.getElementById(elementIdToRemove);
+                if (elementToRemove) { elementToRemove.remove(); }
+            });
+        });
+    }
+
     function sbase64url_sha256_encode(str) {
         const sha256 = CryptoJS.SHA256(str);
         const base64 = sha256.toString(CryptoJS.enc.Base64);
@@ -58,4 +61,21 @@
         const base64 = btoa(binString);
         return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
     }
+
+    // If the form with ftoken is on a page
+    window.addEventListener('load', (event) => {
+        // the order of execution is important
+        ftoken_field_ftoken(event);
+        ftoken_field_key(event);
+        ftoken_OnfocusReset()
+    });
+
+    // If the form with ftoken is on a page loaded with ajax
+    window.addEventListener('neutralFetchCompleted', (event) => {
+        // the order of execution is important
+        ftoken_field_ftoken(event);
+        ftoken_field_key(event);
+        ftoken_OnfocusReset()
+    });
+
 })();

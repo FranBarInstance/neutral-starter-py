@@ -20,7 +20,7 @@
 {:snip; current:template:body-end:locale_0yt2sa >>
     {:filled; current->site->languages->1 >>
         {:bool; locale_0yt2sa->manifest->config->menu-drawer-enable >>
-            <script>
+            <script nonce="{:;CSP_NONCE:}">
                 document.addEventListener('DOMContentLoaded', () => {
                     const icons = document.querySelectorAll(`a[href="?{:;LANG_KEY:}={:lang;:}"] .x-icon`);
                     icons.forEach(icon => {

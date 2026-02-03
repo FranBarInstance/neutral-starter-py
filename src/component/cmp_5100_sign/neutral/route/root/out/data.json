@@ -1,16 +1,5 @@
 {
-    "_comment_:navbar:menu": "Avoid using duplicate modal in navbar",
     "data": {
-        "navbar": {
-            "menu": {
-                "session:true": {
-                    "signout": {
-                        "class": "disabled",
-                        "prop": null
-                    }
-                }
-            }
-        },
         "current": {
             "route": {
                 "title": "Sign out",

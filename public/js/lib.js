@@ -42,10 +42,11 @@
         var eleNavbarHidden = document.getElementById('main-navbar-hidden');
         if (window.getComputedStyle(eleMainNavbar).getPropertyValue('position').match(/fixed|sticky/i)) {
             var mainNavBarHeight = eleMainNavbar.offsetHeight;
-            eleNavbarHidden.setAttribute('style', 'height:' + mainNavBarHeight + 'px' );
+            eleNavbarHidden.style.height = mainNavBarHeight + 'px';
+            eleNavbarHidden.classList.remove('d-none');
         } else {
-            eleNavbarHidden.setAttribute('style', 'height:0px');
-            eleNavbarHidden.style.display = 'none';
+            eleNavbarHidden.style.height = '0px';
+            eleNavbarHidden.classList.add('d-none');
         }
     }
     currentMainNavbarHeight();
@@ -68,19 +69,19 @@
     window.addEventListener('load', (ev) => {
         setTimeout(() => {
             document.querySelectorAll('.page-is-loading').forEach(element => {
-                element.style.display = 'none';
+                element.classList.add('d-none');
             });
             document.querySelectorAll('.page-has-loaded').forEach(element => {
-                element.style.display = 'block';
+                element.classList.remove('d-none');
             });
         }, 250);
     });
     window.addEventListener('pagehide', function() {
         document.querySelectorAll('.page-is-loading').forEach(element => {
-            element.style.display = 'none';
+            element.classList.add('d-none');
         });
         document.querySelectorAll('.page-has-loaded').forEach(element => {
-            element.style.display = 'block';
+            element.classList.remove('d-none');
         });
     });
     document.querySelectorAll('a').forEach(anchor => {
@@ -94,17 +95,17 @@
                     href.substring(0, thisSite.length) === thisSite) {
                     if (target !== "_blank") {
                         document.querySelectorAll('.page-has-loaded').forEach(el => {
-                            el.style.display = 'none';
+                            el.classList.add('d-none');
                         });
                         document.querySelectorAll('.page-is-loading').forEach(el => {
-                            el.style.display = 'block';
+                            el.classList.remove('d-none');
                         });
                         setTimeout(function() {
                             document.querySelectorAll('.page-is-loading').forEach(el => {
-                                el.style.display = 'none';
+                                el.classList.add('d-none');
                             });
                             document.querySelectorAll('.page-has-loaded').forEach(el => {
-                                el.style.display = 'block';
+                                el.classList.remove('d-none');
                             });
                         }, 12000);
                     }

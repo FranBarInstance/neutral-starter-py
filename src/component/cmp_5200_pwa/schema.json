@@ -30,10 +30,7 @@
                             "text": "Install APP",
                             "link": "#",
                             "icon": "x-icon-webapp",
-                            "class": "pwa_0yt2sa-install-show  pwa_0yt2sa-install-click",
-                            "prop": {
-                                "style": "display: none;"
-                            }
+                            "class": "pwa_0yt2sa-install-show pwa_0yt2sa-install-click d-none"
                         }
                     }
                 },
@@ -43,10 +40,7 @@
                             "text": "Install APP",
                             "link": "#",
                             "icon": "x-icon-webapp",
-                            "class": "pwa_0yt2sa-install-show  pwa_0yt2sa-install-click",
-                            "prop": {
-                                "style": "display: none;"
-                            }
+                            "class": "pwa_0yt2sa-install-show pwa_0yt2sa-install-click d-none"
                         }
                     }
                 }

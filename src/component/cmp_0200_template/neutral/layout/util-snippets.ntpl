@@ -1,6 +1,5 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-
 {:*
     Avoid traversal routes.
 *:}
@@ -11,27 +10,23 @@
     *\.\./*
 :}
 
+{:snip; util:reload-page-delay >> 300 :}
+
 {:snip; util:reload-page-self >>
-    <div class="text-center p-5">{:snip; spin-2x :}</div>
-    <div class="script-container" data-hash="{:;script_container_hash:}">
-        <script>setTimeout(function(){ self.location.href=self.location.href.split('#')[0] }, 300);</script>
-    </div>
+    <div class="text-center p-5 util-reload-page-self">{:snip; spin-2x :}</div>
 :}
 
 {:snip; util:reload-page-home >>
-    <div class="text-center p-5">{:snip; spin-2x :}</div>
-    <div class="script-container" data-hash="{:;script_container_hash:}">
-        <script>setTimeout(function(){ top.location.href="/" }, 300);</script>
-    </div>
+    <div class="text-center p-5 util-reload-page-home">{:snip; spin-2x :}</div>
 :}
 
 {:snip; util:modal-back-button >>
-    <span type="button" class="fs-5 mx-0 me-1 ms-auto {:;local::x-icon-back:}" data-bs-dismiss="modal" aria-label="Close"></span>
+    <span type="button" class="fs-5 mx-0 me-1 ms-auto {:;local::x-icon-back:}" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></span>
 :}
 
 {:snip; util:error-utoken >>
     <div class="mx-0">
-        <div id="forms-login-error-alert" class="alert alert-dismissible alert-danger mb-2 mb-0">
+        <div id="util-requires-utoken-error-alert" class="alert alert-dismissible alert-danger mb-2 mb-0">
             <p>{:trans; USER TOKEN ERROR :}<br>{:trans; (This page requires security cookies) :}</p>
             <p>{:trans; Please reload the page and try again, if the error persists contact the admin. :}</p>
         </div>
@@ -45,12 +40,27 @@
          - If it does not support cookies it displays a message.
     *:}
     {:!filled; CONTEXT->COOKIES->{:;UTOKEN_KEY:} >>
-        <div id="app-requires-utoken-msg" class="d-none">
+        <div id="util-requires-utoken-msg" class="d-none">
             {:snip; util:error-utoken :}
         </div>
-        <div class="text-center p-5">{:snip; spin-2x :}</div>
-        <div id="app-requires-utoken-div" class="script-container" data-hash="{:;script_container_hash:}">
-            <script>
+        <div id="util-requires-utoken-spin" class="text-center p-5 util-requires-utoken">{:snip; spin-2x :}</div>
+    :}
+:}
+
+{:moveto; /body >>
+    <script nonce="{:;CSP_NONCE:}">
+        function utilReloadPageSelf() {
+            if (document.querySelector('.util-reload-page-self')) {
+                setTimeout(function() { window.location.href = window.location.href.split('#')[0]; }, 300);
+            }
+        }
+        function utilReloadPageHome() {
+            if (document.querySelector('.util-reload-page-home')) {
+                setTimeout(function() { top.location.href = "/"; }, 300);
+            }
+        }
+        function utilRequiresUtoken() {
+            if (document.querySelector('.util-requires-utoken')) {
                 {:*
                     If cookies are not supported, an infinite redirection occurs.
                 *:}
@@ -59,13 +69,20 @@
                     if (document.cookie.includes("_cookies_test_supported_")) {
                         self.location.href=self.location.href.split('#')[0]
                     } else {
-                        document.getElementById("app-requires-utoken-msg").style.display = "block";
+                        document.getElementById("util-requires-utoken-msg").classList.remove("d-none");
+                        document.getElementById("util-requires-utoken-spin").classList.add("d-none");
                     }
                 }, 200);
-            </script>
-        </div>
-    :}
+            }
+        }
+        function utilDispatchUtilities() {
+            utilReloadPageSelf();
+            utilReloadPageHome();
+            utilRequiresUtoken();
+        }
+        window.addEventListener('neutralFetchCompleted', utilDispatchUtilities);
+        window.addEventListener('DOMContentLoaded', utilDispatchUtilities);
+    </script>
 :}
-
 
 {:^;:}

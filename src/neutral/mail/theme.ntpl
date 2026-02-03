@@ -26,13 +26,13 @@
     </xml>
     <![endif]-->
     <!--[if mso]>
-        <style>
+        <style nonce="{:;CSP_NONCE:}">
             * {
                 font-family: sans-serif !important;
             }
         </style>
     <![endif]-->
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         :root {
           color-scheme: light;
           supported-color-schemes: light;
@@ -108,8 +108,19 @@
                 min-width: 414px !important;
             }
         }
+        .preheader-custom {
+            display: none !important;
+            font-size: 1px !important;
+            line-height: 1px !important;
+            max-height: 0px !important;
+            max-width: 0px !important;
+            opacity: 0 !important;
+            overflow: hidden !important;
+            mso-hide: all !important;
+            font-family: sans-serif !important;
+        }
     </style>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
 	    .button-td,
 	    .button-a {
 	        transition: all 100ms ease-in;
@@ -155,7 +166,7 @@
     <tr>
     <td>
     <![endif]-->
-        <div style="display: none; font-size: 1px; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+        <div class="preheader-custom">
 	       &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
         </div>
         <div style="max-width: 680px; margin: 0 auto;" class="email-container">

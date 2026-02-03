@@ -7,6 +7,7 @@ from utils.tokens import (
     ltoken_create,
 )
 from utils.sbase64url import sbase64url_md5
+from utils.nonce import get_nonce
 from .schema import Schema
 from .session import Session
 from .user import User
@@ -46,8 +47,8 @@ class Dispatcher:
         self.schema_data['CONTEXT']['SESSION'] = session_id
         self.schema_data['HAS_SESSION'] = "true" if session_id else None
         self.schema_data['HAS_SESSION_STR'] = "true" if session_id else "false"
+        self.schema_data['CSP_NONCE'] = get_nonce()
         self.parse_utoken()
-        self.schema_data['script_container_hash'] = sbase64url_md5(self.schema_data['CONTEXT']['UTOKEN'])
         self.schema_data['LTOKEN'] = ltoken_create(self.schema_data['CONTEXT']['UTOKEN'])
         if not self.ajax_request:
             self.cookie_tab_changes()

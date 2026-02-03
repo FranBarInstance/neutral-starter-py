@@ -49,5 +49,14 @@
                 }
             }
         }
+    },
+    "data": {
+        "current": {
+            "template": {
+                "cache_seconds": 300,
+                "error_cache_seconds": 300,
+                "nav_cache_seconds": 15
+            }
+        }
     }
 }

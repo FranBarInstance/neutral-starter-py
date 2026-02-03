@@ -32,7 +32,7 @@ class Schema:
         self.properties = copy.deepcopy(current_app.components.schema)
         self.data = self.properties['data']
         self.local_data = self.properties['inherit']['data']
-        self.properties['config']['cache_disable'] = Config.NEUTRAL_CACHE_DISABLE
+        self.properties['config']['cache_disable'] = False
         self.properties['config']['cache_dir'] = TMP_DIR
 
         # Debug

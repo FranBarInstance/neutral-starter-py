@@ -139,7 +139,7 @@
                     maxlength="{:;core->forms->sign_up_form->rules->email->maxlength:}"
                     pattern="{:;core->forms->sign_up_form->rules->email->pattern:}"
                     data-ftokenid="sign_up_form-ftoken"
-                    onfocus="document.getElementById('sign_up_form-notrobot').checked = false"
+                    data-ftoken-onfocus-reset="sign_up_form-notrobot"
                     {:bool; core->forms->sign_up_form->rules->email->required >> required :}
                 >
                 <label for="sign_up_form-email">{:trans; Email address (is private) :}</label>
@@ -269,7 +269,7 @@
                     class="form-check-input"
                     aria-label="{:trans; I am not a robot :}"
                     value="{:;core->forms->sign_up_form->rules->notrobot->value:}"
-                    onclick="document.getElementById('sign_up_form-notrobot-hidden')?.remove();"
+                    data-ftoken-onclick-remove="sign_up_form-notrobot-hidden"
                     {:bool; core->forms->sign_up_form->rules->notrobot->required >> required :}
                 >
             </span>
@@ -350,7 +350,7 @@
     <div id="form-wrapper-register">
         {:coalesce;
             {:snip; sign_up_form-result:{:;sign_up_form->is_submit->result->success:} :}
-            {:snip; app-requires-utoken :}
+            {:snip; util:requires-utoken :}
             {:snip; forms:redirect-if-session :}
             {:snip; forms:error-ltoken:{:;sign_up_form->error->form->ltoken:} :}
             {:snip; forms:error-ftoken:{:;sign_up_form->error->form->ftoken:} :}

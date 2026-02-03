@@ -1,6 +1,6 @@
 
 {:snip; current:template:head:rrss_0yt2sa >>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         .rrss-wrapper img {
             width: 180px !important;
             padding: 5px;
@@ -10,7 +10,7 @@
 :}
 
 {:snip; current:template:body-end:rrss_0yt2sa >>
-    <script>
+    <script nonce="{:;CSP_NONCE:}">
         function rrss_feed_script() {
             document.querySelectorAll('.rrss-wrapper').forEach(wrapper => {
                 wrapper.querySelectorAll('a').forEach(ele => {

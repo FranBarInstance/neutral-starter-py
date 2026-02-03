@@ -1,10 +1,7 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-
 {:snip; current:template:nav-cache-key >>
-    {:*  {:;local::current->theme->theme:}
-    {:;local::current->theme->color:}  *:}
-    {:;HAS_SESSION:}
+    current-template-nav-cache-key-{:;HAS_SESSION_STR:}
 :}
 
 {:snip; current:template:cache-key >>
@@ -45,7 +42,7 @@
     -------------------
 *:}
 {:snip; current:template:heading-medium >>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         h1, .h1 {
             font-size: 2.1rem;
         }
@@ -116,7 +113,7 @@
     ------------------
 *:}
 {:snip; current:template:heading-small >>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         h1, .h1 {
             font-size: 1.6rem;
         }
@@ -143,7 +140,7 @@
     ------------------
 *:}
 {:snip; current:template:heading-medium >>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         h1, .h1 {
             font-size: 2.1rem;
         }
@@ -197,19 +194,19 @@
         <div class="spin spinner-grow spinner-grow-sm mx-1" role="status"></div>
     :}
     {:snip; spin-lg >>
-        <div class="spin spinner-grow spinner-grow mx-1" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+        <div class="spin spinner-grow spinner-grow mx-1 spin-1-2rem" role="status"></div>
     :}
     {:snip; spin-2x >>
-        <div class="spin spinner-grow spinner-grow mx-1" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+        <div class="spin spinner-grow spinner-grow mx-1 spin-1-5rem" role="status"></div>
     :}
     {:snip; spin-3x >>
-        <div class="spin spinner-grow spinner-grow mx-1" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+        <div class="spin spinner-grow spinner-grow mx-1 spin-1-8rem" role="status"></div>
     :}
     {:snip; spin-4x >>
-        <div class="spin spinner-grow spinner-grow mx-1" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+        <div class="spin spinner-grow spinner-grow mx-1 spin-2-2rem" role="status"></div>
     :}
     {:snip; spin-5x >>
-        <div class="spin spinner-grow spinner-grow mx-1" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+        <div class="spin spinner-grow spinner-grow mx-1 spin-2-7rem" role="status"></div>
     :}
 :}
 
@@ -218,19 +215,19 @@
         <div class="spin spinner-border spinner-border-sm mx-1" role="status"></div>
     :}
     {:snip; spin-lg >>
-        <div class="spin spinner-border spinner-border mx-1" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 spin-1-2rem" role="status"></div>
     :}
     {:snip; spin-2x >>
-        <div class="spin spinner-border spinner-border mx-1" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 spin-1-5rem" role="status"></div>
     :}
     {:snip; spin-3x >>
-        <div class="spin spinner-border spinner-border mx-1" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 spin-1-8rem" role="status"></div>
     :}
     {:snip; spin-4x >>
-        <div class="spin spinner-border spinner-border mx-1" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 spin-2-2rem" role="status"></div>
     :}
     {:snip; spin-5x >>
-        <div class="spin spinner-border spinner-border mx-1" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 spin-2-7rem" role="status"></div>
     :}
 :}
 
@@ -239,19 +236,19 @@
         <div class="spin spinner-border spinner-border-sm mx-1 border-bottom-0" role="status"></div>
     :}
     {:snip; spin-lg >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 spin-1-2rem" role="status"></div>
     :}
     {:snip; spin-2x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 spin-1-5rem" role="status"></div>
     :}
     {:snip; spin-3x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 spin-1-8rem" role="status"></div>
     :}
     {:snip; spin-4x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 spin-2-2rem" role="status"></div>
     :}
     {:snip; spin-5x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 spin-2-7rem" role="status"></div>
     :}
 :}
 
@@ -260,19 +257,19 @@
         <div class="spin spinner-border spinner-border-sm mx-1 border-bottom-0 border-start-0" role="status"></div>
     :}
     {:snip; spin-lg >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0 spin-1-2rem" role="status"></div>
     :}
     {:snip; spin-2x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0 spin-1-5rem" role="status"></div>
     :}
     {:snip; spin-3x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0 spin-1-8rem" role="status"></div>
     :}
     {:snip; spin-4x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0 spin-2-2rem" role="status"></div>
     :}
     {:snip; spin-5x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-start-0 spin-2-7rem" role="status"></div>
     :}
 :}
 
@@ -281,19 +278,19 @@
         <div class="spin spinner-border spinner-border-sm mx-1 border-bottom-0 border-top-0" role="status"></div>
     :}
     {:snip; spin-lg >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0 spin-1-2rem" role="status"></div>
     :}
     {:snip; spin-2x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0 spin-1-5rem" role="status"></div>
     :}
     {:snip; spin-3x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0 spin-1-8rem" role="status"></div>
     :}
     {:snip; spin-4x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0 spin-2-2rem" role="status"></div>
     :}
     {:snip; spin-5x >>
-        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-bottom-0 border-top-0 spin-2-7rem" role="status"></div>
     :}
 :}
 
@@ -302,19 +299,19 @@
         <div class="spin spinner-border spinner-border-sm mx-1 border-start-0 border-end-0" role="status"></div>
     :}
     {:snip; spin-lg >>
-        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 1.2rem; height: 1.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0 spin-1-2rem" role="status"></div>
     :}
     {:snip; spin-2x >>
-        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0 spin-1-5rem" role="status"></div>
     :}
     {:snip; spin-3x >>
-        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 1.8rem; height: 1.8rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0 spin-1-8rem" role="status"></div>
     :}
     {:snip; spin-4x >>
-        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 2.2rem; height: 2.2rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0 spin-2-2rem" role="status"></div>
     :}
     {:snip; spin-5x >>
-        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0" style="width: 2.7rem; height: 2.7rem;" role="status"></div>
+        <div class="spin spinner-border spinner-border mx-1 border-start-0 border-end-0 spin-2-7rem" role="status"></div>
     :}
 :}
 
@@ -324,7 +321,7 @@
     ----------------
 *:}
 {:snip; current:template:theme-workaround-css:litera >>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         @media (max-width: 767px) {
             .input-group-text {
                 padding: .5rem .9rem;
@@ -334,7 +331,7 @@
 :}
 
 {:snip; current:template:theme-workaround-css:journal >>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         .nav-brand-text {
             margin-bottom: 6px;
         }
@@ -342,7 +339,7 @@
 :}
 
 {:snip; current:template:theme-workaround-css:sketchy >>
-    <style>
+    <style nonce="{:;CSP_NONCE:}">
         .nav-brand-text {
             margin-bottom: -4px;
         }
@@ -353,25 +350,13 @@
 :}
 
 {:snip; neutral.js >>
-    <script>
+    <script nonce="{:;CSP_NONCE:}">
         var neutral_submit_loading = '{:snip; spin-1x :}';
         var neutral_submit_timeout = 9000;
         var neutral_submit_error = ' {:trans; Form ERROR! :} ';
         var neutral_submit_error_delay = 5500;
         var neutral_submit_delay = 400;
-        var script_container_hash = '{:;script_container_hash:}';
         window.addEventListener('neutralFetchCompleted', function(evt) {
-            if (!evt.detail.url.includes('://')) {
-                const scriptContainer = evt.detail.element.querySelector('.script-container');
-                if (scriptContainer && scriptContainer.dataset.hash === script_container_hash) {
-                    const scripts = scriptContainer.querySelectorAll('script');
-                    scripts.forEach(script => {
-                        const newScript = document.createElement('script');
-                        newScript.text = script.textContent;
-                        document.body.appendChild(newScript);
-                    });
-                }
-            }
             fetch_form_reset()
             const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
             const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
@@ -426,7 +411,7 @@
             });
         });
     </script>
-    <script src="{:;current->site->static:}js/neutral.min.js"></script>
+    <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/neutral.min.js"></script>
 :}
 
 {:^;:}

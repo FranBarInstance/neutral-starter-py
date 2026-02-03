@@ -70,7 +70,7 @@
                     maxlength="{:;core->forms->sign_reminder_form->rules->email->maxlength:}"
                     pattern="{:;core->forms->sign_reminder_form->rules->email->pattern:}"
                     data-ftokenid="reminder-form-ftoken"
-                    onfocus="document.getElementById('reminder-form-notrobot').checked = false"
+                    data-ftoken-onfocus-reset="reminder-form-notrobot"
                     {:bool; core->forms->sign_reminder_form->rules->email->required >> required :}
                 >
                 <label for="reminder-form-email">{:trans; Your email address :}</label>
@@ -102,7 +102,7 @@
                     class="form-check-input"
                     aria-label="{:trans; I am not a robot :}"
                     value="{:;core->forms->sign_reminder_form->rules->notrobot->value:}"
-                    onclick="document.getElementById('reminder-form-notrobot-hidden')?.remove();"
+                    data-ftoken-onclick-remove="reminder-form-notrobot-hidden"
                     {:bool; core->forms->sign_reminder_form->rules->notrobot->required >> required :}
                 >
             </span>
@@ -151,7 +151,7 @@
     <div id="form-wrapper-reminder">
         {:coalesce;
             {:snip; sign_reminder_form-result:{:;sign_reminder_form->is_submit->result->success:} :}
-            {:snip; app-requires-utoken :}
+            {:snip; util:requires-utoken :}
             {:snip; forms:redirect-if-session :}
             {:snip; forms:error-ltoken:{:;sign_reminder_form->error->form->ltoken:} :}
             {:snip; forms:error-ftoken:{:;sign_reminder_form->error->form->ftoken:} :}
