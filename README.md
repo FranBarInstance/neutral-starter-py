@@ -156,7 +156,6 @@ The strength of this starter lies in `src/component`. Each folder there is a sel
     *   `neutral/`: HTML templates and snippets.
     *   `static/`: Specific assets (JS/CSS).
     *   `__init__.py`: Component initialization.
-    *   `config.py`: Component-specific configuration.
 
 ### Component Structure
 
@@ -177,8 +176,7 @@ cmp_component_name/
 ├── static/            # Component static resources
 │   ├── component.css
 │   └── component.js
-├── __init__.py        # Component initialization
-└── config.py          # Component-specific configuration
+└── __init__.py        # Component initialization
 ```
 
 For a detailed example, see the [Hello Component README](src/component/cmp_7000_hellocomp/README.md). For complete technical documentation on the component architecture, refer to [docs/component.md](docs/component.md).
