@@ -2,7 +2,7 @@
     "uuid": "ai_backend_0yt2sa",
     "name": "AI Models Library Backend",
     "description": "Library to access multiple AI models (OpenAI, Anthropic, Google) from backend",
-    "version": "1.0.0",
+    "version": "0.0.0",
     "route": "",
     "config": {
         "profiles": {
