@@ -1,0 +1,40 @@
+{
+    "uuid": "ai_backend_0yt2sa",
+    "name": "AI Models Library Backend",
+    "description": "Library to access multiple AI models (OpenAI, Anthropic, Google) from backend",
+    "version": "1.0.0",
+    "route": "",
+    "config": {
+        "profiles": {
+            "openai_default": {
+                "openai": {
+                    "enabled": false,
+                    "api_key": "",
+                    "model": "gpt-4-turbo"
+                }
+            },
+            "claude_default": {
+                "anthropic": {
+                    "enabled": false,
+                    "api_key": "",
+                    "model": "claude-3-opus-20240229"
+                }
+            },
+            "gemini_default": {
+                "google": {
+                    "enabled": false,
+                    "api_key": "",
+                    "model": "gemini-1.5-pro"
+                }
+            },
+            "ollama_local": {
+                "ollama": {
+                    "enabled": true,
+                    "api_key": "ollama",
+                    "base_url": "http://localhost:11434/v1",
+                    "model": "llama3"
+                }
+            }
+        }
+    }
+}
