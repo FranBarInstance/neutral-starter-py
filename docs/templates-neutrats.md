@@ -43,12 +43,12 @@ This is a summary for the context of AI; the full documentation is here:: [Neutr
 Structure breakdown:
 ```
 {:[modifiers]name; [flags] params >> code :}
- │    │         │      │       │     │  │
- │    │         │      │       │     │  └─ Close BIF
- │    │         │      │       │     └─ Code block
- │    │         │      │       └─ Params/Code separator
- │    │         │      └─ Parameters
- │    │         └─ Name separator
+ │    │          │     │       │      │   │
+ │    │          │     │       │      │   └─ Close BIF
+ │    │          │     │       │      └─ Code block
+ │    │          │     │       └─ Params/Code separator
+ │    │          │     └─ Parameters
+ │    │          └─ Name separator
  │    └─ BIF name
  └─ Open BIF
 ```
