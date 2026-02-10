@@ -4,7 +4,7 @@
 
 Neutral TS is a safe, modular, language-agnostic template engine built in Rust. It can be used as a native Rust library or via IPC for other languages (Python, PHP, Node.js, Go). Templates can be reused across multiple languages with consistent results.
 
-This is a summary for the context of AI; the full documentation is here:: [Neutral TS Doc](https://franbarinstance.github.io/neutralts-docs/docs/neutralts/)
+This is a summary for the context of AI; the full documentation is here: [Neutral TS Doc](https://franbarinstance.github.io/neutralts-docs/docs/neutralts/)
 
 ### Template File Example
 ```
