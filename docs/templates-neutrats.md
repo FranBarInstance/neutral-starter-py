@@ -2,7 +2,7 @@
 
 ## Overview
 
-Neutral TS is a safe, modular, language-agnostic template engine built in Rust. It can be used as a native Rust library or via IPC for other languages (Python, PHP, Node.js, Go). Templates can be reused across multiple languages with consistent results.
+Neutral Template System is a safe, modular, language-agnostic template engine built in Rust. It can be used as a native Rust library or via IPC for other languages (Python, PHP, Node.js, Go). Templates can be reused across multiple languages with consistent results.
 
 This is a summary for the context of AI; the full documentation is here: [Neutral TS Doc](https://franbarinstance.github.io/neutralts-docs/docs/neutralts/)
 
@@ -43,13 +43,13 @@ This is a summary for the context of AI; the full documentation is here: [Neutra
 Structure breakdown:
 ```
 {:[modifiers]name; [flags] params >> code :}
- │    │          │     │       │      │   │
- │    │          │     │       │      │   └─ Close BIF
- │    │          │     │       │      └─ Code block
- │    │          │     │       └─ Params/Code separator
- │    │          │     └─ Parameters
- │    │          └─ Name separator
- │    └─ BIF name
+ │            │  │     │       │      │   │
+ │            │  │     │       │      │   └─ Close BIF
+ │            │  │     │       │      └─ Code block
+ │            │  │     │       └─ Params/Code separator
+ │            │  │     └─ Parameters
+ │            │  └─ Name separator
+ │            └─ BIF name
  └─ Open BIF
 ```
 
@@ -139,16 +139,16 @@ Outputs empty string. Use `{:^;:}` to eliminate whitespace, or `{:;:}` to preser
 
 ### Conditionals
 ```
-{:filled; varname >> content :}      # If variable has content
-{:!filled; varname >> content :}     # If variable is empty
-{:defined; varname >> content :}     # If variable is defined
-{:!defined; varname >> content :}    # If variable is undefined
-{:bool; varname >> content :}        # If variable is true
-{:!bool; varname >> content :}       # If variable is false
-{:same; /a/b/ >> content :}          # If a equals b
-{:!same; /a/b/ >> content :}         # If a not equals b
-{:contains; /haystack/needle/ >> content :}  # If contains substring
-{:!contains; /haystack/needle/ >> content :} # If not contains
+{:filled; varname >> content :}                  # If variable has content
+{:!filled; varname >> content :}                 # If variable is empty
+{:defined; varname >> content :}                 # If variable is defined
+{:!defined; varname >> content :}                # If variable is undefined
+{:bool; varname >> content :}                    # If variable is true
+{:!bool; varname >> content :}                   # If variable is false
+{:same; /a/b/ >> content :}                      # If a equals b
+{:!same; /a/b/ >> content :}                     # If a not equals b
+{:contains; /haystack/needle/ >> content :}      # If contains substring
+{:!contains; /haystack/needle/ >> content :}     # If not contains
 ```
 
 ### Iteration
@@ -268,7 +268,7 @@ Wildcards supported:
 ```
 {:cache; /300/ >> content :}           # Cache for 300 seconds
 {:cache; /300/custom-id/ >> content :} # Cache with custom ID
-{:!cache; content :}                    # Exclude from cache
+{:!cache; content :}                   # Exclude from cache
 ```
 
 ### Translations
@@ -297,7 +297,7 @@ Translation schema:
 ```
 {:code;
     {:param; name >> value :}   # Set parameter
-    {:param; name :}             # Get parameter
+    {:param; name :}            # Get parameter
     ...
 :}
 ```
@@ -326,6 +326,12 @@ Translation schema:
 ### Scope Modifier (`+`)
 By default, definitions have block scope. `+` extends to current level:
 ```
+{:code;
+    {:include; snippet.ntpl :}
+    {:snippet; name :}     # Not available outside
+:}
+{:snippet; name :}         # Not available
+
 {:+code;
     {:include; snippet.ntpl :}
     {:snippet; name :}     # Available outside
@@ -398,6 +404,7 @@ Events: `auto`, `none`, `click`, `visible`, `form`
 | `{:for; v 1..10 >> c :}` | For loop |
 | `{:include; file :}` | Include file |
 | `{:snippet; n >> c :}` | Define snippet |
+| `{:snippet; n :}` | Play snippet |
 | `{:trans; text :}` | Translate |
 | `{:cache; /t/ >> c :}` | Cache content |
 | `{:coalesce; ... :}` | First non-empty |
