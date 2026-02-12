@@ -9,7 +9,7 @@ This skill provides the guidelines and syntax reference for creating and modifyi
 
 ## Documentation References
 - **Full Internal Documentation**: [docs/templates-neutrats.md](docs/templates-neutrats.md)
-- **Official Documentation**: [Neutral TS Doc](https://franbarinstance.github.io/neutralts-docs/docs/neutralts/)
+- **Official Documentation**: [Neutral TS Doc](https://franbarinstance.github.io/neutralts-docs/docs/neutralts/doc/)
 
 ## Neutral TS Syntax Overview
 
