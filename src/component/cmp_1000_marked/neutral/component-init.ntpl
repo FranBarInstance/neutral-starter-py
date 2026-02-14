@@ -1,0 +1,8 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE) *:}
+
+{:moveto; /body >>
+    <script nonce="{:;CSP_NONCE:}" type="module">
+        import { marked } from 'https://cdnjs.cloudflare.com/ajax/libs/marked/16.3.0/lib/marked.esm.js';
+        window.marked = marked;
+    </script>
+:}
