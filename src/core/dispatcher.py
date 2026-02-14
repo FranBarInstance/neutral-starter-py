@@ -14,7 +14,7 @@ from .user import User
 from .template import Template
 
 
-class Dispatcher:
+class Dispatcher: # pylint: disable=too-many-instance-attributes
     """Main request dispatcher class."""
 
     def __init__(self, req, comp_route, neutral_route=None, ltoken=None):
