@@ -11,8 +11,8 @@
 /config/*
 !/config/README.md
 !/config/.env.example
-/storage/*
-!/storage/README.md
+/storage-dev/*
+/storage-dev
 /src/component/*_local/
 **/custom-snippets.ntpl
 !/src/component/**/*_hellocomp/**/custom-snippets.ntpl
