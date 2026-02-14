@@ -163,6 +163,8 @@ def init_component(component, component_schema, _schema):
 ### 3. Configuration and Data (`schema.json`)
 The `schema.json` file is merged into the global application schema.
 
+To add a menu item, you **must** define both the `drawer` (the top-level tab) and the `menu` (the link items inside the tab). The menu may display different options depending on whether the user is logged in ("session:true") or not ("session:").
+
 ```json
 {
     "inherit": {
@@ -174,8 +176,35 @@ The `schema.json` file is merged into the global application schema.
             }
         },
         "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "hello-tab": {
+                            "name": "Hello Component",
+                            "tabs": "hello-tab",
+                            "icon": "x-icon-info"
+                        }
+                    },
+                    "session:true": {
+                        "hello-tab": {
+                            "name": "Hello Component",
+                            "tabs": "hello-tab",
+                            "icon": "x-icon-info"
+                        }
+                    }
+                }
+            },
             "menu": {
                 "session:": {
+                    "hello-tab": {
+                        "hello": {
+                            "text": "Hello Component",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-greeting"
+                        }
+                    }
+                },
+                "session:true": {
                     "hello-tab": {
                         "hello": {
                             "text": "Hello Component",
