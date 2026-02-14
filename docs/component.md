@@ -134,7 +134,8 @@ Signature: `Dispatcher(request, comp_route, neutral_route)`
 This example is based on `src/component/cmp_7000_hellocomp`, which illustrates the full capabilities of a component.
 
 ### 1. Registration (`manifest.json`)
-Defines the component's unique identity and its base URL prefix.
+Defines the component's unique identity and its base URL prefix. UUID must be unique and follow the `name_random` format.
+
 
 ```json
 {

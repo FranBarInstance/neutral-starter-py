@@ -23,9 +23,11 @@ mkdir -p src/component/cmp_NNNN_name
 ### manifest.json
 Create `manifest.json` with the component metadata.
 
+UUID Must be unique and follow the `name_random` format, eg: `hellocomp_0yt2sa`
+
 ```json
 {
-    "uuid": "name_uuid_suffix",
+    "uuid": "name_random",
     "name": "Component Name",
     "description": "Component description",
     "version": "1.0.0",
