@@ -129,6 +129,9 @@ def index(route) -> Response:
     return dispatch.view.render()
 ```
 
+### Python code quality
+Use pylint to check for errors and warnings in the code. Running pylint in `venv`
+
 ## 5. Frontend Templates
 
 ### neutral/route/root/data.json
@@ -149,7 +152,7 @@ Define route configuration and metadata.
 ```
 
 ### neutral/route/root/content-snippets.ntpl
-Define the main content of the page using Neutral Templates (NTPL).
+Define the main content of the page using Neutral Templates (NTPL). It is not necessary to include h1 here.
 
 ```html
 {:*
