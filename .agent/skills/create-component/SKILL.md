@@ -192,4 +192,4 @@ Define the main content of the page using Neutral Templates (NTPL). It is not ne
 9.  **Static Files**: `src/component/cmp_NNNN_name/static/` (if needed)
 
 ## 7. Python code quality
-Use pylint to check for errors and warnings in all python files. Running pylint in `venv`
+To finish, use `pylint` to check for errors and warnings in all python files. Running pylint in `venv`
