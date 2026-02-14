@@ -1,5 +1,5 @@
 ---
-name: Translate component
+name: translate-component
 description: Extract and translate web template strings from Neutral TS (.ntpl) files into component-specific locale JSON files.
 ---
 

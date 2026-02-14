@@ -1,5 +1,5 @@
 ---
-name: Manage Neutral TS Templates
+name: manage-neutral-templates
 description: Create or modify Neutral TS web template files (.ntpl) following the official syntax and security standards.
 ---
 
