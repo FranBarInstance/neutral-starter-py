@@ -150,7 +150,14 @@ class User:
         return bcrypt.hashpw(password.strip().encode('utf-8'), bcrypt.gensalt())
 
     def hash_birthdate(self, birthdate: str) -> str:
-        """Obfuscate the birthdate as a base64url md5 hash of its UTC timestamp."""
+        """Obfuscate birthdate for casual privacy, not for cryptographic protection.
+
+        NOTE:
+        - This value is intentionally obfuscated to avoid showing the raw date at a glance.
+        - Birthdates have a very small input space; in a data breach scenario, any hash
+          algorithm (including stronger ones) can be brute-forced via dictionary/range attacks.
+        - Treat this as light obfuscation only, not as secure anonymization.
+        """
         dt = datetime.fromisoformat(birthdate).replace(tzinfo=timezone.utc)
         ts = dt.timestamp()
         return sbase64url_md5(str(ts))
