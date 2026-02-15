@@ -142,6 +142,15 @@ def sign_pin_form_get(route, pin_token) -> Response:
 @require_header_set("Requested-With-Ajax", "Require Ajax")
 def sign_pin_form_post(route, pin_token) -> Response:
     """Handle POST requests for new user registration."""
+    # TODO(security/auth-flow): Implement full PIN verification flow for POST.
+    # Current behavior is provisional and incorrect:
+    # - It reuses DispatcherFormSignUp with form_name="email".
+    # - DispatcherForm expects form_name to exist in core.forms.
+    # - This can raise KeyError('email') and return HTTP 500.
+    # Expected behavior:
+    # 1) Validate pin_token and submitted PIN with user.get-pin-by-token/get-pin.
+    # 2) Confirm user/email and remove UNCONFIRMED state atomically.
+    # 3) Return controlled validation errors (never uncaught 500).
     dispatch = DispatcherFormSignUp(request, route, bp.neutral_route, pin_token, "email")
     dispatch.schema_data["dispatch_result"] = dispatch.form_post()
     return dispatch.view.render()
