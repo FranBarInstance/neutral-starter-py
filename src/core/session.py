@@ -2,6 +2,8 @@
 
 import json
 import secrets
+import time
+
 from app.config import Config
 from constants import * # pylint: disable=wildcard-import,unused-wildcard-import
 from .model import Model
@@ -14,6 +16,7 @@ class Session:
         """session"""
         self.model = Model(db_url, db_type)
         self._session_id = session_id
+        self.now = int(time.time())
 
     def get(self) -> tuple[str | None, dict]:
         """get session"""
@@ -23,7 +26,7 @@ class Session:
         result = self.model.exec('session', 'get', {
             "sessionId": self._session_id,
             "open": Config.SESSION_OPEN['true'],
-            "now": STARTTIME
+            "now": self.now
         })
 
         if not result.get('rows') or not result['rows'][0]:
@@ -33,7 +36,7 @@ class Session:
         expire = result['rows'][0][5]
 
         # Update session if modified more than 15 minutes ago
-        if (STARTTIME - modified) > (SECONDS_MINUTE * 15):
+        if (self.now - modified) > (SECONDS_MINUTE * 15):
             session_cookie = self.update(self._session_id)
             return self._session_id, session_cookie
 
@@ -45,15 +48,15 @@ class Session:
             result = self.model.exec('session', 'get', {
                 "sessionId": self._session_id,
                 "open": Config.SESSION_OPEN['true'],
-                "now": STARTTIME
+                "now": self.now
             })
 
             if result['success']:
                 self.model.exec('session', 'close', {
                     "sessionId": self._session_id,
                     "open": Config.SESSION_OPEN['false'],
-                    "modified": STARTTIME,
-                    "now": STARTTIME
+                    "modified": self.now,
+                    "now": self.now
                 })
 
         return self.delete_session_cookie()
@@ -61,7 +64,7 @@ class Session:
     def create(self, user_id, ua, session_data) -> dict:
         """create_session"""
         session_token = secrets.token_urlsafe(Config.SESSION_TOKEN_LENGTH)
-        expire = STARTTIME + Config.SESSION_IDLE_EXPIRES_SECONDS
+        expire = self.now + Config.SESSION_IDLE_EXPIRES_SECONDS
 
         self.model.exec('session', 'create', {
             "sessionId": session_token,
@@ -69,8 +72,8 @@ class Session:
             "open": Config.SESSION_OPEN['true'],
             "ua": ua,
             "properties": json.dumps(session_data),
-            "modified": STARTTIME,
-            "created": STARTTIME,
+            "modified": self.now,
+            "created": self.now,
             "expire": expire,
         })
 
@@ -81,11 +84,11 @@ class Session:
 
     def update(self, session_token) -> dict:
         """update session"""
-        expire = STARTTIME + Config.SESSION_IDLE_EXPIRES_SECONDS
+        expire = self.now + Config.SESSION_IDLE_EXPIRES_SECONDS
 
         self.model.exec('session', 'update', {
             "sessionId": session_token,
-            "modified": STARTTIME,
+            "modified": self.now,
             "expire": expire
         })
 

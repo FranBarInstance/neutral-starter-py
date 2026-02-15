@@ -3,9 +3,9 @@ Module for generating and managing form tokens (ftokens) used for CSRF protectio
 """
 
 import hashlib
+import time
 
 from app.config import Config
-from constants import STARTTIME
 from utils.sbase64url import sbase64url_sha256
 
 
@@ -14,7 +14,8 @@ def ftoken_create(key, fetch_id, form_id, user_token) -> dict:
     Create a form token for CSRF protection.
     Returns dictionary with token data and metadata.
     """
-    expire = STARTTIME + Config.FTOKEN_EXPIRES_SECONDS
+    now = int(time.time())
+    expire = now + Config.FTOKEN_EXPIRES_SECONDS
     data = str(key) + str(expire) + str(Config.SECRET_KEY) + str(user_token)
     b64_hash = sbase64url_sha256(data)
     return {
@@ -30,6 +31,7 @@ def ftoken_check(field_key_name, data, user_token) -> bool:
     Validate form token to prevent CSRF attacks.
     Returns True if token is valid and not expired.
     """
+    now = int(time.time())
     field_key = data.get(field_key_name) or None
     expire = None
     token_name = None
@@ -45,7 +47,7 @@ def ftoken_check(field_key_name, data, user_token) -> bool:
     if not field_key or not expire or not token_name or not token_value:
         return False
 
-    if STARTTIME > int(expire):
+    if now > int(expire):
         return False
 
     key = hashlib.sha256(field_key.encode()).hexdigest()

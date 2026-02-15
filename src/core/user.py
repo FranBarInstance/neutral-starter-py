@@ -4,6 +4,7 @@
 
 import random
 from datetime import datetime, timezone
+import time
 # import json
 import bcrypt
 from constants import * # pylint: disable=wildcard-import,unused-wildcard-import
@@ -19,6 +20,7 @@ class User:
     def __init__(self, db_url=Config.DB_PWA, db_type=Config.DB_PWA_TYPE):
         """Initialize the User class with a database connection."""
         self.model = Model(db_url, db_type)
+        self.now = int(time.time())
 
     def _build_user_params(self, user_id, login, data):
         return {
@@ -26,9 +28,9 @@ class User:
             "login": login,
             "password": self.hash_password(data['password']),
             "birthdate": self.hash_birthdate(data['birthdate']),
-            "lasttime": STARTTIME,
-            "created": STARTTIME,
-            "modified": STARTTIME
+            "lasttime": self.now,
+            "created": self.now,
+            "modified": self.now
         }
 
     def _build_user_profile_params(self, profile_id, user_id, data):
@@ -39,9 +41,9 @@ class User:
             "locale": data['locale'],
             "alias": data['alias'].strip(),
             "properties": data['properties'].strip() if 'properties' in data else "{}",
-            "lasttime": STARTTIME,
-            "created": STARTTIME,
-            "modified": STARTTIME
+            "lasttime": self.now,
+            "created": self.now,
+            "modified": self.now
         }
 
     def _build_user_email_params(self, user_id, data):
@@ -49,15 +51,15 @@ class User:
             "email": data['email'].strip(),
             "userId": user_id,
             "main": Config.MAIN_EMAIL['true'],
-            "created": STARTTIME
+            "created": self.now
         }
 
     def _build_user_disabled_params(self, user_id, reason):
         return {
             "userId": user_id,
             "reason": reason,
-            "created": STARTTIME,
-            "modified": STARTTIME
+            "created": self.now,
+            "modified": self.now
         }
 
     def _build_user_pin_params(self, target, user_id):
@@ -66,8 +68,8 @@ class User:
             "userId": user_id,
             "pin": random.randint(Config.PIN_MIN, Config.PIN_MAX),
             "token": sbase64url_token(Config.TOKEN_LENGTH),
-            "created": STARTTIME,
-            "expires": STARTTIME + Config.PIN_EXPIRES_SECONDS
+            "created": self.now,
+            "expires": self.now + Config.PIN_EXPIRES_SECONDS
         }
 
     def create(self, data) -> dict:
@@ -190,7 +192,7 @@ class User:
                 user_data['user_disabled'][Config.DISABLED_KEY[key]] = key
                 if pin and row['user_disabled.reason'] == unconfirmed:
                     target = str(user_data_list[0]['userId']) + '_' + str(unconfirmed)
-                    result_pin = self.model.exec('user', 'get-pin', {"target": target, "pin": pin, "now": STARTTIME})
+                    result_pin = self.model.exec('user', 'get-pin', {"target": target, "pin": pin, "now": self.now})
                     if result_pin and result_pin['rows'] and result_pin['rows'][0] and result_pin['rows'][0][0]:
                         self.model.exec('user', 'delete-disabled', {
                             "reason": unconfirmed, "userId": user_data_list[0]['userId']

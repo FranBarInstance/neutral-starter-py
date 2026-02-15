@@ -211,9 +211,10 @@ class DispatcherForm(Dispatcher):
             return False, ""
 
         try:
+            now = int(time.time())
             age = datetime.strptime(field_value, "%Y-%m-%d")
             age = time.mktime(age.timetuple())
-            limit = STARTTIME - (int(maxage) * 365.25 * 24 * 60 * 60)
+            limit = now - (int(maxage) * 365.25 * 24 * 60 * 60)
 
             if age < limit:
                 return True, ""
@@ -229,9 +230,10 @@ class DispatcherForm(Dispatcher):
             return False, ""
 
         try:
+            now = int(time.time())
             age = datetime.strptime(field_value, "%Y-%m-%d")
             age = time.mktime(age.timetuple())
-            limit = STARTTIME - (int(minage) * 365.25 * 24 * 60 * 60)
+            limit = now - (int(minage) * 365.25 * 24 * 60 * 60)
 
             if age > limit:
                 return True, ""
