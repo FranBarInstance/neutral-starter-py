@@ -1,5 +1,6 @@
 """Initialize Flask application and register blueprints."""
 
+import ipaddress
 import json
 import os
 from importlib import import_module
@@ -14,6 +15,54 @@ from .config import Config
 from .components import Components
 from .debug_guard import is_debug_enabled, is_wsgi_debug_enabled
 from .extensions import cache, limiter
+
+
+class TrustedProxyHeaderGuard:
+    """Strip forwarded headers when request does not come from a trusted proxy."""
+
+    FORWARDED_HEADER_KEYS = (
+        "HTTP_FORWARDED",
+        "HTTP_X_FORWARDED_FOR",
+        "HTTP_X_FORWARDED_PROTO",
+        "HTTP_X_FORWARDED_HOST",
+        "HTTP_X_FORWARDED_PREFIX",
+        "HTTP_X_FORWARDED_PORT",
+    )
+
+    def __init__(self, app, trusted_proxy_cidrs):
+        self.app = app
+        self._trusted_networks = []
+
+        for value in trusted_proxy_cidrs or []:
+            item = (value or "").strip()
+            if not item:
+                continue
+            try:
+                self._trusted_networks.append(ipaddress.ip_network(item, strict=False))
+            except ValueError:
+                try:
+                    ip = ipaddress.ip_address(item)
+                    self._trusted_networks.append(
+                        ipaddress.ip_network(f"{ip}/{ip.max_prefixlen}", strict=False)
+                    )
+                except ValueError:
+                    continue
+
+    def __call__(self, environ, start_response):
+        remote_addr = (environ.get("REMOTE_ADDR") or "").strip()
+        trusted_remote = False
+
+        try:
+            remote_ip = ipaddress.ip_address(remote_addr)
+            trusted_remote = any(remote_ip in network for network in self._trusted_networks)
+        except ValueError:
+            trusted_remote = False
+
+        if not trusted_remote:
+            for key in self.FORWARDED_HEADER_KEYS:
+                environ.pop(key, None)
+
+        return self.app(environ, start_response)
 
 
 def add_security_headers(response): # pylint: disable=too-many-locals
@@ -95,6 +144,7 @@ def create_app(config_class=Config, debug=None):
     limiter.init_app(app)
 
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+    app.wsgi_app = TrustedProxyHeaderGuard(app.wsgi_app, app.config.get("TRUSTED_PROXY_CIDRS", []))
 
     # Ensure SECRET_KEY is set and abort if not
     if not app.config["SECRET_KEY"]:
