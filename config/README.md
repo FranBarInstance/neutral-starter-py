@@ -114,6 +114,12 @@ TRUSTED_PROXY_CIDRS=127.0.0.1/32,::1/128,10.0.0.0/8
 | `SIGNREMINDER_LIMITS` | Limit for reminder form POST. | `5 per 30 minutes` |
 | `SIGNT_LIMITS` | Limit for pin/token form POST. | `5 per 30 minutes` |
 
+Important note:
+
+- `memory://` is development-only and must not be used in production.
+- In production, you must set `LIMITER_STORAGE_URI` to a shared backend (for example `redis://...`, `memcached://...`, or `mongodb://...`).
+- Treat `memory://` as invalid production configuration.
+
 ### User / Session / Token
 
 | Variable | Description | Default |
