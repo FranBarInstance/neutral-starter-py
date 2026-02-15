@@ -77,3 +77,23 @@ To link to a specific authentication page from another component, use the define
 - **Form Protection**: All forms are protected by `ftoken` (via the `ftoken_0yt2sa` component) and a `notrobot` honeypot/validation system to prevent automated submissions.
 - **Rate Limiting**: Applied to sensitive routes (sign-in, sign-up, reminder) as defined in `app.config.Config`.
 - **Session Security**: Sessions are tied to the User Agent and use secure cookies.
+
+## Pending Tasks (Required for Correct + Secure Sign Flow)
+
+- [ ] Implement the real `/sign/pin/<pin_token>` flow (GET + POST) in `route/routes.py` and `route/dispatcher_form_sign.py`; current implementation is provisional and does not validate token/PIN correctly.
+- [ ] Replace the wrong dispatcher wiring in `POST /sign/pin/<pin_token>` (currently uses `DispatcherFormSignUp(..., "email")`, which can trigger form validation mismatch and 500 errors).
+- [ ] Add a dedicated `sign_pin_form` definition in `schema.json` (allowed fields, rules, `ftoken`, `notrobot`, rate limit strategy) and use it in the PIN dispatcher.
+- [ ] Fix PIN target consistency between creation and validation in `src/core/user.py`:
+  - creation currently stores a signup PIN with target `str(Config.DISABLED[UNCONFIRMED])`
+  - login validation checks target `f"{userId}_{Config.DISABLED[UNCONFIRMED]}"`
+  - these must match or unconfirmed accounts cannot be confirmed by PIN.
+- [ ] Complete signup confirmation email sending in `DispatcherFormSignUp.form_post` (`mail.send("register", ...)` is currently commented); without this, users do not receive confirmation link/PIN.
+- [ ] Define and implement the `UNVALIDATED` lifecycle (how it is cleared when `Config.VALIDATE_SIGNUP=True`); right now users can remain blocked even after confirmation.
+- [ ] Remove the hardcoded hidden PIN in `neutral/route/root/in/form/snippets.ntpl` (`value="12345"`), because it is insecure and can create inconsistent behavior in login validation.
+- [ ] Implement proper PIN page templates in `neutral/route/root/pin/*` (current page is placeholder text `unconfimed`, no real form/feedback).
+- [ ] Add automated tests for critical auth paths:
+  - signup creates user + disabled states + PIN
+  - signup confirmation via `/sign/pin/<token>` removes `UNCONFIRMED`
+  - login blocked/allowed transitions for `UNCONFIRMED` and `UNVALIDATED`
+  - invalid/expired/reused PIN and token handling
+  - no uncaught 500 responses in auth routes.
