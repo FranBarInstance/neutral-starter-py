@@ -40,7 +40,7 @@ class Session:
             session_cookie = self.update(self._session_id)
             return self._session_id, session_cookie
 
-        return self._session_id, self.create_session_cookie(self._session_id, expire)
+        return self._session_id, self.create_session_cookie(self._session_id, max(0, expire - self.now))
 
     def close(self) -> dict:
         """close session"""
@@ -80,7 +80,7 @@ class Session:
         if self.model.has_error:
             return self.delete_session_cookie()
 
-        return self.create_session_cookie(session_token, expire)
+        return self.create_session_cookie(session_token, Config.SESSION_IDLE_EXPIRES_SECONDS)
 
     def update(self, session_token) -> dict:
         """update session"""
@@ -95,15 +95,15 @@ class Session:
         if self.model.has_error:
             return self.delete_session_cookie()
 
-        return self.create_session_cookie(session_token, expire)
+        return self.create_session_cookie(session_token, Config.SESSION_IDLE_EXPIRES_SECONDS)
 
-    def create_session_cookie(self, session_token, expire) -> dict:
+    def create_session_cookie(self, session_token, max_age_seconds) -> dict:
         """create_session_cookie"""
         return {
             Config.SESSION_KEY: {
                 "key": Config.SESSION_KEY,
                 "value": session_token,
-                "max_age": expire,
+                "max_age": max_age_seconds,
                 "httponly": True,
                 "secure": True,
                 "samesite": "Lax"
