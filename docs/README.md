@@ -19,6 +19,8 @@ The following documents provide detailed information about the system:
 - **[README.md](README.md)**: This index and project overview.
 - **[development.md](development.md)**: **The main developer guide.** Explains the high-level architecture, project structure, core concepts, and essential development workflows.
 - **[component.md](component.md)**: Deep dive into the **Component System**. Covers naming conventions, file structure, lifecycle, and priority/overriding rules.
+- **[component-quickstart.md](component-quickstart.md)**: Practical **0-to-working-component** guide with the minimal steps to create, route, render, and test a new component.
 - **[model.md](model.md)**: Documentation for the **Data Model layer**. Explains how to define and use SQL queries via JSON files and the central Model executor.
 - **[templates-neutrats.md](templates-neutrats.md)**: Comprehensive syntax reference for the **Neutral Template Engine (NTPL)**, including variables, control flow, snippets, and safety features.
 - **[dispatcher.md](dispatcher.md)**: Documentation for the **Dispatcher** system.
+- **[ajax-neutral-requests.md](ajax-neutral-requests.md)**: Integration notes for AJAX requests and `Requested-With-Ajax`, including behavior when using Neutral fetch vs custom JavaScript.
