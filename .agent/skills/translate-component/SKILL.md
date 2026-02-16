@@ -7,6 +7,8 @@ description: Extract and translate web template strings from Neutral TS (.ntpl) 
 
 This skill allows the agent to automatically find, extract, and translate strings within Neutral TS template files (`*.ntpl`) and update the corresponding localization files (`locale-xx.json`).
 
+Use `view_file` on `docs/translation-component.md` for more advanced options.
+
 ## Context
 In Neutral TS projects, web templates use the format `{:trans; Text to translate :}` or `{:trans; ref:reference_key :}`. These translations are stored in JSON files located in the component's `route` directory, named `locale-xx.json` (where `xx` is the language code).
 
