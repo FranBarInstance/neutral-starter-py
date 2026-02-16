@@ -138,3 +138,52 @@ def test_chat_api_value_error_is_generic(flask_app, client):
     assert response.status_code == 400
     assert response.get_json() == {"success": False, "error": "Invalid chat request"}
     assert "secret-provider-details" not in body
+
+
+def test_chat_api_rate_limit_returns_429(flask_app, client):
+    """POST /aichat/api/chat should enforce configured rate limit."""
+    endpoint = _endpoint_for_rule(flask_app, "/aichat/api/chat", "POST")
+    module = importlib.import_module(flask_app.view_functions[endpoint].__module__)
+
+    last_response = None
+    with patch.object(module, "_require_session", return_value=None), patch.object(
+        module.DispatcherAichat,
+        "prompt_chat",
+        return_value="ok",
+    ):
+        for _ in range(50):
+            last_response = client.post(
+                "/aichat/api/chat",
+                json={"message": "hello", "history": [], "profile": "ollama_local"},
+                environ_base={"REMOTE_ADDR": "203.0.113.10"},
+            )
+            if last_response.status_code == 429:
+                break
+
+    assert last_response is not None
+    assert last_response.status_code == 429
+    assert "Too many requests. Please try again later." in last_response.get_data(as_text=True)
+
+
+def test_profiles_api_rate_limit_returns_429(flask_app, client):
+    """GET /aichat/api/profiles should enforce configured rate limit."""
+    endpoint = _endpoint_for_rule(flask_app, "/aichat/api/profiles", "GET")
+    module = importlib.import_module(flask_app.view_functions[endpoint].__module__)
+
+    last_response = None
+    with patch.object(module, "_require_session", return_value=None), patch.object(
+        module.DispatcherAichat,
+        "get_profiles",
+        return_value=["ollama_local"],
+    ):
+        for _ in range(100):
+            last_response = client.get(
+                "/aichat/api/profiles",
+                environ_base={"REMOTE_ADDR": "203.0.113.11"},
+            )
+            if last_response.status_code == 429:
+                break
+
+    assert last_response is not None
+    assert last_response.status_code == 429
+    assert "Too many requests. Please try again later." in last_response.get_data(as_text=True)

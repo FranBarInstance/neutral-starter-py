@@ -2,8 +2,14 @@
 
 from flask import Response, current_app, jsonify, request
 
+from app.extensions import limiter
+
 from . import bp  # pylint: disable=no-name-in-module
 from .dispatcher_aichat import DispatcherAichat
+
+CONFIG = bp.component["manifest"].get("config", {})
+CHAT_API_LIMITS = CONFIG.get("chat_api_limits", "20 per minute")
+PROFILES_API_LIMITS = CONFIG.get("profiles_api_limits", "60 per minute")
 
 
 def _require_session(dispatch: DispatcherAichat):
@@ -25,6 +31,7 @@ def aichat_catch_all(route) -> Response:
 
 
 @bp.route("/api/chat", methods=["POST"])
+@limiter.limit(CHAT_API_LIMITS, error_message="Too many requests. Please try again later.")
 def chat_api() -> Response:
     """API endpoint for chat messages."""
     dispatch = DispatcherAichat(request, "", bp.neutral_route)
@@ -73,6 +80,7 @@ def chat_api() -> Response:
 
 
 @bp.route("/api/profiles", methods=["GET"])
+@limiter.limit(PROFILES_API_LIMITS, error_message="Too many requests. Please try again later.")
 def get_profiles() -> Response:
     """API endpoint to get available AI profiles."""
     dispatch = DispatcherAichat(request, "", bp.neutral_route)

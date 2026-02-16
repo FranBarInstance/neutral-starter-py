@@ -6,6 +6,8 @@
     "route": "/aichat",
     "config": {
         "default_profile": "ollama_local",
+        "chat_api_limits": "20 per minute",
+        "profiles_api_limits": "60 per minute",
         "prompts": [
             {
                 "id": "story",
