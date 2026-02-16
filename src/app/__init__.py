@@ -79,6 +79,9 @@ def add_security_headers(response): # pylint: disable=too-many-locals
     response.headers["Referrer-Policy"] = current_app.config.get(
         "REFERRER_POLICY", "strict-origin-when-cross-origin"
     )
+    permissions_policy = current_app.config.get("PERMISSIONS_POLICY", "")
+    if permissions_policy:
+        response.headers["Permissions-Policy"] = permissions_policy
 
     # Get nonce from Flask.g
     nonce = getattr(g, "csp_nonce", None)

@@ -212,6 +212,10 @@ To ensure the core theme and components work correctly, you **must** whitelist t
 # Referrer policy (SEO-friendly: cross-site requests receive only origin, not path)
 REFERRER_POLICY=strict-origin-when-cross-origin
 
+# Permissions-Policy (optional). Empty = do not send header (current behavior)
+# Example: geolocation=(), microphone=(), camera=(), payment=()
+PERMISSIONS_POLICY=
+
 # Security Content-Security-Policy (CSP) allowed domains
 CSP_ALLOWED_SCRIPT=https://cdnjs.cloudflare.com
 CSP_ALLOWED_STYLE=https://cdnjs.cloudflare.com,https://fonts.googleapis.com
@@ -226,6 +230,7 @@ CSP_ALLOWED_STYLE_UNSAFE_INLINE=false
 ```
 
 `REFERRER_POLICY` is configurable. The default (`strict-origin-when-cross-origin`) keeps path/query for same-origin navigation but sends only origin on cross-origin HTTPS requests.
+`PERMISSIONS_POLICY` is optional and empty by default, so the header is not sent unless you explicitly define a policy.
 
 If you add new external resources (JS, CSS, fonts), remember to update these variables to avoid console errors and broken layouts.
 
