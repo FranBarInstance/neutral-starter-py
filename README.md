@@ -29,12 +29,12 @@ This starter is in active development. The architectural base is stable (compone
 *   **Static File Serving**: Organized static file serving by component.
 *   **Template Rendering**: Dynamic template rendering with caching support.
 *   **URL Routing**: Flexible URL routing system with component-specific routes.
-*   **Testing Baseline**: Initial unit/integration tests are present and passing.
+*   **Expanded Testing Coverage**: Unit/integration tests are present for app bootstrap and multiple routed components.
 
 ### In Progress / Pending Hardening
 
 *   Expanded security hardening for all optional modules and production scenarios.
-*   Broader test coverage across all components and edge cases.
+*   Complete test coverage for the remaining components and additional edge cases.
 *   Final stabilization of optional API-oriented components.
 
 ## Overview
@@ -259,6 +259,24 @@ Run test suite:
 source .venv/bin/activate
 pytest -q
 ```
+
+Component tests are located under each component folder in `src/component/*/tests/`, with shared fixtures in `src/component/conftest.py`.
+
+Current covered component suites include:
+
+* `cmp_1200_backtotop`
+* `cmp_2000_http_errors`
+* `cmp_2300_ftoken`
+* `cmp_5100_home`
+* `cmp_5100_sign`
+* `cmp_5200_pwa`
+* `cmp_6000_aichat`
+* `cmp_6100_rrss`
+* `cmp_7000_hellocomp`
+* `cmp_7000_info`
+* `cmp_9100_catch_all`
+
+Tests resolve blueprint names from the component directory at runtime (`bp_{component_folder}`), so they remain valid if a component changes numeric prefix (for example `cmp_1200_backtotop` to `cmp_1300_backtotop`).
 
 ## Documentation
 
