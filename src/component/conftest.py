@@ -7,6 +7,9 @@ import pytest
 from app import create_app
 from app.config import Config
 
+# Ignore disabled components (directories prefixed with '_')
+collect_ignore_glob = ["_*"]
+
 
 class TestConfig(Config):
     """Configuration for component tests."""
