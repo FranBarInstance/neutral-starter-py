@@ -210,7 +210,6 @@
             {:snip; sign_in_form-fields-step-1 :}
         :}
 
-        <input type="hidden" id="sign_in_form-pin-hidden" name="pin" value="12345">
         <div class="input-group">
             <div class="d-none">
                 <input type="hidden" id="sign_in_form-notrobot-hidden" name="notrobot-hidden" value="true">

@@ -53,7 +53,7 @@ class Config: # pylint: disable=too-few-public-methods
     SIGNREMINDER_LIMITS = config.get('SIGNREMINDER_LIMITS', "5 per 30 minutes")
     SIGNT_LIMITS = config.get('SIGNT_LIMITS', "5 per 30 minutes")
 
-    VALIDATE_SIGNUP = config.get('VALIDATE_SIGNUP', 'True').lower() == 'true'
+    VALIDATE_SIGNUP = config.get('VALIDATE_SIGNUP', 'False').lower() == 'true'
 
     LANG_KEY = "lang"
     THEME_KEY = "theme"

@@ -195,8 +195,13 @@ class User:
                 key = str(row['user_disabled.reason'])
                 user_data['user_disabled'][Config.DISABLED_KEY[key]] = key
                 if pin and row['user_disabled.reason'] == unconfirmed:
-                    target = str(user_data_list[0]['userId']) + '_' + str(unconfirmed)
-                    result_pin = self.model.exec('user', 'get-pin', {"target": target, "pin": pin, "now": self.now})
+                    target = str(unconfirmed)
+                    result_pin = self.model.exec('user', 'get-pin', {
+                        "target": target,
+                        "userId": user_data_list[0]['userId'],
+                        "pin": pin,
+                        "now": self.now
+                    })
                     if result_pin and result_pin['rows'] and result_pin['rows'][0] and result_pin['rows'][0][0]:
                         self.model.exec('user', 'delete-disabled', {
                             "reason": unconfirmed, "userId": user_data_list[0]['userId']

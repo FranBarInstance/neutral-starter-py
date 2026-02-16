@@ -184,8 +184,8 @@ class DispatcherFormSignUp(DispatcherFormSign):
 
             return False
 
-        # mail = Mail(self.schema.properties)
-        # mail.send("register", user_result['user_data'])
+        mail = Mail(self.schema.properties)
+        mail.send("register", user_result['user_data'])
 
         return True
 
