@@ -216,6 +216,7 @@ CSP_ALLOWED_STYLE=https://cdnjs.cloudflare.com,https://fonts.googleapis.com
 CSP_ALLOWED_IMG=https://picsum.photos,https://fastly.picsum.photos
 CSP_ALLOWED_FONT=https://cdnjs.cloudflare.com,https://fonts.gstatic.com
 CSP_ALLOWED_CONNECT=https://cdnjs.cloudflare.com,https://picsum.photos,https://fastly.picsum.photos
+CSP_ALLOWED_FRAME=
 
 # Security Content-Security-Policy (CSP) unsafe directives
 CSP_ALLOWED_SCRIPT_UNSAFE_INLINE=false

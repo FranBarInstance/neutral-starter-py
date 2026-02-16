@@ -195,6 +195,7 @@ Important note:
 | `CSP_ALLOWED_IMG` | Allowed image sources. | `https://picsum.photos,https://fastly.picsum.photos` |
 | `CSP_ALLOWED_FONT` | Allowed font sources. | `https://cdnjs.cloudflare.com,https://fonts.gstatic.com` |
 | `CSP_ALLOWED_CONNECT` | Allowed fetch/XHR/WebSocket sources. | `https://cdnjs.cloudflare.com,https://picsum.photos,https://fastly.picsum.photos` |
+| `CSP_ALLOWED_FRAME` | Allowed iframe/frame sources. | empty |
 | `CSP_ALLOWED_SCRIPT_UNSAFE_INLINE` | Allow `'unsafe-inline'` for scripts (weakens security). | `false` |
 | `CSP_ALLOWED_SCRIPT_UNSAFE_EVAL` | Allow `'unsafe-eval'` for scripts (weakens security). | `false` |
 | `CSP_ALLOWED_STYLE_UNSAFE_INLINE` | Allow `'unsafe-inline'` for styles (weakens security). | `false` |

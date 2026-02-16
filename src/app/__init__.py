@@ -96,6 +96,7 @@ def add_security_headers(response): # pylint: disable=too-many-locals
     images = get_csp_string("CSP_ALLOWED_IMG")
     fonts = get_csp_string("CSP_ALLOWED_FONT")
     connects = get_csp_string("CSP_ALLOWED_CONNECT")
+    frames = get_csp_string("CSP_ALLOWED_FRAME")
 
     # CSP Unsafe options
     # Note: When unsafe-inline or unsafe-eval is used, nonce is not compatible
@@ -123,6 +124,7 @@ def add_security_headers(response): # pylint: disable=too-many-locals
         f"img-src 'self' data: {images}; "
         f"font-src 'self' {fonts}; "
         f"connect-src 'self' {connects}; "
+        f"frame-src 'self' {frames}; "
         f"frame-ancestors 'none'; "
         f"base-uri 'self'; "
         f"form-action 'self';"

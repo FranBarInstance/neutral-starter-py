@@ -164,6 +164,7 @@ class Config: # pylint: disable=too-few-public-methods
     CSP_ALLOWED_IMG = config.get('CSP_ALLOWED_IMG', '').split(',')
     CSP_ALLOWED_FONT = config.get('CSP_ALLOWED_FONT', '').split(',')
     CSP_ALLOWED_CONNECT = config.get('CSP_ALLOWED_CONNECT', '').split(',')
+    CSP_ALLOWED_FRAME = config.get('CSP_ALLOWED_FRAME', '').split(',')
 
     # CSP Unsafe options (optional) - enable only when necessary
     CSP_ALLOWED_SCRIPT_UNSAFE_INLINE = _env_bool(config.get('CSP_ALLOWED_SCRIPT_UNSAFE_INLINE'), False)
