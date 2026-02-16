@@ -74,3 +74,67 @@ def test_profiles_api_internal_error_is_generic(flask_app, client):
     assert response.status_code == 500
     assert response.get_json() == {"success": False, "error": "Internal server error"}
     assert "secret-provider-config" not in body
+
+
+def test_chat_api_returns_400_without_json(flask_app, client):
+    """POST /aichat/api/chat should reject requests without JSON body."""
+    endpoint = _endpoint_for_rule(flask_app, "/aichat/api/chat", "POST")
+    module = importlib.import_module(flask_app.view_functions[endpoint].__module__)
+
+    with patch.object(module, "_require_session", return_value=None):
+        response = client.post(
+            "/aichat/api/chat",
+            data="not-json",
+            content_type="text/plain",
+        )
+
+    assert response.status_code == 400
+    assert response.get_json() == {"error": "No JSON data provided"}
+
+
+def test_chat_api_returns_400_for_empty_message(flask_app, client):
+    """POST /aichat/api/chat should reject empty messages."""
+    endpoint = _endpoint_for_rule(flask_app, "/aichat/api/chat", "POST")
+    module = importlib.import_module(flask_app.view_functions[endpoint].__module__)
+
+    with patch.object(module, "_require_session", return_value=None):
+        response = client.post("/aichat/api/chat", json={"message": "   "})
+
+    assert response.status_code == 400
+    assert response.get_json() == {"error": "Message is required"}
+
+
+def test_chat_api_returns_400_for_invalid_history(flask_app, client):
+    """POST /aichat/api/chat should reject non-list history values."""
+    endpoint = _endpoint_for_rule(flask_app, "/aichat/api/chat", "POST")
+    module = importlib.import_module(flask_app.view_functions[endpoint].__module__)
+
+    with patch.object(module, "_require_session", return_value=None):
+        response = client.post(
+            "/aichat/api/chat",
+            json={"message": "hello", "history": "invalid"},
+        )
+
+    assert response.status_code == 400
+    assert response.get_json() == {"error": "History must be a list"}
+
+
+def test_chat_api_value_error_is_generic(flask_app, client):
+    """POST /aichat/api/chat should return generic message for ValueError."""
+    endpoint = _endpoint_for_rule(flask_app, "/aichat/api/chat", "POST")
+    module = importlib.import_module(flask_app.view_functions[endpoint].__module__)
+
+    with patch.object(module, "_require_session", return_value=None), patch.object(
+        module.DispatcherAichat,
+        "prompt_chat",
+        side_effect=ValueError("secret-provider-details"),
+    ):
+        response = client.post(
+            "/aichat/api/chat",
+            json={"message": "hello", "history": [], "profile": "ollama_local"},
+        )
+
+    body = response.get_data(as_text=True)
+    assert response.status_code == 400
+    assert response.get_json() == {"success": False, "error": "Invalid chat request"}
+    assert "secret-provider-details" not in body

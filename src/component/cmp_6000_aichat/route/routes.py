@@ -1,6 +1,6 @@
 """AI Chat routes module."""
 
-from flask import Response, jsonify, request
+from flask import Response, current_app, jsonify, request
 
 from . import bp  # pylint: disable=no-name-in-module
 from .dispatcher_aichat import DispatcherAichat
@@ -54,17 +54,18 @@ def chat_api() -> Response:
                 "response": response,
                 "profile": profile
             })
-        except ValueError as exc:
+        except ValueError:
+            current_app.logger.warning(
+                "Invalid chat request in /aichat/api/chat",
+                exc_info=True,
+            )
             return jsonify({
                 "success": False,
-                "error": str(exc)
+                "error": "Invalid chat request"
             }), 400
 
-    except Exception as exc:  # pylint: disable=broad-except
-        # TODO(security/api-errors): This component is disabled for now.
-        # Before re-enabling, do not expose str(exc) to clients.
-        # Return a generic message and log technical details server-side only.
-        _ = exc
+    except Exception:  # pylint: disable=broad-except
+        current_app.logger.exception("Unexpected error in /aichat/api/chat")
         return jsonify({
             "success": False,
             "error": "Internal server error"
@@ -85,8 +86,8 @@ def get_profiles() -> Response:
             "success": True,
             "profiles": profiles
         })
-    except Exception as exc:  # pylint: disable=broad-except
-        _ = exc
+    except Exception:  # pylint: disable=broad-except
+        current_app.logger.exception("Unexpected error in /aichat/api/profiles")
         return jsonify({
             "success": False,
             "error": "Internal server error"

@@ -360,7 +360,7 @@
                 addTypingIndicator();
 
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', '/aichat/api/chat', true);
+                xhr.open('POST', '{:;aichat_0yt2sa->manifest->route:}/api/chat', true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
 
                 xhr.onreadystatechange = function() {
@@ -377,10 +377,10 @@
                                     addMessage(LABEL_ERROR + ': ' + (data.error || 'Unknown error'), false);
                                 }
                             } catch (e) {
-                                addMessage(LABEL_ERROR + ': Invalid response - ' + e.message, false);
+                                addMessage(LABEL_ERROR + ': Invalid server response', false);
                             }
                         } else {
-                            addMessage(LABEL_ERROR + ': HTTP ' + xhr.status + ' - ' + xhr.responseText, false);
+                            addMessage(LABEL_ERROR + ': Request failed (HTTP ' + xhr.status + ')', false);
                         }
 
                         isLoading = false;
