@@ -181,57 +181,11 @@ Configuration is handled in layers:
 
 Boolean environment variables follow a strict rule: **only** `true` (case-insensitive) enables the flag. Any other value (`false`, `0`, `no`, empty, typo) is treated as `False`.
 
-## Security & CSP
+## Security
 
-The application implements a strict **Content Security Policy (CSP)**. By default, external resources are blocked unless explicitly allowed in the configuration.
+Security headers, CSP setup, host allow-list validation, and trusted proxy configuration are documented in:
 
-In addition to CSP, production deployments should explicitly configure host and proxy trust boundaries:
-
-```ini
-# Allowed request hosts (comma separated, wildcard supported)
-# Example: localhost,*.example.com,my-other-domain.org
-ALLOWED_HOSTS=localhost
-
-# Trusted reverse proxy CIDRs (comma separated)
-# Example: 127.0.0.1/32,::1/128,10.0.0.0/8
-TRUSTED_PROXY_CIDRS=
-```
-
-`ALLOWED_HOSTS` is enforced on every request. Requests with a Host header outside this allow-list are rejected with `400`.
-`TRUSTED_PROXY_CIDRS` defines which upstream proxies are allowed to supply forwarded headers. If a request does not come from a trusted proxy, forwarded headers are stripped before Flask processes the request.
-
-To ensure the core theme and components work correctly, you **must** whitelist the necessary CDNs in your `config/.env` file:
-
-```ini
-# Referrer policy (SEO-friendly: cross-site requests receive only origin, not path)
-REFERRER_POLICY=strict-origin-when-cross-origin
-
-# Permissions-Policy (optional). Empty = do not send header (current behavior)
-# Example: geolocation=(), microphone=(), camera=(), payment=()
-PERMISSIONS_POLICY=
-
-# Security Content-Security-Policy (CSP) allowed domains
-CSP_ALLOWED_SCRIPT=https://cdnjs.cloudflare.com
-CSP_ALLOWED_STYLE=https://cdnjs.cloudflare.com,https://fonts.googleapis.com
-CSP_ALLOWED_IMG=https://picsum.photos,https://fastly.picsum.photos
-CSP_ALLOWED_FONT=https://cdnjs.cloudflare.com,https://fonts.gstatic.com
-CSP_ALLOWED_CONNECT=https://cdnjs.cloudflare.com,https://picsum.photos,https://fastly.picsum.photos
-CSP_ALLOWED_FRAME=
-
-# Security Content-Security-Policy (CSP) unsafe directives
-CSP_ALLOWED_SCRIPT_UNSAFE_INLINE=false
-CSP_ALLOWED_SCRIPT_UNSAFE_EVAL=false
-CSP_ALLOWED_STYLE_UNSAFE_INLINE=false
-```
-
-`REFERRER_POLICY` is configurable. The default (`strict-origin-when-cross-origin`) keeps path/query for same-origin navigation but sends only origin on cross-origin HTTPS requests.
-`PERMISSIONS_POLICY` is optional and empty by default, so the header is not sent unless you explicitly define a policy.
-
-If you add new external resources (JS, CSS, fonts), remember to update these variables to avoid console errors and broken layouts.
-
-> [!TIP]
-> **Flexibility vs. Security**: If you prefer to allow all external sources for a specific resource type (common in development or less critical production sites), you can use the wildcard `*`.
-> For example: `CSP_ALLOWED_STYLE=*` will allow CSS from any domain. While this is less secure, it provides maximum compatibility and ease of use.
+- [docs/security-csp.md](docs/security-csp.md)
 
 ## Internationalization
 
@@ -278,6 +232,7 @@ Tests resolve blueprint names from the component directory at runtime (`bp_{comp
 
 For more detailed documentation, see the `docs/` directory:
 *   `docs/component.md`: Complete guide on component architecture and creation.
+*   `docs/security-csp.md`: Security headers, CSP configuration, host allow-list, and proxy trust boundaries.
 
 Neutral TS template engine
 --------------------------
