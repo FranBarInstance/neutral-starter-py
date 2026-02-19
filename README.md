@@ -234,6 +234,36 @@ For more detailed documentation, see the `docs/` directory:
 *   `docs/component.md`: Complete guide on component architecture and creation.
 *   `docs/security-csp.md`: Security headers, CSP configuration, host allow-list, and proxy trust boundaries.
 
+## AI and Agentic Capabilities
+
+The primary goal of this application is to provide developers with agentic, AI-powered capabilities:
+
+- **Component Creation**: AI can generate new application components on demand. You can ask AI to create a specific component for a concrete task within the application ecosystem.
+
+To support this workflow, the project includes:
+
+- **Skills**: Agent skill definitions under `.agent/skills`.
+- **Technical Documentation**: Detailed implementation guides in the `docs/` directory.
+
+By reading these skills and technical guides, AI can create components and related functionality on demand in a way that aligns with this project's architecture and conventions.
+
+### Example AI Prompt
+
+An effective example prompt:
+
+```text
+Your task is to create the component component_name, which must [functional description].
+
+Use route: /my-route
+
+To complete this task, review:
+- .agent/skills/manage-component/SKILL.md
+- .agent/skills/manage-neutral-templates/SKILL.md
+- src/component/component_name (as a component example)
+
+Define routes dynamically if needed, following the pattern used by other components.
+```
+
 Neutral TS template engine
 --------------------------
 
