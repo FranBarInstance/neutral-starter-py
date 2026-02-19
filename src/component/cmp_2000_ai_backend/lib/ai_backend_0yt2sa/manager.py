@@ -2,6 +2,9 @@
 AI Manager module.
 Handles initialization and access to multiple AI providers.
 """
+import json
+from pathlib import Path
+
 from .providers.openai import OpenAIProvider
 from .providers.anthropic import AnthropicProvider
 from .providers.google import GoogleProvider
@@ -12,7 +15,10 @@ class AIManager:
     Manager to handle Main AI providers interactions.
     """
     def __init__(self, config=None):
-        self.config = config or {}
+        if config is None:
+            self.config = self._load_config_from_manifest()
+        else:
+            self.config = config or {}
         # Stores provider instances keyed by profile name
         self.profiles = {}
         # Mapping available provider keys to classes
@@ -23,6 +29,40 @@ class AIManager:
             'ollama': OllamaProvider
         }
         self._load_profiles()
+
+    def _load_config_from_manifest(self):
+        """Load default config from manifest and merge custom overrides if present."""
+        component_root = Path(__file__).resolve().parents[2]
+        manifest_path = component_root / 'manifest.json'
+        custom_path = component_root / 'custom.json'
+
+        manifest_config = {}
+        try:
+            with manifest_path.open('r', encoding='utf-8') as manifest_file:
+                manifest_data = json.load(manifest_file)
+            manifest_config = manifest_data.get('config', {}) or {}
+        except (FileNotFoundError, json.JSONDecodeError):
+            manifest_config = {}
+
+        custom_config = {}
+        try:
+            with custom_path.open('r', encoding='utf-8') as custom_file:
+                custom_data = json.load(custom_file)
+            custom_config = custom_data.get('manifest', {}).get('config', {}) or {}
+        except (FileNotFoundError, json.JSONDecodeError):
+            custom_config = {}
+
+        return self._merge_dicts(manifest_config, custom_config)
+
+    def _merge_dicts(self, base, override):
+        """Deep merge dictionaries, where override values win."""
+        result = dict(base)
+        for key, value in override.items():
+            if isinstance(value, dict) and isinstance(result.get(key), dict):
+                result[key] = self._merge_dicts(result[key], value)
+            else:
+                result[key] = value
+        return result
 
     def _load_profiles(self):
         """
