@@ -1,4 +1,4 @@
-# Dev Admin Component (`cmp_7050_dev_admin`)
+# Dev Admin Component (`devadmin_0yt2sa`)
 
 > WARNING: For production environments, it is strongly recommended to disable this component.
 > Keep it enabled only in controlled development/operations contexts.
