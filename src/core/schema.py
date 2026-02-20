@@ -2,7 +2,6 @@
 
 import os
 import copy
-import fnmatch
 from http.cookies import SimpleCookie
 
 import woothee
@@ -11,6 +10,8 @@ from flask import current_app
 from app.config import Config
 from constants import TMP_DIR
 from utils.utils import get_ip, merge_dict
+from utils.network import normalize_host, is_allowed_host
+
 
 
 class Schema:
@@ -52,7 +53,7 @@ class Schema:
         self.data['BASE_DIR'] = Config.BASE_DIR
         self.data['VENV_DIR'] = Config.VENV_DIR
         self.data['TEMPLATE_LAYOUT'] = os.path.join(template_dir, 'layout', Config.TEMPLATE_NAME)
-        self.data['TEMPLATE_ERROR'] = os.path.join(template_dir, 'layout', Config.TEMPLATE_NAME_ERROR)
+        self.data['TEMPLATE_ERROR'] = os.path.join(template_dir, 'layout', Config.TEMPLATE_NAME_ERROR)  # pylint: disable=line-too-long
         self.data['TEMPLATE_MAIL'] = Config.TEMPLATE_MAIL
         self.data['FTOKEN_EXPIRES_SECONDS'] = Config.FTOKEN_EXPIRES_SECONDS
         self.data['LANG_KEY'] = Config.LANG_KEY
@@ -91,44 +92,17 @@ class Schema:
                 self.data['CONTEXT']['COOKIES'][key] = morsel.value
 
         raw_host = (self.req.host or self.req.headers.get('Host') or '').strip().lower()
-        normalized_host = self._normalize_host(raw_host)
+        normalized_host = normalize_host(raw_host)
 
-        if normalized_host and self._is_allowed_host(normalized_host):
+        if normalized_host and is_allowed_host(normalized_host, Config.ALLOWED_HOSTS):
             self.data['current']['site']['host'] = raw_host
             self.data['current']['site']['url'] = self.req.scheme + "://" + raw_host
         else:
             self.data['current']['site']['host'] = Config.SITE_DOMAIN
             self.data['current']['site']['url'] = Config.SITE_URL
 
-    @staticmethod
-    def _normalize_host(host):
-        """Normalize host value for allow-list checks (strip port and trailing dot)."""
-        if not host:
-            return ""
 
-        value = host.strip().lower().rstrip('.')
 
-        # IPv6 in URL host format: [::1]:5000
-        if value.startswith('['):
-            end = value.find(']')
-            if end != -1:
-                return value[1:end]
-
-        if ':' in value:
-            return value.rsplit(':', 1)[0]
-
-        return value
-
-    @staticmethod
-    def _is_allowed_host(host):
-        """Check host against ALLOWED_HOSTS list supporting wildcard patterns."""
-        for pattern in Config.ALLOWED_HOSTS:
-            normalized_pattern = (pattern or '').strip().lower().rstrip('.')
-            if not normalized_pattern:
-                continue
-            if normalized_pattern == "*" or fnmatch.fnmatch(host, normalized_pattern):
-                return True
-        return False
 
     def _negotiate_language(self) -> None:
         languages = self.data['current']['site']['languages']

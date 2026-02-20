@@ -11,6 +11,8 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.routing import PathConverter
 
 from utils.utils import merge_dict
+from utils.network import normalize_host, is_allowed_host
+
 
 from .config import Config
 from .components import Components
@@ -167,39 +169,14 @@ def create_app(config_class=Config, debug=None):
                     print(f"{view_func.__name__} - {request.path}")
             return response
 
-    def normalize_host(host):
-        """Normalize host for allow-list checks."""
-        if not host:
-            return ""
-
-        value = host.strip().lower().rstrip(".")
-        if value.startswith("["):
-            end = value.find("]")
-            if end != -1:
-                return value[1:end]
-
-        if ":" in value:
-            return value.rsplit(":", 1)[0]
-
-        return value
-
-    def is_allowed_host(host):
-        """Check host against configured allow-list with wildcard support."""
-        for pattern in app.config.get("ALLOWED_HOSTS", []):
-            normalized_pattern = (pattern or "").strip().lower().rstrip(".")
-            if not normalized_pattern:
-                continue
-            if normalized_pattern == "*" or fnmatch.fnmatch(host, normalized_pattern):
-                return True
-        return False
-
     @app.before_request
     def reject_disallowed_host():
         """Reject requests with a Host header outside ALLOWED_HOSTS."""
         raw_host = (request.host or request.headers.get("Host") or "").strip().lower()
         normalized_host = normalize_host(raw_host)
-        if not normalized_host or not is_allowed_host(normalized_host):
+        if not normalized_host or not is_allowed_host(normalized_host, app.config.get("ALLOWED_HOSTS", [])):  # pylint: disable=line-too-long
             abort(400)
+
 
     # Register security headers
     app.after_request(add_security_headers)
