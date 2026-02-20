@@ -169,7 +169,7 @@ class Config: # pylint: disable=too-few-public-methods
     if DB_FILES_TYPE == 'sqlite':
         DB_FILES = f"sqlite:///{Path(DB_FILES_PATH).joinpath(f'{DB_FILES_NAME}')}"
     else:
-        DB_FILES = f"{DB_FILES_TYPE}://{DB_FILES_USER}:{DB_FILES_PASSWORD}@{DB_FILES_HOST}:{DB_FILES_PORT}/{DB_FILES_NAME}"
+        DB_FILES = f"{DB_FILES_TYPE}://{DB_FILES_USER}:{DB_FILES_PASSWORD}@{DB_FILES_HOST}:{DB_FILES_PORT}/{DB_FILES_NAME}"  # pylint: disable=line-too-long
 
     # CSP Whitelist - Convert comma separated strings to lists
     CSP_ALLOWED_SCRIPT = config.get('CSP_ALLOWED_SCRIPT', '').split(',')

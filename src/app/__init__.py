@@ -18,7 +18,7 @@ from .debug_guard import is_debug_enabled, is_wsgi_debug_enabled
 from .extensions import cache, limiter
 
 
-class TrustedProxyHeaderGuard:
+class TrustedProxyHeaderGuard: # pylint: disable=too-few-public-methods
     """Strip forwarded headers when request does not come from a trusted proxy."""
 
     FORWARDED_HEADER_KEYS = (
@@ -141,7 +141,7 @@ def create_app(config_class=Config, debug=None):
 
     if debug is None:
         running_under_wsgi = os.getenv("RUNNING_UNDER_WSGI", "false").lower() in {"true", "1", "yes"}
-        debug = is_wsgi_debug_enabled() if running_under_wsgi else is_debug_enabled()
+        debug = is_wsgi_debug_enabled() if running_under_wsgi else is_debug_enabled()  # pylint: disable=line-too-long
 
     app.debug = bool(debug)
     app.url_map.strict_slashes = False
@@ -204,7 +204,7 @@ def create_app(config_class=Config, debug=None):
     # Register security headers
     app.after_request(add_security_headers)
 
-    class AnyExtensionConverter(PathConverter):
+    class AnyExtensionConverter(PathConverter):  # pylint: disable=too-few-public-methods
         """Capture any path that contains a dot (like files with extension)."""
 
         regex = r"^(?:.*/)?[^/]+\.[^/]+$"

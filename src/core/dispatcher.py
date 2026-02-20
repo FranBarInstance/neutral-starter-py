@@ -26,7 +26,7 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
         self.schema = Schema(self.req)
         self.schema_data = self.schema.properties['data']
         self.schema_local_data = self.schema.properties['inherit']['data']
-        self.ajax_request = self.schema_data['CONTEXT']['HEADERS'].get("Requested-With-Ajax") or False
+        self.ajax_request = self.schema_data['CONTEXT']['HEADERS'].get("Requested-With-Ajax") or False  # pylint: disable=line-too-long
         self.session = Session(self.schema_data['CONTEXT']['SESSION'])
         self.user = User()
         self.view = Template(self.schema)
@@ -36,7 +36,7 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
     def _set_current_comp(self) -> None:
         self.schema_data['CURRENT_COMP_ROUTE'] = self._comp_route
         self.schema_data['CURRENT_COMP_ROUTE_SANITIZED'] = self._comp_route.replace("/", ":")
-        self.schema_data['CURRENT_NEUTRAL_ROUTE'] = self._neutral_route or self.schema_data['CURRENT_NEUTRAL_ROUTE']
+        self.schema_data['CURRENT_NEUTRAL_ROUTE'] = self._neutral_route or self.schema_data['CURRENT_NEUTRAL_ROUTE']  # pylint: disable=line-too-long
         name, uuid = self.extract_comp_from_path(self.schema_data['CURRENT_NEUTRAL_ROUTE'])
         self.schema_data['CURRENT_COMP_NAME'] = name
         self.schema_data['CURRENT_COMP_UUID'] = uuid
