@@ -142,7 +142,7 @@ def create_app(config_class=Config, debug=None):
     app.config.from_object(config_class)
 
     if debug is None:
-        running_under_wsgi = os.getenv("RUNNING_UNDER_WSGI", "false").lower() in {"true", "1", "yes"}
+        running_under_wsgi = os.getenv("RUNNING_UNDER_WSGI", "false").lower() in {"true", "1", "yes"}  # pylint: disable=line-too-long
         debug = is_wsgi_debug_enabled() if running_under_wsgi else is_debug_enabled()  # pylint: disable=line-too-long
 
     app.debug = bool(debug)

@@ -45,7 +45,7 @@ class Config: # pylint: disable=too-few-public-methods
     # ALLOWED_HOSTS=localhost,*.example.com,my-other-domain.org
     _allowed_hosts_raw = config.get('ALLOWED_HOSTS', SITE_DOMAIN or '')
     ALLOWED_HOSTS = [item.strip().lower() for item in _allowed_hosts_raw.split(',') if item.strip()]
-    TRUSTED_PROXY_CIDRS = [item.strip() for item in config.get('TRUSTED_PROXY_CIDRS', '').split(',') if item.strip()]
+    TRUSTED_PROXY_CIDRS = [item.strip() for item in config.get('TRUSTED_PROXY_CIDRS', '').split(',') if item.strip()]  # pylint: disable=line-too-long
     NEUTRAL_IPC = _env_bool(config.get('NEUTRAL_IPC'), False)
     NEUTRAL_CACHE_DISABLE = _env_bool(config.get('NEUTRAL_CACHE_DISABLE'), False)
     DEFAULT_SCHEMA = os.path.join(BASE_DIR, "app", "schema.json")
@@ -147,24 +147,24 @@ class Config: # pylint: disable=too-few-public-methods
     DB_SAFE_PASSWORD = config.get('DB_SAFE_PASSWORD', '')
     DB_SAFE_HOST = config.get('DB_SAFE_HOST', 'localhost')
     DB_SAFE_PORT = config.get('DB_SAFE_PORT', '')
-    DB_SAFE_PATH = config.get('DB_SAFE_PATH', '') or os.path.join(BASE_DIR, "..", 'storage')  # SQLite
+    DB_SAFE_PATH = config.get('DB_SAFE_PATH', '') or os.path.join(BASE_DIR, "..", 'storage')  # SQLite  # pylint: disable=line-too-long
     DB_FILES_TYPE = config.get('DB_FILES_TYPE', 'sqlite').lower()
     DB_FILES_NAME = config.get('DB_FILES_NAME', 'files.db')
     DB_FILES_USER = config.get('DB_FILES_USER', '')
     DB_FILES_PASSWORD = config.get('DB_FILES_PASSWORD', '')
     DB_FILES_HOST = config.get('DB_FILES_HOST', 'localhost')
     DB_FILES_PORT = config.get('DB_FILES_PORT', '')
-    DB_FILES_PATH = config.get('DB_FILES_PATH', '') or os.path.join(BASE_DIR, "..", 'storage')  # SQLite
+    DB_FILES_PATH = config.get('DB_FILES_PATH', '') or os.path.join(BASE_DIR, "..", 'storage')  # SQLite  # pylint: disable=line-too-long
 
     if DB_PWA_TYPE == 'sqlite':
         DB_PWA = f"sqlite:///{Path(DB_PWA_PATH).joinpath(f'{DB_PWA_NAME}')}"
     else:
-        DB_PWA = f"{DB_PWA_TYPE}://{DB_PWA_USER}:{DB_PWA_PASSWORD}@{DB_PWA_HOST}:{DB_PWA_PORT}/{DB_PWA_NAME}"
+        DB_PWA = f"{DB_PWA_TYPE}://{DB_PWA_USER}:{DB_PWA_PASSWORD}@{DB_PWA_HOST}:{DB_PWA_PORT}/{DB_PWA_NAME}"  # pylint: disable=line-too-long
 
     if DB_SAFE_TYPE == 'sqlite':
         DB_SAFE = f"sqlite:///{Path(DB_SAFE_PATH).joinpath(f'{DB_SAFE_NAME}')}"
     else:
-        DB_SAFE = f"{DB_SAFE_TYPE}://{DB_SAFE_USER}:{DB_SAFE_PASSWORD}@{DB_SAFE_HOST}:{DB_SAFE_PORT}/{DB_SAFE_NAME}"
+        DB_SAFE = f"{DB_SAFE_TYPE}://{DB_SAFE_USER}:{DB_SAFE_PASSWORD}@{DB_SAFE_HOST}:{DB_SAFE_PORT}/{DB_SAFE_NAME}"  # pylint: disable=line-too-long
 
     if DB_FILES_TYPE == 'sqlite':
         DB_FILES = f"sqlite:///{Path(DB_FILES_PATH).joinpath(f'{DB_FILES_NAME}')}"
@@ -180,6 +180,6 @@ class Config: # pylint: disable=too-few-public-methods
     CSP_ALLOWED_FRAME = config.get('CSP_ALLOWED_FRAME', '').split(',')
 
     # CSP Unsafe options (optional) - enable only when necessary
-    CSP_ALLOWED_SCRIPT_UNSAFE_INLINE = _env_bool(config.get('CSP_ALLOWED_SCRIPT_UNSAFE_INLINE'), False)
+    CSP_ALLOWED_SCRIPT_UNSAFE_INLINE = _env_bool(config.get('CSP_ALLOWED_SCRIPT_UNSAFE_INLINE'), False)  # pylint: disable=line-too-long
     CSP_ALLOWED_SCRIPT_UNSAFE_EVAL = _env_bool(config.get('CSP_ALLOWED_SCRIPT_UNSAFE_EVAL'), False)
-    CSP_ALLOWED_STYLE_UNSAFE_INLINE = _env_bool(config.get('CSP_ALLOWED_STYLE_UNSAFE_INLINE'), False)
+    CSP_ALLOWED_STYLE_UNSAFE_INLINE = _env_bool(config.get('CSP_ALLOWED_STYLE_UNSAFE_INLINE'), False)  # pylint: disable=line-too-long
