@@ -15,6 +15,7 @@ from utils.network import normalize_host, is_allowed_host
 
 
 from .config import Config
+from .bootstrap_db import bootstrap_databases
 from .components import Components
 from .debug_guard import is_debug_enabled, is_wsgi_debug_enabled
 from .extensions import cache, limiter
@@ -151,6 +152,16 @@ def create_app(config_class=Config, debug=None):
     app.handle_errors = False
     cache.init_app(app)
     limiter.init_app(app)
+
+    if app.config.get("AUTO_BOOTSTRAP_DB", False):
+        bootstrap_databases(
+            db_pwa_url=app.config["DB_PWA"],
+            db_pwa_type=app.config["DB_PWA_TYPE"],
+            db_safe_url=app.config["DB_SAFE"],
+            db_safe_type=app.config["DB_SAFE_TYPE"],
+            db_files_url=app.config["DB_FILES"],
+            db_files_type=app.config["DB_FILES_TYPE"],
+        )
 
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
     app.wsgi_app = TrustedProxyHeaderGuard(app.wsgi_app, app.config.get("TRUSTED_PROXY_CIDRS", []))

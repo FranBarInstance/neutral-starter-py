@@ -84,6 +84,7 @@ class Config: # pylint: disable=too-few-public-methods
     SIGNT_LIMITS = config.get('SIGNT_LIMITS', "5 per 30 minutes")
 
     VALIDATE_SIGNUP = _env_bool(config.get('VALIDATE_SIGNUP'), False)
+    AUTO_BOOTSTRAP_DB = _env_bool(config.get('AUTO_BOOTSTRAP_DB'), False)
 
     LANG_KEY = "lang"
     THEME_KEY = "theme"

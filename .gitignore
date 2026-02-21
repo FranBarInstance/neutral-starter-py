@@ -13,6 +13,7 @@
 !/config/.env.example
 /storage-dev/*
 /storage-dev
+/storage/*.db
 /src/component/*_local/
 **/custom-snippets.ntpl
 !/src/component/**/*_hellocomp/**/custom-snippets.ntpl

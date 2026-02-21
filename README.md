@@ -99,6 +99,9 @@ pip install -r requirements.txt
 ```bash
 source .venv/bin/activate
 
+# Create/upgrade local DB schema (recommended first run)
+python bin/bootstrap_db.py
+
 # Optional debug guard (enabled only when all conditions are met)
 # 1) set DEBUG_EXPIRE and DEBUG_FILE in config/.env
 #    e.g. DEBUG_EXPIRE=3600 and DEBUG_FILE=/tmp/neutral-debug.flag
@@ -109,6 +112,16 @@ python src/run.py
 ```
 
 The application will be available at `http://localhost:5000` (by default).
+
+### Optional Automatic DB Bootstrap (development)
+
+You can enable automatic schema bootstrap at app startup:
+
+```env
+AUTO_BOOTSTRAP_DB=true
+```
+
+Default is `false` to avoid implicit schema changes in production-like environments.
 
 ## Project Structure
 
