@@ -1,4 +1,4 @@
-# Admin Component (`cmp_7060_admin`)
+# Admin Component (`admin_0yt2sa`)
 
 Role-based administration panel for user management.
 
