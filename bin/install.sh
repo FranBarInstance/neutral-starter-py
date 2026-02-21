@@ -15,8 +15,12 @@ need_cmd() {
 prompt_default() {
   prompt_text="$1"
   default_value="$2"
-  printf "%s [%s]: " "$prompt_text" "$default_value"
-  read -r value || true
+  printf "%s [%s]: " "$prompt_text" "$default_value" >&2
+  if [ -r /dev/tty ]; then
+    read -r value </dev/tty || true
+  else
+    read -r value || true
+  fi
   if [ -z "${value:-}" ]; then
     printf "%s" "$default_value"
   else
@@ -49,14 +53,20 @@ set_env_value() {
 
 read_password() {
   prompt_text="$1"
-  if [ -t 0 ]; then
+  if [ -r /dev/tty ]; then
+    stty -echo </dev/tty
+    printf "%s" "$prompt_text" >&2
+    read -r value </dev/tty || true
+    stty echo </dev/tty
+    printf "\n" >&2
+  elif [ -t 0 ]; then
     stty -echo
-    printf "%s" "$prompt_text"
+    printf "%s" "$prompt_text" >&2
     read -r value || true
     stty echo
-    printf "\n"
+    printf "\n" >&2
   else
-    printf "%s" "$prompt_text"
+    printf "%s" "$prompt_text" >&2
     read -r value || true
   fi
   printf "%s" "${value:-}"
