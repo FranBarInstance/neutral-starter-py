@@ -18,6 +18,7 @@ Key features include:
 The following documents provide detailed information about the system:
 
 - **[README.md](README.md)**: This index and project overview.
+- **[installation.md](installation.md)**: End-to-end installation guide (automatic and manual), including `config/.env` variables to review and configure.
 - **[development.md](development.md)**: **The main developer guide.** Explains the high-level architecture, project structure, core concepts, and essential development workflows.
 - **[developing-ai.md](developing-ai.md)**: AI-assisted development guide, including collaboration conventions and best practices for working with coding agents in this project.
 - **[component.md](component.md)**: Deep dive into the **Component System**. Covers naming conventions, file structure, lifecycle, and priority/overriding rules.
