@@ -66,7 +66,45 @@ HTTP Response
 
 ## Quick Start
 
-### 1. Clone and Configure Environment
+### 1. Automatic Installer (recommended)
+
+The project includes interactive installers:
+
+- `bin/install.sh` for Linux/macOS
+- `bin/install.ps1` for Windows PowerShell
+
+Installer features:
+
+- Fetches repository tags and lets you choose from the latest 15 versions.
+- Asks for installation directory (current directory by default).
+- Creates `.venv` and installs dependencies.
+- Copies `config/.env.example` to `config/.env`.
+- Generates a random `SECRET_KEY`.
+- Generates randomized admin routes in:
+  - `src/component/cmp_7060_admin/custom.json` as `/admin-[random]`
+  - `src/component/cmp_7050_dev_admin/custom.json` as `/dev-admin-[random]`
+- Randomized admin routes are generated during installation as an extra hardening measure against automated scraping/scanning of default admin URLs. This is not security by itself; core protection remains authentication/authorization and rate limiting.
+- Bootstraps databases with `bin/bootstrap_db.py`.
+- Creates a `dev` role user via `bin/create_user.py` (asks for user data).
+- Writes `DEV_ADMIN_*` values into `config/.env`.
+
+Linux/macOS:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.sh | sh
+```
+
+Windows PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.ps1 | iex"
+```
+
+Important: first sign-in may require the PIN generated for the created user. Keep that PIN from the installer output.
+
+### 2. Manual Setup (alternative)
+
+#### 2.1 Clone and Configure Environment
 
 ```bash
 # Create virtual environment
@@ -79,7 +117,7 @@ source .venv/bin/activate
 .venv\Scripts\activate
 ```
 
-### 2. Create Runtime Configuration
+#### 2.2 Create Runtime Configuration
 
 ```bash
 cp config/.env.example config/.env
@@ -87,14 +125,14 @@ cp config/.env.example config/.env
 
 At minimum, set a strong value for `SECRET_KEY` in `config/.env`.
 
-### 3. Install Dependencies
+#### 2.3 Install Dependencies
 
 ```bash
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Run in Development with Debugging
+#### 2.4 Run in Development with Debugging
 
 ```bash
 source .venv/bin/activate
