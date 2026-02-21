@@ -1,4 +1,7 @@
 {
+    "setup-base": {
+        "@portable": "CREATE TABLE IF NOT EXISTS uid (uid VARCHAR(30) NOT NULL PRIMARY KEY, target VARCHAR(64) NOT NULL, created INT(11) NOT NULL)"
+    },
     "sentence-example": {
         "@portable":  "SELECT 1",
         "@sqlite":  "@portable",

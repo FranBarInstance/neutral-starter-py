@@ -42,6 +42,31 @@ class Session:
 
         return self._session_id, self.create_session_cookie(self._session_id, max(0, expire - self.now))
 
+    def get_session_properties(self) -> dict:
+        """Return stored session properties for current session, if any."""
+        if not self._session_id:
+            return {}
+
+        result = self.model.exec('session', 'get', {
+            "sessionId": self._session_id,
+            "open": Config.SESSION_OPEN['true'],
+            "now": self.now
+        })
+
+        if not result or not result.get('rows') or not result['rows'][0]:
+            return {}
+
+        raw = result['rows'][0][3]
+        if not raw:
+            return {}
+
+        try:
+            props = json.loads(raw)
+        except (TypeError, ValueError, json.JSONDecodeError):
+            return {}
+
+        return props if isinstance(props, dict) else {}
+
     def close(self) -> dict:
         """close session"""
         if self._session_id:

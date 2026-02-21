@@ -187,6 +187,9 @@ def test_pin_form_post_valid_token_and_pin_redirects_home(client, monkeypatch):
         def __init__(self):
             self.model = SimpleNamespace(exec=lambda *_args, **_kwargs: {"success": True})
 
+        def build_session_user_data(self, user_id):
+            return {"userId": user_id, "user_disabled": {}, "roles": []}
+
     monkeypatch.setattr(core_dispatcher_module, "User", _FakeUser)
 
     def _fake_create_session(self, _user_data):
@@ -232,11 +235,12 @@ def test_user_check_login_with_unconfirmed_pin_clears_state(monkeypatch):
                     "user_profile.profileId",
                     "user_profile.alias",
                     "user_profile.locale",
+                    "role.code",
                 ]
                 return {
                     "columns": columns,
                     "rows": [
-                        [42, b"hash", "birth", 1, 2, 3, Config.DISABLED[UNCONFIRMED], "", 100, "alias", "en"]
+                        [42, b"hash", "birth", 1, 2, 3, Config.DISABLED[UNCONFIRMED], "", 100, "alias", "en", "admin"]
                     ],
                 }
             if operation == "get-pin":
@@ -251,6 +255,7 @@ def test_user_check_login_with_unconfirmed_pin_clears_state(monkeypatch):
 
     assert user_data is not None
     assert UNCONFIRMED not in user_data["user_disabled"]
+    assert user_data["roles"] == ["admin"]
     assert ("get-pin", {"target": str(Config.DISABLED[UNCONFIRMED]), "userId": 42, "pin": "123456", "now": user.now}) in fake_model.calls
     assert any(op == "delete-disabled" for op, _ in fake_model.calls)
     assert any(op == "delete-pin" for op, _ in fake_model.calls)
@@ -326,10 +331,11 @@ def test_user_check_login_returns_none_on_bad_password(monkeypatch):
                     "user_profile.profileId",
                     "user_profile.alias",
                     "user_profile.locale",
+                    "role.code",
                 ]
                 return {
                     "columns": columns,
-                    "rows": [[42, b"hash", "birth", 1, 2, 3, None, "", 100, "alias", "en"]],
+                    "rows": [[42, b"hash", "birth", 1, 2, 3, None, "", 100, "alias", "en", None]],
                 }
             return {"success": True}
 
@@ -337,6 +343,37 @@ def test_user_check_login_returns_none_on_bad_password(monkeypatch):
     monkeypatch.setattr(bcrypt, "checkpw", lambda *_args, **_kwargs: False)
 
     assert user.check_login("user@example.com", "wrong", "123456") is None
+
+
+def test_user_role_helpers_assign_and_remove():
+    """Role helper methods should be idempotent and normalized."""
+
+    class FakeModel:
+        def __init__(self):
+            self.has_error = False
+            self.roles = {"admin", "editor"}
+
+        def exec(self, _domain, operation, params):
+            if operation == "assign-role-by-code":
+                assert params["code"] == "admin"
+                return {"success": True, "rowcount": 0}
+            if operation == "has-role":
+                return {
+                    "columns": ["count"],
+                    "rows": [[1 if params["code"] in self.roles else 0]],
+                }
+            if operation == "remove-role-by-code":
+                self.roles.discard(params["code"])
+                return {"success": True, "rowcount": 1}
+            if operation == "get-roles-by-userid":
+                return {"columns": ["code"], "rows": [[role] for role in sorted(self.roles)]}
+            return {"success": True}
+
+    user = _build_user_for_unit(FakeModel())
+    assert user.assign_role("42", " AdMiN ") is True
+    assert user.has_role("42", "admin") is True
+    assert user.remove_role("42", "admin") is True
+    assert user.get_roles("42") == ["editor"]
 
 
 def _build_pin_dispatcher_for_unit(pin_data, submitted_pin="111111"):
@@ -347,7 +384,10 @@ def _build_pin_dispatcher_for_unit(pin_data, submitted_pin="111111"):
     dispatcher.schema_data = {
         "CONTEXT": {"SESSION": None, "POST": {"pin": submitted_pin}, "UTOKEN": "u"},
     }
-    dispatcher.user = SimpleNamespace(model=SimpleNamespace(exec=lambda *_args, **_kwargs: {"success": True}))
+    dispatcher.user = SimpleNamespace(
+        model=SimpleNamespace(exec=lambda *_args, **_kwargs: {"success": True}),
+        build_session_user_data=lambda user_id: {"userId": user_id, "user_disabled": {}, "roles": []},
+    )
     dispatcher.validate_pin_post = lambda _error_prefix: True  # type: ignore[assignment]
     dispatcher._get_pin_data_by_token = lambda _pin_token: pin_data  # type: ignore[assignment] # pylint: disable=protected-access
     dispatcher.create_session = lambda data: data["userId"] == pin_data["userId"]  # type: ignore[assignment]

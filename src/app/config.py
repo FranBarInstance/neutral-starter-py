@@ -10,6 +10,7 @@ from constants import (
     DELETED,
     UNCONFIRMED,
     UNVALIDATED,
+    MODERATED,
     SPAM,
 )
 
@@ -118,6 +119,7 @@ class Config: # pylint: disable=too-few-public-methods
         DELETED: 10,
         UNCONFIRMED: 100,
         UNVALIDATED: 200,
+        MODERATED: 300,
         SPAM: 500
     }
 

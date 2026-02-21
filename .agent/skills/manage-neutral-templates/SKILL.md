@@ -147,3 +147,17 @@ This file is responsible for:
   :}
   ```
 - **Forcing Output**: Always end the file with `{:^;:}` or `{:;:}` to ensure the `{:include; ... :}` BIF detects "success" content and doesn't trigger an `{:else; :}` block (like a 404).
+
+## Translation Scope Rule
+
+Use translation files according to scope:
+
+- `schema.json` translations (`inherit.locale.trans`):
+  - Only for texts that must be available application-wide from component initialization.
+  - Typical case: menu/drawer/navbar labels that are rendered globally.
+- Route/local translation files (for example `neutral/route/**/locale.json`):
+  - Default choice for route-specific UI text.
+  - Keep most page/form/content translations here.
+
+Exception:
+- If a component only needs a very small number of translations, it is acceptable to keep them in `schema.json` for simplicity.

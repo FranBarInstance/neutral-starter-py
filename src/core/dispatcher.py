@@ -1,6 +1,7 @@
 """Core dispatcher module."""
 
 from app.config import Config
+from constants import DELETED, MODERATED, SPAM, UNCONFIRMED, UNVALIDATED
 from utils.tokens import (
     utoken_extract,
     utoken_update,
@@ -45,6 +46,9 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
         """Perform common initialization tasks for all requests."""
         session_id, session_cookie = self.session.get()
         self.schema_data['CONTEXT']['SESSION'] = session_id
+        session_data = self.session.get_session_properties() if session_id else {}
+        self.schema_data['CONTEXT']['SESSION_DATA'] = session_data if isinstance(session_data, dict) else {}
+        self.schema_data['CURRENT_USER'] = self._build_current_user(self.schema_data['CONTEXT']['SESSION_DATA'])
         self.schema_data['HAS_SESSION'] = "true" if session_id else None
         self.schema_data['HAS_SESSION_STR'] = "true" if session_id else "false"
         self.schema_data['CSP_NONCE'] = get_nonce()
@@ -67,6 +71,79 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
                     "value": self.schema.properties['inherit']['locale']['current'],
                 }
             })
+
+    def _build_current_user(self, session_data: dict) -> dict:
+        """Build template-safe current user view from session data.
+
+        Important for templates:
+        - `CURRENT_USER.roles` is a sparse map that only includes roles the user has.
+          Example:
+          {
+              "role_admin": "role_admin",
+              "role_dev": "role_dev"
+          }
+        - Missing roles are omitted completely. Do not emit keys with boolean false.
+          This must NOT be produced:
+          {
+              "role_admin": false,
+              "role_dev": false
+          }
+        """
+        current_user = {
+            "auth": False,
+            "id": "",
+            "roles": {},
+            "status": {
+                DELETED: False,
+                UNCONFIRMED: False,
+                UNVALIDATED: False,
+                MODERATED: False,
+                SPAM: False,
+            },
+            "profile": {
+                "alias": "",
+                "locale": "",
+            },
+        }
+
+        if not isinstance(session_data, dict):
+            return current_user
+
+        user_data = session_data.get("user_data", {})
+        if not isinstance(user_data, dict):
+            return current_user
+
+        user_id = str(user_data.get("userId") or "")
+        if not user_id:
+            return current_user
+
+        current_user["auth"] = True
+        current_user["id"] = user_id
+
+        roles = user_data.get("roles", [])
+        if user_id:
+            db_roles = self.user.get_roles(user_id)
+            if db_roles:
+                roles = db_roles
+
+        role_map = {}
+        for role in roles:
+            role_code = str(role).strip().lower()
+            if role_code:
+                # Sparse role map: only assigned roles are present as keys.
+                role_key = f"role_{role_code}"
+                role_map[role_key] = role_key
+        current_user["roles"] = role_map
+
+        user_disabled = user_data.get("user_disabled", {})
+        if isinstance(user_disabled, dict):
+            for key in current_user["status"]:
+                current_user["status"][key] = bool(user_disabled.get(key))
+
+        current_user["profile"]["alias"] = str(user_data.get("alias") or "")
+        current_user["profile"]["locale"] = str(user_data.get("locale") or "")
+
+        return current_user
 
     def cookie_tab_changes(self) -> None:
         """Detect when user opens new tabs/windows using token hashing."""

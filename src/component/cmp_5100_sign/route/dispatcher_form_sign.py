@@ -382,4 +382,4 @@ class DispatcherFormSignPin(DispatcherFormSign):
             "message": None,
         }
 
-        return self.create_session({"userId": user_id, "user_disabled": {}})
+        return self.create_session(self.user.build_session_user_data(user_id))

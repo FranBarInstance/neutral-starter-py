@@ -96,9 +96,28 @@ Complete management of users, profiles, and authentication.
   - `user_disabled`: Record of user blocks or disables.
   - `user_email`: Associated email addresses.
   - `pin`: Temporary codes (PINs) and validation tokens.
+  - `role`: Catalog of available roles.
+  - `user_role`: User-role assignments (many-to-many).
 - **Operations:**
+  - `setup-rbac`: Creates role tables if missing and inserts base roles (`dev`, `admin`, `moderator`, `editor`).
+  - `assign-role-by-code`, `remove-role-by-code`: Assign/remove role by role code.
+  - `has-role`, `get-roles-by-userid`: Role checks and role listing.
+  - `admin-list-by-created`, `admin-list-by-modified`: User listings with filter by `userId` or login hash.
+  - `admin-get-disabled-by-userid`: List disabled states and descriptions for a user.
+  - `upsert-disabled`: Add/update a disabled reason for a user.
+  - `admin-delete-user`: Full user deletion (cascading DB cleanup).
   - `get-by-login`: Retrieves user data joining `user`, `user_profile`, and `user_disabled` tables.
   - `check-exists`: Checks if a login already exists.
   - `create`: Complex transaction that inserts into `user`, `user_profile`, `user_email`, `user_disabled`, and `pin` simultaneously.
   - `insert-pin`: Inserts or updates a PIN (Uses `ON CONFLICT`/`ON DUPLICATE KEY`).
   - `get-pin`, `get-pin-by-token`, `delete-pin`: Security PIN management.
+
+### Disabled Status Codes
+
+Disabled user states are currently code-driven from application constants/config:
+
+- `deleted`
+- `unconfirmed`
+- `unvalidated`
+- `moderated`
+- `spam`

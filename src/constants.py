@@ -21,6 +21,7 @@ UUID_MAX_LEN = 50
 DELETED = 'deleted'
 UNCONFIRMED = 'unconfirmed'
 UNVALIDATED = 'unvalidated'
+MODERATED = 'moderated'
 PIN_TARGET_REMINDER = "reminder"
 USER_EXISTS = "USER_EXISTS"
 

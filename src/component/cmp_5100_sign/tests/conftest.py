@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from app import create_app
+from app.bootstrap_db import bootstrap_databases
 from app.config import Config
 
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -40,6 +41,15 @@ def fixture_flask_app(tmp_path):
         DB_SAFE = f"sqlite:///{safe_db}"
         DB_FILES = f"sqlite:///{files_db}"
         MAIL_METHOD = "dummy"
+
+    bootstrap_databases(
+        db_pwa_url=TestConfig.DB_PWA,
+        db_pwa_type=TestConfig.DB_PWA_TYPE,
+        db_safe_url=TestConfig.DB_SAFE,
+        db_safe_type=TestConfig.DB_SAFE_TYPE,
+        db_files_url=TestConfig.DB_FILES,
+        db_files_type=TestConfig.DB_FILES_TYPE,
+    )
 
     app = create_app(TestConfig, debug=True)
 

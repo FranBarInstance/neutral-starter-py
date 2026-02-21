@@ -1,4 +1,11 @@
 {
+    "setup-base": {
+        "@portable": [
+            "CREATE TABLE IF NOT EXISTS session (sessionId VARCHAR(64) NOT NULL PRIMARY KEY, open TINYINT NOT NULL, userId VARCHAR(64) NOT NULL, ua VARCHAR NOT NULL, properties LONGTEXT NOT NULL DEFAULT '{}', modified INT(11) NOT NULL, created INT(11) NOT NULL, expire INT(11) NOT NULL)",
+            "CREATE INDEX IF NOT EXISTS idx_session_userId ON session(userId)",
+            "CREATE INDEX IF NOT EXISTS idx_session_expire ON session(expire)"
+        ]
+    },
     "get": {
         "@portable": "SELECT\n    sessionId,\n    userId,\n    ua,\n    properties,\n    modified,\n    expire\nFROM session\nWHERE sessionId = :sessionId AND open = :open AND expire > :now\n"
     },

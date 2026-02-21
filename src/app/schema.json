@@ -37,6 +37,22 @@
         "CURRENT_COMP_ROUTE": "",
         "CURRENT_COMP_UUID": "",
         "CURRENT_COMP_NAME": "",
+        "CURRENT_USER": {
+            "auth": false,
+            "id": "",
+            "roles": {},
+            "status": {
+                "deleted": false,
+                "unconfirmed": false,
+                "unvalidated": false,
+                "moderated": false,
+                "spam": false
+            },
+            "profile": {
+                "alias": "",
+                "locale": ""
+            }
+        },
         "mail_data": {},
         "HTTP_ERROR": {},
         "dispatch_result": false,

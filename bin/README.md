@@ -41,6 +41,30 @@ Ejemplo:
 source .venv/bin/activate && python bin/create_user.py "Ana" "ana@example.com" "MiPass123!" "1992-11-03" --locale es --region ES --properties "{\"role\":\"admin\"}"
 ```
 
+### `bootstrap_db.py`
+
+Inicializa el esquema base de bases de datos para una instalacion limpia.
+
+Incluye:
+- `pwa`: tablas `uid`, `user*`, `pin`, `role`, `user_role` + roles base.
+- `safe`: tabla `session`.
+- `files`: prueba de conexion/creacion de la base.
+
+Uso basico:
+
+```bash
+source .venv/bin/activate && python bin/bootstrap_db.py
+```
+
+Con URLs custom (recomendado para pruebas locales):
+
+```bash
+source .venv/bin/activate && python bin/bootstrap_db.py \
+  --db-pwa-url sqlite:////tmp/neutral-install/pwa.db \
+  --db-safe-url sqlite:////tmp/neutral-install/safe.db \
+  --db-files-url sqlite:////tmp/neutral-install/files.db
+```
+
 ## Convención para futuros scripts
 
 - Nombre: `snake_case.py` (ejemplo: `sync_data.py`).

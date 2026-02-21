@@ -1,4 +1,71 @@
 {
+    "setup-base": {
+        "@portable": [
+            "CREATE TABLE IF NOT EXISTS user (userId VARCHAR(64) NOT NULL PRIMARY KEY, login VARCHAR(64) NOT NULL UNIQUE, password VARCHAR(64) NOT NULL, birthdate VARCHAR(64) NOT NULL, lasttime INT(11) NOT NULL, created INT(11) NOT NULL, modified INT(11) NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS user_disabled (reason INT NOT NULL, userId VARCHAR(64) NOT NULL, description VARCHAR(256), modified BIGINT NOT NULL, created BIGINT NOT NULL, PRIMARY KEY (reason, userId), FOREIGN KEY (userId) REFERENCES user(userId) ON DELETE CASCADE)",
+            "CREATE TABLE IF NOT EXISTS user_profile (profileId VARCHAR(64) NOT NULL PRIMARY KEY, userId VARCHAR(64) NOT NULL, region VARCHAR(20), locale VARCHAR(20) NOT NULL, alias VARCHAR(50) NOT NULL, properties LONGTEXT NOT NULL, lasttime INT(11) NOT NULL, created INT(11) NOT NULL, modified INT(11) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId) ON DELETE CASCADE)",
+            "CREATE TABLE IF NOT EXISTS user_profile_disabled (reason INT NOT NULL, profileId VARCHAR(64) NOT NULL, description VARCHAR(256), modified BIGINT NOT NULL, created BIGINT NOT NULL, PRIMARY KEY (reason, profileId), FOREIGN KEY (profileId) REFERENCES user_profile(profileId) ON DELETE CASCADE)",
+            "CREATE TABLE IF NOT EXISTS user_email (email VARCHAR(256) NOT NULL PRIMARY KEY, userId VARCHAR(64) NOT NULL, main TINYINT NOT NULL DEFAULT 0, created INT(11) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId) ON DELETE CASCADE)",
+            "CREATE TABLE IF NOT EXISTS pin (target VARCHAR(128) NOT NULL, userId VARCHAR(64) NOT NULL, pin VARCHAR(10) NOT NULL, token VARCHAR(64) NOT NULL UNIQUE, created INT(11) NOT NULL, expires INT(11) NOT NULL, PRIMARY KEY (target, userId), FOREIGN KEY (userId) REFERENCES user(userId) ON DELETE CASCADE)",
+            "CREATE INDEX IF NOT EXISTS idx_user_profile_userId ON user_profile(userId)",
+            "CREATE INDEX IF NOT EXISTS idx_user_disabled_userId ON user_disabled(userId)",
+            "CREATE INDEX IF NOT EXISTS idx_user_disabled_modified ON user_disabled(modified)",
+            "CREATE INDEX IF NOT EXISTS idx_user_email_userId ON user_email(userId)",
+            "CREATE INDEX IF NOT EXISTS idx_pin_token ON pin(token)"
+        ]
+    },
+    "setup-rbac": {
+        "@portable": [
+            "CREATE TABLE IF NOT EXISTS role (roleId VARCHAR(64) NOT NULL PRIMARY KEY, code VARCHAR(32) NOT NULL UNIQUE, name VARCHAR(64) NOT NULL, description VARCHAR(256), created BIGINT NOT NULL, modified BIGINT NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS user_role (userId VARCHAR(64) NOT NULL, roleId VARCHAR(64) NOT NULL, created BIGINT NOT NULL, PRIMARY KEY (userId, roleId), FOREIGN KEY (userId) REFERENCES user(userId) ON DELETE CASCADE, FOREIGN KEY (roleId) REFERENCES role(roleId) ON DELETE CASCADE)",
+            "CREATE INDEX IF NOT EXISTS idx_role_code ON role(code)",
+            "CREATE INDEX IF NOT EXISTS idx_user_role_userId ON user_role(userId)",
+            "CREATE INDEX IF NOT EXISTS idx_user_role_created ON user_role(created)"
+        ]
+    },
+    "insert-role-if-missing": {
+        "@portable": "INSERT INTO role (roleId, code, name, description, created, modified) SELECT :roleId, :code, :name, :description, :created, :modified WHERE NOT EXISTS (SELECT 1 FROM role WHERE code = :code)"
+    },
+    "get-roles-by-userid": {
+        "@portable": "SELECT role.code FROM role INNER JOIN user_role ON user_role.roleId = role.roleId WHERE user_role.userId = :userId ORDER BY role.code ASC"
+    },
+    "has-role": {
+        "@portable": "SELECT COUNT(*) AS count FROM role INNER JOIN user_role ON user_role.roleId = role.roleId WHERE user_role.userId = :userId AND role.code = :code"
+    },
+    "assign-role-by-code": {
+        "@portable": "INSERT INTO user_role (userId, roleId, created) SELECT :userId, role.roleId, :created FROM role WHERE role.code = :code AND EXISTS (SELECT 1 FROM user WHERE user.userId = :userId) AND NOT EXISTS (SELECT 1 FROM user_role WHERE user_role.userId = :userId AND user_role.roleId = role.roleId)"
+    },
+    "remove-role-by-code": {
+        "@portable": "DELETE FROM user_role WHERE userId = :userId AND roleId IN (SELECT roleId FROM role WHERE code = :code)"
+    },
+    "admin-list-by-created": {
+        "@portable": "SELECT\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale',\n    user_profile.region AS 'user_profile.region',\n    user_profile.properties AS 'user_profile.properties',\n    user_email.email AS 'user_email.email'\nFROM user\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nLEFT JOIN user_email ON user_email.userId = user.userId AND user_email.main = 1\nWHERE (:search = '' OR user.userId = :search OR user.login = :search)\n  AND (:role_code = '' OR EXISTS (\n    SELECT 1\n    FROM user_role\n    INNER JOIN role ON role.roleId = user_role.roleId\n    WHERE user_role.userId = user.userId AND role.code = :role_code\n  ))\n  AND (:disabled_reason = '' OR EXISTS (\n    SELECT 1\n    FROM user_disabled ud_filter\n    WHERE ud_filter.userId = user.userId AND ud_filter.reason = :disabled_reason\n  ))\nORDER BY user.created DESC\nLIMIT :limit OFFSET :offset"
+    },
+    "admin-list-by-modified": {
+        "@portable": "SELECT\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale',\n    user_profile.region AS 'user_profile.region',\n    user_profile.properties AS 'user_profile.properties',\n    user_email.email AS 'user_email.email'\nFROM user\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nLEFT JOIN user_email ON user_email.userId = user.userId AND user_email.main = 1\nWHERE (:search = '' OR user.userId = :search OR user.login = :search)\n  AND (:role_code = '' OR EXISTS (\n    SELECT 1\n    FROM user_role\n    INNER JOIN role ON role.roleId = user_role.roleId\n    WHERE user_role.userId = user.userId AND role.code = :role_code\n  ))\n  AND (:disabled_reason = '' OR EXISTS (\n    SELECT 1\n    FROM user_disabled ud_filter\n    WHERE ud_filter.userId = user.userId AND ud_filter.reason = :disabled_reason\n  ))\nORDER BY user.modified DESC\nLIMIT :limit OFFSET :offset"
+    },
+    "admin-list-by-role-date": {
+        "@portable": "SELECT\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale',\n    user_profile.region AS 'user_profile.region',\n    user_profile.properties AS 'user_profile.properties',\n    user_email.email AS 'user_email.email',\n    COALESCE(MAX(user_role.created), 0) AS role_lasttime\nFROM user\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nLEFT JOIN user_email ON user_email.userId = user.userId AND user_email.main = 1\nLEFT JOIN user_role ON user_role.userId = user.userId\nWHERE (:search = '' OR user.userId = :search OR user.login = :search)\n  AND (:role_code = '' OR EXISTS (\n    SELECT 1\n    FROM user_role urf\n    INNER JOIN role rf ON rf.roleId = urf.roleId\n    WHERE urf.userId = user.userId AND rf.code = :role_code\n  ))\n  AND (:disabled_reason = '' OR EXISTS (\n    SELECT 1\n    FROM user_disabled ud_filter\n    WHERE ud_filter.userId = user.userId AND ud_filter.reason = :disabled_reason\n  ))\nGROUP BY\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId,\n    user_profile.alias,\n    user_profile.locale,\n    user_profile.region,\n    user_profile.properties,\n    user_email.email\nORDER BY role_lasttime DESC, user.created DESC\nLIMIT :limit OFFSET :offset"
+    },
+    "admin-list-by-disabled-created-date": {
+        "@portable": "SELECT\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale',\n    user_profile.region AS 'user_profile.region',\n    user_profile.properties AS 'user_profile.properties',\n    user_email.email AS 'user_email.email',\n    COALESCE(MAX(user_disabled.created), 0) AS disabled_created_lasttime\nFROM user\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nLEFT JOIN user_email ON user_email.userId = user.userId AND user_email.main = 1\nLEFT JOIN user_disabled ON user_disabled.userId = user.userId\nWHERE (:search = '' OR user.userId = :search OR user.login = :search)\n  AND (:role_code = '' OR EXISTS (\n    SELECT 1\n    FROM user_role\n    INNER JOIN role ON role.roleId = user_role.roleId\n    WHERE user_role.userId = user.userId AND role.code = :role_code\n  ))\n  AND (:disabled_reason = '' OR EXISTS (\n    SELECT 1\n    FROM user_disabled ud_filter\n    WHERE ud_filter.userId = user.userId AND ud_filter.reason = :disabled_reason\n  ))\nGROUP BY\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId,\n    user_profile.alias,\n    user_profile.locale,\n    user_profile.region,\n    user_profile.properties,\n    user_email.email\nORDER BY disabled_created_lasttime DESC, user.created DESC\nLIMIT :limit OFFSET :offset"
+    },
+    "admin-list-by-disabled-modified-date": {
+        "@portable": "SELECT\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale',\n    user_profile.region AS 'user_profile.region',\n    user_profile.properties AS 'user_profile.properties',\n    user_email.email AS 'user_email.email',\n    COALESCE(MAX(user_disabled.modified), 0) AS disabled_modified_lasttime\nFROM user\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nLEFT JOIN user_email ON user_email.userId = user.userId AND user_email.main = 1\nLEFT JOIN user_disabled ON user_disabled.userId = user.userId\nWHERE (:search = '' OR user.userId = :search OR user.login = :search)\n  AND (:role_code = '' OR EXISTS (\n    SELECT 1\n    FROM user_role\n    INNER JOIN role ON role.roleId = user_role.roleId\n    WHERE user_role.userId = user.userId AND role.code = :role_code\n  ))\n  AND (:disabled_reason = '' OR EXISTS (\n    SELECT 1\n    FROM user_disabled ud_filter\n    WHERE ud_filter.userId = user.userId AND ud_filter.reason = :disabled_reason\n  ))\nGROUP BY\n    user.userId,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_profile.profileId,\n    user_profile.alias,\n    user_profile.locale,\n    user_profile.region,\n    user_profile.properties,\n    user_email.email\nORDER BY disabled_modified_lasttime DESC, user.created DESC\nLIMIT :limit OFFSET :offset"
+    },
+    "admin-get-disabled-by-userid": {
+        "@portable": "SELECT reason, description, created, modified FROM user_disabled WHERE userId = :userId ORDER BY reason ASC"
+    },
+    "admin-delete-user": {
+        "@portable": "DELETE FROM user WHERE userId = :userId"
+    },
+    "upsert-disabled": {
+        "@portable": "INSERT INTO user_disabled (reason, userId, description, created, modified)\nVALUES (:reason, :userId, :description, :created, :modified)\nON CONFLICT (reason, userId) DO UPDATE\nSET\n    description = excluded.description,\n    modified = excluded.modified",
+        "@sqlite": "@portable",
+        "@postgresql": "@portable",
+        "@mysql": "INSERT INTO user_disabled (reason, userId, description, created, modified)\nVALUES (:reason, :userId, :description, :created, :modified)\nON DUPLICATE KEY UPDATE\n    description = VALUES(description),\n    modified = VALUES(modified)",
+        "@mariadb": "@mysql"
+    },
     "get-pin": {
         "@portable": "SELECT pin FROM pin WHERE target = :target and userId = :userId and pin = :pin and expires > :now"
     },
@@ -12,7 +79,7 @@
         "@portable": "DELETE FROM user_disabled WHERE reason = :reason and userId = :userId"
     },
     "get-by-login": {
-        "@portable": "SELECT\n    user.userId,\n    user.password,\n    user.birthdate,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_disabled.reason AS 'user_disabled.reason',\n    user_disabled.description AS 'user_disabled.description',\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale'\nFROM user\nLEFT JOIN user_disabled ON user_disabled.userId = user.userId\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nWHERE user.login = :login\n"
+        "@portable": "SELECT\n    user.userId,\n    user.password,\n    user.birthdate,\n    user.lasttime,\n    user.created,\n    user.modified,\n    user_disabled.reason AS 'user_disabled.reason',\n    user_disabled.description AS 'user_disabled.description',\n    user_profile.profileId AS 'user_profile.profileId',\n    user_profile.alias AS 'user_profile.alias',\n    user_profile.locale AS 'user_profile.locale',\n    role.code AS 'role.code'\nFROM user\nLEFT JOIN user_disabled ON user_disabled.userId = user.userId\nLEFT JOIN user_profile ON user_profile.userId = user.userId\nLEFT JOIN user_role ON user_role.userId = user.userId\nLEFT JOIN role ON role.roleId = user_role.roleId\nWHERE user.login = :login\n"
     },
     "check-exists": {
         "@portable": "SELECT COUNT(*) as count FROM user WHERE login = :login"
@@ -28,10 +95,10 @@
         ]
     },
     "insert-pin": {
-        "@portable":  "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires)\nON CONFLICT (target, userId) DO UPDATE\nSET\n    pin = excluded.pin,\n    token = excluded.token,\n    created = excluded.created,\n    expires = excluded.expires;\n",
-        "@sqlite":  "@portable",
-        "@postgresql":  "@portable",
-        "@mysql":  "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires)\nON DUPLICATE KEY UPDATE\n    pin = VALUES(pin),\n    token = VALUES(token),\n    created = VALUES(created),\n    expires = VALUES(expires);\n",
-        "@mariadb":  "@mysql"
+        "@portable": "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires)\nON CONFLICT (target, userId) DO UPDATE\nSET\n    pin = excluded.pin,\n    token = excluded.token,\n    created = excluded.created,\n    expires = excluded.expires;\n",
+        "@sqlite": "@portable",
+        "@postgresql": "@portable",
+        "@mysql": "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires)\nON DUPLICATE KEY UPDATE\n    pin = VALUES(pin),\n    token = VALUES(token),\n    created = VALUES(created),\n    expires = VALUES(expires);\n",
+        "@mariadb": "@mysql"
     }
 }
