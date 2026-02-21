@@ -134,6 +134,31 @@ cp config/.env.example config/.env
 SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(48))')"
 set_env_value "config/.env" "SECRET_KEY" "$SECRET_KEY"
 
+echo "Generating randomized admin routes..."
+ROUTE_SUFFIXES="$(python -c 'import secrets; print(secrets.token_hex(6)); print(secrets.token_hex(6))')"
+ADMIN_SUFFIX="$(printf "%s\n" "$ROUTE_SUFFIXES" | sed -n '1p')"
+DEV_ADMIN_SUFFIX="$(printf "%s\n" "$ROUTE_SUFFIXES" | sed -n '2p')"
+ADMIN_ROUTE="/admin-$ADMIN_SUFFIX"
+DEV_ADMIN_ROUTE="/dev-admin-$DEV_ADMIN_SUFFIX"
+
+mkdir -p src/component/cmp_7060_admin src/component/cmp_7050_dev_admin
+cat > src/component/cmp_7060_admin/custom.json <<EOF
+{
+  "manifest": {
+    "route": "$ADMIN_ROUTE"
+  }
+}
+EOF
+cat > src/component/cmp_7050_dev_admin/custom.json <<EOF
+{
+  "manifest": {
+    "route": "$DEV_ADMIN_ROUTE"
+  }
+}
+EOF
+echo "Admin route: $ADMIN_ROUTE"
+echo "Dev admin route: $DEV_ADMIN_ROUTE"
+
 echo "Bootstrapping databases..."
 python bin/bootstrap_db.py
 

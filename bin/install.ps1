@@ -149,6 +149,34 @@ Copy-Item -Path "config/.env.example" -Destination "config/.env" -Force
 $secretKey = & $venvPython -c "import secrets; print(secrets.token_urlsafe(48))"
 Set-EnvValue -Path "config/.env" -Key "SECRET_KEY" -Value $secretKey
 
+Write-Host "Generating randomized admin routes..."
+$adminSuffix = (& $venvPython -c "import secrets; print(secrets.token_hex(6))").Trim()
+$devAdminSuffix = (& $venvPython -c "import secrets; print(secrets.token_hex(6))").Trim()
+$adminRoute = "/admin-$adminSuffix"
+$devAdminRoute = "/dev-admin-$devAdminSuffix"
+
+$adminCustomPath = "src/component/cmp_7060_admin/custom.json"
+$devAdminCustomPath = "src/component/cmp_7050_dev_admin/custom.json"
+New-Item -ItemType Directory -Path (Split-Path -Parent $adminCustomPath) -Force | Out-Null
+New-Item -ItemType Directory -Path (Split-Path -Parent $devAdminCustomPath) -Force | Out-Null
+
+$adminJson = @{
+    manifest = @{
+        route = $adminRoute
+    }
+} | ConvertTo-Json -Depth 3
+
+$devAdminJson = @{
+    manifest = @{
+        route = $devAdminRoute
+    }
+} | ConvertTo-Json -Depth 3
+
+Set-Content -Path $adminCustomPath -Value $adminJson
+Set-Content -Path $devAdminCustomPath -Value $devAdminJson
+Write-Host "Admin route: $adminRoute"
+Write-Host "Dev admin route: $devAdminRoute"
+
 Write-Host "Bootstrapping databases..."
 & $venvPython "bin/bootstrap_db.py"
 
