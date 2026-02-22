@@ -1,17 +1,18 @@
-Perfecto. Aquí está la guía completa en inglés con la nueva sección sobre las clases de Neutral JS y el control manual de formularios:
-
----
-
 ## **GUIDE: AJAX Content Implementation in Neutral TS**
 
 ### **1. AJAX Architecture in Neutral TS**
 
-Neutral TS detects AJAX requests via the `Requested-With-Ajax` header. When this header is present, the system:
+Neutral TS detects AJAX requests via the `Requested-With-Ajax` header. The template component at `src/component/cmp_XXXX_template/neutral/layout/index.ntpl` detects if the request is an AJAX request:
 
-1. **Does NOT rotate UTOKEN** (maintains consistency with parent page)
-2. **Does NOT set cookies** (already set by parent page)
-3. **Renders `template-ajax.ntpl`** instead of `template.ntpl`
-4. **Only displays content from** `current:template:body-main-content` snippet (no full layout)
+```
+{:bool; CONTEXT->HEADERS->Requested-With-Ajax >>
+    {:include; {:flg; require :} >> #/template-ajax.ntpl :}
+:}{:else;
+    {:include; {:flg; require :} >> #/template.ntpl :}
+:}
+```
+
+It then only renders the content of the snippet `current:template:body-main-content`. This behavior is automatic and transparent for the developer.
 
 ---
 
