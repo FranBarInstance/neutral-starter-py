@@ -209,12 +209,6 @@ class DispatcherDevAdmin(Dispatcher):
 
     def render_route(self) -> Response:
         """Execute dev admin route logic and render."""
-        current = (self._raw_route or "").strip("/")
-
-        if current != "":
-            # Default behavior for other routes within dev admin component
-            return self.view.render()
-
         client_ip = get_ip()
         if not self._is_allowed_ip(client_ip):
             abort(403)
@@ -246,7 +240,10 @@ class DispatcherDevAdmin(Dispatcher):
 
         self._handle_auth_action(state, action, client_ip)
         state["auth_ok"] = self._auth_ok()
-        self._handle_save_action(state, action, db_path)
+
+        current = (self._raw_route or "").strip("/")
+        if current == "":
+            self._handle_save_action(state, action, db_path)
 
         self.schema_data["dev_admin"] = state
         return self.view.render()

@@ -10,6 +10,7 @@ This skill guides you through creating a completely new component in the Neutral
 Components are independent modules, and to create one component you don't need to modify others.
 
 Use `view_file` on `docs/component.md` for more advanced options.
+Use `view_file` on `docs/development-style-guide.md` for more style guide.
 Use `view_file` on `docs/templates-neutrats.md` for more template options.
 Use `view_file` on `docs/dispatcher.md` for complex business logic and forms.
 

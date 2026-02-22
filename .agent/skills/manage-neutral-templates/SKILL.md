@@ -7,8 +7,10 @@ description: Create or modify Neutral TS web template files (.ntpl) following th
 
 This skill provides the guidelines and syntax reference for creating and modifying Neutral TS templates (`.ntpl` files).
 
+Use `view_file` on `docs/templates-neutrats.md` for more template options.
+Use `view_file` on `docs/development-style-guide.md` for more style guide.
+
 ## Documentation References
-- **Full Internal Documentation**: [docs/templates-neutrats.md](docs/templates-neutrats.md)
 - **Official Documentation**: [Neutral TS Doc](https://franbarinstance.github.io/neutralts-docs/docs/neutralts/doc/)
 
 ## Neutral TS Syntax Overview
@@ -181,13 +183,3 @@ And then use it like this:
 ```
 
 You can use `{:snippet; ... :}` or `{:snip; ... :}` interchangeably.
-
-## Use fetch
-
-```ntpl
-{:fetch; {:flg; require :} >> #/data.json :}
-```
-
-```ntpl
-{:fetch; {:flg; require :} >> #/data.json :}
-```

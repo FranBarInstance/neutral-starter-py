@@ -28,7 +28,7 @@ Important:
 
 Example route override for component `devadmin_0yt2sa`:
 
-1. In `src/component/cmp_7050_dev_admin/custom.json` (local file):
+1. In `src/component/cmp_XXXX_dev_admin/custom.json` (local file):
 
 ```json
 {
@@ -48,28 +48,34 @@ Example route override for component `devadmin_0yt2sa`:
 
 After changing route config, restart the application and use the new path.
 
-## Security Model
+## Security Model & Isolated Authorization
+
+This component utilizes a **completely isolated authorization mechanism** that is independent of the application's main user authentication system (i.e., it doesn't use the standard `user_id`, roles, or the `cmp_XXXX_sign` / `cmp_XXXX_admin` components).
+
+**Why independent authorization?**
+The `dev_admin` component is designed as a deep-level recovery and configuration tool that can edit the metadata, routes, and permissions of *any* component via `config.db`.
+If `dev_admin` relied on the application's standard authentication component to grant access, and an administrator accidentally deployed a broken override that corrupted the standard authentication component (or disabled it), **they would be permanently locked out**. By using an isolated, environment-level security model, `dev_admin` serves as a fail-safe "rescue mode" that remains accessible even if the rest of the application's auth flow is compromised by a bad configuraton.
 
 Access is protected by **all** these checks:
 
-1. IP restrictions:
+1. **IP restrictions**:
 - `DEV_ADMIN_LOCAL_ONLY=true` blocks non-loopback IPs.
 - `DEV_ADMIN_ALLOWED_IPS` must include the requester IP/CIDR (defaults to `127.0.0.1,::1`).
 
-2. Credentials from `.env`:
+2. **Isolated Credentials from `.env`**:
 - `DEV_ADMIN_USER`
 - `DEV_ADMIN_PASSWORD`
 
-These variable names are currently tied to this component prefix, but they are documented as a reusable security baseline for future admin components.
+These environment variables are strictly evaluated in-memory and circumvent any potentially broken database-level user definitions.
 
-3. Session login:
-- After successful login, session key `DEV_ADMIN_AUTH` is set.
-4. CSRF protection:
+3. **Session login**:
+- After successful login, an isolated session key `DEV_ADMIN_AUTH` is set.
+4. **CSRF protection**:
 - Login, save, and logout forms require a valid CSRF token stored in session.
-5. Login anti-bruteforce:
-- Failed login attempts are rate-limited per client IP (component-local in-memory window).
+5. **Login anti-bruteforce**:
+- Failed login attempts are rate-limited per client IP (using a component-local in-memory window).
 
-If credentials are not configured, the panel shows an error and does not allow editing.
+If credentials are not configured in the `.env` file, the panel shows an error and explicitly denies access, preventing unintended exposure.
 
 ## Environment Configuration (`config/.env`)
 

@@ -1,11 +1,6 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 
-{:!bool; dev_admin->auth_ok >>
-    {:exit; 401 :}
-:}
-
-
 {:*
     Disable carousel
     ----------------
@@ -24,7 +19,11 @@
 *:}
 {:snip; current:template:body-main-content >>
     <div class="{:;local::current->theme->class->container:}">
-        {:snip; current:list-x-icons :}
+        {:!bool; dev_admin->auth_ok >>
+            {:snip; dev-admin-form-login :}
+        :}{:else;
+            {:snip; current:list-x-icons :}
+        :}
     </div>
 :}
 

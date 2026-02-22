@@ -13,20 +13,7 @@
         :}
 
         {:!bool; dev_admin->auth_ok >>
-            <h3>{:trans; Dev Admin Login :}</h3>
-            <form method="post" class="card card-body mt-3">
-                <input type="hidden" name="action" value="login">
-                <input type="hidden" name="csrf_token" value="{:&;dev_admin->csrf_token:}">
-                <div class="mb-3">
-                    <label class="form-label" for="dev-admin-username">{:trans; Username :}</label>
-                    <input id="dev-admin-username" class="form-control" name="username" type="text" autocomplete="username" required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label" for="dev-admin-password">{:trans; Password :}</label>
-                    <input id="dev-admin-password" class="form-control" name="password" type="password" autocomplete="current-password" required>
-                </div>
-                <button class="btn btn-primary" type="submit">{:trans; Sign in :}</button>
-            </form>
+            {:snip; dev-admin-form-login :}
         :}{:else;
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h3 class="m-0">{:trans; Custom Overrides :}</h3>
