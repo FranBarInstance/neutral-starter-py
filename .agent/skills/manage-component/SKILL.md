@@ -1,6 +1,6 @@
 ---
 name: manage-component
-description: Create or modify Neutral TS components following the standard architecture, security standards, and best practices of the Neutral TS Starter Py framework.
+description: Create or modify components following the standard architecture, security standards, and best practices of the Neutral TS Starter Py framework.
 ---
 
 # Create or Modify Neutral TS Component Skill
