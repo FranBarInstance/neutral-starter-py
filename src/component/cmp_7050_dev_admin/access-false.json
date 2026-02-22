@@ -9,9 +9,7 @@
         },
         "menu": {
             "session:true": {
-                "dev-admin": {
-                    "dev-admin": null
-                }
+                "dev-admin": null
             }
         }
     }

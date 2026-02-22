@@ -3,3 +3,49 @@
 {:snip; current:template:head:materialicons_0yt2sa >>
     <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 :}
+
+{:snip; current:list-x-icons >>
+    {:moveto; /head >>
+        <style nonce="{:;CSP_NONCE:}">
+            .icons-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+            .icon-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0.5rem;
+                border-radius: 8px;
+                background-color: var(--neutral-surface, #f5f5f5);
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
+            }
+            .icon-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            .icon-item i {
+                font-size: 2rem;
+                color: var(--neutral-primary, #333);
+                margin-bottom: 0.5rem;
+            }
+            .icon-name {
+                font-size: 0.75rem;
+                color: var(--neutral-secondary, #666);
+                text-align: center;
+                word-break: break-word;
+                font-family: monospace;
+            }
+        </style>
+    :}
+    <div class="icons-grid">
+        {:each; local::list-x-icons key val >>
+            <div class="icon-item">
+                <i class="{:;val:}"></i>
+                <span class="icon-name">{:;key:}</span>
+            </div>
+        :}
+    </div>
+:}

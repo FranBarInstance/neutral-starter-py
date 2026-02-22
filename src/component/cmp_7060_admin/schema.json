@@ -26,7 +26,7 @@
                         "admin": {
                             "name": "Admin",
                             "tabs": "admin",
-                            "icon": "x-icon-setting"
+                            "icon": "x-icon-admin"
                         }
                     }
                 }
@@ -37,7 +37,7 @@
                         "admin-home": {
                             "text": "Admin",
                             "link": "[:;data->admin_0yt2sa->manifest->route:]",
-                            "icon": "x-icon-setting"
+                            "icon": "x-icon-admin"
                         },
                         "admin-users": {
                             "text": "Users",

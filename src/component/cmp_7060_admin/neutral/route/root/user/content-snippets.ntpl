@@ -10,6 +10,7 @@
         {:filled; admin_user->error >>
             <div class="alert alert-danger">{:&;admin_user->error:}</div>
         :}
+
         {:filled; admin_user->message >>
             <div class="alert alert-success">{:&;admin_user->message:}</div>
         :}
@@ -183,7 +184,6 @@
                                 <input type="hidden" name="disabled_filter" value="{:&;admin_user->disabled_filter:}">
                                 <input type="hidden" name="order" value="{:&;admin_user->order:}">
                                 <input type="hidden" name="user_id" value="{:&;user->userId:}">
-                                <div class="small mb-1">{:trans; Moderators can only change unvalidated and moderated status. :}</div>
                                 <select class="form-select form-select-sm mb-1" name="reason">
                                     <option value="">{:trans; Select disabled reason :}</option>
                                     <option value="{:;admin_user->reason_unvalidated:}">{:trans; unvalidated :}</option>

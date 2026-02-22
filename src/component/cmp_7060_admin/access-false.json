@@ -9,11 +9,7 @@
         },
         "menu": {
             "session:true": {
-                "admin": {
-                    "admin-home": null,
-                    "admin-users": null,
-                    "admin-posts": null
-                }
+                "admin": null
             }
         }
     }

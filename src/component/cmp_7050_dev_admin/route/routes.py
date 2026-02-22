@@ -238,3 +238,10 @@ def index() -> Response:
 
     dispatch.schema_data["dev_admin"] = state
     return dispatch.view.render()
+
+
+@bp.route("/<path:route>", methods=["GET", "POST"])
+def default_handler(route) -> Response:
+    """Default route handler."""
+    dispatch = Dispatcher(request, route, bp.neutral_route)
+    return dispatch.view.render()

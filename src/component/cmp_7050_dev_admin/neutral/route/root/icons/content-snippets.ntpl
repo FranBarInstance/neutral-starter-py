@@ -1,0 +1,25 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Disable carousel
+    ----------------
+*:}
+{:snip; current:template:body-carousel >> :}
+
+{:*
+    Disable lateralbar
+    ------------------
+*:}
+{:snip; current:template:body-lateral-bar >> :}
+
+{:*
+    Main Content
+    ------------
+*:}
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::current->theme->class->container:}">
+        {:snip; current:list-x-icons :}
+    </div>
+:}
+
+{:^;:}

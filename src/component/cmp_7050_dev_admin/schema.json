@@ -7,7 +7,7 @@
                         "dev-admin": {
                             "name": "DEV Admin",
                             "tabs": "dev-admin",
-                            "icon": "x-icon-setting"
+                            "icon": "x-icon-dev"
                         }
                     }
                 }
@@ -18,7 +18,12 @@
                         "dev-admin": {
                             "text": "DEV Admin",
                             "link": "[:;data->devadmin_0yt2sa->manifest->route:]",
-                            "icon": "x-icon-setting"
+                            "icon": "x-icon-dev"
+                        },
+                        "icons": {
+                            "text": "Icons list",
+                            "link": "[:;data->devadmin_0yt2sa->manifest->route:]/icons",
+                            "icon": "x-icon-greeting"
                         }
                     }
                 }
