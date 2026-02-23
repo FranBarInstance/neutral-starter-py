@@ -38,6 +38,12 @@ def test_accepts_allowed_host(client):
     assert response.status_code == 200
 
 
+def test_accepts_loopback_ip_when_localhost_is_allowed(client):
+    """Loopback IPv4 should be accepted when localhost is in ALLOWED_HOSTS."""
+    response = client.get("/", headers={"Host": "127.0.0.1"})
+    assert response.status_code == 200
+
+
 def test_referrer_policy_header_default(client):
     """Referrer-Policy must be sent with the configured default value."""
     response = client.get("/")

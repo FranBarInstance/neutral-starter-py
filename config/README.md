@@ -77,13 +77,13 @@ To keep debug active in development, run `touch` periodically before `DEBUG_EXPI
 | `SECRET_KEY` | Secret used by app tokens/cookies. Must be strong in production. | none |
 | `SITE_DOMAIN` | Canonical fallback host. | `localhost` |
 | `SITE_URL` | Canonical fallback URL. | `http://localhost` |
-| `ALLOWED_HOSTS` | Allowed request hosts, comma separated, wildcard supported. | `SITE_DOMAIN` |
+| `ALLOWED_HOSTS` | Allowed request hosts, comma separated, wildcard supported. If it includes `localhost`, loopback IPs are also accepted (`127.0.0.1`, `::1`). | `SITE_DOMAIN` |
 | `TRUSTED_PROXY_CIDRS` | Trusted proxy IP/CIDR list for client IP extraction. | empty |
 
 Example:
 
 ```env
-ALLOWED_HOSTS=localhost,*.example.com,my-other-domain.org
+ALLOWED_HOSTS=localhost,127.0.0.1,::1,*.example.com,my-other-domain.org
 TRUSTED_PROXY_CIDRS=127.0.0.1/32,::1/128,10.0.0.0/8
 ```
 

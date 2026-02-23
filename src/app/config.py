@@ -16,11 +16,23 @@ from constants import (
 
 config = dotenv_values(APP_CONFIG_FILE)
 
+
 def _env_bool(value, default=False):
     """Parse env flag: only 'true' enables it; anything else is False."""
     if value is None:
         return default
     return str(value).strip().lower() == 'true'
+
+
+def _parse_allowed_hosts(raw_value):
+    """Parse ALLOWED_HOSTS and expand localhost to loopback IP literals."""
+    hosts = [item.strip().lower() for item in (raw_value or '').split(',') if item.strip()]
+    if 'localhost' in hosts:
+        for extra_host in ('127.0.0.1', '::1'):
+            if extra_host not in hosts:
+                hosts.append(extra_host)
+    return hosts
+
 
 class Config: # pylint: disable=too-few-public-methods
     """Configuration class."""
@@ -45,7 +57,7 @@ class Config: # pylint: disable=too-few-public-methods
     # Comma separated list with wildcard support. Example:
     # ALLOWED_HOSTS=localhost,*.example.com,my-other-domain.org
     _allowed_hosts_raw = config.get('ALLOWED_HOSTS', SITE_DOMAIN or '')
-    ALLOWED_HOSTS = [item.strip().lower() for item in _allowed_hosts_raw.split(',') if item.strip()]
+    ALLOWED_HOSTS = _parse_allowed_hosts(_allowed_hosts_raw)
     TRUSTED_PROXY_CIDRS = [item.strip() for item in config.get('TRUSTED_PROXY_CIDRS', '').split(',') if item.strip()]  # pylint: disable=line-too-long
     NEUTRAL_IPC = _env_bool(config.get('NEUTRAL_IPC'), False)
     NEUTRAL_CACHE_DISABLE = _env_bool(config.get('NEUTRAL_CACHE_DISABLE'), False)
