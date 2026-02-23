@@ -1,4 +1,4 @@
-"""Component FToken - Init"""
+"""Component HelloComp - Init"""
 
 import os
 import sys

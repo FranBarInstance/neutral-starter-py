@@ -1,35 +1,194 @@
 {:* Copyright (C) 2025 https://github.com/FranBar1966/neutral-pwa-py (See LICENCE) *:}
 
-{:*
-    Data for this route
-    -------------------
-*:}
-{:data; #/data.json :}
+{:data; {:flg; require :} >> #/data.json :}
 
 {:*
-    Main content
-    ------------
+    Current-route snippet example
 *:}
-{:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
-        <h3>{:trans; {:;hello-component->hello:} :}</h3>
-        <p>{:trans; Example of a simple component :}</p>
-    </div>
-    <div class="{:;local::current->theme->class->container:} mt-3">
-        {:snip; hellocomp_0yt2sa-info :}
+{:snip; hellocomp_0yt2sa-current-route-snippet >>
+    <div class="alert alert-info border-0 shadow-sm mb-0" role="alert">
+        <strong>{:trans; Current route snippet :}</strong> {:trans; This snippet belongs only to this page. :}
     </div>
 :}
 
-{:*
-    This file does not produce output. By placing {:;:} at the end we force output
-    so that constructs like the following work:
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::current->theme->class->container:} py-3 py-md-4">
+        <div class="p-4 p-md-5 rounded-4 bg-light border shadow-sm mb-4">
+            <div class="row g-4 align-items-center">
+                <div class="col-12 col-lg-7">
+                    <p class="text-uppercase small fw-semibold text-secondary mb-2">{:trans; Component showcase :}</p>
+                    <h2 class="display-6 fw-bold mb-3">{:trans; Hello Component :}</h2>
+                    <p class="lead mb-3">{:trans; A complete visual example with snippets, AJAX and Bootstrap modals. :}</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        {:snip; hellocomp_0yt2sa-global-snippet :}
+                        <a class="btn btn-outline-primary btn-sm" href="{:;hellocomp_0yt2sa->manifest->route:}/test1">{:trans; Open test route one :}</a>
+                        <a class="btn btn-outline-secondary btn-sm" href="{:;hellocomp_0yt2sa->manifest->route:}/test2">{:trans; Open test route two :}</a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <img src="{:;hellocomp_0yt2sa->manifest->route:}/comp.webp" alt="component" class="img-fluid rounded-4 shadow">
+                </div>
+            </div>
+        </div>
 
-        {:include;
-            file-snippets.ntpl
-        :}{:else;
-            {:exit; 404 :}
-        :}
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{:trans; Global snippet :}</h5>
+                        <p class="text-secondary small mb-3">{:trans; Available in all application routes. :}</p>
+                        {:snip; hellocomp_0yt2sa-global-snippet :}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{:trans; Component route snippet :}</h5>
+                        <p class="text-secondary small mb-3">{:trans; Available in all routes of this component. :}</p>
+                        <span class="badge text-bg-light border">{:trans; Rendered below in full width :}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{:trans; Current route snippet :}</h5>
+                        <p class="text-secondary small mb-3">{:trans; Available only in this exact route. :}</p>
+                        {:snip; hellocomp_0yt2sa-current-route-snippet :}
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    Note: {:;:} or {:^;:} to force output
-*:}
+        {:snip; hellocomp_0yt2sa-route-snippet :}
+
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+                    <h5 class="card-title mb-0">{:trans; AJAX example :}</h5>
+                    <button
+                        class="btn btn-primary btn-sm neutral-fetch-click"
+                        data-url="{:;hellocomp_0yt2sa->manifest->route:}/ajax/example"
+                        data-wrap="hellocomp-ajax-target"
+                    >{:trans; Load content via AJAX :}</button>
+                </div>
+                <div id="hellocomp-ajax-target" class="p-3 rounded-3 bg-body-tertiary text-secondary">
+                    {:trans; Press the button to load AJAX content. :}
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title mb-3">{:trans; Bootstrap modal examples :}</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#hellocompSimpleModal">
+                        {:trans; Open simple modal :}
+                    </button>
+                    <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#hellocompAjaxClickModal">
+                        {:trans; Open AJAX modal :}
+                    </button>
+                    <button type="button" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#hellocompAjaxAutoModal">
+                        {:trans; Open AJAX modal (auto) :}
+                    </button>
+                    <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#hellocompFormModal">
+                        {:trans; Open modal with form :}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+:}
+
+{:snip; current:template:modals >>
+    <div class="modal fade" id="hellocompSimpleModal" tabindex="-1" aria-labelledby="hellocompSimpleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hellocompSimpleModalLabel">{:trans; Simple modal :}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">{:trans; This is a plain Bootstrap 5 modal without extra CSS. :}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="hellocompAjaxClickModal" tabindex="-1" aria-labelledby="hellocompAjaxClickModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hellocompAjaxClickModalLabel">{:trans; Modal with AJAX :}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></button>
+                </div>
+                <div class="modal-body">
+                    <button
+                        class="btn btn-sm btn-success mb-3 neutral-fetch-click"
+                        data-url="{:;hellocomp_0yt2sa->manifest->route:}/ajax/modal-content"
+                        data-wrap="hellocomp-ajax-click-modal-target"
+                    >{:trans; Load modal content :}</button>
+                    <div id="hellocomp-ajax-click-modal-target" class="p-3 rounded-3 bg-body-tertiary text-secondary">
+                        {:trans; Click to load content from an AJAX endpoint. :}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="hellocompAjaxAutoModal" tabindex="-1" aria-labelledby="hellocompAjaxAutoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hellocompAjaxAutoModalLabel">{:trans; Modal with AJAX (auto) :}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="hellocomp-ajax-auto-modal-target">
+                        {:fetch; |{:;hellocomp_0yt2sa->manifest->route:}/ajax/modal-content|visible|hellocomp-ajax-auto-modal-target| >>
+                            <div class="text-center p-3">
+                                <span class="spinner-border spinner-border-sm"></span>
+                                <span class="ms-2">{:trans; Loading modal content... :}</span>
+                            </div>
+                        :}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="hellocompFormModal" tabindex="-1" aria-labelledby="hellocompFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hellocompFormModalLabel">{:trans; Modal with form :}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></button>
+                </div>
+                <form method="GET" action="{:;hellocomp_0yt2sa->manifest->route:}/test2">
+                    <div class="modal-body">
+                        <p class="small text-secondary">{:trans; This form sends data to route /test2 to demonstrate form handling. :}</p>
+                        <div class="mb-3">
+                            <label for="hellocomp-name" class="form-label">{:trans; Name :}</label>
+                            <input id="hellocomp-name" name="name" type="text" class="form-control" placeholder="{:trans; Your name :}" required>
+                        </div>
+                        <div class="mb-0">
+                            <label for="hellocomp-topic" class="form-label">{:trans; Topic :}</label>
+                            <select id="hellocomp-topic" name="topic" class="form-select">
+                                <option value="Snippets">{:trans; Snippets :}</option>
+                                <option value="AJAX">AJAX</option>
+                                <option value="Modals">{:trans; Modals :}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{:trans; Close :}</button>
+                        <button type="submit" class="btn btn-primary">{:trans; Send form :}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+:}
+
 {:^;:}

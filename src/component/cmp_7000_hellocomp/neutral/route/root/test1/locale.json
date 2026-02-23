@@ -4,26 +4,38 @@
         "en": {
             "Test One": "Test One",
             "Hello Component Test One": "Hello Component Test One",
-            "Example of a simple component, Test One.": "Example of a simple component, Test One.",
-            "(Overwrite)": "(Overwrite)"
+            "Route with custom dispatcher logic": "Route with custom dispatcher logic",
+            "This route uses the custom dispatcher class.": "This route uses the custom dispatcher class.",
+            "dispatch_result": "dispatch_result",
+            "foo value": "foo value",
+            "Back to home": "Back to home"
         },
         "es": {
-            "Test One": "Test Uno",
-            "Hello Component Test One": "Hola Componente Test Uno",
-            "Example of a simple component, Test One.": "Ejemplo de un componente simple, Test Uno.",
-            "(Overwrite)": "(Sobrescrito)"
+            "Test One": "Prueba Uno",
+            "Hello Component Test One": "Componente Hola Prueba Uno",
+            "Route with custom dispatcher logic": "Ruta con logica personalizada de dispatcher",
+            "This route uses the custom dispatcher class.": "Esta ruta usa la clase dispatcher personalizada.",
+            "dispatch_result": "resultado_dispatch",
+            "foo value": "valor de foo",
+            "Back to home": "Volver al inicio"
         },
         "fr": {
             "Test One": "Test Un",
-            "Hello Component Test One": "Composant Hello Test Un",
-            "Example of a simple component, Test One.": "Exemple d'un composant simple, Test Un.",
-            "(Overwrite)": "(Écraser)"
+            "Hello Component Test One": "Composant Bonjour Test Un",
+            "Route with custom dispatcher logic": "Route avec logique personnalisee du dispatcher",
+            "This route uses the custom dispatcher class.": "Cette route utilise la classe dispatcher personnalisee.",
+            "dispatch_result": "resultat_dispatch",
+            "foo value": "valeur de foo",
+            "Back to home": "Retour a l'accueil"
         },
         "de": {
             "Test One": "Test Eins",
-            "Hello Component Test One": "Hallo Komponente Test Eins",
-            "Example of a simple component, Test One.": "Beispiel einer einfachen Komponente, Test Eins.",
-            "(Overwrite)": "(Überschreiben)"
+            "Hello Component Test One": "Hallo-Komponente Test Eins",
+            "Route with custom dispatcher logic": "Route mit benutzerdefinierter Dispatcher-Logik",
+            "This route uses the custom dispatcher class.": "Diese Route verwendet die benutzerdefinierte Dispatcher-Klasse.",
+            "dispatch_result": "dispatch_result",
+            "foo value": "foo-Wert",
+            "Back to home": "Zur Startseite"
         }
     }
 }

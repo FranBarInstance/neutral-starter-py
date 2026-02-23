@@ -1,62 +1,33 @@
 {:* Copyright (C) 2025 https://github.com/FranBar1966/neutral-pwa-py (See LICENCE) *:}
 
-{:*
-    Data for this route
-    ------------------
-*:}
 {:data; {:flg; require :} >> #/data.json :}
-
-{:*
-    Locale for this route
-    ---------------------
-*:}
 {:locale; {:flg; require :} >> #/locale.json :}
 
-{:*
-    Disable carousel
-    ----------------
-*:}
-{:snip; current:template:body-carousel >> :}
-
-{:*
-    Disable lateral bar
-    -------------------
-*:}
-{:snip; current:template:body-lateral-bar >> :}
-
-{:*
-    Overwrite page heading
-    ----------------------
-*:}
-{:snip; current:template:page-h1 >>
-    <div class="container my-3">
-        <h1 class="border-bottom p-2">{:trans; {:;local::current->route->h1:} :} {:trans; (Overwrite) :}</h1>
-    </div>
-:}
-
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
-        <h3>{:trans; Test One :}</h3>
-        <p>{:trans; Example of a simple component, Test One. :}</p>
-    </div>
-    <div class="{:;local::current->theme->class->container:}">
-        {:snip; hellocomp_0yt2sa-test :}
-    </div>
-    <div class="{:;local::current->theme->class->container:} mt-3">
-        {:snip; hellocomp_0yt2sa-info :}
+    <div class="{:;local::current->theme->class->container:} py-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h3 class="mb-2">{:trans; Test One :}</h3>
+                <p class="text-secondary mb-3">{:trans; This route uses the custom dispatcher class. :}</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>{:trans; dispatch_result :}</span>
+                        <strong>{:bool; dispatch_result >> True :}{:else; False :}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>{:trans; foo value :}</span>
+                        <strong>{:;local::foo:}</strong>
+                    </li>
+                </ul>
+                <div class="mt-3">
+                    <a class="btn btn-primary btn-sm" href="{:;hellocomp_0yt2sa->manifest->route:}">{:trans; Back to home :}</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            {:snip; hellocomp_0yt2sa-route-snippet :}
+        </div>
     </div>
 :}
 
-{:*
-    This file does not produce output. By placing {:;:} at the end we force output
-    so that constructs like the following work:
-
-        {:include;
-            file-snippets.ntpl
-        :}{:else;
-            {:exit; 404 :}
-        :}
-
-    Note: {:;:} or {:^;:} to force output
-*:}
 {:^;:}

@@ -1,6 +1,8 @@
 {
-    "__comment_:trans": "This translation will be available for the entire Component",
+    "__comment_:trans": "Only requires translation if instead of text there are references in the BIFs trans",
     "trans": {
-        "en": {}
+        "en": {
+            "ref:example:reference": "This is a reference text for translation."
+        }
     }
 }

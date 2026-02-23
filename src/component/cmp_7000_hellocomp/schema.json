@@ -1,23 +1,30 @@
 {
-    "__comment_:locale:trans": "The menu translation must be available globally for the entire application",
+    "__comment_:locale:trans": "Global elements like the menu are translated here; other elements dependent on this path are translated in the corresponding locale.json file.",
+    "__comment_:locale:trans:en": "Since the texts are already in English, no translation is required unless it is a reference.",
     "inherit": {
         "locale": {
             "trans": {
                 "en": {},
                 "es": {
+                    "Hello": "Hola",
                     "Hello Component": "Componente Hola",
-                    "Test One": "Test Uno",
-                    "Test Two": "Test Dos",
-                    "Test Error 404": "Test Error 404"
+                    "Global snippet from Hello Component": "Snippet global del Componente Hola",
+                    "Test One": "Prueba Uno",
+                    "Test Two": "Prueba Dos",
+                    "Test Error 404": "Prueba Error 404"
                 },
                 "fr": {
+                    "Hello": "Bonjour",
                     "Hello Component": "Composant Bonjour",
+                    "Global snippet from Hello Component": "Snippet global du Composant Bonjour",
                     "Test One": "Test Un",
                     "Test Two": "Test Deux",
                     "Test Error 404": "Test Erreur 404"
                 },
                 "de": {
+                    "Hello": "Hallo",
                     "Hello Component": "Hallo-Komponente",
+                    "Global snippet from Hello Component": "Globales Snippet aus der Hallo-Komponente",
                     "Test One": "Test Eins",
                     "Test Two": "Test Zwei",
                     "Test Error 404": "Test Fehler 404"
@@ -96,8 +103,8 @@
         }
     },
     "data": {
-        "hello-component": {
-            "hello": "Hello from hello component"
+        "hellocomp": {
+            "hello": "Hello Component"
         }
     }
 }

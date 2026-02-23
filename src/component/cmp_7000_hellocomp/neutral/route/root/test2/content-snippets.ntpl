@@ -1,50 +1,37 @@
 {:* Copyright (C) 2025 https://github.com/FranBar1966/neutral-pwa-py (See LICENCE) *:}
 
-{:*
-    Data for this route
-    ------------------
-*:}
 {:data; {:flg; require :} >> #/data.json :}
-
-{:*
-    Locale for this route
-    ---------------------
-*:}
 {:locale; {:flg; require :} >> #/locale.json :}
 
-{:*
-    Overwrite page heading
-    ----------------------
-*:}
-{:snip; current:template:page-h1 >>
-    <div class="container my-3">
-        <h1 class="border-bottom p-2">{:trans; {:;local::current->route->h1:} :}</h1>
-    </div>
-:}
-
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
-        <h3>{:trans; Test Two :}</h3>
-        <p>{:trans; Example of a simple component, Test Two. :}</p>
-    </div>
-    <div class="{:;local::current->theme->class->container:}">
-        {:snip; hellocomp_0yt2sa-test :}
-    </div>
-    <div class="{:;local::current->theme->class->container:} mt-3">
-        {:snip; hellocomp_0yt2sa-info :}
+    <div class="{:;local::current->theme->class->container:} py-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h3 class="mb-2">{:trans; Test Two :}</h3>
+                <p class="text-secondary mb-3">{:trans; This route receives GET data from the modal form. :}</p>
+                <div class="row g-3">
+                    <div class="col-12 col-md-6">
+                        <div class="p-3 rounded-3 bg-body-tertiary">
+                            <div class="small text-secondary">{:trans; Name :}</div>
+                            <div class="fw-semibold">{:;CONTEXT->GET->name:}{:else; - :}</div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="p-3 rounded-3 bg-body-tertiary">
+                            <div class="small text-secondary">{:trans; Topic :}</div>
+                            <div class="fw-semibold">{:;CONTEXT->GET->topic:}{:else; - :}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a class="btn btn-primary btn-sm" href="{:;hellocomp_0yt2sa->manifest->route:}">{:trans; Back to home :}</a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            {:snip; hellocomp_0yt2sa-route-snippet :}
+        </div>
     </div>
 :}
 
-{:*
-    This file does not produce output. By placing {:;:} at the end we force output
-    so that constructs like the following work:
-
-        {:include;
-            file-snippets.ntpl
-        :}{:else;
-            {:exit; 404 :}
-        :}
-
-    Note: {:;:} or {:^;:} to force output
-*:}
 {:^;:}

@@ -2,6 +2,6 @@
     "__comment_:custom.json": "Overwriting schema and manifest values",
     "schema": {},
     "manifest": {
-        "route": "/HelloComponent"
+        "route": "/Hello-Component"
     }
 }

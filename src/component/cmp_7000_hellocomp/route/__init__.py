@@ -1,5 +1,4 @@
 
-
 """Hello Component Blueprint Module."""
 
 from app.components import create_blueprint

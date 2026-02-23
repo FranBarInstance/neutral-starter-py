@@ -1,0 +1,10 @@
+{:* AJAX modal response *:}
+
+{:snip; current:template:body-main-content >>
+    <div class="alert alert-success border-0 shadow-sm mb-0">
+        <strong>{:trans; Modal AJAX loaded successfully. :}</strong>
+        <div class="small mt-1">{:trans; You are viewing dynamic content coming from /ajax/modal-content. :}</div>
+    </div>
+:}
+
+{:^;:}

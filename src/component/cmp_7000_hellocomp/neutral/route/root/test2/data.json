@@ -3,7 +3,7 @@
         "current": {
             "route": {
                 "title": "Hello Component Test Two",
-                "description": "Component example, ilustrates the basic structure of a component. Test Two",
+                "description": "Route that receives GET form data",
                 "h1": "Hello Component Test Two"
             }
         }

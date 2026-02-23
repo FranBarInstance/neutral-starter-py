@@ -1,20 +1,41 @@
 {
     "__comment_:trans": "This translation will be available for this specific route",
     "trans": {
+        "en": {
+            "Test Two": "Test Two",
+            "Hello Component Test Two": "Hello Component Test Two",
+            "Route that receives GET form data": "Route that receives GET form data",
+            "This route receives GET data from the modal form.": "This route receives GET data from the modal form.",
+            "Name": "Name",
+            "Topic": "Topic",
+            "Back to home": "Back to home"
+        },
         "es": {
-            "Test Two": "Test Dos",
-            "Hello Component Test Two": "Hola Componente Test Dos",
-            "Example of a simple component, Test Two.": "Ejemplo de un componente simple, Test Dos."
+            "Test Two": "Prueba Dos",
+            "Hello Component Test Two": "Componente Hola Prueba Dos",
+            "Route that receives GET form data": "Ruta que recibe datos GET del formulario",
+            "This route receives GET data from the modal form.": "Esta ruta recibe datos GET del formulario modal.",
+            "Name": "Nombre",
+            "Topic": "Tema",
+            "Back to home": "Volver al inicio"
         },
         "fr": {
             "Test Two": "Test Deux",
-            "Hello Component Test Two": "Composant Hello Test Deux",
-            "Example of a simple component, Test Two.": "Exemple d'un composant simple, Test Deux."
+            "Hello Component Test Two": "Composant Bonjour Test Deux",
+            "Route that receives GET form data": "Route qui recoit les donnees GET du formulaire",
+            "This route receives GET data from the modal form.": "Cette route recoit les donnees GET du formulaire modal.",
+            "Name": "Nom",
+            "Topic": "Sujet",
+            "Back to home": "Retour a l'accueil"
         },
         "de": {
             "Test Two": "Test Zwei",
-            "Hello Component Test Two": "Hallo Komponente Test Zwei",
-            "Example of a simple component, Test Two.": "Beispiel einer einfachen Komponente, Test Zwei."
+            "Hello Component Test Two": "Hallo-Komponente Test Zwei",
+            "Route that receives GET form data": "Route, die GET-Formulardaten empfaengt",
+            "This route receives GET data from the modal form.": "Diese Route empfangt GET-Daten aus dem Modalformular.",
+            "Name": "Name",
+            "Topic": "Thema",
+            "Back to home": "Zur Startseite"
         }
     }
 }

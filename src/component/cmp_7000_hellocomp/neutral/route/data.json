@@ -3,7 +3,7 @@
         "current": {
             "route": {
                 "title": "Hello Component",
-                "description": "Component example, ilustrates the basic structure of a component",
+                "description": "Visual showcase component with snippets, AJAX and modals",
                 "h1": "Hello Component"
             }
         }

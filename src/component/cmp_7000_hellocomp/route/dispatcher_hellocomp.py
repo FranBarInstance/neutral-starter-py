@@ -13,5 +13,5 @@ class DispatcherHelloComp(Dispatcher):
         self.schema_local_data['foo'] = "bar"
 
     def test1(self):
-        """business logic for test1 requests."""
+        """Business logic for test1 requests."""
         return True

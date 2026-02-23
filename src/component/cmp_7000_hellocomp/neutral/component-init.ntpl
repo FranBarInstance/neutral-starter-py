@@ -1,9 +1,8 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:*
-    Snippet available in all app
-    ----------------------------
+    Global snippet available in all app routes
 *:}
-{:snip; hellocomp_0yt2sa-test >>
-    Test global snippet
+{:snip; hellocomp_0yt2sa-global-snippet >>
+    <span class="badge rounded-pill text-bg-primary">{:trans; Global snippet from Hello Component :}</span>
 :}

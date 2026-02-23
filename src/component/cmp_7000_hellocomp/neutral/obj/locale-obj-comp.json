@@ -1,0 +1,13 @@
+{
+    "trans": {
+        "es": {
+            "I'm a message from a component in obj": "Soy un mensaje de un componente en obj"
+        },
+        "de": {
+            "I'm a message from a component in obj": "Ich bin eine Nachricht von einer Komponente in obj"
+        },
+        "fr": {
+            "I'm a message from a component in obj": "Je suis un message d'un composant dans obj"
+        }
+    }
+}

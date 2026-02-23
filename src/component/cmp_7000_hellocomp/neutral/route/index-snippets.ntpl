@@ -2,14 +2,11 @@
 
 {:*
     Data for all {:;hellocomp_0yt2sa->manifest->route:}/* routes
-    ------------------------------------------------------------
 *:}
 {:data; {:flg; require :} >> #/data.json :}
 
 {:*
     Locale for all {:;hellocomp_0yt2sa->manifest->route:}/* routes
-    --------------------------------------------------------------
-    Only locale file for the current language is loaded
 *:}
 {:locale;
     #/locale-{:lang;:}.json
@@ -18,32 +15,32 @@
 :}
 
 {:*
-    Snippet for all {:;hellocomp_0yt2sa->manifest->route:}/* routes
-    ---------------------------------------------------------------
+    Route-wide snippet for this component
 *:}
-{:snip; hellocomp_0yt2sa-info >>
-    <div class="row mb-3">
-        <div class="col-12 col-md-6">
-            <img src="{:;hellocomp_0yt2sa->manifest->route:}/comp.webp" alt="hello" class="img-fluid">
-        </div>
-        <div class="col-12 col-md-6">
-            <strong>RESULT</strong><br>
-            request: {:;CONTEXT->PATH:}<br>
-            foo: {:;local::foo:}<br>
-            dispatch_result: {:bool; dispatch_result >> True :}{:else; False :}<br>
-            message: {:;local::message:}<br>
-            obj message: {:obj; #/../obj/comp.json >> {:;local::message:} :} <br>
-            <br>
-            <strong>COMPONENT INFO</strong><br>
-            This is the path: {:;CONTEXT->PATH:}<br>
-            CURRENT_COMP_ROUTE: {:;CURRENT_COMP_ROUTE:}<br>
-            CURRENT_COMP_UUID: {:;CURRENT_COMP_UUID:}<br>
-            CURRENT_COMP_NAME: {:;CURRENT_COMP_NAME:}<br>
-            Component name: {:;hellocomp_0yt2sa->name:}<br>
-            Name: {:;hellocomp_0yt2sa->manifest->name:}<br>
-            Description: {:;hellocomp_0yt2sa->manifest->description:}<br>
-            Version: {:;hellocomp_0yt2sa->manifest->version:}<br>
-            Manage Route: {:;hellocomp_0yt2sa->manifest->route:}<br>
+{:snip; hellocomp_0yt2sa-route-snippet >>
+    {:*
+        Load locale object
+    *:}
+    {:locale; #/../obj/locale-obj-comp.json  :}
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title mb-3">{:trans; Route snippet for the full component :}</h5>
+            <div class="row g-3 align-items-center">
+                <div class="col-12 col-md-4">
+                    <img src="{:;hellocomp_0yt2sa->manifest->route:}/comp.webp" alt="component" class="img-fluid rounded-4 shadow-sm">
+                </div>
+                <div class="col-12 col-md-8">
+                    <p class="mb-2 text-secondary">{:trans; This block is available for all routes in this component. :}</p>
+                    <div class="small">
+                        <div><strong>PATH:</strong> {:;CONTEXT->PATH:}</div>
+                        <div><strong>CURRENT_COMP_ROUTE:</strong> {:;CURRENT_COMP_ROUTE:}</div>
+                        <div><strong>CURRENT_COMP_UUID:</strong> {:;CURRENT_COMP_UUID:}</div>
+                        <div><strong>Message:</strong> {:trans; {:;local::message:} :}</div>
+                        <div><strong>Trans reference:</strong> {:trans; ref:example:reference :}</div>
+                        <div><strong>Obj message:</strong> {:obj; #/../obj/comp.json >> {:trans; {:;local::message:} :} :}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 :}

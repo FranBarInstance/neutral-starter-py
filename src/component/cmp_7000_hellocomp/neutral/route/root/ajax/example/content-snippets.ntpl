@@ -1,0 +1,10 @@
+{:* AJAX snippet response *:}
+
+{:snip; current:template:body-main-content >>
+    <div class="border rounded-3 p-3 bg-white shadow-sm">
+        <h6 class="mb-2">{:trans; AJAX content loaded :}</h6>
+        <p class="mb-0 text-secondary">{:trans; This block was rendered by route /ajax/example. :}</p>
+    </div>
+:}
+
+{:^;:}

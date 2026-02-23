@@ -1,4 +1,3 @@
-"""
-Module hellocomp entry point.
-"""
+"""Module hellocomp entry point."""
+
 from .hellocomp import hellocomp
