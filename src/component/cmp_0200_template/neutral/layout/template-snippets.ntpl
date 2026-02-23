@@ -5,6 +5,7 @@
 :}
 
 {:snip; current:template:cache-key >>
+    {:lang;:}
     {:;local::current->theme->theme:}
     {:;local::current->theme->color:}
     {:;CONTEXT->HEADERS->Requested-With-Ajax:}
@@ -12,6 +13,7 @@
 :}
 
 {:snip; current:template:error-cache-key >>
+    {:lang;:}
     {:;local::current->theme->theme:}
     {:;local::current->theme->color:}
     {:;HAS_SESSION:}
