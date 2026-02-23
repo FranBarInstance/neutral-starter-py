@@ -159,7 +159,7 @@ In the following example, since the texts are already in English, it is not nece
 ## Workflow
 
 1.  **Identify Component Path**:
-    Determine the base directory of the component (e.g., `src/component/cmp_XXXX_componentname/neutral`).
+    Determine the base directory of the component (e.g., `src/component/cmp_XXXX_componentname/`).
 
 2. **Identify Global Translations**:
     - Look for menu texts in `schema`: `data.drawer.menu.session.rrss.name` and `menu.session.xxxx.xxxx.text`.
@@ -181,7 +181,7 @@ In the following example, since the texts are already in English, it is not nece
     -   **Default Text**: Plain text strings (e.g., `Login`). These are typically in English and only need translation in non-English locale files.
 
 5.  **Manage Locale Files**:
-    Locate or create the following files in the `route/` subdirectory:
+    Locate or create the following files in the `neutral/route/` subdirectory:
     -   `locale-en.json`
     -   `locale-es.json`
     -   `locale-fr.json`
