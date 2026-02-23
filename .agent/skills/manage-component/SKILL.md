@@ -34,7 +34,7 @@ mkdir -p src/component/cmp_NNNN_name
 ```
 src/component/cmp_NNNN_name/
 ├── manifest.json                     # Component identity (REQUIRED)
-├── schema.json                       # Configuration, menus (if needed)
+├── schema.json                       # Configuration, menus
 ├── custom.json                       # Local overrides (NEVER commit)
 ├── __init__.py                       # Component initialization (if needed)
 ├── README.md                         # Component documentation
