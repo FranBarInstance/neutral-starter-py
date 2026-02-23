@@ -40,11 +40,13 @@ src/component/cmp_XXXX_name/
 Create a shared snippets file (e.g., `snippets.ntpl` or in `index-snippets.ntpl`):
 
 ```ntpl
-{:* ========================================== *:}
-{:* SNIPPET: my-form                         *:}
-{:* Reusable content for normal loading      *:}
-{:* and AJAX loading                         *:}
-{:* ========================================== *:}
+{:*
+    ======================================
+    SNIPPET: my-form
+    Reusable content for normal loading
+    and AJAX loading
+    ======================================
+*:}
 
 {:snip; my-form >>
     <div class="card border-light mb-3">
@@ -103,10 +105,12 @@ Create a shared snippets file (e.g., `snippets.ntpl` or in `index-snippets.ntpl`
 `neutral/route/root/content-snippets.ntpl`:
 
 ```ntpl
-{:* ========================================== *:}
-{:* ROUTE: /my-component/                    *:}
-{:* Container page with full layout          *:}
-{:* ========================================== *:}
+{:*
+    ========================================
+    ROUTE: /my-component/
+    Container page with full layout
+    ========================================
+*:}
 
 {:* 1. Load data *:}
 {:data; {:flg; require :} >> #/data.json :}
@@ -147,10 +151,12 @@ Create a shared snippets file (e.g., `snippets.ntpl` or in `index-snippets.ntpl`
 `neutral/route/root/ajax/content-snippets.ntpl`:
 
 ```ntpl
-{:* ========================================== *:}
-{:* ROUTE: /my-component/ajax                *:}
-{:* AJAX Response - ONLY content, no layout  *:}
-{:* ========================================== *:}
+{:*
+    ========================================
+    ROUTE: /my-component/ajax
+    AJAX Response - ONLY content, no layout
+    ========================================
+*:}
 
 {:* 1. Load data (same as container page) *:}
 {:data; {:flg; require :} >> #/data.json :}
@@ -176,9 +182,11 @@ Create a shared snippets file (e.g., `snippets.ntpl` or in `index-snippets.ntpl`
 #### **Variant A: Modal Content (Sign Component Example)**
 
 ```ntpl
-{:* ========================================== *:}
-{:* MODAL WITH AJAX CONTENT                  *:}
-{:* ========================================== *:}
+{:*
+    ========================================
+    MODAL WITH AJAX CONTENT
+    ========================================
+*:}
 
 {:* Button that opens modal *:}
 <button type="button"
@@ -214,9 +222,11 @@ Create a shared snippets file (e.g., `snippets.ntpl` or in `index-snippets.ntpl`
 #### **Variant B: Click-Triggered Load**
 
 ```ntpl
-{:* ========================================== *:}
-{:* CLICK-TRIGGERED LOAD                     *:}
-{:* ========================================== *:}
+{:*
+    ========================================
+    CLICK-TRIGGERED LOAD
+    ========================================
+*:}
 
 {:snip; current:template:body-main-content >>
     <div class="container">
@@ -238,9 +248,11 @@ Create a shared snippets file (e.g., `snippets.ntpl` or in `index-snippets.ntpl`
 #### **Variant C: Visible Load (Lazy Loading)**
 
 ```ntpl
-{:* ========================================== *:}
-{:* LOAD WHEN VISIBLE (Lazy Loading)         *:}
-{:* ========================================== *:}
+{:*
+    ========================================
+    LOAD WHEN VISIBLE (Lazy Loading)
+    ========================================
+*:}
 
 {:snip; current:template:body-main-content >>
     <div class="container">
@@ -262,9 +274,11 @@ Create a shared snippets file (e.g., `snippets.ntpl` or in `index-snippets.ntpl`
 #### **Variant D: AJAX Form with Dynamic Response**
 
 ```ntpl
-{:* ========================================== *:}
-{:* FORM THAT UPDATES VIA AJAX               *:}
-{:* ========================================== *:}
+{:*
+    ========================================
+    FORM THAT UPDATES VIA AJAX
+    ========================================
+*:}
 
 {:* In snippets.ntpl *:}
 {:snip; dynamic-form >>
