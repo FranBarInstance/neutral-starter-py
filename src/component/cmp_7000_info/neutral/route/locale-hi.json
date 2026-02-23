@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "hi": {
+            "About": "हमारे बारे में",
+            "About Neutral TS PWA": "Neutral TS PWA के बारे में",
+            "About Neutral TS PWA Skeleton for PWA in Python": "Python में PWA के लिए Neutral TS PWA Skeleton के बारे में",
+            "Contact": "संपर्क",
+            "Contact Neutral TS PWA": "Neutral TS PWA से संपर्क करें",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "Python में PWA के लिए Neutral TS PWA Skeleton से संपर्क करें",
+            "Help": "मदद",
+            "Help Neutral TS PWA": "Neutral TS PWA सहायता",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Python में PWA के लिए Neutral TS PWA Skeleton सहायता",
+            "Legal": "कानूनी जानकारी",
+            "Legal Neutral TS PWA": "Neutral TS PWA कानूनी जानकारी",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Python में PWA के लिए Neutral TS PWA Skeleton कानूनी जानकारी"
+        }
+    }
+}

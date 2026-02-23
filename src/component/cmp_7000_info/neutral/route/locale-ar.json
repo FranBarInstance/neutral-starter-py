@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "ar": {
+            "About": "حول",
+            "About Neutral TS PWA": "حول Neutral TS PWA",
+            "About Neutral TS PWA Skeleton for PWA in Python": "حول Neutral TS PWA Skeleton لتطبيقات PWA في Python",
+            "Contact": "اتصل",
+            "Contact Neutral TS PWA": "اتصل بـ Neutral TS PWA",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "اتصل بـ Neutral TS PWA Skeleton لتطبيقات PWA في Python",
+            "Help": "مساعدة",
+            "Help Neutral TS PWA": "مساعدة Neutral TS PWA",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "مساعدة Neutral TS PWA Skeleton لتطبيقات PWA في Python",
+            "Legal": "معلومات قانونية",
+            "Legal Neutral TS PWA": "معلومات قانونية Neutral TS PWA",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "معلومات قانونية Neutral TS PWA Skeleton لتطبيقات PWA في Python"
+        }
+    }
+}

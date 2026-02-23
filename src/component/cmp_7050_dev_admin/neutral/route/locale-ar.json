@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "ar": {
+            "Login successful.": "تسجيل الدخول ناجح.",
+            "Dev Admin": "مطور المسؤول",
+            "Dev Admin Login": "تسجيل دخول مطور المسؤول",
+            "Username": "اسم المستخدم",
+            "Password": "كلمة المرور",
+            "Sign in": "تسجيل الدخول",
+            "Sign out": "تسجيل الخروج",
+            "Custom Overrides": "تجاوزات مخصصة",
+            "Component UUID": "معرف المكون",
+            "Override JSON": "JSON التجاوز",
+            "Save override": "حفظ التجاوز",
+            "Existing Overrides": "التجاوزات الموجودة",
+            "Load": "تحميل",
+            "Enabled": "مفعّل",
+            "Updated At": "تم التحديث",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "بيانات الاعتماد غير مكوّنة. قم بتعيين DEV_ADMIN_USER و DEV_ADMIN_PASSWORD في config/.env.",
+            "Invalid credentials.": "بيانات اعتماد غير صالحة.",
+            "Invalid CSRF token.": "رمز CSRF غير صالح.",
+            "Too many login attempts. Try again later.": "محاولات تسجيل دخول كثيرة جدًا. حاول مرة أخرى لاحقًا.",
+            "Override saved.": "تم حفظ التجاوز.",
+            "comp_uuid format is invalid.": "تنسيق comp_uuid غير صالح.",
+            "Override JSON must be a JSON object.": "يجب أن يكون JSON التجاوز كائن JSON.",
+            "Selected UUID does not exist in loaded components.": "المعرف المحدد غير موجود في المكونات المحملة."
+        }
+    }
+}

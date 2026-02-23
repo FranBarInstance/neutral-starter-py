@@ -1,0 +1,18 @@
+<h4>هذا هو المحتوى باللغة العربية</h4>
+<p>
+    لترجمة صفحات كاملة أو محتوى كبير، يمكننا استخدام استراتيجية مختلفة عن تلك التي يوفرها إطار العمل.
+</p>
+<p>
+    يمكننا إنشاء ملفات مختلفة content-es.ntpl و content-en.ntpl وما إلى ذلك، ثم تضمينها باستخدام:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    بدلاً من ذلك، يمكن فعل الشيء نفسه باستخدام snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

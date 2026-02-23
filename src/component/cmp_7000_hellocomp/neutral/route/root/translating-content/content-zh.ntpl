@@ -1,0 +1,18 @@
+<h4>这是中文内容</h4>
+<p>
+    要翻译完整页面或大量内容，我们可以使用与框架提供的不同的策略。
+</p>
+<p>
+    我们可以创建不同的文件 content-es.ntpl、content-en.ntpl 等，然后使用以下方式包含它们：
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    或者，也可以使用 snippet 完成同样的操作：
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

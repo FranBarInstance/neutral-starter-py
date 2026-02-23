@@ -1,0 +1,18 @@
+<h4>これは日本語のコンテンツです</h4>
+<p>
+    ページ全体や大きなコンテンツを翻訳するには、フレームワークが提供するものとは異なる戦略を使用できます。
+</p>
+<p>
+    content-es.ntpl、content-en.ntpl などの異なるファイルを作成し、次のように含めることができます：
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    あるいは、snippet でも同じことができます：
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

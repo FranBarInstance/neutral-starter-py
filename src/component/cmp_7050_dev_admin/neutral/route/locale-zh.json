@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "zh": {
+            "Login successful.": "登录成功。",
+            "Dev Admin": "开发管理员",
+            "Dev Admin Login": "开发管理员登录",
+            "Username": "用户名",
+            "Password": "密码",
+            "Sign in": "登录",
+            "Sign out": "退出",
+            "Custom Overrides": "自定义覆盖",
+            "Component UUID": "组件 UUID",
+            "Override JSON": "覆盖 JSON",
+            "Save override": "保存覆盖",
+            "Existing Overrides": "现有覆盖",
+            "Load": "加载",
+            "Enabled": "已启用",
+            "Updated At": "更新时间",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "凭据未配置。请在 config/.env 中设置 DEV_ADMIN_USER 和 DEV_ADMIN_PASSWORD。",
+            "Invalid credentials.": "无效凭据。",
+            "Invalid CSRF token.": "无效的 CSRF 令牌。",
+            "Too many login attempts. Try again later.": "登录尝试次数过多。请稍后再试。",
+            "Override saved.": "覆盖已保存。",
+            "comp_uuid format is invalid.": "comp_uuid 格式无效。",
+            "Override JSON must be a JSON object.": "覆盖 JSON 必须是 JSON 对象。",
+            "Selected UUID does not exist in loaded components.": "所选 UUID 在已加载组件中不存在。"
+        }
+    }
+}

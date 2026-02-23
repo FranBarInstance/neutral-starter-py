@@ -1,0 +1,18 @@
+<h4>Questo è il contenuto in italiano</h4>
+<p>
+    Per tradurre pagine intere o contenuti di grandi dimensioni, possiamo usare una strategia diversa da quella fornita dal framework.
+</p>
+<p>
+    Possiamo creare diversi file content-es.ntpl, content-en.ntpl, ecc. e poi includerli con:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    In alternativa, la stessa cosa può essere fatta con snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

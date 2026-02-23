@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "el": {
+            "Login successful.": "Επιτυχής σύνδεση.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Σύνδεση Dev Admin",
+            "Username": "Όνομα χρήστη",
+            "Password": "Κωδικός πρόσβασης",
+            "Sign in": "Σύνδεση",
+            "Sign out": "Αποσύνδεση",
+            "Custom Overrides": "Προσαρμοσμένες παρακάμψεις",
+            "Component UUID": "UUID στοιχείου",
+            "Override JSON": "JSON παράκαμψης",
+            "Save override": "Αποθήκευση παράκαμψης",
+            "Existing Overrides": "Υπάρχουσες παρακάμψεις",
+            "Load": "Φόρτωση",
+            "Enabled": "Ενεργοποιημένο",
+            "Updated At": "Ενημερώθηκε",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Τα διαπιστευτήρια δεν έχουν ρυθμιστεί. Ορίστε DEV_ADMIN_USER και DEV_ADMIN_PASSWORD στο config/.env.",
+            "Invalid credentials.": "Μη έγκυρα διαπιστευτήρια.",
+            "Invalid CSRF token.": "Μη έγκυρο token CSRF.",
+            "Too many login attempts. Try again later.": "Πολλές προσπάθειες σύνδεσης. Δοκιμάστε ξανά αργότερα.",
+            "Override saved.": "Η παράκαμψη αποθηκεύτηκε.",
+            "comp_uuid format is invalid.": "Η μορφή του comp_uuid δεν είναι έγκυρη.",
+            "Override JSON must be a JSON object.": "Το JSON παράκαμψης πρέπει να είναι αντικείμενο JSON.",
+            "Selected UUID does not exist in loaded components.": "Το επιλεγμένο UUID δεν υπάρχει στα φορτωμένα στοιχεία."
+        }
+    }
+}

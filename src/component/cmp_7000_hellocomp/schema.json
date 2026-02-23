@@ -11,7 +11,11 @@
                     "Global snippet from Hello Component": "Snippet global del Componente Hola",
                     "Test One": "Prueba Uno",
                     "Test Two": "Prueba Dos",
-                    "Test Error 404": "Prueba Error 404"
+                    "Test Error 404": "Prueba Error 404",
+                    "Translating content": "Traduciendo contenido",
+                    "Error 404": "Error 404",
+                    "Error 500": "Error 500",
+                    "Redirect": "Redireccion"
                 },
                 "fr": {
                     "Hello": "Bonjour",
@@ -19,7 +23,11 @@
                     "Global snippet from Hello Component": "Snippet global du Composant Bonjour",
                     "Test One": "Test Un",
                     "Test Two": "Test Deux",
-                    "Test Error 404": "Test Erreur 404"
+                    "Test Error 404": "Test Erreur 404",
+                    "Translating content": "Traduction de contenu",
+                    "Error 404": "Erreur 404",
+                    "Error 500": "Erreur 500",
+                    "Redirect": "Redirection"
                 },
                 "de": {
                     "Hello": "Hallo",
@@ -27,7 +35,191 @@
                     "Global snippet from Hello Component": "Globales Snippet aus der Hallo-Komponente",
                     "Test One": "Test Eins",
                     "Test Two": "Test Zwei",
-                    "Test Error 404": "Test Fehler 404"
+                    "Test Error 404": "Test Fehler 404",
+                    "Translating content": "Inhalt ubersetzen",
+                    "Error 404": "Fehler 404",
+                    "Error 500": "Fehler 500",
+                    "Redirect": "Weiterleitung"
+                },
+                "ru": {
+                    "Hello": "Привет",
+                    "Hello Component": "Компонент Hello",
+                    "Global snippet from Hello Component": "Глобальный фрагмент из компонента Hello",
+                    "Test One": "Тест Один",
+                    "Test Two": "Тест Два",
+                    "Test Error 404": "Тест Ошибка 404",
+                    "Translating content": "Перевод контента",
+                    "Error 404": "Ошибка 404",
+                    "Error 500": "Ошибка 500",
+                    "Redirect": "Перенаправление"
+                },
+                "it": {
+                    "Hello": "Ciao",
+                    "Hello Component": "Componente Hello",
+                    "Global snippet from Hello Component": "Snippet globale dal componente Hello",
+                    "Test One": "Test Uno",
+                    "Test Two": "Test Due",
+                    "Test Error 404": "Test Errore 404",
+                    "Translating content": "Traduzione contenuti",
+                    "Error 404": "Errore 404",
+                    "Error 500": "Errore 500",
+                    "Redirect": "Reindirizzamento"
+                },
+                "pl": {
+                    "Hello": "Cześć",
+                    "Hello Component": "Komponent Hello",
+                    "Global snippet from Hello Component": "Globalny fragment z komponentu Hello",
+                    "Test One": "Test Jeden",
+                    "Test Two": "Test Dwa",
+                    "Test Error 404": "Test Błąd 404",
+                    "Translating content": "Tlumaczenie tresci",
+                    "Error 404": "Blad 404",
+                    "Error 500": "Blad 500",
+                    "Redirect": "Przekierowanie"
+                },
+                "uk": {
+                    "Hello": "Привіт",
+                    "Hello Component": "Компонент Hello",
+                    "Global snippet from Hello Component": "Глобальний фрагмент із компонента Hello",
+                    "Test One": "Тест Один",
+                    "Test Two": "Тест Два",
+                    "Test Error 404": "Тест Помилка 404",
+                    "Translating content": "Переклад вмісту",
+                    "Error 404": "Помилка 404",
+                    "Error 500": "Помилка 500",
+                    "Redirect": "Перенаправлення"
+                },
+                "nl": {
+                    "Hello": "Hallo",
+                    "Hello Component": "Hello Component",
+                    "Global snippet from Hello Component": "Globale snippet van Hello Component",
+                    "Test One": "Test Een",
+                    "Test Two": "Test Twee",
+                    "Test Error 404": "Test Fout 404",
+                    "Translating content": "Inhoud vertalen",
+                    "Error 404": "Fout 404",
+                    "Error 500": "Fout 500",
+                    "Redirect": "Doorverwijzing"
+                },
+                "ro": {
+                    "Hello": "Salut",
+                    "Hello Component": "Component Hello",
+                    "Global snippet from Hello Component": "Fragment global din componentul Hello",
+                    "Test One": "Test Unu",
+                    "Test Two": "Test Doi",
+                    "Test Error 404": "Test Eroare 404",
+                    "Translating content": "Traducere continut",
+                    "Error 404": "Eroare 404",
+                    "Error 500": "Eroare 500",
+                    "Redirect": "Redirectionare"
+                },
+                "pt": {
+                    "Hello": "Olá",
+                    "Hello Component": "Componente Hello",
+                    "Global snippet from Hello Component": "Fragmento global do componente Hello",
+                    "Test One": "Teste Um",
+                    "Test Two": "Teste Dois",
+                    "Test Error 404": "Teste Erro 404",
+                    "Translating content": "Traducao de conteudo",
+                    "Error 404": "Erro 404",
+                    "Error 500": "Erro 500",
+                    "Redirect": "Redirecionamento"
+                },
+                "el": {
+                    "Hello": "Γεια",
+                    "Hello Component": "Στοιχείο Hello",
+                    "Global snippet from Hello Component": "Γενικό απόσπασμα από το στοιχείο Hello",
+                    "Test One": "Δοκιμή Ένα",
+                    "Test Two": "Δοκιμή Δύο",
+                    "Test Error 404": "Δοκιμή Σφάλμα 404",
+                    "Translating content": "Μετάφραση περιεχομένου",
+                    "Error 404": "Σφάλμα 404",
+                    "Error 500": "Σφάλμα 500",
+                    "Redirect": "Ανακατεύθυνση"
+                },
+                "hu": {
+                    "Hello": "Helló",
+                    "Hello Component": "Hello komponens",
+                    "Global snippet from Hello Component": "Globális kivonat a Hello komponensből",
+                    "Test One": "Teszt Egy",
+                    "Test Two": "Teszt Kettő",
+                    "Test Error 404": "Teszt Hiba 404",
+                    "Translating content": "Tartalom forditasa",
+                    "Error 404": "Hiba 404",
+                    "Error 500": "Hiba 500",
+                    "Redirect": "Atiranyitas"
+                },
+                "cs": {
+                    "Hello": "Ahoj",
+                    "Hello Component": "Komponenta Hello",
+                    "Global snippet from Hello Component": "Globální úryvek z komponenty Hello",
+                    "Test One": "Test Jedna",
+                    "Test Two": "Test Dva",
+                    "Test Error 404": "Test Chyba 404",
+                    "Translating content": "Preklad obsahu",
+                    "Error 404": "Chyba 404",
+                    "Error 500": "Chyba 500",
+                    "Redirect": "Presmerovani"
+                },
+                "sv": {
+                    "Hello": "Hej",
+                    "Hello Component": "Hello komponent",
+                    "Global snippet from Hello Component": "Globalt utdrag från Hello komponent",
+                    "Test One": "Test Ett",
+                    "Test Two": "Test Två",
+                    "Test Error 404": "Test Fel 404",
+                    "Translating content": "Oversattning av innehall",
+                    "Error 404": "Fel 404",
+                    "Error 500": "Fel 500",
+                    "Redirect": "Omdirigering"
+                },
+                "hi": {
+                    "Hello": "नमस्ते",
+                    "Hello Component": "हैलो कंपोनेंट",
+                    "Global snippet from Hello Component": "हैलो कंपोनेंट से ग्लोबल स्निपेट",
+                    "Test One": "टेस्ट एक",
+                    "Test Two": "टेस्ट दो",
+                    "Test Error 404": "टेस्ट त्रुटि 404",
+                    "Translating content": "सामग्री अनुवाद",
+                    "Error 404": "त्रुटि 404",
+                    "Error 500": "त्रुटि 500",
+                    "Redirect": "रीडायरेक्ट"
+                },
+                "ar": {
+                    "Hello": "مرحبا",
+                    "Hello Component": "مكون Hello",
+                    "Global snippet from Hello Component": "مقتطف عام من مكون Hello",
+                    "Test One": "اختبار واحد",
+                    "Test Two": "اختبار اثنان",
+                    "Test Error 404": "اختبار خطأ 404",
+                    "Translating content": "ترجمة المحتوى",
+                    "Error 404": "خطأ 404",
+                    "Error 500": "خطأ 500",
+                    "Redirect": "إعادة توجيه"
+                },
+                "zh": {
+                    "Hello": "你好",
+                    "Hello Component": "Hello 组件",
+                    "Global snippet from Hello Component": "来自 Hello 组件的全局片段",
+                    "Test One": "测试一",
+                    "Test Two": "测试二",
+                    "Test Error 404": "测试错误 404",
+                    "Translating content": "翻译内容",
+                    "Error 404": "错误 404",
+                    "Error 500": "错误 500",
+                    "Redirect": "重定向"
+                },
+                "ja": {
+                    "Hello": "こんにちは",
+                    "Hello Component": "Helloコンポーネント",
+                    "Global snippet from Hello Component": "Helloコンポーネントからのグローバルスニペット",
+                    "Test One": "テスト1",
+                    "Test Two": "テスト2",
+                    "Test Error 404": "テストエラー404",
+                    "Translating content": "コンテンツ翻訳",
+                    "Error 404": "エラー404",
+                    "Error 500": "エラー500",
+                    "Redirect": "リダイレクト"
                 }
             }
         },
@@ -68,6 +260,11 @@
                             "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/test2",
                             "icon": "x-icon-info"
                         },
+                        "translate": {
+                            "text": "Translating content",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/translating-content",
+                            "icon": "x-icon-info"
+                        },
                         "testerror": {
                             "text": "Error 404",
                             "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/non-existent-route",
@@ -100,6 +297,11 @@
                         "test2": {
                             "text": "Test Two",
                             "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/test2",
+                            "icon": "x-icon-info"
+                        },
+                        "translate": {
+                            "text": "Translating content",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/translating-content",
                             "icon": "x-icon-info"
                         },
                         "testerror": {

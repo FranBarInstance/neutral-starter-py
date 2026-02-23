@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "sv": {
+            "Login successful.": "Inloggning lyckades.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Dev Admin inloggning",
+            "Username": "Användarnamn",
+            "Password": "Lösenord",
+            "Sign in": "Logga in",
+            "Sign out": "Logga ut",
+            "Custom Overrides": "Anpassade åsidosättningar",
+            "Component UUID": "Komponent UUID",
+            "Override JSON": "Åsidosättnings-JSON",
+            "Save override": "Spara åsidosättning",
+            "Existing Overrides": "Befintliga åsidosättningar",
+            "Load": "Ladda",
+            "Enabled": "Aktiverad",
+            "Updated At": "Uppdaterad",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Inloggningsuppgifter är inte konfigurerade. Ställ in DEV_ADMIN_USER och DEV_ADMIN_PASSWORD i config/.env.",
+            "Invalid credentials.": "Ogiltiga inloggningsuppgifter.",
+            "Invalid CSRF token.": "Ogiltig CSRF-token.",
+            "Too many login attempts. Try again later.": "För många inloggningsförsök. Försök igen senare.",
+            "Override saved.": "Åsidosättning sparad.",
+            "comp_uuid format is invalid.": "comp_uuid-formatet är ogiltigt.",
+            "Override JSON must be a JSON object.": "Åsidosättnings-JSON måste vara ett JSON-objekt.",
+            "Selected UUID does not exist in loaded components.": "Valt UUID finns inte i laddade komponenter."
+        }
+    }
+}

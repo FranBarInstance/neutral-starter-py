@@ -3,15 +3,62 @@
         "locale": {
             "current": "en",
             "trans": {
-                "en": {},
+                "en": {
+                    "Setting": "Setting"
+                },
                 "es": {
                     "Setting": "Configuración"
+                },
+                "ru": {
+                    "Setting": "Настройка"
+                },
+                "de": {
+                    "Setting": "Einstellungen"
                 },
                 "fr": {
                     "Setting": "Paramètres"
                 },
-                "de": {
-                    "Setting": "Einstellungen"
+                "it": {
+                    "Setting": "Impostazione"
+                },
+                "pl": {
+                    "Setting": "Ustawienie"
+                },
+                "uk": {
+                    "Setting": "Налаштування"
+                },
+                "nl": {
+                    "Setting": "Instelling"
+                },
+                "ro": {
+                    "Setting": "Setare"
+                },
+                "pt": {
+                    "Setting": "Configuração"
+                },
+                "el": {
+                    "Setting": "Ρύθμιση"
+                },
+                "hu": {
+                    "Setting": "Beállítás"
+                },
+                "cs": {
+                    "Setting": "Nastavení"
+                },
+                "sv": {
+                    "Setting": "Inställning"
+                },
+                "hi": {
+                    "Setting": "सेटिंग"
+                },
+                "ar": {
+                    "Setting": "الإعداد"
+                },
+                "zh": {
+                    "Setting": "设置"
+                },
+                "ja": {
+                    "Setting": "設定"
                 }
             }
         },

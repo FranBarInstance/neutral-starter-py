@@ -1,0 +1,18 @@
+<h4>Ez a tartalom magyarul</h4>
+<p>
+    Teljes oldalak vagy nagy tartalom fordításához használhatunk a keretrendszer által biztosítottól eltérő stratégiát.
+</p>
+<p>
+    Létrehozhatunk különböző fájlokat: content-es.ntpl, content-en.ntpl stb., majd beilleszthetjük őket:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Alternatívaként ugyanez megtehető snippet segítségével:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

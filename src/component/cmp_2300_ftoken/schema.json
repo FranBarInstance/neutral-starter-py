@@ -8,11 +8,56 @@
                 "es": {
                     "ref:ftoken:error": "ERROR DE TOKEN: por favor recargue la página."
                 },
-                "fr": {
-                    "ref:ftoken:error": "ERREUR DE TOKEN: veuillez recharger la page."
-                  },
+                "ru": {
+                    "ref:ftoken:error": "ОШИБКА ТОКЕНА: пожалуйста, перезагрузите страницу."
+                },
                 "de": {
                     "ref:ftoken:error": "TOKEN FEHLER: bitte laden Sie die Seite neu."
+                },
+                "fr": {
+                    "ref:ftoken:error": "ERREUR DE TOKEN: veuillez recharger la page."
+                },
+                "it": {
+                    "ref:ftoken:error": "ERRORE TOKEN: per favore ricarica la pagina."
+                },
+                "pl": {
+                    "ref:ftoken:error": "BŁĄD TOKENA: proszę przeładować stronę."
+                },
+                "uk": {
+                    "ref:ftoken:error": "ПОМИЛКА ТОКЕНА: будь ласка, перезавантажте сторінку."
+                },
+                "nl": {
+                    "ref:ftoken:error": "TOKEN FOUT: herlaad de pagina."
+                },
+                "ro": {
+                    "ref:ftoken:error": "EROARE TOKEN: vă rugăm să reîncărcați pagina."
+                },
+                "pt": {
+                    "ref:ftoken:error": "ERRO DE TOKEN: por favor recarregue a página."
+                },
+                "el": {
+                    "ref:ftoken:error": "ΣΦΑΛΜΑ TOKEN: παρακαλώ επαναφορτώστε τη σελίδα."
+                },
+                "hu": {
+                    "ref:ftoken:error": "TOKEN HIBA: kérjük, töltse újra az oldalt."
+                },
+                "cs": {
+                    "ref:ftoken:error": "CHYBA TOKENU: prosím, znovu načtěte stránku."
+                },
+                "sv": {
+                    "ref:ftoken:error": "TOKEN FEL: vänligen ladda om sidan."
+                },
+                "hi": {
+                    "ref:ftoken:error": "टोकन त्रुटि: कृपया पृष्ठ को पुनः लोड करें।"
+                },
+                "ar": {
+                    "ref:ftoken:error": "خطأ في الرمز: يرجى إعادة تحميل الصفحة."
+                },
+                "zh": {
+                    "ref:ftoken:error": "令牌错误：请重新加载页面。"
+                },
+                "ja": {
+                    "ref:ftoken:error": "トークンエラー：ページをリロードしてください。"
                 }
             }
         }

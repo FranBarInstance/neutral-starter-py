@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "cs": {
+            "About": "O nás",
+            "About Neutral TS PWA": "O Neutral TS PWA",
+            "About Neutral TS PWA Skeleton for PWA in Python": "O Neutral TS PWA Skeleton pro PWA v Pythonu",
+            "Contact": "Kontakt",
+            "Contact Neutral TS PWA": "Kontaktujte Neutral TS PWA",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "Kontaktujte Neutral TS PWA Skeleton pro PWA v Pythonu",
+            "Help": "Nápověda",
+            "Help Neutral TS PWA": "Nápověda Neutral TS PWA",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Nápověda Neutral TS PWA Skeleton pro PWA v Pythonu",
+            "Legal": "Právní informace",
+            "Legal Neutral TS PWA": "Právní informace Neutral TS PWA",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Právní informace Neutral TS PWA Skeleton pro PWA v Pythonu"
+        }
+    }
+}

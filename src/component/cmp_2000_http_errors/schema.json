@@ -11,13 +11,73 @@
                     "Internal Server Error": "Error interno del servidor",
                     "An internal error occurred in app.": "Se produjo un error interno en la aplicación."
                 },
-                "fr": {
-                    "Internal Server Error": "Erreur interne du serveur",
-                    "An internal error occurred in app.": "Une erreur interne s'est produite dans l'application."
+                "ru": {
+                    "Internal Server Error": "Внутренняя ошибка сервера",
+                    "An internal error occurred in app.": "В приложении произошла внутренняя ошибка."
                 },
                 "de": {
                     "Internal Server Error": "Interner Serverfehler",
                     "An internal error occurred in app.": "Ein interner Fehler ist in der Anwendung aufgetreten."
+                },
+                "fr": {
+                    "Internal Server Error": "Erreur interne du serveur",
+                    "An internal error occurred in app.": "Une erreur interne s'est produite dans l'application."
+                },
+                "it": {
+                    "Internal Server Error": "Errore interno del server",
+                    "An internal error occurred in app.": "Si è verificato un errore interno nell'app."
+                },
+                "pl": {
+                    "Internal Server Error": "Błąd wewnętrzny serwera",
+                    "An internal error occurred in app.": "W aplikacji wystąpił błąd wewnętrzny."
+                },
+                "uk": {
+                    "Internal Server Error": "Внутрішня помилка сервера",
+                    "An internal error occurred in app.": "У додатку сталася внутрішня помилка."
+                },
+                "nl": {
+                    "Internal Server Error": "Interne serverfout",
+                    "An internal error occurred in app.": "Er is een interne fout opgetreden in de app."
+                },
+                "ro": {
+                    "Internal Server Error": "Eroare internă a serverului",
+                    "An internal error occurred in app.": "A apărut o eroare internă în aplicație."
+                },
+                "pt": {
+                    "Internal Server Error": "Erro interno do servidor",
+                    "An internal error occurred in app.": "Ocorreu um erro interno na aplicação."
+                },
+                "el": {
+                    "Internal Server Error": "Εσωτερικό σφάλμα διακομιστή",
+                    "An internal error occurred in app.": "Προέκυψε εσωτερικό σφάλμα στην εφαρμογή."
+                },
+                "hu": {
+                    "Internal Server Error": "Belső szerverhiba",
+                    "An internal error occurred in app.": "Belső hiba történt az alkalmazásban."
+                },
+                "cs": {
+                    "Internal Server Error": "Vnitřní chyba serveru",
+                    "An internal error occurred in app.": "V aplikaci došlo k vnitřní chybě."
+                },
+                "sv": {
+                    "Internal Server Error": "Internt serverfel",
+                    "An internal error occurred in app.": "Ett internt fel uppstod i appen."
+                },
+                "hi": {
+                    "Internal Server Error": "आंतरिक सर्वर त्रुटि",
+                    "An internal error occurred in app.": "ऐप में एक आंतरिक त्रुटि हुई।"
+                },
+                "ar": {
+                    "Internal Server Error": "خطأ داخلي في الخادم",
+                    "An internal error occurred in app.": "حدث خطأ داخلي في التطبيق."
+                },
+                "zh": {
+                    "Internal Server Error": "内部服务器错误",
+                    "An internal error occurred in app.": "应用程序中发生内部错误。"
+                },
+                "ja": {
+                    "Internal Server Error": "内部サーバーエラー",
+                    "An internal error occurred in app.": "アプリで内部エラーが発生しました。"
                 }
             }
         }

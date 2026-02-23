@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "ja": {
+            "About": "概要",
+            "About Neutral TS PWA": "Neutral TS PWAについて",
+            "About Neutral TS PWA Skeleton for PWA in Python": "Python用PWAのNeutral TS PWA Skeletonについて",
+            "Contact": "お問い合わせ",
+            "Contact Neutral TS PWA": "Neutral TS PWAへのお問い合わせ",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "Python用PWAのNeutral TS PWA Skeletonへのお問い合わせ",
+            "Help": "ヘルプ",
+            "Help Neutral TS PWA": "Neutral TS PWAヘルプ",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Python用PWAのNeutral TS PWA Skeletonヘルプ",
+            "Legal": "法的情報",
+            "Legal Neutral TS PWA": "Neutral TS PWA法的情報",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Python用PWAのNeutral TS PWA Skeleton法的情報"
+        }
+    }
+}

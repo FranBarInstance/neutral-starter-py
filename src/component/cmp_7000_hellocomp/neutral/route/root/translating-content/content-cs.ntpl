@@ -1,0 +1,18 @@
+<h4>Toto je obsah v češtině</h4>
+<p>
+    Pro překlad celých stránek nebo rozsáhlého obsahu můžeme použít jinou strategii, než jakou poskytuje framework.
+</p>
+<p>
+    Můžeme vytvořit různé soubory content-es.ntpl, content-en.ntpl atd. a poté je vložit pomocí:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Alternativně lze totéž provést pomocí snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

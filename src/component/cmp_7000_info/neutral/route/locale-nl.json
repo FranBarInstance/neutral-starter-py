@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "nl": {
+            "About": "Over ons",
+            "About Neutral TS PWA": "Over Neutral TS PWA",
+            "About Neutral TS PWA Skeleton for PWA in Python": "Over Neutral TS PWA Skeleton voor PWA in Python",
+            "Contact": "Contact",
+            "Contact Neutral TS PWA": "Neem contact op met Neutral TS PWA",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "Neem contact op met Neutral TS PWA Skeleton voor PWA in Python",
+            "Help": "Hulp",
+            "Help Neutral TS PWA": "Hulp Neutral TS PWA",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Hulp Neutral TS PWA Skeleton voor PWA in Python",
+            "Legal": "Juridische informatie",
+            "Legal Neutral TS PWA": "Juridische informatie Neutral TS PWA",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Juridische informatie Neutral TS PWA Skeleton voor PWA in Python"
+        }
+    }
+}

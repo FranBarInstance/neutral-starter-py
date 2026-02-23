@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "hu": {
+            "Login successful.": "Sikeres bejelentkezés.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Dev Admin bejelentkezés",
+            "Username": "Felhasználónév",
+            "Password": "Jelszó",
+            "Sign in": "Bejelentkezés",
+            "Sign out": "Kijelentkezés",
+            "Custom Overrides": "Egyéni felülbírálások",
+            "Component UUID": "Komponens UUID",
+            "Override JSON": "Felülbírálási JSON",
+            "Save override": "Felülbírálás mentése",
+            "Existing Overrides": "Meglévő felülbírálások",
+            "Load": "Betöltés",
+            "Enabled": "Engedélyezve",
+            "Updated At": "Frissítve",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "A hitelesítő adatok nincsenek beállítva. Állítsa be a DEV_ADMIN_USER és DEV_ADMIN_PASSWORD értékeket a config/.env fájlban.",
+            "Invalid credentials.": "Érvénytelen hitelesítő adatok.",
+            "Invalid CSRF token.": "Érvénytelen CSRF token.",
+            "Too many login attempts. Try again later.": "Túl sok bejelentkezési kísérlet. Próbálja újra később.",
+            "Override saved.": "Felülbírálás elmentve.",
+            "comp_uuid format is invalid.": "A comp_uuid formátuma érvénytelen.",
+            "Override JSON must be a JSON object.": "A felülbírálási JSON-nak JSON objektumnak kell lennie.",
+            "Selected UUID does not exist in loaded components.": "A kiválasztott UUID nem létezik a betöltött komponensekben."
+        }
+    }
+}

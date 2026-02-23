@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "hu": {
+            "About": "Rólunk",
+            "About Neutral TS PWA": "A Neutral TS PWA-ról",
+            "About Neutral TS PWA Skeleton for PWA in Python": "A Neutral TS PWA Skeleton-ről PWA-hoz Pythonban",
+            "Contact": "Kapcsolat",
+            "Contact Neutral TS PWA": "Kapcsolatfelvétel a Neutral TS PWA-val",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "Kapcsolatfelvétel a Neutral TS PWA Skeleton-nel PWA-hoz Pythonban",
+            "Help": "Súgó",
+            "Help Neutral TS PWA": "Súgó Neutral TS PWA",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Súgó Neutral TS PWA Skeleton PWA-hoz Pythonban",
+            "Legal": "Jogi információk",
+            "Legal Neutral TS PWA": "Jogi információk Neutral TS PWA",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Jogi információk Neutral TS PWA Skeleton PWA-hoz Pythonban"
+        }
+    }
+}

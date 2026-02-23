@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "uk": {
+            "Login successful.": "Вхід успішний.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Вхід до Dev Admin",
+            "Username": "Ім'я користувача",
+            "Password": "Пароль",
+            "Sign in": "Увійти",
+            "Sign out": "Вийти",
+            "Custom Overrides": "Користувацькі перевизначення",
+            "Component UUID": "UUID компонента",
+            "Override JSON": "JSON перевизначення",
+            "Save override": "Зберегти перевизначення",
+            "Existing Overrides": "Наявні перевизначення",
+            "Load": "Завантажити",
+            "Enabled": "Увімкнено",
+            "Updated At": "Оновлено",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Облікові дані не налаштовано. Встановіть DEV_ADMIN_USER та DEV_ADMIN_PASSWORD у config/.env.",
+            "Invalid credentials.": "Невірні облікові дані.",
+            "Invalid CSRF token.": "Невірний CSRF-токен.",
+            "Too many login attempts. Try again later.": "Забагато спроб входу. Спробуйте пізніше.",
+            "Override saved.": "Перевизначення збережено.",
+            "comp_uuid format is invalid.": "Формат comp_uuid невірний.",
+            "Override JSON must be a JSON object.": "JSON перевизначення має бути об'єктом JSON.",
+            "Selected UUID does not exist in loaded components.": "Вибраний UUID не існує в завантажених компонентах."
+        }
+    }
+}

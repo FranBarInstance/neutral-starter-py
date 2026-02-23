@@ -9,12 +9,12 @@
                     "Sign out": "Cerrar sesión",
                     "Confirm logout": "Confirmar cierre de sesión"
                 },
-                "fr": {
-                    "Reminder": "Rappel",
-                    "Sign in": "Se connecter",
-                    "Sign up": "S'inscrire",
-                    "Sign out": "Se déconnecter",
-                    "Confirm logout": "Confirmer la déconnexion"
+                "ru": {
+                    "Reminder": "Напоминание",
+                    "Sign in": "Войти",
+                    "Sign up": "Зарегистрироваться",
+                    "Sign out": "Выйти",
+                    "Confirm logout": "Подтвердить выход"
                 },
                 "de": {
                     "Reminder": "Erinnerung",
@@ -22,6 +22,111 @@
                     "Sign up": "Registrieren",
                     "Sign out": "Abmelden",
                     "Confirm logout": "Abmeldung bestätigen"
+                },
+                "fr": {
+                    "Reminder": "Rappel",
+                    "Sign in": "Se connecter",
+                    "Sign up": "S'inscrire",
+                    "Sign out": "Se déconnecter",
+                    "Confirm logout": "Confirmer la déconnexion"
+                },
+                "it": {
+                    "Reminder": "Promemoria",
+                    "Sign in": "Accedi",
+                    "Sign up": "Registrati",
+                    "Sign out": "Esci",
+                    "Confirm logout": "Conferma logout"
+                },
+                "pl": {
+                    "Reminder": "Przypomnienie",
+                    "Sign in": "Zaloguj się",
+                    "Sign up": "Zarejestruj się",
+                    "Sign out": "Wyloguj się",
+                    "Confirm logout": "Potwierdź wylogowanie"
+                },
+                "uk": {
+                    "Reminder": "Нагадування",
+                    "Sign in": "Увійти",
+                    "Sign up": "Зареєструватися",
+                    "Sign out": "Вийти",
+                    "Confirm logout": "Підтвердити вихід"
+                },
+                "nl": {
+                    "Reminder": "Herinnering",
+                    "Sign in": "Aanmelden",
+                    "Sign up": "Registreren",
+                    "Sign out": "Afmelden",
+                    "Confirm logout": "Logout bevestigen"
+                },
+                "ro": {
+                    "Reminder": "Memento",
+                    "Sign in": "Conectează-te",
+                    "Sign up": "Înregistrează-te",
+                    "Sign out": "Deconectează-te",
+                    "Confirm logout": "Confirmă deconectarea"
+                },
+                "pt": {
+                    "Reminder": "Lembrete",
+                    "Sign in": "Entrar",
+                    "Sign up": "Registrar",
+                    "Sign out": "Sair",
+                    "Confirm logout": "Confirmar logout"
+                },
+                "el": {
+                    "Reminder": "Υπενθύμιση",
+                    "Sign in": "Σύνδεση",
+                    "Sign up": "Εγγραφή",
+                    "Sign out": "Αποσύνδεση",
+                    "Confirm logout": "Επιβεβαίωση αποσύνδεσης"
+                },
+                "hu": {
+                    "Reminder": "Emlékeztető",
+                    "Sign in": "Bejelentkezés",
+                    "Sign up": "Regisztráció",
+                    "Sign out": "Kijelentkezés",
+                    "Confirm logout": "Kijelentkezés megerősítése"
+                },
+                "cs": {
+                    "Reminder": "Připomínka",
+                    "Sign in": "Přihlásit se",
+                    "Sign up": "Registrovat se",
+                    "Sign out": "Odhlásit se",
+                    "Confirm logout": "Potvrdit odhlášení"
+                },
+                "sv": {
+                    "Reminder": "Påminnelse",
+                    "Sign in": "Logga in",
+                    "Sign up": "Registrera",
+                    "Sign out": "Logga ut",
+                    "Confirm logout": "Bekräfta utloggning"
+                },
+                "hi": {
+                    "Reminder": "अनुस्मारक",
+                    "Sign in": "साइन इन",
+                    "Sign up": "साइन अप",
+                    "Sign out": "साइन आउट",
+                    "Confirm logout": "लॉगआउट की पुष्टि करें"
+                },
+                "ar": {
+                    "Reminder": "تذكير",
+                    "Sign in": "تسجيل الدخول",
+                    "Sign up": "التسجيل",
+                    "Sign out": "تسجيل الخروج",
+                    "Confirm logout": "تأكيد تسجيل الخروج"
+                },
+                "zh": {
+                    "Reminder": "提醒",
+                    "Sign in": "登录",
+                    "Sign up": "注册",
+                    "Sign out": "退出",
+                    "Confirm logout": "确认注销"
+                },
+                "ja": {
+                    "Reminder": "リマインダー",
+                    "Sign in": "サインイン",
+                    "Sign up": "サインアップ",
+                    "Sign out": "サインアウト",
+                    "Confirm logout": "ログアウトを確認"
                 }
             }
         },

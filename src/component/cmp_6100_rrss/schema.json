@@ -2,6 +2,17 @@
     "inherit": {
         "locale": {
             "trans": {
+                "en": {
+                    "Read RSS": "Read RSS",
+                    "Alternate sources": "Alternate sources",
+                    "Source": "Source",
+                    "No publications": "No publications",
+                    "news": "news",
+                    "No RSS URL provided": "No RSS URL provided",
+                    "No RSS name provided": "No RSS name provided",
+                    "Invalid RSS name": "Invalid RSS name",
+                    "No feed or entries found": "No feed or entries found"
+                },
                 "es": {
                     "Read RSS": "Leer RSS",
                     "Alternate sources": "Fuentes alternativas",
@@ -12,6 +23,28 @@
                     "No RSS name provided": "No se proporcionó nombre de RSS",
                     "Invalid RSS name": "Nombre de RSS inválido",
                     "No feed or entries found": "No se encontraron feed o entradas"
+                },
+                "ru": {
+                    "Read RSS": "Читать RSS",
+                    "Alternate sources": "Альтернативные источники",
+                    "Source": "Источник",
+                    "No publications": "Нет публикаций",
+                    "news": "новости",
+                    "No RSS URL provided": "URL RSS не предоставлен",
+                    "No RSS name provided": "Имя RSS не предоставлено",
+                    "Invalid RSS name": "Недопустимое имя RSS",
+                    "No feed or entries found": "Фид или записи не найдены"
+                },
+                "de": {
+                    "Read RSS": "RSS lesen",
+                    "Alternate sources": "Alternativen Quellen",
+                    "Source": "Quelle",
+                    "No publications": "Ohne Publikationen",
+                    "news": "Nachrichten",
+                    "No RSS URL provided": "RSS-URL nicht angegeben",
+                    "No RSS name provided": "RSS-Name nicht angegeben",
+                    "Invalid RSS name": "RSS-Name ungültig",
+                    "No feed or entries found": "Kein Feed oder Einträge gefunden"
                 },
                 "fr": {
                     "Read RSS": "Lire RSS",
@@ -24,16 +57,159 @@
                     "Invalid RSS name": "Nom de RSS invalide",
                     "No feed or entries found": "Aucun flux ou entrée trouvée"
                 },
-                "de": {
-                    "Read RSS": "RSS lesen",
-                    "Alternate sources": "Alternativen Quellen",
-                    "Source": "Quelle",
-                    "No publications": "Ohne Publikationen",
-                    "news": "Nachrichten",
-                    "No RSS URL provided": "RSS-URL nicht angegeben",
-                    "No RSS name provided": "RSS-Name nicht angegeben",
-                    "Invalid RSS name": "RSS-Name ungültig",
-                    "No feed or entries found": "Kein Feed oder Einträge gefunden"
+                "it": {
+                    "Read RSS": "Leggi RSS",
+                    "Alternate sources": "Fonti alternative",
+                    "Source": "Fonte",
+                    "No publications": "Nessuna pubblicazione",
+                    "news": "notizie",
+                    "No RSS URL provided": "URL RSS non fornita",
+                    "No RSS name provided": "Nome RSS non fornito",
+                    "Invalid RSS name": "Nome RSS non valido",
+                    "No feed or entries found": "Nessun feed o voce trovata"
+                },
+                "pl": {
+                    "Read RSS": "Czytaj RSS",
+                    "Alternate sources": "Alternatywne źródła",
+                    "Source": "Źródło",
+                    "No publications": "Brak publikacji",
+                    "news": "wiadomości",
+                    "No RSS URL provided": "Nie podano URL RSS",
+                    "No RSS name provided": "Nie podano nazwy RSS",
+                    "Invalid RSS name": "Nieprawidłowa nazwa RSS",
+                    "No feed or entries found": "Nie znaleziono kanału lub wpisów"
+                },
+                "uk": {
+                    "Read RSS": "Читати RSS",
+                    "Alternate sources": "Альтернативні джерела",
+                    "Source": "Джерело",
+                    "No publications": "Немає публікацій",
+                    "news": "новини",
+                    "No RSS URL provided": "URL RSS не надано",
+                    "No RSS name provided": "Ім'я RSS не надано",
+                    "Invalid RSS name": "Недійсне ім'я RSS",
+                    "No feed or entries found": "Фід або записи не знайдено"
+                },
+                "nl": {
+                    "Read RSS": "RSS lezen",
+                    "Alternate sources": "Alternatieve bronnen",
+                    "Source": "Bron",
+                    "No publications": "Geen publicaties",
+                    "news": "nieuws",
+                    "No RSS URL provided": "RSS-URL niet opgegeven",
+                    "No RSS name provided": "RSS-naam niet opgegeven",
+                    "Invalid RSS name": "RSS-naam ongeldig",
+                    "No feed or entries found": "Geen feed of entries gevonden"
+                },
+                "ro": {
+                    "Read RSS": "Citește RSS",
+                    "Alternate sources": "Surse alternative",
+                    "Source": "Sursă",
+                    "No publications": "Fără publicații",
+                    "news": "știri",
+                    "No RSS URL provided": "URL RSS nu este furnizată",
+                    "No RSS name provided": "Nume RSS nu este furnizat",
+                    "Invalid RSS name": "Nume RSS nevalid",
+                    "No feed or entries found": "Niciun feed sau intrare găsită"
+                },
+                "pt": {
+                    "Read RSS": "Ler RSS",
+                    "Alternate sources": "Fontes alternativas",
+                    "Source": "Fonte",
+                    "No publications": "Sem publicações",
+                    "news": "notícias",
+                    "No RSS URL provided": "URL RSS não fornecida",
+                    "No RSS name provided": "Nome RSS não fornecido",
+                    "Invalid RSS name": "Nome RSS inválido",
+                    "No feed or entries found": "Nenhum feed ou entrada encontrada"
+                },
+                "el": {
+                    "Read RSS": "Διαβάστε RSS",
+                    "Alternate sources": "Εναλλακτικές πηγές",
+                    "Source": "Πηγή",
+                    "No publications": "Χωρίς δημοσιεύσεις",
+                    "news": "ειδήσεις",
+                    "No RSS URL provided": "Δεν παρέχεται URL RSS",
+                    "No RSS name provided": "Δεν παρέχεται όνομα RSS",
+                    "Invalid RSS name": "Μη έγκυρο όνομα RSS",
+                    "No feed or entries found": "Δεν βρέθηκε κανένα feed ή καταχώρηση"
+                },
+                "hu": {
+                    "Read RSS": "RSS olvasása",
+                    "Alternate sources": "Alternatív források",
+                    "Source": "Forrás",
+                    "No publications": "Nincs kiadvány",
+                    "news": "hírek",
+                    "No RSS URL provided": "RSS URL nincs megadva",
+                    "No RSS name provided": "RSS név nincs megadva",
+                    "Invalid RSS name": "Érvénytelen RSS név",
+                    "No feed or entries found": "Nincs feed vagy bejegyzés találva"
+                },
+                "cs": {
+                    "Read RSS": "Číst RSS",
+                    "Alternate sources": "Alternativní zdroje",
+                    "Source": "Zdroj",
+                    "No publications": "Bez publikací",
+                    "news": "zprávy",
+                    "No RSS URL provided": "RSS URL není poskytnuta",
+                    "No RSS name provided": "RSS název není poskytnut",
+                    "Invalid RSS name": "Neplatný RSS název",
+                    "No feed or entries found": "Žádný feed nebo záznamy nenalezeny"
+                },
+                "sv": {
+                    "Read RSS": "Läs RSS",
+                    "Alternate sources": "Alternativa källor",
+                    "Source": "Källa",
+                    "No publications": "Inga publikationer",
+                    "news": "nyheter",
+                    "No RSS URL provided": "RSS-URL inte angiven",
+                    "No RSS name provided": "RSS-namn inte angivet",
+                    "Invalid RSS name": "Ogiltigt RSS-namn",
+                    "No feed or entries found": "Ingen feed eller poster hittades"
+                },
+                "hi": {
+                    "Read RSS": "RSS पढ़ें",
+                    "Alternate sources": "वैकल्पिक स्रोत",
+                    "Source": "स्रोत",
+                    "No publications": "कोई प्रकाशन नहीं",
+                    "news": "समाचार",
+                    "No RSS URL provided": "RSS URL प्रदान नहीं किया गया",
+                    "No RSS name provided": "RSS नाम प्रदान नहीं किया गया",
+                    "Invalid RSS name": "अमान्य RSS नाम",
+                    "No feed or entries found": "कोई फीड या एंट्री नहीं मिली"
+                },
+                "ar": {
+                    "Read RSS": "اقرأ RSS",
+                    "Alternate sources": "مصادر بديلة",
+                    "Source": "المصدر",
+                    "No publications": "لا توجد منشورات",
+                    "news": "أخبار",
+                    "No RSS URL provided": "لم يتم توفير URL RSS",
+                    "No RSS name provided": "لم يتم توفير اسم RSS",
+                    "Invalid RSS name": "اسم RSS غير صالح",
+                    "No feed or entries found": "لم يتم العثور على تغذية أو إدخالات"
+                },
+                "zh": {
+                    "Read RSS": "阅读 RSS",
+                    "Alternate sources": "备用来源",
+                    "Source": "来源",
+                    "No publications": "无出版物",
+                    "news": "新闻",
+                    "No RSS URL provided": "未提供 RSS URL",
+                    "No RSS name provided": "未提供 RSS 名称",
+                    "Invalid RSS name": "无效的 RSS 名称",
+                    "No feed or entries found": "未找到提要或条目"
+                },
+                "ja": {
+                    "Read RSS": "RSS を読む",
+                    "Alternate sources": "代替ソース",
+                    "Source": "ソース",
+                    "No publications": "出版物なし",
+                    "news": "ニュース",
+                    "No RSS URL provided": "RSS URL が提供されていません",
+                    "No RSS name provided": "RSS 名が提供されていません",
+                    "Invalid RSS name": "無効な RSS 名",
+                    "No feed or entries found": "フィードまたはエントリが見つかりません"
                 }
             }
         },

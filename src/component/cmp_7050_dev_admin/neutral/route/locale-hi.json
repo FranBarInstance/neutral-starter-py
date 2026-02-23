@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "hi": {
+            "Login successful.": "लॉगिन सफल।",
+            "Dev Admin": "डेव एडमिन",
+            "Dev Admin Login": "डेव एडमिन लॉगिन",
+            "Username": "उपयोगकर्ता नाम",
+            "Password": "पासवर्ड",
+            "Sign in": "साइन इन करें",
+            "Sign out": "साइन आउट करें",
+            "Custom Overrides": "कस्टम ओवरराइड",
+            "Component UUID": "कंपोनेंट UUID",
+            "Override JSON": "ओवरराइड JSON",
+            "Save override": "ओवरराइड सहेजें",
+            "Existing Overrides": "मौजूदा ओवरराइड",
+            "Load": "लोड करें",
+            "Enabled": "सक्षम",
+            "Updated At": "अपडेट किया गया",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "क्रेडेंशियल कॉन्फ़िगर नहीं हैं। config/.env में DEV_ADMIN_USER और DEV_ADMIN_PASSWORD सेट करें।",
+            "Invalid credentials.": "अमान्य क्रेडेंशियल।",
+            "Invalid CSRF token.": "अमान्य CSRF टोकन।",
+            "Too many login attempts. Try again later.": "बहुत अधिक लॉगिन प्रयास। बाद में पुनः प्रयास करें।",
+            "Override saved.": "ओवरराइड सहेजा गया।",
+            "comp_uuid format is invalid.": "comp_uuid प्रारूप अमान्य है।",
+            "Override JSON must be a JSON object.": "ओवरराइड JSON एक JSON ऑब्जेक्ट होना चाहिए।",
+            "Selected UUID does not exist in loaded components.": "चयनित UUID लोड किए गए कंपोनेंट में मौजूद नहीं है।"
+        }
+    }
+}

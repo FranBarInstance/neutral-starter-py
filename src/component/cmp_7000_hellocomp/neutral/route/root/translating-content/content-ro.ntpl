@@ -1,0 +1,18 @@
+<h4>Acesta este conținutul în română</h4>
+<p>
+    Pentru a traduce pagini complete sau conținut mare, putem folosi o strategie diferită de cea oferită de framework.
+</p>
+<p>
+    Putem crea fișiere diferite content-es.ntpl, content-en.ntpl etc. și apoi să le includem cu:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Alternativ, același lucru se poate face cu snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

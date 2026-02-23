@@ -22,6 +22,111 @@
                     "Help": "Hilfe",
                     "Contact": "Kontakt",
                     "Legal": "Impressum"
+                },
+                "ru": {
+                    "Information": "Информация",
+                    "About": "О нас",
+                    "Help": "Помощь",
+                    "Contact": "Контакты",
+                    "Legal": "Правовая информация"
+                },
+                "it": {
+                    "Information": "Informazioni",
+                    "About": "Chi siamo",
+                    "Help": "Aiuto",
+                    "Contact": "Contatti",
+                    "Legal": "Note legali"
+                },
+                "pl": {
+                    "Information": "Informacje",
+                    "About": "O nas",
+                    "Help": "Pomoc",
+                    "Contact": "Kontakt",
+                    "Legal": "Nota prawna"
+                },
+                "uk": {
+                    "Information": "Інформація",
+                    "About": "Про нас",
+                    "Help": "Допомога",
+                    "Contact": "Контакти",
+                    "Legal": "Правова інформація"
+                },
+                "nl": {
+                    "Information": "Informatie",
+                    "About": "Over ons",
+                    "Help": "Hulp",
+                    "Contact": "Contact",
+                    "Legal": "Juridische informatie"
+                },
+                "ro": {
+                    "Information": "Informații",
+                    "About": "Despre noi",
+                    "Help": "Ajutor",
+                    "Contact": "Contact",
+                    "Legal": "Informații legale"
+                },
+                "pt": {
+                    "Information": "Informação",
+                    "About": "Sobre",
+                    "Help": "Ajuda",
+                    "Contact": "Contacto",
+                    "Legal": "Informação legal"
+                },
+                "el": {
+                    "Information": "Πληροφορίες",
+                    "About": "Σχετικά",
+                    "Help": "Βοήθεια",
+                    "Contact": "Επικοινωνία",
+                    "Legal": "Νομικές πληροφορίες"
+                },
+                "hu": {
+                    "Information": "Információ",
+                    "About": "Rólunk",
+                    "Help": "Súgó",
+                    "Contact": "Kapcsolat",
+                    "Legal": "Jogi információk"
+                },
+                "cs": {
+                    "Information": "Informace",
+                    "About": "O nás",
+                    "Help": "Nápověda",
+                    "Contact": "Kontakt",
+                    "Legal": "Právní informace"
+                },
+                "sv": {
+                    "Information": "Information",
+                    "About": "Om oss",
+                    "Help": "Hjälp",
+                    "Contact": "Kontakt",
+                    "Legal": "Juridisk information"
+                },
+                "hi": {
+                    "Information": "जानकारी",
+                    "About": "हमारे बारे में",
+                    "Help": "मदद",
+                    "Contact": "संपर्क",
+                    "Legal": "कानूनी जानकारी"
+                },
+                "ar": {
+                    "Information": "معلومات",
+                    "About": "حول",
+                    "Help": "مساعدة",
+                    "Contact": "اتصل",
+                    "Legal": "معلومات قانونية"
+                },
+                "zh": {
+                    "Information": "信息",
+                    "About": "关于",
+                    "Help": "帮助",
+                    "Contact": "联系",
+                    "Legal": "法律信息"
+                },
+                "ja": {
+                    "Information": "情報",
+                    "About": "概要",
+                    "Help": "ヘルプ",
+                    "Contact": "お問い合わせ",
+                    "Legal": "法的情報"
                 }
             }
         },

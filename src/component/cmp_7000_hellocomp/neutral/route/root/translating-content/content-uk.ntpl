@@ -1,0 +1,18 @@
+<h4>Це контент українською мовою</h4>
+<p>
+    Для перекладу цілих сторінок або великого обсягу контенту ми можемо використовувати іншу стратегію, ніж та, що надається фреймворком.
+</p>
+<p>
+    Ми можемо створити різні файли content-es.ntpl, content-en.ntpl тощо, а потім включити їх за допомогою:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Альтернативно, те саме можна зробити за допомогою snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

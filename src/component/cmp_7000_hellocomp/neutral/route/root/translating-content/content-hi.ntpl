@@ -1,0 +1,18 @@
+<h4>यह हिंदी में सामग्री है</h4>
+<p>
+    पूर्ण पृष्ठों या बड़ी सामग्री का अनुवाद करने के लिए, हम फ्रेमवर्क द्वारा प्रदान की गई रणनीति से भिन्न रणनीति का उपयोग कर सकते हैं।
+</p>
+<p>
+    हम विभिन्न फाइलें content-es.ntpl, content-en.ntpl आदि बना सकते हैं और फिर उन्हें इस प्रकार शामिल कर सकते हैं:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    वैकल्पिक रूप से, snippet के साथ भी यही किया जा सकता है:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

@@ -1,0 +1,18 @@
+<h4>Это контент на русском языке</h4>
+<p>
+    Для перевода целых страниц или большого объёма контента мы можем использовать стратегию, отличную от предоставленной фреймворком.
+</p>
+<p>
+    Мы можем создать разные файлы content-es.ntpl, content-en.ntpl и т.д., а затем включить их с помощью:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Альтернативно, то же самое можно сделать с помощью snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

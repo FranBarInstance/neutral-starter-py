@@ -1,0 +1,18 @@
+<h4>To jest treść w języku polskim</h4>
+<p>
+    Aby przetłumaczyć całe strony lub duże ilości treści, możemy użyć innej strategii niż ta dostarczona przez framework.
+</p>
+<p>
+    Możemy utworzyć różne pliki content-es.ntpl, content-en.ntpl itd., a następnie dołączyć je za pomocą:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Alternatywnie, to samo można zrobić za pomocą snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

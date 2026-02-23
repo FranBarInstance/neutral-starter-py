@@ -10,17 +10,92 @@
                 "es": {
                     "Neutral TS !": "Neutral TS",
                     "Neutral TS PWA !": "Neutral TS PWA",
-                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skeleton for PWA in Python"
+                    "Neutral TS Skeleton for PWA in Python !": "Esqueleto Neutral TS para PWA en Python"
                 },
-                "fr": {
-                    "Neutral TS !": "Neutral TS",
-                    "Neutral TS PWA !": "Neutral TS PWA",
-                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skeleton for PWA in Python"
+                "ru": {
+                    "Neutral TS !": "Нейтральный TS",
+                    "Neutral TS PWA !": "Нейтральный TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Скелет Neutral TS для PWA на Python"
                 },
                 "de": {
                     "Neutral TS !": "Neutral TS",
                     "Neutral TS PWA !": "Neutral TS PWA",
-                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skeleton for PWA in Python"
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skelett für PWA in Python"
+                },
+                "fr": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Squelette Neutral TS pour PWA en Python"
+                },
+                "it": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Scheletro Neutral TS per PWA in Python"
+                },
+                "pl": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Szkielet Neutral TS dla PWA w Pythonie"
+                },
+                "uk": {
+                    "Neutral TS !": "Нейтральний TS",
+                    "Neutral TS PWA !": "Нейтральний TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Скелет Neutral TS для PWA на Python"
+                },
+                "nl": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS Skelet voor PWA in Python"
+                },
+                "ro": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Schelet Neutral TS pentru PWA în Python"
+                },
+                "pt": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Esqueleto Neutral TS para PWA em Python"
+                },
+                "el": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Σκελετός Neutral TS για PWA σε Python"
+                },
+                "hu": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS váz PWA-hez Pythonban"
+                },
+                "cs": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS kostra pro PWA v Pythonu"
+                },
+                "sv": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS skelett för PWA i Python"
+                },
+                "hi": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Python में PWA के लिए न्यूट्रल TS स्केलेटन"
+                },
+                "ar": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "إطار Neutral TS لـ PWA في Python"
+                },
+                "zh": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Neutral TS 骨架 PWA Python"
+                },
+                "ja": {
+                    "Neutral TS !": "Neutral TS",
+                    "Neutral TS PWA !": "Neutral TS PWA",
+                    "Neutral TS Skeleton for PWA in Python !": "Python での PWA の Neutral TS スケルトン"
                 }
             }
         },

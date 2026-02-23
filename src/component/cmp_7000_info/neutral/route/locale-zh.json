@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "zh": {
+            "About": "关于",
+            "About Neutral TS PWA": "关于 Neutral TS PWA",
+            "About Neutral TS PWA Skeleton for PWA in Python": "关于 Python PWA 的 Neutral TS PWA Skeleton",
+            "Contact": "联系",
+            "Contact Neutral TS PWA": "联系 Neutral TS PWA",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "联系 Python PWA 的 Neutral TS PWA Skeleton",
+            "Help": "帮助",
+            "Help Neutral TS PWA": "Neutral TS PWA 帮助",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Python PWA 的 Neutral TS PWA Skeleton 帮助",
+            "Legal": "法律信息",
+            "Legal Neutral TS PWA": "Neutral TS PWA 法律信息",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Python PWA 的 Neutral TS PWA Skeleton 法律信息"
+        }
+    }
+}

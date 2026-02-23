@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "pl": {
+            "Login successful.": "Logowanie udane.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Logowanie Dev Admin",
+            "Username": "Nazwa użytkownika",
+            "Password": "Hasło",
+            "Sign in": "Zaloguj się",
+            "Sign out": "Wyloguj się",
+            "Custom Overrides": "Niestandardowe nadpisania",
+            "Component UUID": "UUID komponentu",
+            "Override JSON": "JSON nadpisania",
+            "Save override": "Zapisz nadpisanie",
+            "Existing Overrides": "Istniejące nadpisania",
+            "Load": "Załaduj",
+            "Enabled": "Włączone",
+            "Updated At": "Zaktualizowano",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Dane uwierzytelniające nie są skonfigurowane. Ustaw DEV_ADMIN_USER i DEV_ADMIN_PASSWORD w config/.env.",
+            "Invalid credentials.": "Nieprawidłowe dane uwierzytelniające.",
+            "Invalid CSRF token.": "Nieprawidłowy token CSRF.",
+            "Too many login attempts. Try again later.": "Zbyt wiele prób logowania. Spróbuj ponownie później.",
+            "Override saved.": "Nadpisanie zapisane.",
+            "comp_uuid format is invalid.": "Format comp_uuid jest nieprawidłowy.",
+            "Override JSON must be a JSON object.": "JSON nadpisania musi być obiektem JSON.",
+            "Selected UUID does not exist in loaded components.": "Wybrany UUID nie istnieje w załadowanych komponentach."
+        }
+    }
+}

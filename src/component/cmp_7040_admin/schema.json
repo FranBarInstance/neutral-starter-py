@@ -3,19 +3,94 @@
         "locale": {
             "trans": {
                 "es": {
-                    "Admin": "Administración",
+                    "Admin": "Administrador",
                     "Users": "Usuarios",
                     "Posts": "Publicaciones"
                 },
+                "ru": {
+                    "Admin": "Администратор",
+                    "Users": "Пользователи",
+                    "Posts": "Публикации"
+                },
+                "de": {
+                    "Admin": "Administrator",
+                    "Users": "Benutzer",
+                    "Posts": "Beiträge"
+                },
                 "fr": {
-                    "Admin": "Administration",
+                    "Admin": "Administrateur",
                     "Users": "Utilisateurs",
                     "Posts": "Publications"
                 },
-                "de": {
-                    "Admin": "Verwaltung",
-                    "Users": "Benutzer",
-                    "Posts": "Beiträge"
+                "it": {
+                    "Admin": "Amministratore",
+                    "Users": "Utenti",
+                    "Posts": "Post"
+                },
+                "pl": {
+                    "Admin": "Administrator",
+                    "Users": "Użytkownicy",
+                    "Posts": "Posty"
+                },
+                "uk": {
+                    "Admin": "Адміністратор",
+                    "Users": "Користувачі",
+                    "Posts": "Публікації"
+                },
+                "nl": {
+                    "Admin": "Beheerder",
+                    "Users": "Gebruikers",
+                    "Posts": "Berichten"
+                },
+                "ro": {
+                    "Admin": "Administrator",
+                    "Users": "Utilizatori",
+                    "Posts": "Postări"
+                },
+                "pt": {
+                    "Admin": "Administrador",
+                    "Users": "Utilizadores",
+                    "Posts": "Publicações"
+                },
+                "el": {
+                    "Admin": "Διαχειριστής",
+                    "Users": "Χρήστες",
+                    "Posts": "Αναρτήσεις"
+                },
+                "hu": {
+                    "Admin": "Rendszergazda",
+                    "Users": "Felhasználók",
+                    "Posts": "Bejegyzések"
+                },
+                "cs": {
+                    "Admin": "Správce",
+                    "Users": "Uživatelé",
+                    "Posts": "Příspěvky"
+                },
+                "sv": {
+                    "Admin": "Administratör",
+                    "Users": "Användare",
+                    "Posts": "Inlägg"
+                },
+                "hi": {
+                    "Admin": "व्यवस्थापक",
+                    "Users": "उपयोगकर्ता",
+                    "Posts": "पोस्ट"
+                },
+                "ar": {
+                    "Admin": "مدير",
+                    "Users": "المستخدمون",
+                    "Posts": "المنشورات"
+                },
+                "zh": {
+                    "Admin": "管理员",
+                    "Users": "用户",
+                    "Posts": "帖子"
+                },
+                "ja": {
+                    "Admin": "管理者",
+                    "Users": "ユーザー",
+                    "Posts": "投稿"
                 }
             }
         },

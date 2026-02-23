@@ -3,11 +3,6 @@
     "trans": {
         "es": {
             "Hello Component": "Componente Hola",
-            "Visual showcase component with snippets, AJAX and modals": "Componente visual de ejemplo con snippets, AJAX y modales",
-            "Hello Component Test One": "Componente Hola Prueba Uno",
-            "Route with custom dispatcher logic": "Ruta con logica personalizada de dispatcher",
-            "Hello Component Test Two": "Componente Hola Prueba Dos",
-            "Route that receives GET form data": "Ruta que recibe datos GET del formulario",
             "Component showcase": "Demostracion del componente",
             "A complete visual example with snippets, AJAX and Bootstrap modals.": "Un ejemplo visual completo con snippets, AJAX y modales de Bootstrap.",
             "Open test route one": "Abrir ruta de prueba uno",
@@ -54,7 +49,6 @@
             "dispatch_result": "resultado_dispatch",
             "foo value": "valor de foo",
             "This route receives GET data from the modal form.": "Esta ruta recibe datos GET del formulario modal.",
-            "I'm a component": "Soy un componente",
             "ref:example:reference": "Este es un texto de referencia para la traduccion.",
             "Open AJAX modal (auto)": "Abrir modal AJAX (auto)",
             "Modal with AJAX (auto)": "Modal con AJAX (auto)",

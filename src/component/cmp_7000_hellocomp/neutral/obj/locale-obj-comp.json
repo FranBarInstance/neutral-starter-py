@@ -1,5 +1,8 @@
 {
     "trans": {
+        "en": {
+            "I'm a message from a component in obj": "I'm a message from a component in obj"
+        },
         "es": {
             "I'm a message from a component in obj": "Soy un mensaje de un componente en obj"
         },
@@ -8,6 +11,51 @@
         },
         "fr": {
             "I'm a message from a component in obj": "Je suis un message d'un composant dans obj"
+        },
+        "ru": {
+            "I'm a message from a component in obj": "Я сообщение от компонента в obj"
+        },
+        "it": {
+            "I'm a message from a component in obj": "Sono un messaggio da un componente in obj"
+        },
+        "pl": {
+            "I'm a message from a component in obj": "Jestem wiadomością od komponentu w obj"
+        },
+        "uk": {
+            "I'm a message from a component in obj": "Я повідомлення від компонента в obj"
+        },
+        "nl": {
+            "I'm a message from a component in obj": "Ik ben een bericht van een component in obj"
+        },
+        "ro": {
+            "I'm a message from a component in obj": "Sunt un mesaj de la un component în obj"
+        },
+        "pt": {
+            "I'm a message from a component in obj": "Sou uma mensagem de um componente em obj"
+        },
+        "el": {
+            "I'm a message from a component in obj": "Είμαι ένα μήνυμα από ένα στοιχείο στο obj"
+        },
+        "hu": {
+            "I'm a message from a component in obj": "Egy üzenet vagyok egy komponenstől az obj-ben"
+        },
+        "cs": {
+            "I'm a message from a component in obj": "Jsem zpráva od komponenty v obj"
+        },
+        "sv": {
+            "I'm a message from a component in obj": "Jag är ett meddelande från en komponent i obj"
+        },
+        "hi": {
+            "I'm a message from a component in obj": "मैं obj में एक घटक से एक संदेश हूं"
+        },
+        "ar": {
+            "I'm a message from a component in obj": "أنا رسالة من مكون في obj"
+        },
+        "ja": {
+            "I'm a message from a component in obj": "私は obj 内のコンポーネントからのメッセージです"
+        },
+        "zh": {
+            "I'm a message from a component in obj": "我是 obj 中一个组件的消息"
         }
     }
 }

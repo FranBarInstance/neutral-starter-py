@@ -2,17 +2,81 @@
     "inherit": {
         "locale": {
             "trans": {
+                "en": {
+                    "Home": "Home",
+                    "Main": "Main"
+                },
                 "es": {
                     "Home": "Inicio",
                     "Main": "Principal"
+                },
+                "ru": {
+                    "Home": "Домой",
+                    "Main": "Главная"
+                },
+                "de": {
+                    "Home": "Startseite",
+                    "Main": "Hauptseite"
                 },
                 "fr": {
                     "Home": "Accueil",
                     "Main": "Principal"
                 },
-                "de": {
-                    "Home": "Startseite",
-                    "Main": "Hauptseite"
+                "it": {
+                    "Home": "Casa",
+                    "Main": "Principale"
+                },
+                "pl": {
+                    "Home": "Dom",
+                    "Main": "Główny"
+                },
+                "uk": {
+                    "Home": "Додому",
+                    "Main": "Головна"
+                },
+                "nl": {
+                    "Home": "Thuis",
+                    "Main": "Hoofd"
+                },
+                "ro": {
+                    "Home": "Acasă",
+                    "Main": "Principal"
+                },
+                "pt": {
+                    "Home": "Início",
+                    "Main": "Principal"
+                },
+                "el": {
+                    "Home": "Σπίτι",
+                    "Main": "Κύρια"
+                },
+                "hu": {
+                    "Home": "Otthon",
+                    "Main": "Fő"
+                },
+                "cs": {
+                    "Home": "Domů",
+                    "Main": "Hlavní"
+                },
+                "sv": {
+                    "Home": "Hem",
+                    "Main": "Huvud"
+                },
+                "hi": {
+                    "Home": "घर",
+                    "Main": "मुख्य"
+                },
+                "ar": {
+                    "Home": "المنزل",
+                    "Main": "الرئيسي"
+                },
+                "zh": {
+                    "Home": "家",
+                    "Main": "主要"
+                },
+                "ja": {
+                    "Home": "ホーム",
+                    "Main": "メイン"
                 }
             }
         },

@@ -36,6 +36,141 @@
             "dispatch_result": "dispatch_result",
             "foo value": "foo-Wert",
             "Back to home": "Zur Startseite"
+        },
+        "ru": {
+            "Test One": "Тест Один",
+            "Hello Component Test One": "Компонент Hello Тест Один",
+            "Route with custom dispatcher logic": "Маршрут с пользовательской логикой диспетчера",
+            "This route uses the custom dispatcher class.": "Этот маршрут использует пользовательский класс диспетчера.",
+            "dispatch_result": "результат_диспетчера",
+            "foo value": "значение foo",
+            "Back to home": "Назад домой"
+        },
+        "it": {
+            "Test One": "Test Uno",
+            "Hello Component Test One": "Componente Hello Test Uno",
+            "Route with custom dispatcher logic": "Route con logica dispatcher personalizzata",
+            "This route uses the custom dispatcher class.": "Questa route usa la classe dispatcher personalizzata.",
+            "dispatch_result": "risultato_dispatch",
+            "foo value": "valore foo",
+            "Back to home": "Torna alla home"
+        },
+        "pl": {
+            "Test One": "Test Jeden",
+            "Hello Component Test One": "Komponent Hello Test Jeden",
+            "Route with custom dispatcher logic": "Trasa z niestandardową logiką dyspozytora",
+            "This route uses the custom dispatcher class.": "Ta trasa używa niestandardowej klasy dyspozytora.",
+            "dispatch_result": "wynik_dispatch",
+            "foo value": "wartość foo",
+            "Back to home": "Powrót do domu"
+        },
+        "uk": {
+            "Test One": "Тест Один",
+            "Hello Component Test One": "Компонент Hello Тест Один",
+            "Route with custom dispatcher logic": "Маршрут з користувацькою логікою диспетчера",
+            "This route uses the custom dispatcher class.": "Цей маршрут використовує користувацький клас диспетчера.",
+            "dispatch_result": "результат_диспетчера",
+            "foo value": "значення foo",
+            "Back to home": "Повернутися додому"
+        },
+        "nl": {
+            "Test One": "Test Een",
+            "Hello Component Test One": "Hello Component Test Een",
+            "Route with custom dispatcher logic": "Route met aangepaste dispatcher logica",
+            "This route uses the custom dispatcher class.": "Deze route gebruikt de aangepaste dispatcher klasse.",
+            "dispatch_result": "dispatch_resultaat",
+            "foo value": "foo waarde",
+            "Back to home": "Terug naar huis"
+        },
+        "ro": {
+            "Test One": "Test Unu",
+            "Hello Component Test One": "Component Hello Test Unu",
+            "Route with custom dispatcher logic": "Rută cu logică dispatcher personalizată",
+            "This route uses the custom dispatcher class.": "Această rută folosește clasa dispatcher personalizată.",
+            "dispatch_result": "rezultat_dispatch",
+            "foo value": "valoare foo",
+            "Back to home": "Înapoi acasă"
+        },
+        "pt": {
+            "Test One": "Teste Um",
+            "Hello Component Test One": "Componente Hello Teste Um",
+            "Route with custom dispatcher logic": "Rota com lógica dispatcher personalizada",
+            "This route uses the custom dispatcher class.": "Esta rota usa a classe dispatcher personalizada.",
+            "dispatch_result": "resultado_dispatch",
+            "foo value": "valor foo",
+            "Back to home": "Voltar ao início"
+        },
+        "el": {
+            "Test One": "Δοκιμή Ένα",
+            "Hello Component Test One": "Στοιχείο Hello Δοκιμή Ένα",
+            "Route with custom dispatcher logic": "Διαδρομή με προσαρμοσμένη λογική dispatcher",
+            "This route uses the custom dispatcher class.": "Αυτή η διαδρομή χρησιμοποιεί την προσαρμοσμένη κλάση dispatcher.",
+            "dispatch_result": "αποτέλεσμα_dispatch",
+            "foo value": "τιμή foo",
+            "Back to home": "Πίσω στο σπίτι"
+        },
+        "hu": {
+            "Test One": "Teszt Egy",
+            "Hello Component Test One": "Hello Komponens Teszt Egy",
+            "Route with custom dispatcher logic": "Útvonal egyéni dispatcher logikával",
+            "This route uses the custom dispatcher class.": "Ez az útvonal egyéni dispatcher osztályt használ.",
+            "dispatch_result": "dispatch_eredmény",
+            "foo value": "foo érték",
+            "Back to home": "Vissza a kezdőlapra"
+        },
+        "cs": {
+            "Test One": "Test Jedna",
+            "Hello Component Test One": "Komponenta Hello Test Jedna",
+            "Route with custom dispatcher logic": "Trasa s vlastní logikou dispatcheru",
+            "This route uses the custom dispatcher class.": "Tato trasa používá vlastní třídu dispatcheru.",
+            "dispatch_result": "výsledek_dispatch",
+            "foo value": "hodnota foo",
+            "Back to home": "Zpět domů"
+        },
+        "sv": {
+            "Test One": "Test Ett",
+            "Hello Component Test One": "Hello Komponent Test Ett",
+            "Route with custom dispatcher logic": "Rutt med anpassad dispatcherlogik",
+            "This route uses the custom dispatcher class.": "Denna rutt använder den anpassade dispatcherklassen.",
+            "dispatch_result": "dispatch_resultat",
+            "foo value": "foo-värde",
+            "Back to home": "Tillbaka hem"
+        },
+        "hi": {
+            "Test One": "टेस्ट एक",
+            "Hello Component Test One": "हैलो कंपोनेंट टेस्ट एक",
+            "Route with custom dispatcher logic": "कस्टम डिस्पैचर लॉजिक के साथ रूट",
+            "This route uses the custom dispatcher class.": "यह रूट कस्टम डिस्पैचर क्लास का उपयोग करता है।",
+            "dispatch_result": "dispatch_परिणाम",
+            "foo value": "foo मूल्य",
+            "Back to home": "घर वापस जाएं"
+        },
+        "ar": {
+            "Test One": "اختبار واحد",
+            "Hello Component Test One": "مكون Hello اختبار واحد",
+            "Route with custom dispatcher logic": "مسار مع منطق dispatcher مخصص",
+            "This route uses the custom dispatcher class.": "هذا المسار يستخدم فئة dispatcher المخصصة.",
+            "dispatch_result": "نتيجة_dispatch",
+            "foo value": "قيمة foo",
+            "Back to home": "العودة إلى المنزل"
+        },
+        "zh": {
+            "Test One": "测试一",
+            "Hello Component Test One": "Hello 组件测试一",
+            "Route with custom dispatcher logic": "带有自定义调度器逻辑的路由",
+            "This route uses the custom dispatcher class.": "此路由使用自定义调度器类。",
+            "dispatch_result": "dispatch_结果",
+            "foo value": "foo 值",
+            "Back to home": "返回首页"
+        },
+        "ja": {
+            "Test One": "テスト1",
+            "Hello Component Test One": "Helloコンポーネントテスト1",
+            "Route with custom dispatcher logic": "カスタムディスパッチャーロジック付きルート",
+            "This route uses the custom dispatcher class.": "このルートはカスタムディスパッチャークラスを使用します。",
+            "dispatch_result": "dispatch_結果",
+            "foo value": "foo値",
+            "Back to home": "ホームに戻る"
         }
     }
 }

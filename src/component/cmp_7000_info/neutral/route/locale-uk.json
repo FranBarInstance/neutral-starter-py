@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "uk": {
+            "About": "Про нас",
+            "About Neutral TS PWA": "Про Neutral TS PWA",
+            "About Neutral TS PWA Skeleton for PWA in Python": "Про Neutral TS PWA Skeleton для PWA на Python",
+            "Contact": "Контакти",
+            "Contact Neutral TS PWA": "Зв'язатися з Neutral TS PWA",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "Зв'язатися з Neutral TS PWA Skeleton для PWA на Python",
+            "Help": "Допомога",
+            "Help Neutral TS PWA": "Допомога Neutral TS PWA",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Допомога Neutral TS PWA Skeleton для PWA на Python",
+            "Legal": "Правова інформація",
+            "Legal Neutral TS PWA": "Правова інформація Neutral TS PWA",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Правова інформація Neutral TS PWA Skeleton для PWA на Python"
+        }
+    }
+}

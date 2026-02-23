@@ -1,7 +1,7 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:^;:}<!DOCTYPE html>
-<html lang="{:lang;:}" data-bs-theme="">
+<html lang="{:lang;:}" dir="{:;current->site->languages_dir->{:lang;:}:}" data-bs-theme="">
     <head>
         <meta charset="utf-8" />
         <title>{:;HTTP_ERROR->code:} - {:;HTTP_ERROR->text:}</title>

@@ -2,11 +2,29 @@
     "inherit": {
         "locale": {
             "trans": {
+                "en": {
+                    "Install APP": "Install APP",
+                    "The application": "The application",
+                    "Internet connection required": "Internet connection required",
+                    "No connection": "No connection"
+                },
                 "es": {
                     "Install APP": "Instalar APP",
                     "The application": "La aplicación",
                     "Internet connection required": "Conexión a Internet requerida",
                     "No connection": "Sin conexión"
+                },
+                "ru": {
+                    "Install APP": "Установить APP",
+                    "The application": "Приложение",
+                    "Internet connection required": "Требуется подключение к Интернету",
+                    "No connection": "Нет подключения"
+                },
+                "de": {
+                    "Install APP": "Installiere APP",
+                    "The application": "Die Anwendung",
+                    "Internet connection required": "Internetverbindung erforderlich",
+                    "No connection": "Ohne Verbindung"
                 },
                 "fr": {
                     "Install APP": "Installer APP",
@@ -14,11 +32,89 @@
                     "Internet connection required": "Connexion Internet requise",
                     "No connection": "Sans connexion"
                 },
-                "de": {
-                    "Install APP": "Installiere APP",
-                    "The application": "Die Anwendung",
-                    "Internet connection required": "Internetverbindung erforderlich",
-                    "No connection": "Ohne Verbindung"
+                "it": {
+                    "Install APP": "Installa APP",
+                    "The application": "L'applicazione",
+                    "Internet connection required": "Connessione Internet richiesta",
+                    "No connection": "Nessuna connessione"
+                },
+                "pl": {
+                    "Install APP": "Zainstaluj APP",
+                    "The application": "Aplikacja",
+                    "Internet connection required": "Wymagane połączenie internetowe",
+                    "No connection": "Brak połączenia"
+                },
+                "uk": {
+                    "Install APP": "Встановити APP",
+                    "The application": "Додаток",
+                    "Internet connection required": "Потрібне підключення до Інтернету",
+                    "No connection": "Немає підключення"
+                },
+                "nl": {
+                    "Install APP": "Installeer APP",
+                    "The application": "De applicatie",
+                    "Internet connection required": "Internetverbinding vereist",
+                    "No connection": "Geen verbinding"
+                },
+                "ro": {
+                    "Install APP": "Instalează APP",
+                    "The application": "Aplicația",
+                    "Internet connection required": "Conexiune la internet necesară",
+                    "No connection": "Fără conexiune"
+                },
+                "pt": {
+                    "Install APP": "Instalar APP",
+                    "The application": "A aplicação",
+                    "Internet connection required": "Conexão à Internet necessária",
+                    "No connection": "Sem conexão"
+                },
+                "el": {
+                    "Install APP": "Εγκατάσταση APP",
+                    "The application": "Η εφαρμογή",
+                    "Internet connection required": "Απαιτείται σύνδεση στο Διαδίκτυο",
+                    "No connection": "Χωρίς σύνδεση"
+                },
+                "hu": {
+                    "Install APP": "APP telepítése",
+                    "The application": "Az alkalmazás",
+                    "Internet connection required": "Internetkapcsolat szükséges",
+                    "No connection": "Nincs kapcsolat"
+                },
+                "cs": {
+                    "Install APP": "Instalovat APP",
+                    "The application": "Aplikace",
+                    "Internet connection required": "Vyžadováno připojení k internetu",
+                    "No connection": "Bez připojení"
+                },
+                "sv": {
+                    "Install APP": "Installera APP",
+                    "The application": "Applikationen",
+                    "Internet connection required": "Internetanslutning krävs",
+                    "No connection": "Ingen anslutning"
+                },
+                "hi": {
+                    "Install APP": "APP इंस्टॉल करें",
+                    "The application": "एप्लिकेशन",
+                    "Internet connection required": "इंटरनेट कनेक्शन आवश्यक",
+                    "No connection": "कोई कनेक्शन नहीं"
+                },
+                "ar": {
+                    "Install APP": "تثبيت APP",
+                    "The application": "التطبيق",
+                    "Internet connection required": "مطلوب اتصال بالإنترنت",
+                    "No connection": "لا يوجد اتصال"
+                },
+                "zh": {
+                    "Install APP": "安装 APP",
+                    "The application": "应用程序",
+                    "Internet connection required": "需要互联网连接",
+                    "No connection": "无连接"
+                },
+                "ja": {
+                    "Install APP": "APP をインストール",
+                    "The application": "アプリケーション",
+                    "Internet connection required": "インターネット接続が必要です",
+                    "No connection": "接続なし"
                 }
             }
         },

@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "cs": {
+            "Login successful.": "Přihlášení úspěšné.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Přihlášení Dev Admin",
+            "Username": "Uživatelské jméno",
+            "Password": "Heslo",
+            "Sign in": "Přihlásit se",
+            "Sign out": "Odhlásit se",
+            "Custom Overrides": "Vlastní přepisy",
+            "Component UUID": "UUID komponenty",
+            "Override JSON": "JSON přepisu",
+            "Save override": "Uložit přepis",
+            "Existing Overrides": "Existující přepisy",
+            "Load": "Načíst",
+            "Enabled": "Povoleno",
+            "Updated At": "Aktualizováno",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Přihlašovací údaje nejsou nakonfigurovány. Nastavte DEV_ADMIN_USER a DEV_ADMIN_PASSWORD v config/.env.",
+            "Invalid credentials.": "Neplatné přihlašovací údaje.",
+            "Invalid CSRF token.": "Neplatný CSRF token.",
+            "Too many login attempts. Try again later.": "Příliš mnoho pokusů o přihlášení. Zkuste to znovu později.",
+            "Override saved.": "Přepis uložen.",
+            "comp_uuid format is invalid.": "Formát comp_uuid je neplatný.",
+            "Override JSON must be a JSON object.": "JSON přepisu musí být objekt JSON.",
+            "Selected UUID does not exist in loaded components.": "Vybrané UUID neexistuje v načtených komponentách."
+        }
+    }
+}

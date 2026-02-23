@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "pt": {
+            "Login successful.": "Login bem-sucedido.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Login Dev Admin",
+            "Username": "Nome de usuário",
+            "Password": "Senha",
+            "Sign in": "Entrar",
+            "Sign out": "Sair",
+            "Custom Overrides": "Substituições personalizadas",
+            "Component UUID": "UUID do componente",
+            "Override JSON": "JSON de substituição",
+            "Save override": "Salvar substituição",
+            "Existing Overrides": "Substituições existentes",
+            "Load": "Carregar",
+            "Enabled": "Ativado",
+            "Updated At": "Atualizado",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Credenciais não configuradas. Defina DEV_ADMIN_USER e DEV_ADMIN_PASSWORD em config/.env.",
+            "Invalid credentials.": "Credenciais inválidas.",
+            "Invalid CSRF token.": "Token CSRF inválido.",
+            "Too many login attempts. Try again later.": "Muitas tentativas de login. Tente novamente mais tarde.",
+            "Override saved.": "Substituição salva.",
+            "comp_uuid format is invalid.": "O formato de comp_uuid é inválido.",
+            "Override JSON must be a JSON object.": "O JSON de substituição deve ser um objeto JSON.",
+            "Selected UUID does not exist in loaded components.": "O UUID selecionado não existe nos componentes carregados."
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "ro": {
+            "Login successful.": "Autentificare reușită.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Autentificare Dev Admin",
+            "Username": "Nume utilizator",
+            "Password": "Parolă",
+            "Sign in": "Autentificare",
+            "Sign out": "Deconectare",
+            "Custom Overrides": "Suprascrieri personalizate",
+            "Component UUID": "UUID componentă",
+            "Override JSON": "JSON suprascriere",
+            "Save override": "Salvează suprascrierea",
+            "Existing Overrides": "Suprascrieri existente",
+            "Load": "Încarcă",
+            "Enabled": "Activat",
+            "Updated At": "Actualizat",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Datele de autentificare nu sunt configurate. Setați DEV_ADMIN_USER și DEV_ADMIN_PASSWORD în config/.env.",
+            "Invalid credentials.": "Date de autentificare invalide.",
+            "Invalid CSRF token.": "Token CSRF invalid.",
+            "Too many login attempts. Try again later.": "Prea multe încercări de autentificare. Încercați din nou mai târziu.",
+            "Override saved.": "Suprascriere salvată.",
+            "comp_uuid format is invalid.": "Formatul comp_uuid este invalid.",
+            "Override JSON must be a JSON object.": "JSON-ul de suprascriere trebuie să fie un obiect JSON.",
+            "Selected UUID does not exist in loaded components.": "UUID-ul selectat nu există în componentele încărcate."
+        }
+    }
+}

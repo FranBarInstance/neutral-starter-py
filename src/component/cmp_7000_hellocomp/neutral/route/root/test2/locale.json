@@ -36,6 +36,141 @@
             "Name": "Name",
             "Topic": "Thema",
             "Back to home": "Zur Startseite"
+        },
+        "ru": {
+            "Test Two": "Тест Два",
+            "Hello Component Test Two": "Компонент Hello Тест Два",
+            "Route that receives GET form data": "Маршрут, который получает данные GET",
+            "This route receives GET data from the modal form.": "Этот маршрут получает данные GET из формы модального окна.",
+            "Name": "Имя",
+            "Topic": "Тема",
+            "Back to home": "Назад домой"
+        },
+        "it": {
+            "Test Two": "Test Due",
+            "Hello Component Test Two": "Componente Hello Test Due",
+            "Route that receives GET form data": "Route che riceve dati GET",
+            "This route receives GET data from the modal form.": "Questa route riceve dati GET dal form modale.",
+            "Name": "Nome",
+            "Topic": "Argomento",
+            "Back to home": "Torna alla home"
+        },
+        "pl": {
+            "Test Two": "Test Dwa",
+            "Hello Component Test Two": "Komponent Hello Test Dwa",
+            "Route that receives GET form data": "Trasa, która odbiera dane GET",
+            "This route receives GET data from the modal form.": "Ta trasa odbiera dane GET z formularza modalnego.",
+            "Name": "Nazwa",
+            "Topic": "Temat",
+            "Back to home": "Powrót do domu"
+        },
+        "uk": {
+            "Test Two": "Тест Два",
+            "Hello Component Test Two": "Компонент Hello Тест Два",
+            "Route that receives GET form data": "Маршрут, який отримує дані GET",
+            "This route receives GET data from the modal form.": "Цей маршрут отримує дані GET із модальної форми.",
+            "Name": "Ім'я",
+            "Topic": "Тема",
+            "Back to home": "Повернутися додому"
+        },
+        "nl": {
+            "Test Two": "Test Twee",
+            "Hello Component Test Two": "Hello Component Test Twee",
+            "Route that receives GET form data": "Route die GET formuliergegevens ontvangt",
+            "This route receives GET data from the modal form.": "Deze route ontvangt GET gegevens van het modal formulier.",
+            "Name": "Naam",
+            "Topic": "Onderwerp",
+            "Back to home": "Terug naar huis"
+        },
+        "ro": {
+            "Test Two": "Test Doi",
+            "Hello Component Test Two": "Component Hello Test Doi",
+            "Route that receives GET form data": "Rută care primește date GET",
+            "This route receives GET data from the modal form.": "Această rută primește date GET din formularul modal.",
+            "Name": "Nume",
+            "Topic": "Subiect",
+            "Back to home": "Înapoi acasă"
+        },
+        "pt": {
+            "Test Two": "Teste Dois",
+            "Hello Component Test Two": "Componente Hello Teste Dois",
+            "Route that receives GET form data": "Rota que recebe dados GET",
+            "This route receives GET data from the modal form.": "Esta rota recebe dados GET do formulário modal.",
+            "Name": "Nome",
+            "Topic": "Tópico",
+            "Back to home": "Voltar ao início"
+        },
+        "el": {
+            "Test Two": "Δοκιμή Δύο",
+            "Hello Component Test Two": "Στοιχείο Hello Δοκιμή Δύο",
+            "Route that receives GET form data": "Διαδρομή που λαμβάνει δεδομένα GET",
+            "This route receives GET data from the modal form.": "Αυτή η διαδρομή λαμβάνει δεδομένα GET από τη φόρμα modal.",
+            "Name": "Όνομα",
+            "Topic": "Θέμα",
+            "Back to home": "Πίσω στο σπίτι"
+        },
+        "hu": {
+            "Test Two": "Teszt Kettő",
+            "Hello Component Test Two": "Hello Komponens Teszt Kettő",
+            "Route that receives GET form data": "Útvonal, amely GET űrlapadatokat kap",
+            "This route receives GET data from the modal form.": "Ez az útvonal GET adatokat kap a modal űrlaptól.",
+            "Name": "Név",
+            "Topic": "Téma",
+            "Back to home": "Vissza a kezdőlapra"
+        },
+        "cs": {
+            "Test Two": "Test Dva",
+            "Hello Component Test Two": "Komponenta Hello Test Dva",
+            "Route that receives GET form data": "Trasa, která přijímá data GET",
+            "This route receives GET data from the modal form.": "Tato trasa přijímá data GET z modálního formuláře.",
+            "Name": "Jméno",
+            "Topic": "Téma",
+            "Back to home": "Zpět domů"
+        },
+        "sv": {
+            "Test Two": "Test Två",
+            "Hello Component Test Two": "Hello Komponent Test Två",
+            "Route that receives GET form data": "Rutt som tar emot GET formulärdata",
+            "This route receives GET data from the modal form.": "Denna rutt tar emot GET-data från modalformuläret.",
+            "Name": "Namn",
+            "Topic": "Ämne",
+            "Back to home": "Tillbaka hem"
+        },
+        "hi": {
+            "Test Two": "टेस्ट दो",
+            "Hello Component Test Two": "हैलो कंपोनेंट टेस्ट दो",
+            "Route that receives GET form data": "रूट जो GET फॉर्म डेटा प्राप्त करता है",
+            "This route receives GET data from the modal form.": "यह रूट मोडल फॉर्म से GET डेटा प्राप्त करता है।",
+            "Name": "नाम",
+            "Topic": "विषय",
+            "Back to home": "घर वापस जाएं"
+        },
+        "ar": {
+            "Test Two": "اختبار اثنان",
+            "Hello Component Test Two": "مكون Hello اختبار اثنان",
+            "Route that receives GET form data": "مسار يتلقى بيانات GET",
+            "This route receives GET data from the modal form.": "هذا المسار يتلقى بيانات GET من نموذج النموذج.",
+            "Name": "الاسم",
+            "Topic": "الموضوع",
+            "Back to home": "العودة إلى المنزل"
+        },
+        "zh": {
+            "Test Two": "测试二",
+            "Hello Component Test Two": "Hello 组件测试二",
+            "Route that receives GET form data": "接收 GET 表单数据的路由",
+            "This route receives GET data from the modal form.": "此路由从模态框表单接收 GET 数据。",
+            "Name": "名称",
+            "Topic": "主题",
+            "Back to home": "返回首页"
+        },
+        "ja": {
+            "Test Two": "テスト2",
+            "Hello Component Test Two": "Helloコンポーネントテスト2",
+            "Route that receives GET form data": "GETフォームデータを受け取るルート",
+            "This route receives GET data from the modal form.": "このルートはモーダルフォームからGETデータを受け取ります。",
+            "Name": "名前",
+            "Topic": "トピック",
+            "Back to home": "ホームに戻る"
         }
     }
 }

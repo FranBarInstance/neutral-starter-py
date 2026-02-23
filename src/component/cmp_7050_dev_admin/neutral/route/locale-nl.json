@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "nl": {
+            "Login successful.": "Inloggen geslaagd.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Dev Admin Inloggen",
+            "Username": "Gebruikersnaam",
+            "Password": "Wachtwoord",
+            "Sign in": "Inloggen",
+            "Sign out": "Uitloggen",
+            "Custom Overrides": "Aangepaste overschrijvingen",
+            "Component UUID": "Component UUID",
+            "Override JSON": "Overschrijving JSON",
+            "Save override": "Overschrijving opslaan",
+            "Existing Overrides": "Bestaande overschrijvingen",
+            "Load": "Laden",
+            "Enabled": "Ingeschakeld",
+            "Updated At": "Bijgewerkt",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Inloggegevens zijn niet geconfigureerd. Stel DEV_ADMIN_USER en DEV_ADMIN_PASSWORD in config/.env in.",
+            "Invalid credentials.": "Ongeldige inloggegevens.",
+            "Invalid CSRF token.": "Ongeldig CSRF-token.",
+            "Too many login attempts. Try again later.": "Te veel inlogpogingen. Probeer het later opnieuw.",
+            "Override saved.": "Overschrijving opgeslagen.",
+            "comp_uuid format is invalid.": "comp_uuid-formaat is ongeldig.",
+            "Override JSON must be a JSON object.": "Overschrijving JSON moet een JSON-object zijn.",
+            "Selected UUID does not exist in loaded components.": "Geselecteerde UUID bestaat niet in geladen componenten."
+        }
+    }
+}

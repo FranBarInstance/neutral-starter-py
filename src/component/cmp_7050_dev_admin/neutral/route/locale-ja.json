@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "ja": {
+            "Login successful.": "ログイン成功。",
+            "Dev Admin": "開発管理者",
+            "Dev Admin Login": "開発管理者ログイン",
+            "Username": "ユーザー名",
+            "Password": "パスワード",
+            "Sign in": "ログイン",
+            "Sign out": "ログアウト",
+            "Custom Overrides": "カスタムオーバーライド",
+            "Component UUID": "コンポーネント UUID",
+            "Override JSON": "オーバーライド JSON",
+            "Save override": "オーバーライドを保存",
+            "Existing Overrides": "既存のオーバーライド",
+            "Load": "読み込み",
+            "Enabled": "有効",
+            "Updated At": "更新日時",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "認証情報が設定されていません。config/.env で DEV_ADMIN_USER と DEV_ADMIN_PASSWORD を設定してください。",
+            "Invalid credentials.": "無効な認証情報です。",
+            "Invalid CSRF token.": "無効な CSRF トークンです。",
+            "Too many login attempts. Try again later.": "ログイン試行回数が多すぎます。後でもう一度お試しください。",
+            "Override saved.": "オーバーライドが保存されました。",
+            "comp_uuid format is invalid.": "comp_uuid の形式が無効です。",
+            "Override JSON must be a JSON object.": "オーバーライド JSON は JSON オブジェクトである必要があります。",
+            "Selected UUID does not exist in loaded components.": "選択された UUID は読み込まれたコンポーネントに存在しません。"
+        }
+    }
+}

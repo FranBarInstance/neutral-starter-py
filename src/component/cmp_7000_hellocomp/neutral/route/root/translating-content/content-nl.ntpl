@@ -1,0 +1,18 @@
+<h4>Dit is de inhoud in het Nederlands</h4>
+<p>
+    Om volledige pagina's of grote inhoud te vertalen, kunnen we een andere strategie gebruiken dan die door het framework wordt geboden.
+</p>
+<p>
+    We kunnen verschillende bestanden maken: content-es.ntpl, content-en.ntpl, enz., en deze vervolgens invoegen met:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Als alternatief kan hetzelfde worden gedaan met snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>

@@ -1,0 +1,18 @@
+{
+    "trans": {
+        "it": {
+            "About": "Chi siamo",
+            "About Neutral TS PWA": "Chi siamo Neutral TS PWA",
+            "About Neutral TS PWA Skeleton for PWA in Python": "Chi siamo Neutral TS PWA Skeleton per PWA in Python",
+            "Contact": "Contatti",
+            "Contact Neutral TS PWA": "Contatta Neutral TS PWA",
+            "Contact Neutral TS PWA Skeleton for PWA in Python": "Contatta Neutral TS PWA Skeleton per PWA in Python",
+            "Help": "Aiuto",
+            "Help Neutral TS PWA": "Aiuto Neutral TS PWA",
+            "Help Neutral TS PWA Skeleton for PWA in Python": "Aiuto Neutral TS PWA Skeleton per PWA in Python",
+            "Legal": "Note legali",
+            "Legal Neutral TS PWA": "Note legali Neutral TS PWA",
+            "Legal Neutral TS PWA Skeleton for PWA in Python": "Note legali Neutral TS PWA Skeleton per PWA in Python"
+        }
+    }
+}

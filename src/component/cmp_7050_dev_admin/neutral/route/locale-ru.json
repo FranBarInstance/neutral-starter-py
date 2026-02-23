@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "ru": {
+            "Login successful.": "Вход выполнен успешно.",
+            "Dev Admin": "Dev Admin",
+            "Dev Admin Login": "Вход в Dev Admin",
+            "Username": "Имя пользователя",
+            "Password": "Пароль",
+            "Sign in": "Войти",
+            "Sign out": "Выйти",
+            "Custom Overrides": "Пользовательские переопределения",
+            "Component UUID": "UUID компонента",
+            "Override JSON": "JSON переопределения",
+            "Save override": "Сохранить переопределение",
+            "Existing Overrides": "Существующие переопределения",
+            "Load": "Загрузить",
+            "Enabled": "Включено",
+            "Updated At": "Обновлено",
+            "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Учётные данные не настроены. Установите DEV_ADMIN_USER и DEV_ADMIN_PASSWORD в config/.env.",
+            "Invalid credentials.": "Неверные учётные данные.",
+            "Invalid CSRF token.": "Неверный CSRF-токен.",
+            "Too many login attempts. Try again later.": "Слишком много попыток входа. Попробуйте позже.",
+            "Override saved.": "Переопределение сохранено.",
+            "comp_uuid format is invalid.": "Формат comp_uuid неверен.",
+            "Override JSON must be a JSON object.": "JSON переопределения должен быть объектом JSON.",
+            "Selected UUID does not exist in loaded components.": "Выбранный UUID не существует в загруженных компонентах."
+        }
+    }
+}

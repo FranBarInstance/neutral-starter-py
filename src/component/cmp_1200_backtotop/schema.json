@@ -8,11 +8,56 @@
                 "es": {
                     "ref:backtotop:go-top": "Volver arriba"
                 },
-                "fr": {
-                    "ref:backtotop:go-top": "Retour en haut de page"
+                "ru": {
+                    "ref:backtotop:go-top": "Перейти к верху страницы"
                 },
                 "de": {
                     "ref:backtotop:go-top": "Zurück zur oberen Seite"
+                },
+                "fr": {
+                    "ref:backtotop:go-top": "Retour en haut de page"
+                },
+                "it": {
+                    "ref:backtotop:go-top": "Torna in cima alla pagina"
+                },
+                "pl": {
+                    "ref:backtotop:go-top": "Przejdź do góry strony"
+                },
+                "uk": {
+                    "ref:backtotop:go-top": "Перейти до верху сторінки"
+                },
+                "nl": {
+                    "ref:backtotop:go-top": "Ga naar bovenkant van pagina"
+                },
+                "ro": {
+                    "ref:backtotop:go-top": "Du-te la începutul paginii"
+                },
+                "pt": {
+                    "ref:backtotop:go-top": "Ir para o topo da página"
+                },
+                "el": {
+                    "ref:backtotop:go-top": "Πήγαινε στην κορυφή της σελίδας"
+                },
+                "hu": {
+                    "ref:backtotop:go-top": "Ugrás az oldal tetejére"
+                },
+                "cs": {
+                    "ref:backtotop:go-top": "Přejít na začátek stránky"
+                },
+                "sv": {
+                    "ref:backtotop:go-top": "Gå till toppen av sidan"
+                },
+                "hi": {
+                    "ref:backtotop:go-top": "पृष्ठ के शीर्ष पर जाएं"
+                },
+                "ar": {
+                    "ref:backtotop:go-top": "اذهب إلى أعلى الصفحة"
+                },
+                "zh": {
+                    "ref:backtotop:go-top": "转到页面顶部"
+                },
+                "ja": {
+                    "ref:backtotop:go-top": "ページのトップへ"
                 }
             }
         }

@@ -1,0 +1,18 @@
+<h4>Detta är innehållet på svenska</h4>
+<p>
+    För att översätta hela sidor eller stort innehåll kan vi använda en annan strategi än den som tillhandahålls av ramverket.
+</p>
+<p>
+    Vi kan skapa olika filer content-es.ntpl, content-en.ntpl etc. och sedan inkludera dem med:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:include; #/content-{:lang;:}.ntpl :} :}</code>
+</p>
+<p>
+    Alternativt kan samma sak göras med snippet:
+</p>
+<p>
+    <code>{:code; {:flg; safe :} >> {:snip; content-en >> English :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-es >> Español :} :}</code><br>
+    <code>{:code; {:flg; safe :} >> {:snip; content-{:lang;:} :} :}</code>
+</p>
