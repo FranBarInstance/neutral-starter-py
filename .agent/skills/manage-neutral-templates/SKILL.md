@@ -311,6 +311,13 @@ Wildcards supported:
 ```
 
 ### Translations
+
+For `{:trans; ... :}` with plain text (not `ref:`), the phrase itself is the source text.
+
+- If a phrase is already written in language `xx`, do not add a redundant translation entry for `xx`.
+- Add translations only for the other target languages.
+- This rule is language-agnostic: the source language can be English, Spanish, French, etc., as long as that source is used consistently for the phrase.
+
 ```
 {:trans; Hello :}                       # Translate text or text
 {:!trans; Hello :}                      # Translate or empty
