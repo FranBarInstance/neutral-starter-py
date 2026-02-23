@@ -69,9 +69,19 @@
                             "icon": "x-icon-info"
                         },
                         "testerror": {
-                            "text": "Test Error 404",
+                            "text": "Error 404",
                             "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/non-existent-route",
-                            "icon": "x-icon-info"
+                            "icon": "x-icon-alert"
+                        },
+                        "error500": {
+                            "text": "Error 500",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/error-500",
+                            "icon": "x-icon-alert"
+                        },
+                        "redirect": {
+                            "text": "Redirect",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/redirect",
+                            "icon": "x-icon-alert"
                         }
                     }
                 },
@@ -93,9 +103,19 @@
                             "icon": "x-icon-info"
                         },
                         "testerror": {
-                            "text": "Test Error 404",
+                            "text": "Error 404",
                             "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/non-existent-route",
-                            "icon": "x-icon-info"
+                            "icon": "x-icon-alert"
+                        },
+                        "error500": {
+                            "text": "Error 500",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/error-500",
+                            "icon": "x-icon-alert"
+                        },
+                        "redirect": {
+                            "text": "Redirect",
+                            "link": "[:;data->hellocomp_0yt2sa->manifest->route:]/redirect",
+                            "icon": "x-icon-alert"
                         }
                     }
                 }
