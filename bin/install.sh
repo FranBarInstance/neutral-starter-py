@@ -3,7 +3,7 @@
 set -eu
 
 REPO_URL="https://github.com/FranBarInstance/neutral-starter-py.git"
-DEFAULT_BRANCH="master"
+FALLBACK_DEFAULT_BRANCH="main"
 
 need_cmd() {
   if ! command -v "$1" >/dev/null 2>&1; then
@@ -74,6 +74,11 @@ read_password() {
 
 need_cmd git
 need_cmd python3
+
+DEFAULT_BRANCH="$(git ls-remote --symref "$REPO_URL" HEAD 2>/dev/null | awk '/^ref:/ { sub("refs/heads/", "", $2); print $2; exit }')"
+if [ -z "$DEFAULT_BRANCH" ]; then
+  DEFAULT_BRANCH="$FALLBACK_DEFAULT_BRANCH"
+fi
 
 PYTHON_VERSION="$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
 PYTHON_MAJOR="$(printf "%s" "$PYTHON_VERSION" | cut -d. -f1)"

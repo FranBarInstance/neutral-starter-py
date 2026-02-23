@@ -70,7 +70,7 @@ source .venv/bin/activate && python bin/bootstrap_db.py \
 Interactive installer for a clean installation from a repository version.
 
 Includes:
-- option to install the current development version (the `master` branch)
+- option to install the current development version (repository default branch, auto-detected; fallback `main`)
 - list of up to 15 tags and version selection
 - destination directory selection
 - `.venv` creation + `requirements.txt` installation
@@ -84,7 +84,7 @@ Includes:
 Remote usage:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.sh | sh
 ```
 
 ### `install.ps1` (Windows PowerShell)
@@ -94,7 +94,7 @@ Equivalent interactive installer for Windows.
 Remote usage:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.ps1 | iex"
+powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.ps1 | iex"
 ```
 
 ## Convention for Future Scripts

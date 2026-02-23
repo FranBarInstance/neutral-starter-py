@@ -1,7 +1,8 @@
 $ErrorActionPreference = "Stop"
 
 $RepoUrl = "https://github.com/FranBarInstance/neutral-starter-py.git"
-$DefaultBranch = "master"
+$FallbackDefaultBranch = "main"
+$DefaultBranch = $FallbackDefaultBranch
 
 function Read-Value {
     param(
@@ -81,6 +82,19 @@ function Resolve-Python {
 
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     throw "git is required but was not found."
+}
+
+try {
+    $symrefOutput = git ls-remote --symref $RepoUrl HEAD 2>$null
+    foreach ($line in $symrefOutput) {
+        if ($line -match '^ref:\s+refs/heads/([^\s]+)\s+HEAD$') {
+            $DefaultBranch = $matches[1]
+            break
+        }
+    }
+}
+catch {
+    $DefaultBranch = $FallbackDefaultBranch
 }
 
 Write-Host "Fetching latest tags from repository..."
