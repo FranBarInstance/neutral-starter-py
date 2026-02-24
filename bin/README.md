@@ -34,11 +34,13 @@ Optional arguments:
 - `--locale` (default: `es`)
 - `--region`
 - `--properties` (JSON)
+- `--role` - can be repeated to assign multiple roles
+- `--roles` - comma-separated role codes
 
 Example:
 
 ```bash
-source .venv/bin/activate && python bin/create_user.py "Ana" "ana@example.com" "MiPass123!" "1992-11-03" --locale es --region ES --properties "{\"role\":\"admin\"}"
+source .venv/bin/activate && python bin/create_user.py "Ana" "ana@example.com" "MiPass123!" "1992-11-03" --locale es --region ES --role admin --role editor
 ```
 
 ### `bootstrap_db.py`
@@ -55,6 +57,16 @@ Basic usage:
 ```bash
 source .venv/bin/activate && python bin/bootstrap_db.py
 ```
+
+Optional arguments:
+
+- `--db-pwa-url` - override DB_PWA URL
+- `--db-pwa-type` - override DB_PWA type
+- `--db-safe-url` - override DB_SAFE URL
+- `--db-safe-type` - override DB_SAFE type
+- `--db-files-url` - override DB_FILES URL
+- `--db-files-type` - override DB_FILES type
+- `--quiet` - print only errors
 
 With custom URLs (recommended for local testing):
 
