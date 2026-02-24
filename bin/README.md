@@ -65,6 +65,54 @@ source .venv/bin/activate && python bin/bootstrap_db.py \
   --db-files-url sqlite:////tmp/neutral-install/files.db
 ```
 
+### `cmp.py` (Component Management)
+
+Manages project components: list, enable, disable, and reorder.
+
+**Wrapper scripts available:**
+- `bin/cmp` (Linux/macOS) - activates venv automatically
+- `bin/cmp.bat` (Windows) - activates venv automatically
+
+**Commands:**
+
+```bash
+# List components
+./bin/cmp list [all|enabled|disabled] [-v]
+
+# Enable a disabled component
+./bin/cmp enable <name>
+
+# Disable an enabled component
+./bin/cmp disable <name>
+
+# Change component load order
+./bin/cmp reorder <name> <order>
+```
+
+**Component name formats accepted:**
+- Full name: `cmp_7000_hellocomp`
+- Without prefix: `7000_hellocomp`
+- Just the name: `hellocomp`
+
+**Examples:**
+
+```bash
+# List all components
+./bin/cmp list
+
+# List only disabled components with details
+./bin/cmp list disabled -v
+
+# Enable a component
+./bin/cmp enable aichat
+
+# Disable a component
+./bin/cmp disable hellocomp
+
+# Change component order from 7000 to 7100
+./bin/cmp reorder hellocomp 7100
+```
+
 ### `install.sh` (Linux/macOS)
 
 Interactive installer for a clean installation from a repository version.
