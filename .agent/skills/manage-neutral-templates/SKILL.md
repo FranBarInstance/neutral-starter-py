@@ -7,7 +7,7 @@ description: Create or modify Neutral TS web template files (.ntpl) following th
 
 Create, modify, and manage Neutral TS (NTPL) template files following the official Neutral TS syntax, security standards, and architectural patterns.
 
-Use `view_file` on `src/component/cmp_7000_hellocomp` as a component example.
+Use `view_file` on `src/component/cmp_7000_hellocomp` or `_src/component/cmp_7000_hellocomp` as a component example.
 Use `view_file` on `docs/templates-neutrats.md` for more template options.
 Use `view_file` on `docs/templates-neutrats-ajax.md` for AJAX requests.
 Use `view_file` on `docs/development-style-guide.md` for more style guide.
