@@ -6,10 +6,6 @@
                     "Setting": "Ajustes",
                     "Dark mode": "Modo oscuro"
                 },
-                "ru": {
-                    "Setting": "Настройки",
-                    "Dark mode": "Тёмный режим"
-                },
                 "de": {
                     "Setting": "Einstellungen",
                     "Dark mode": "Dunkelmodus"
@@ -17,50 +13,6 @@
                 "fr": {
                     "Setting": "Paramètres",
                     "Dark mode": "Mode sombre"
-                },
-                "it": {
-                    "Setting": "Impostazioni",
-                    "Dark mode": "Modalità scura"
-                },
-                "pl": {
-                    "Setting": "Ustawienia",
-                    "Dark mode": "Tryb ciemny"
-                },
-                "uk": {
-                    "Setting": "Налаштування",
-                    "Dark mode": "Темний режим"
-                },
-                "nl": {
-                    "Setting": "Instellingen",
-                    "Dark mode": "Donkere modus"
-                },
-                "ro": {
-                    "Setting": "Setări",
-                    "Dark mode": "Mod întunecat"
-                },
-                "pt": {
-                    "Setting": "Configurações",
-                    "Dark mode": "Modo escuro"
-                },
-                "el": {
-                    "Setting": "Ρυθμίσεις",
-                    "Dark mode": "Σκοτεινή λειτουργία"
-                },
-                "hu": {
-                    "Setting": "Beállítások",
-                    "Dark mode": "Sötét mód"
-                },
-                "cs": {
-                    "Setting": "Nastavení",
-                    "Dark mode": "Tmavý režim"
-                },
-                "sv": {
-                    "Setting": "Inställningar",
-                    "Dark mode": "Mörkt läge"
-                },
-                "hi": {
-                    "Setting": "सेटिंग्स",
-                    "Dark mode": "डार्क मोड"
                 },
                 "ar": {
                     "Setting": "الإعدادات",
@@ -78,7 +30,7 @@
         },
         "data": {
             "current": {
-                "theme":  {
+                "theme": {
                     "theme": "flatly",
                     "color": "primary",
                     "class": {
