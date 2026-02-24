@@ -33,36 +33,36 @@ mkdir -p src/component/cmp_NNNN_name
 
 ```
 src/component/cmp_NNNN_name/
-├── manifest.json                     # Component identity (REQUIRED)
-├── schema.json                       # Configuration, menus
-├── custom.json                       # Local overrides (NEVER commit)
-├── __init__.py                       # Component initialization (if needed)
-├── README.md                         # Component documentation
-├── route/                            # Backend (Python/Flask)
-│   ├── __init__.py                   # Blueprint initialization
-│   ├── routes.py                     # Flask route definitions
-│   └── dispatcher_name.py            # Custom business logic (optional)
-├── neutral/                          # Frontend (NTPL)
-│   ├── component-init.ntpl           # Global snippets (app-wide)
-│   ├── obj/                          # Template-to-Python mappings
-│   │   └── object.json               # Python object definitions
-│   └── route/                        # Component templates
-│       ├── index-snippets.ntpl       # Component-level snippets
-│       ├── locale-xx.json            # Translations (es, fr, de, en)
-│       └── root/                     # Template root for routes
-│           ├── data.json             # Route metadata
-│           ├── content-snippets.ntpl # Main template
-│           └── subroute/             # Subroute templates
-│               ├── data.json
-│               └── content-snippets.ntpl
-├── static/                           # CSS, JS, images
-├── src/                              # Backend logic snippets
-│   └── module.py                     # Python functions for templates
-├── lib/                              # Private Python libraries
-│   └── uuid_name/                    # Namespaced package
-└── tests/                            # Pytest test suite
-    ├── conftest.py                   # Test configuration
-    └── test_component.py             # Component tests
+├── manifest.json                         # Component identity (REQUIRED)
+├── schema.json                           # Configuration, menus
+├── custom.json                           # Local overrides (NEVER commit)
+├── __init__.py                           # Component initialization (if needed)
+├── README.md                             # Component documentation
+├── route/                                # Backend (Python/Flask)
+│   ├── __init__.py                       # Blueprint initialization
+│   ├── routes.py                         # Flask route definitions
+│   └── dispatcher_name.py                # Custom business logic (optional)
+├── neutral/                              # Frontend (Neutral TS templates)
+│   ├── component-init.ntpl               # Global snippets (app-wide)
+│   ├── obj/                              # Template-to-Python mappings
+│   │   └── object.json                   # Python object definitions
+│   └── route/                            # Templates for routes
+│       ├── index-snippets.ntpl           # Component snippets (component-wide)
+│       ├── locale-xx.json                # Translations (es, fr, de, en)
+│       └── root/                         # (FIXED NAME) Maps to the component's base route (manifest.json "route", e.g., /example)
+│           ├── data.json                 # Route metadata
+│           ├── content-snippets.ntpl     # Content snippets for main route
+│           └── subroute_name/            # Maps to subroute_name, e.g. /example/subroute_name
+│               ├── data.json             # Local data, usually title, subtitle, etc.
+│               └── content-snippets.ntpl # Content snippets for subroute
+├── static/                               # CSS, JS, images
+├── src/                                  # Backend logic snippets
+│   └── module.py                         # Python functions for templates
+├── lib/                                  # Private Python libraries
+│   └── uuid_name/                        # Namespaced package
+└── tests/                                # Pytest test suite
+    ├── conftest.py                       # Test configuration
+    └── test_component.py                 # Component tests
 ```
 
 ## Manifest and Configuration
