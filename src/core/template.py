@@ -34,7 +34,11 @@ class Template:
         """render template and return response"""
         tpl = tpl or self.data['TEMPLATE_LAYOUT']
 
-        template = NeutralTemplate(tpl, json.dumps(self.schema.properties))
+        if Config.NEUTRAL_IPC:
+            template = NeutralTemplate(tpl, json.dumps(self.schema.properties))
+        else:
+            template = NeutralTemplate(tpl, schema_obj=self.schema.properties)
+
         self.contents = template.render()
 
         self.contents = self.contents.lstrip('\n\r\t ')
@@ -83,9 +87,11 @@ class Template:
             "param": status_param,
         }
 
-        template = NeutralTemplate(
-            self.data['TEMPLATE_ERROR'], json.dumps(self.schema.properties)
-        )
+        if Config.NEUTRAL_IPC:
+            template = NeutralTemplate(self.data['TEMPLATE_ERROR'], json.dumps(self.schema.properties))
+        else:
+            template = NeutralTemplate(self.data['TEMPLATE_ERROR'], schema_obj=self.schema.properties)
+
         self.contents = template.render()
 
         self.contents = self.contents.lstrip('\n\r\t ')
