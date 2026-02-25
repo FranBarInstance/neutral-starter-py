@@ -7,3 +7,9 @@
 {:snip; current:template:body-carousel >> :}
 
 {:include; {:flg; require :} >> #/snippets.ntpl :}
+
+{:locale;
+    #/locale-{:lang;:}.json
+:}{:else;
+    {:locale; #/locale-en.json :}
+:}

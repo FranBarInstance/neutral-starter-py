@@ -3,81 +3,25 @@
         "locale": {
             "trans": {
                 "en": {
-                    "Read RSS": "Read RSS",
-                    "Alternate sources": "Alternate sources",
-                    "Source": "Source",
-                    "No publications": "No publications",
-                    "news": "news",
-                    "No RSS URL provided": "No RSS URL provided",
-                    "No RSS name provided": "No RSS name provided",
-                    "Invalid RSS name": "Invalid RSS name",
-                    "No feed or entries found": "No feed or entries found"
+                    "Read RSS": "Read RSS"
                 },
                 "es": {
-                    "Read RSS": "Leer RSS",
-                    "Alternate sources": "Fuentes alternativas",
-                    "Source": "Fuente",
-                    "No publications": "Sin publicaciones",
-                    "news": "noticias",
-                    "No RSS URL provided": "No se proporcionó URL de RSS",
-                    "No RSS name provided": "No se proporcionó nombre de RSS",
-                    "Invalid RSS name": "Nombre de RSS inválido",
-                    "No feed or entries found": "No se encontraron feed o entradas"
+                    "Read RSS": "Leer RSS"
                 },
                 "de": {
-                    "Read RSS": "RSS lesen",
-                    "Alternate sources": "Alternativen Quellen",
-                    "Source": "Quelle",
-                    "No publications": "Ohne Publikationen",
-                    "news": "Nachrichten",
-                    "No RSS URL provided": "RSS-URL nicht angegeben",
-                    "No RSS name provided": "RSS-Name nicht angegeben",
-                    "Invalid RSS name": "RSS-Name ungültig",
-                    "No feed or entries found": "Kein Feed oder Einträge gefunden"
+                    "Read RSS": "RSS lesen"
                 },
                 "fr": {
-                    "Read RSS": "Lire RSS",
-                    "Alternate sources": "Sources alternatives",
-                    "Source": "Source",
-                    "No publications": "Sans publications",
-                    "news": "actualités",
-                    "No RSS URL provided": "URL de RSS non fournie",
-                    "No RSS name provided": "Nom de RSS non fourni",
-                    "Invalid RSS name": "Nom de RSS invalide",
-                    "No feed or entries found": "Aucun flux ou entrée trouvée"
+                    "Read RSS": "Lire RSS"
                 },
                 "ar": {
-                    "Read RSS": "اقرأ RSS",
-                    "Alternate sources": "مصادر بديلة",
-                    "Source": "المصدر",
-                    "No publications": "لا توجد منشورات",
-                    "news": "أخبار",
-                    "No RSS URL provided": "لم يتم توفير URL RSS",
-                    "No RSS name provided": "لم يتم توفير اسم RSS",
-                    "Invalid RSS name": "اسم RSS غير صالح",
-                    "No feed or entries found": "لم يتم العثور على تغذية أو إدخالات"
+                    "Read RSS": "اقرأ RSS"
                 },
                 "zh": {
-                    "Read RSS": "阅读 RSS",
-                    "Alternate sources": "备用来源",
-                    "Source": "来源",
-                    "No publications": "无出版物",
-                    "news": "新闻",
-                    "No RSS URL provided": "未提供 RSS URL",
-                    "No RSS name provided": "未提供 RSS 名称",
-                    "Invalid RSS name": "无效的 RSS 名称",
-                    "No feed or entries found": "未找到提要或条目"
+                    "Read RSS": "阅读 RSS"
                 },
                 "ja": {
-                    "Read RSS": "RSS を読む",
-                    "Alternate sources": "代替ソース",
-                    "Source": "ソース",
-                    "No publications": "出版物なし",
-                    "news": "ニュース",
-                    "No RSS URL provided": "RSS URL が提供されていません",
-                    "No RSS name provided": "RSS 名が提供されていません",
-                    "Invalid RSS name": "無効な RSS 名",
-                    "No feed or entries found": "フィードまたはエントリが見つかりません"
+                    "Read RSS": "RSS を読む"
                 }
             }
         },
