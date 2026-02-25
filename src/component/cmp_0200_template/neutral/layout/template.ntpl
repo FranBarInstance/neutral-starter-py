@@ -25,7 +25,7 @@
     </head>
     <body class="{:;local::current->theme->class->body:}">
         {:snip; current-theme-body-start :}
-        {:cache; /{:;current->template->nav_cache_seconds:}/{:snip; current:template:nav-cache-key :}/1/ >>
+        {:cache; /{:;current->template->nav_cache_seconds:}/ >>
             {:snip; current:template:main-navbar :}
             {:snip; current:template:main-drawer :}
         :}

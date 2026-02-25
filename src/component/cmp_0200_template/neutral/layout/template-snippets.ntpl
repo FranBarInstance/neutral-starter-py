@@ -1,19 +1,13 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-{:snip; current:template:nav-cache-key >>
-    {:lang;:}-current-template-nav-cache-key-{:;HAS_SESSION_STR:}
-:}
-
 {:snip; current:template:cache-key >>
-    {:lang;:}
     {:;local::current->theme->theme:}
     {:;local::current->theme->color:}
-    {:;CONTEXT->HEADERS->Requested-With-Ajax:}
     {:;HAS_SESSION:}
+    {:;CONTEXT->HEADERS->Requested-With-Ajax:}
 :}
 
 {:snip; current:template:error-cache-key >>
-    {:lang;:}
     {:;local::current->theme->theme:}
     {:;local::current->theme->color:}
     {:;HAS_SESSION:}
