@@ -70,7 +70,7 @@
 {:snip; comp-debug-button-context :}
 {:snip; comp-debug-button-data :}
 {:snip; comp-debug-button-local-data :}
-{:snip; comp-debug-errors :}
+<pre>Errors: {:debug; __error :}</pre>
 </div>
 :}
 
