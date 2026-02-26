@@ -10,7 +10,8 @@ from flask import Response, current_app, make_response
 from app.config import Config
 
 if Config.NEUTRAL_IPC:
-    from neutral_ipc_template import NeutralIpcTemplate as NeutralTemplate
+    import msgpack
+    from neutral_ipc_template import NeutralIpcTemplate, NeutralIpcRecord
 else:
     from neutraltemplate import NeutralTemplate
 
@@ -35,7 +36,8 @@ class Template:
         tpl = tpl or self.data['TEMPLATE_LAYOUT']
 
         if Config.NEUTRAL_IPC:
-            template = NeutralTemplate(tpl, json.dumps(self.schema.properties))
+            schema_msgpack = msgpack.packb(self.schema.properties, use_bin_type=True)
+            template = NeutralIpcTemplate(tpl, schema_msgpack, schema_type=NeutralIpcRecord.CONTENT_MSGPACK)
         else:
             template = NeutralTemplate(tpl, schema_obj=self.schema.properties)
 
@@ -88,7 +90,7 @@ class Template:
         }
 
         if Config.NEUTRAL_IPC:
-            template = NeutralTemplate(self.data['TEMPLATE_ERROR'], json.dumps(self.schema.properties))
+            template = NeutralIpcTemplate(self.data['TEMPLATE_ERROR'], json.dumps(self.schema.properties))
         else:
             template = NeutralTemplate(self.data['TEMPLATE_ERROR'], schema_obj=self.schema.properties)
 

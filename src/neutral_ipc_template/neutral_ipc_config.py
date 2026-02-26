@@ -1,6 +1,8 @@
 """
 Configuration module for Neutral IPC client.
 Reads configuration from /etc/neutral-ipc-cfg.json or uses default values.
+neutral-ipc-cfg.json is the configuration file used by the IPC server.
+https://github.com/FranBarInstance/neutral-ipc
 """
 
 import json

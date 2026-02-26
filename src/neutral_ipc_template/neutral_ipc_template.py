@@ -1,5 +1,6 @@
 """
 Neutral Python IPC client for Neutral TS.
+https://github.com/FranBarInstance/neutral-ipc
 """
 # pylint: disable=too-few-public-methods
 # pylint: disable=too-many-positional-arguments
@@ -8,6 +9,8 @@ Neutral Python IPC client for Neutral TS.
 import json
 import socket
 import struct
+
+import msgpack
 
 from .neutral_ipc_config import NeutralIpcConfig
 
@@ -23,9 +26,9 @@ class NeutralIpcRecord:
     #
     # \x00              # reserved
     # \x00              # control (action/status) (10 = parse template)
-    # \x00              # content-format 1 (10 = JSON, 20 = file path, 30 = plaintext, 40 = binary)
+    # \x00              # content-format 1 (10 = JSON, 20 = file path, 30 = plaintext, 40 = binary, 50 = MsgPack)
     # \x00\x00\x00\x00  # content-length 1 big endian byte order
-    # \x00              # content-format 2 (10 = JSON, 20 = file path, 30 = plaintext, 40 = binary)
+    # \x00              # content-format 2 (10 = JSON, 20 = file path, 30 = plaintext, 40 = binary, 50 = MsgPack)
     # \x00\x00\x00\x00  # content-length 2 big endian byte order (can be zero)
     #
     # All text utf8
@@ -36,6 +39,7 @@ class NeutralIpcRecord:
     CTRL_STATUS_OK = 0
     CTRL_STATUS_KO = 1
     CONTENT_JSON = 10
+    CONTENT_MSGPACK = 50
     CONTENT_PATH = 20
     CONTENT_TEXT = 30
     CONTENT_BIN = 40
@@ -71,10 +75,17 @@ class NeutralIpcRecord:
     @staticmethod
     def encode_record(control, format1, content1, format2, content2):
         """Encode complete IPC record."""
-        length1 = len(content1.encode('utf-8'))
+        if isinstance(content1, bytes):
+            length1 = len(content1)
+        else:
+            length1 = len(content1.encode('utf-8'))
         length2 = len(content2.encode('utf-8'))
         header = NeutralIpcRecord.encode_header(control, format1, length1, format2, length2)
-        return header + content1.encode('utf-8') + content2.encode('utf-8')
+        if isinstance(content1, bytes):
+            content1_bytes = content1
+        else:
+            content1_bytes = content1.encode('utf-8')
+        return header + content1_bytes + content2.encode('utf-8')
 
     @staticmethod
     def decode_record(header, content1, content2):
@@ -142,19 +153,36 @@ class NeutralIpcClient:
 class NeutralIpcTemplate:
     """Neutral IPC Template."""
 
-    def __init__(self, template, schema, tpl_type=NeutralIpcRecord.CONTENT_PATH):
+    def __init__(self, template, schema, tpl_type=NeutralIpcRecord.CONTENT_PATH, schema_type=NeutralIpcRecord.CONTENT_JSON):
         """Initialize template with schema and content."""
         self.template = template
         self.tpl_type = tpl_type
-        self.schema = json.dumps(schema) if not isinstance(schema, str) else schema
+        self.schema_type = schema_type
+        if schema_type == NeutralIpcRecord.CONTENT_MSGPACK:
+            # If schema is already bytes, use it directly; otherwise serialize
+            if isinstance(schema, bytes):
+                self.schema = schema
+            elif isinstance(schema, str):
+                # If it's a string, parse as JSON first then serialize
+                self.schema = msgpack.packb(json.loads(schema), use_bin_type=False)
+            else:
+                # It's a dict, serialize it
+                self.schema = msgpack.packb(schema, use_bin_type=False)
+        else:
+            self.schema = json.dumps(schema) if not isinstance(schema, str) else schema
         self.result = {}
 
     def render(self):
         """Render template with schema."""
+        if self.schema_type == NeutralIpcRecord.CONTENT_MSGPACK:
+            schema_content = self.schema
+        else:
+            schema_content = self.schema
+
         record = NeutralIpcClient(
             NeutralIpcRecord.CTRL_PARSE_TEMPLATE,
-            NeutralIpcRecord.CONTENT_JSON,
-            self.schema,
+            self.schema_type,
+            schema_content,
             self.tpl_type,
             self.template
         )
