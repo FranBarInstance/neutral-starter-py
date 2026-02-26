@@ -66,11 +66,14 @@
     [DEBUG]
 </button>
 <div class="collapse" id="collapse{:snip; collapse-debug-id :}6">
+<pre class="p-3 border">
+{:;CONTEXT->PATH:}
+Errors: {:debug; __error :}
+</pre>
 {:snip; comp-debug-button-full :}
 {:snip; comp-debug-button-context :}
 {:snip; comp-debug-button-data :}
 {:snip; comp-debug-button-local-data :}
-<pre>Errors: {:debug; __error :}</pre>
 </div>
 :}
 
