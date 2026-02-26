@@ -2,4 +2,9 @@
 
 {:+bool; current_app_debug >>
     {:^include; {:flg; require :} >> {:;debug_0yt2sa->path:}/neutral/snippets.ntpl :}
+    {:moveto; nts-debug >>
+        {:!cache;
+            {:snip; comp-debug-common :}
+        :}
+    :}
 :}

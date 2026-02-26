@@ -56,16 +56,9 @@
             :}
             {:snip; theme-body-end :}
         </div>
-        {:!cache;
-            {:snip; comp-debug-button-full :}
-            {:snip; comp-debug-button-context :}
-            {:snip; comp-debug-button-data :}
-            {:snip; comp-debug-button-local-data :}
-        :}
         {:snip; current:template:body-footer :}
         {:snip; current:template:modals :}
         {:snip; neutral.js :}
-
         {:each; COMPONENTS_MAP_BY_UUID component none >>
             {:snip; current:template:body-end:{:;component:} :}
         :}
@@ -74,4 +67,5 @@
         <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/modal-dynamic.min.js"></script>
         <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/modal-close-on-back.min.js"></script>
     </body>
+    <nts-debug></nts-debub>
 </html>

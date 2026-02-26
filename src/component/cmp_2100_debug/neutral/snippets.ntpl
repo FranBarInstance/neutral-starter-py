@@ -52,4 +52,26 @@
 </pre>
 :}
 
+{:snip; comp-debug-errors >>
+<button class="btn btn-light btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{:snip; collapse-debug-id :}5" aria-expanded="false" aria-controls="collapse{:snip; collapse-debug-id :}5">
+    d:error
+</button>
+<pre class="collapse ff-mono" id="collapse{:snip; collapse-debug-id :}5">
+{:debug; __error :}
+</pre>
+:}
+
+{:snip; comp-debug-common >>
+<button class="btn btn-light btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{:snip; collapse-debug-id :}6" aria-expanded="false" aria-controls="collapse{:snip; collapse-debug-id :}6">
+    [DEBUG]
+</button>
+<div class="collapse" id="collapse{:snip; collapse-debug-id :}6">
+{:snip; comp-debug-button-full :}
+{:snip; comp-debug-button-context :}
+{:snip; comp-debug-button-data :}
+{:snip; comp-debug-button-local-data :}
+{:snip; comp-debug-errors :}
+</div>
+:}
+
 {:^;:}
