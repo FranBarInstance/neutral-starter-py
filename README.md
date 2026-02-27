@@ -60,7 +60,7 @@ HTTP Response
 
 ## Prerequisites
 
-*   Python 3.10 to 3.13.
+*   Python 3.10 to 3.14.
 *   pip (Python package manager).
 *   Recommended: Virtual environment (`venv`).
 
