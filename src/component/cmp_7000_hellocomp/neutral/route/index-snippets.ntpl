@@ -22,7 +22,7 @@
     {:*
         Load locale object
     *:}
-    {:locale; #/../obj/locale-obj-comp.json  :}
+    {:!locale; #/../obj/locale-obj-comp.json  :}
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <h5 class="card-title mb-3">{:trans; Route snippet for the full component :}</h5>
@@ -38,7 +38,8 @@
                         <div><strong>CURRENT_COMP_UUID:</strong> {:;CURRENT_COMP_UUID:}</div>
                         <div><strong>Message:</strong> {:trans; {:;local::message:} :}</div>
                         <div><strong>Trans reference:</strong> {:trans; ref:example:reference :}</div>
-                        <div><strong>Obj message:</strong> {:obj; #/../obj/comp.json >> {:trans; {:;local::message:} :} :}</div>
+                        <div><strong>Obj message Py:</strong> {:obj; #/../obj/comp.json >> {:trans; {:;local::message:} :} :}</div>
+                        <div><strong>Obj message PHP:</strong> {:obj; #/../obj/comp-php.json >> {:trans; {:;local::message:} :} :}</div>
                     </div>
                 </div>
             </div>
