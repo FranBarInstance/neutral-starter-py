@@ -15,7 +15,7 @@ def handle_exception(e):
     if isinstance(e, HTTPException):
         code = e.code
         name = e.name
-        description = e.description
+        description = e.description if current_app.debug else "Internal Server Error"
     else:
         if current_app.debug:
             raise e
