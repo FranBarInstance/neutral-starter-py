@@ -24,10 +24,10 @@ def get_rss(rss_url, rrss_name, rrss_valid_names) -> dict:
                 schema_data['rrss_feed_url'] = rss_url
                 schema_data['rrss_feed_feed'] = rrss.feed or {}
                 schema_data['rrss_feed_entries'] = rrss.entries or {}
-        except HTTPError as e:
-            schema_data['rrss_feed_error'] = str(e.reason)
-        except (ImportError, Exception) as e:  # pylint: disable=broad-except
-            schema_data['rrss_feed_error'] = str(e)
+        except HTTPError:
+            schema_data['rrss_feed_error'] = "Failed to fetch feed"
+        except (ImportError, Exception):  # pylint: disable=broad-except
+            schema_data['rrss_feed_error'] = "Feed unavailable"
 
     schema_data['rrss_name'] = rrss_name
 
