@@ -1,0 +1,8 @@
+{
+    "engine": "php",
+    "file": "{:;hellocomp_0yt2sa->path:}/src/comp.php",
+    "schema": false,
+    "params": {},
+    "callback": "main",
+    "template": ""
+}
