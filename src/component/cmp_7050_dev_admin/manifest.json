@@ -1,7 +1,0 @@
-{
-    "uuid": "devadmin_0yt2sa",
-    "name": "Dev Admin",
-    "description": "Restricted admin panel for config.db custom overrides",
-    "version": "1.0.0",
-    "route": "/dev-admin"
-}

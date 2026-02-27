@@ -1,4 +1,0 @@
-
-{:+!bool; CURRENT_USER->roles->role_dev >>
-    {:!data; {:flg; require :} >> {:;devadmin_0yt2sa->path:}/access-false.json :}
-:}
