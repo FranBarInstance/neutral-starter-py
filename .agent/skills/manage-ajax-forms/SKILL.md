@@ -46,6 +46,12 @@ The snippet files `component-init.ntpl` and `index-snippets.ntpl` are automatica
 
 ## 2. Implementing the Form Snippets
 
+In templates, all texts must be wrapped in `{:trans; ... :}` so they can be translated in the future.
+
+```ntpl
+<div>{:trans; Hello :}</div>
+```
+
 - cmp_uuid: is the uuid of the component in manifest.json
 
 fetch syntax
