@@ -54,6 +54,7 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
         self.schema_data['CSP_NONCE'] = get_nonce()
         self.parse_utoken()
         self.schema_data['LTOKEN'] = ltoken_create(self.schema_data['CONTEXT']['UTOKEN'])
+
         if not self.ajax_request:
             self.cookie_tab_changes()
             self.view.add_cookie({

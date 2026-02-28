@@ -11,7 +11,7 @@ from app.config import Config
 from constants import TMP_DIR
 from utils.utils import get_ip, merge_dict
 from utils.network import normalize_host, is_allowed_host
-
+from .session_dev import SessionDev
 
 
 class Schema:
@@ -27,6 +27,7 @@ class Schema:
         self._default()
         self._general_data()
         self._session()
+        self._session_dev()
         self._populate_context()
         self._negotiate_language()
         self.set_theme()
@@ -70,6 +71,13 @@ class Schema:
         self.data['CONTEXT']['SESSION_DATA'] = {}
         self.data['CONTEXT']['SESSION'] = self.req.cookies.get(Config.SESSION_KEY, None)
 
+    def _session_dev(self) -> None:
+        session_dev = SessionDev()
+        dev_session_ok = session_dev.check_session()
+        self.data['SESSION_DEV_DATA'] = session_dev.get_session_data()
+        self.data['HAS_SESSION_DEV'] = "true" if dev_session_ok else None
+        self.data['HAS_SESSION_DEV_STR'] = "true" if dev_session_ok else "false"
+
     def _populate_context(self) -> None:
         self.data['CONTEXT']['METHOD'] = self.req.method
         self.data['CONTEXT']['REMOTE_ADDR'] = get_ip()
@@ -100,8 +108,6 @@ class Schema:
         else:
             self.data['current']['site']['host'] = Config.SITE_DOMAIN
             self.data['current']['site']['url'] = Config.SITE_URL
-
-
 
 
     def _negotiate_language(self) -> None:
