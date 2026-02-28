@@ -80,7 +80,7 @@ in `form-snippets.ntpl`
 ```ntpl
 {:* Form content snippet *:}
 {:snip; cmp_uuid:my_form-form >>
-    {:fetch; |{:;cmp_uuid->manifest->route:}/subroute_name/ajax/{:;LTOKEN:}|form|my-form-wrapper|{:;local::current->forms->class:}| >>
+    {:fetch; |{:;cmp_uuid->manifest->route:}/subroute_name/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
         <div class="mb-3">
             <label class="form-label">{:trans; Name :}</label>
             <input type="text" name="name" class="form-control" required>
