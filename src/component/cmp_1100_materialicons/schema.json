@@ -76,7 +76,9 @@
             "x-icon-brain": "x-icon mdi mdi-brain",
             "x-icon-agent": "x-icon mdi mdi-robot-outline",
             "x-icon-dev": "x-icon mdi mdi-developer-board",
-            "x-icon-admin": "x-icon mdi mdi-account-tie-hat-outline"
+            "x-icon-admin": "x-icon mdi mdi-account-tie-hat-outline",
+            "x-icon-link": "x-icon mdi mdi-link-variant",
+            "x-icon-link-blank": "x-icon mdi mdi-open-in-new"
         }
     }
 }
