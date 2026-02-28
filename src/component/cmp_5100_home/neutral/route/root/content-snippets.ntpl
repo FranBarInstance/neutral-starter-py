@@ -136,7 +136,7 @@
                 </svg>
                 View on GitHub
             </a>
-            <a href="/docs" class="btn btn-outline-light btn-lg px-4">Documentation</a>
+            <a href="https://franbarinstance.github.io/neutral-starter-py/" target="_blank" class="btn btn-outline-light btn-lg px-4">Documentation</a>
         </div>
     </div>
 
