@@ -1,0 +1,16 @@
+{:data; {:flg; require :} >> #/../data.json :}
+{:!include; {:flg; require :} >> #/../../../index-snippets.ntpl :}
+
+{:snip; current:template:body-main-content >>
+    <div id="localadmin-login-wrap">
+        {:snip; localadmin_0yt2sa:alerts :}
+        {:!bool; local_admin->auth_ok >>
+            {:snip; localadmin_0yt2sa:login-form :}
+        :}{:else;
+            <div class="alert alert-success mb-3" role="alert">{:trans; Session already active. :}</div>
+            {:*  {:snip; localadmin_0yt2sa:logout-form :}  *:}
+            {:snip; util:reload-page-self :}
+        :}
+    </div>
+:}
+{:^;:}

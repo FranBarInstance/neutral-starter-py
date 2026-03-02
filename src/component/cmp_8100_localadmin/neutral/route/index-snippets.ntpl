@@ -1,0 +1,124 @@
+{:*
+    This file is included automatically by all component routes
+*:}
+
+{:*
+    Data and locale for all /local-admin/* routes
+*:}
+{:data; {:flg; require :} >> #/root/data.json :}
+
+{:locale;
+    #/locale-{:lang;:}.json
+:}{:else;
+    {:locale; #/locale-en.json :}
+:}
+
+{:snip; localadmin_0yt2sa:alerts >>
+    {:filled; local_admin->error >>
+        <div class="alert alert-danger" role="alert">{:trans; {:;local_admin->error:} :}</div>
+    :}
+    {:filled; local_admin->message >>
+        <div class="alert alert-success" role="alert">{:trans; {:;local_admin->message:} :}</div>
+    :}
+:}
+
+{:snip; localadmin_0yt2sa:login-form >>
+    {:fetch; |{:;localadmin_0yt2sa->manifest->route:}/login/ajax|form|localadmin-login-wrap|localadmin-login-form| >>
+        <form
+            id="localadmin-login-form"
+            class="localadmin-login-form card card-body border-0 shadow-sm"
+            method="POST"
+            action="{:;localadmin_0yt2sa->manifest->route:}/login/ajax"
+            autocomplete="off"
+        >
+            <input type="hidden" name="action" value="login">
+            <input type="hidden" name="csrf_token" value="{:&;local_admin->csrf_token:}">
+
+            <div class="mb-3">
+                <label class="form-label" for="localadmin-username">{:trans; Username :}</label>
+                <input
+                    id="localadmin-username"
+                    class="form-control"
+                    name="username"
+                    type="text"
+                    inputmode="text"
+                    maxlength="128"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    autocomplete="username"
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="localadmin-password">{:trans; Password :}</label>
+                <input
+                    id="localadmin-password"
+                    class="form-control"
+                    name="password"
+                    type="password"
+                    maxlength="256"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn btn-primary">{:trans; Sign in :}</button>
+        </form>
+    :}
+:}
+
+{:snip; localadmin_0yt2sa:logout-form >>
+    {:fetch; |{:;localadmin_0yt2sa->manifest->route:}/logout/ajax|form|localadmin-login-wrap|localadmin-logout-form| >>
+        <form
+            class="localadmin-logout-form mt-3"
+            method="POST"
+            action="{:;localadmin_0yt2sa->manifest->route:}/logout/ajax"
+        >
+            <input type="hidden" name="action" value="logout">
+            <input type="hidden" name="csrf_token" value="{:&;local_admin->csrf_token:}">
+            <button type="submit" class="btn btn-outline-danger btn-sm">{:trans; End session :}</button>
+        </form>
+    :}
+:}
+
+{:snip; localadmin_0yt2sa:login-modal >>
+    <div class="modal fade" id="localAdminLoginModal" tabindex="-1" aria-labelledby="localAdminLoginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="localAdminLoginModalLabel">{:trans; Local Admin Login :}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="localadmin-login-modal-wrap">
+                        {:fetch; |{:;localadmin_0yt2sa->manifest->route:}/login/ajax|visible|localadmin-login-modal-wrap| >>
+                            <div class="text-center p-3">
+                                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                                <span class="ms-2">{:trans; Loading secure form... :}</span>
+                            </div>
+                        :}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+:}
+
+{:snip; localadmin_0yt2sa:login-form-wrapper >>
+    <div class="container p-0">
+        <div class="row justify-content-center">
+            <div class="col-md-9 col-lg-7 col-12 max-w-550px">
+                <div class="card border-light mb-3 mt-md-4">
+                    <div id="localadmin-login-wrap" class="card-body px-md-4 pb-md-4 pt-md-3 p-2">
+                        {:snip; localadmin_0yt2sa:login-form :}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+:}
+
+{:moveto; /body >>
+    {:snip; localadmin_0yt2sa:login-modal :}
+:}

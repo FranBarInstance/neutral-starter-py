@@ -1,0 +1,29 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "This route is reserved for future development tools.": "This route is reserved for future development tools.",
+                "Go to secure login": "Go to secure login",
+                "Open form test route": "Open form test route",
+                "In this route there will be more development tools soon.": "In this route there will be more development tools soon.",
+                "Open login modal": "Open login modal",
+                "Local Admin Login": "Local Admin Login",
+                "Login successful.": "Login successful.",
+                "Session closed.": "Session closed.",
+                "Session already active.": "Session already active.",
+                "Invalid credentials.": "Invalid credentials.",
+                "Invalid action.": "Invalid action.",
+                "Invalid CSRF token.": "Invalid CSRF token.",
+                "Too many login attempts. Try again later.": "Too many login attempts. Try again later.",
+                "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.": "Credentials are not configured. Set DEV_ADMIN_USER and DEV_ADMIN_PASSWORD in config/.env.",
+                "Authenticated in isolated local admin session.": "Authenticated in isolated local admin session.",
+                "End session": "End session",
+                "Username": "Username",
+                "Password": "Password",
+                "Sign in": "Sign in",
+                "Close": "Close",
+                "Loading secure form...": "Loading secure form..."
+            }
+        }
+    }
+}

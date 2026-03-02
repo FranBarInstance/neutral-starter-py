@@ -1,0 +1,23 @@
+{:data; {:flg; require :} >> #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="container py-4">
+        {:snip; localadmin_0yt2sa:alerts :}
+
+        {:bool; HAS_SESSION_DEV >>
+            {:snip; localadmin_0yt2sa:logout-form :}
+        :}{:else;
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <p class="mb-3">{:trans; Authenticated in isolated local admin session. :}</p>
+                    <code>dev_admin_role={:;dev_admin_role:}</code>
+                    <div id="localadmin-login-wrap">
+                        {:snip; localadmin_0yt2sa:logout-form :}
+                    </div>
+                </div>
+            </div>
+        :}
+    </div>
+:}
+
+{:^;:}

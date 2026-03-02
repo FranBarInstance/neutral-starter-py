@@ -1,0 +1,7 @@
+{
+    "uuid": "localadmin_0yt2sa",
+    "name": "Local Admin",
+    "description": "Development-only isolated session and login area",
+    "version": "1.0.0",
+    "route": "/local-admin"
+}

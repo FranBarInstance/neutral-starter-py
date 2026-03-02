@@ -111,6 +111,10 @@ class Components:
             else:
                 self.component_schema[uuid] = {}
 
+            if 'config' not in self.component_schema[uuid]:
+                self.component_schema[uuid]['config'] = {}
+            self.component_schema[uuid]['config']['app'] = {'debug': self.app.debug}
+
     def _register_main_module(self):
         """Registers and initializes __init__.py main module if present."""
         for uuid, component in self.collection.items():
