@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Local Admin Custom",
+                "description": "Edit config.db custom overrides",
+                "h1": "Local Admin Custom"
+            }
+        }
+    }
+}

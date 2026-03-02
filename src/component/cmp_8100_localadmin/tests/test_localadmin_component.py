@@ -1,5 +1,9 @@
 """Tests for localadmin component."""
 
+import json
+
+from app.config_db import get_component_custom_override
+
 _BP_NAME = "bp_cmp_8100_localadmin"
 
 
@@ -31,7 +35,19 @@ def test_localadmin_root_message(client):
     response = client.get(_route(client.application, "/"), environ_base={"REMOTE_ADDR": "127.0.0.1"})
     assert response.status_code == 200
     assert b"future development tools" in response.data
-    assert b"/local-admin/login/ajax" in response.data
+    assert _route(client.application, "/login/ajax").encode() in response.data
+
+
+def test_localadmin_custom_route_requires_auth(client):
+    """Custom route should be blocked without active local admin session."""
+    response = client.get(_route(client.application, "/custom"), environ_base={"REMOTE_ADDR": "127.0.0.1"})
+    assert response.status_code == 403
+
+
+def test_localadmin_icons_route_requires_auth(client):
+    """Icons route should be blocked without active local admin session."""
+    response = client.get(_route(client.application, "/icons"), environ_base={"REMOTE_ADDR": "127.0.0.1"})
+    assert response.status_code == 403
 
 
 def test_localadmin_login_and_role_variable(client):
@@ -60,11 +76,59 @@ def test_localadmin_login_and_role_variable(client):
         environ_base={"REMOTE_ADDR": "127.0.0.1", "HTTP_USER_AGENT": "pytest-agent"},
     )
     assert response.status_code == 200
-    assert b"dev_admin_role=true" in response.data
+    assert b"Login successful." in response.data
 
     set_cookie_headers = response.headers.getlist("Set-Cookie")
     assert any("DEV_ADMIN_SESSION=" in item for item in set_cookie_headers)
     assert any("dev_admin_role=true" in item for item in set_cookie_headers)
+
+
+def test_localadmin_custom_save_override(client, tmp_path):
+    """Authenticated user should save custom override into config.db from /custom."""
+    db_path = tmp_path / "config.db"
+    client.application.config["DEV_ADMIN_USER"] = "admin"
+    client.application.config["DEV_ADMIN_PASSWORD"] = "secret"
+    client.application.config["CONFIG_DB_PATH"] = str(db_path)
+
+    login_form = client.get(
+        _route(client.application, "/login/ajax"),
+        environ_base={"REMOTE_ADDR": "127.0.0.1"},
+    )
+    csrf = _extract_csrf(login_form.get_data(as_text=True))
+
+    login = client.post(
+        _route(client.application, "/login/ajax"),
+        data={
+            "action": "login",
+            "username": "admin",
+            "password": "secret",
+            "csrf_token": csrf,
+        },
+        environ_base={"REMOTE_ADDR": "127.0.0.1", "HTTP_USER_AGENT": "pytest-agent"},
+    )
+    assert login.status_code == 200
+
+    payload = {
+        "manifest": {"route": "/hello-from-local-admin"},
+        "schema": {"data": {"from_local_admin": True}},
+    }
+
+    save = client.post(
+        _route(client.application, "/custom"),
+        data={
+            "action": "save",
+            "comp_uuid": "hellocomp_0yt2sa",
+            "override_json": json.dumps(payload),
+            "enabled": "1",
+            "csrf_token": csrf,
+        },
+        environ_base={"REMOTE_ADDR": "127.0.0.1", "HTTP_USER_AGENT": "pytest-agent"},
+    )
+    assert save.status_code == 200
+    assert b"Override saved." in save.data
+
+    stored = get_component_custom_override(str(db_path), "hellocomp_0yt2sa")
+    assert stored == payload
 
 
 def test_localadmin_rejects_invalid_csrf(client):

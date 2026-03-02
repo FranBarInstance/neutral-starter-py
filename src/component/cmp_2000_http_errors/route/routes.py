@@ -17,8 +17,8 @@ def handle_exception(e):
         name = e.name
         description = e.description if current_app.debug else "Internal Server Error"
     else:
-        if current_app.debug:
-            raise e
+        # if current_app.debug:
+        #     raise e
 
         code = 500
         name = "Internal Server Error"

@@ -1,13 +1,23 @@
 """Dispatcher for local-admin component routes."""
 
 import hmac
+import json
 import secrets
 
-from flask import Response, abort, request, session
+from flask import Response, current_app, request, session
 
+from app.config_db import (
+    ensure_config_db,
+    get_component_custom_entry,
+    list_component_custom_entries,
+    upsert_component_custom_override,
+)
+from constants import UUID_MAX_LEN, UUID_MIN_LEN
 from core.dispatcher import Dispatcher
 from core.session_dev import SessionDev
 from utils.utils import get_ip
+
+_UUID_ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyz0123456789_")
 
 
 class DispatcherLocalAdmin(Dispatcher):
@@ -54,6 +64,11 @@ class DispatcherLocalAdmin(Dispatcher):
             "error": None,
             "dev_admin_role": "true" if auth_ok else None,
             "is_ajax": bool(self.ajax_request),
+            "custom_entries": [],
+            "custom_edit_uuid": "",
+            "custom_edit_json": '{\n    "manifest": {},\n    "schema": {}\n}',
+            "custom_edit_enabled": True,
+            "component_uuids": sorted(self.schema_data.get("COMPONENTS_MAP_BY_UUID", {}).keys()),
         }
 
     def _current_auth_status(self):
@@ -139,25 +154,124 @@ class DispatcherLocalAdmin(Dispatcher):
 
         self._handle_login(state, client_ip, user_agent)
 
+    @staticmethod
+    def _is_valid_comp_uuid(comp_uuid):
+        if not isinstance(comp_uuid, str):
+            return False
+        if len(comp_uuid) < UUID_MIN_LEN or len(comp_uuid) > UUID_MAX_LEN:
+            return False
+        if "_" not in comp_uuid:
+            return False
+        return all(char in _UUID_ALLOWED_CHARS for char in comp_uuid)
+
+    def _handle_custom_route(self, state, action):
+        db_path = current_app.config["CONFIG_DB_PATH"]
+        if not ensure_config_db(db_path, debug=current_app.debug):
+            state["error"] = "config.db is not available."
+            return
+
+        if not state["auth_ok"]:
+            return
+
+        edit_uuid = (request.args.get("edit_uuid") or "").strip()
+
+        if request.method == "POST" and action == "save":
+            edit_uuid = (request.form.get("comp_uuid") or "").strip()
+            raw_json = request.form.get("override_json") or ""
+            enabled = (request.form.get("enabled") or "") == "1"
+
+            state["custom_edit_uuid"] = edit_uuid
+            state["custom_edit_json"] = raw_json
+            state["custom_edit_enabled"] = enabled
+
+            if not self._is_valid_comp_uuid(edit_uuid):
+                state["error"] = "comp_uuid format is invalid."
+            elif edit_uuid not in self.schema_data.get("COMPONENTS_MAP_BY_UUID", {}):
+                state["error"] = "Selected UUID does not exist in loaded components."
+            else:
+                try:
+                    payload = json.loads(raw_json)
+                    if not isinstance(payload, dict):
+                        state["error"] = "Override JSON must be a JSON object."
+                    else:
+                        upsert_component_custom_override(
+                            db_path, edit_uuid, payload, enabled=enabled
+                        )
+                        state["message"] = "Override saved."
+                        state["custom_edit_json"] = json.dumps(
+                            payload, ensure_ascii=False, indent=4
+                        )
+                except json.JSONDecodeError:
+                    state["error"] = "Override JSON must be a JSON object."
+
+        if edit_uuid and not state["custom_edit_uuid"]:
+            state["custom_edit_uuid"] = edit_uuid
+            entry = get_component_custom_entry(
+                db_path, edit_uuid, debug=current_app.debug
+            )
+            if entry is not None:
+                state["custom_edit_enabled"] = bool(entry["enabled"])
+                try:
+                    state["custom_edit_json"] = json.dumps(
+                        json.loads(entry["value_json"]), ensure_ascii=False, indent=4
+                    )
+                except json.JSONDecodeError:
+                    state["custom_edit_json"] = entry["value_json"]
+
+        state["custom_entries"] = list_component_custom_entries(
+            db_path, debug=current_app.debug
+        )
+
+    def _route_requires_auth(self):
+        return self._raw_route not in self._PUBLIC_ROUTES
+
+    def _render_http_error(self, status_code, status_text, status_param):
+        """Render Neutral custom HTTP error page."""
+        return self.view.render_error(status_code, status_text, status_param)
+
     def render_route(self) -> Response:
         """Execute route logic and render response."""
         session_dev = self._get_session_dev()
 
         if not session_dev:
-            abort(500, "Session dev not initialized")
+            return self._render_http_error(
+                500, "Internal Server Error", "Session dev not initialized"
+            )
 
         client_ip = get_ip()
         if not session_dev.check_ip_allowed():
-            abort(403)
+            return self._render_http_error(
+                403, "Forbidden", "Access allowed only from local/dev configured IPs."
+            )
 
         user_agent = request.headers.get("User-Agent", "")
         auth_ok = session_dev.check_session()
+        if self._route_requires_auth() and not auth_ok:
+            return self._render_http_error(
+                403, "Forbidden", "Local admin session required."
+            )
 
         state = self._build_initial_state(auth_ok)
         state["csrf_token"] = self._ensure_csrf_token()
 
+        action = (request.form.get("action") or "").strip()
+        custom_route_processed = False
         if request.method == "POST":
-            self._handle_post(state, client_ip, user_agent)
+            if self._raw_route == "custom":
+                if action == "save":
+                    if not self._csrf_valid():
+                        state["error"] = "Invalid CSRF token."
+                    else:
+                        self._handle_custom_route(state, action)
+                    custom_route_processed = True
+                else:
+                    state["error"] = "Invalid action."
+                    custom_route_processed = True
+            else:
+                self._handle_post(state, client_ip, user_agent)
+
+        if self._raw_route == "custom" and not custom_route_processed:
+            self._handle_custom_route(state, action)
 
         session_dev = self._get_session_dev()
         if session_dev and not session_dev.are_credentials_ready():
@@ -180,3 +294,4 @@ class DispatcherLocalAdmin(Dispatcher):
         )
         self._apply_cookie_updates(response)
         return response
+    _PUBLIC_ROUTES = {"", "login", "login/ajax", "logout/ajax"}
