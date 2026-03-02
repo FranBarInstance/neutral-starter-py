@@ -1,0 +1,141 @@
+
+{:* Hero Section *:}
+<div class="rounded-4 p-4 p-md-5 mb-5 text-center shadow-sm">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+            <h1 class="mb-3 display-4 fw">Neutral TS Starter Py</h1>
+            <p class="lead mb-4">
+                A modular, opinionated starter kit for building Progressive Web Applications (PWA) using
+                <strong>Python (Flask)</strong> on the backend and <strong>Neutral TS</strong> as a universal templating engine.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+                <span class="badge bg-primary-subtle text-primary-emphasis px-3 py-2">Flask</span>
+                <span class="badge bg-success-subtle text-success-emphasis px-3 py-2">PWA Ready</span>
+                <span class="badge bg-info-subtle text-info-emphasis px-3 py-2">Neutral TS</span>
+                <span class="badge bg-warning-subtle text-warning-emphasis px-3 py-2">Modular</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{:* Features Section *:}
+<div class="row g-4 mb-5">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="feature-icon bg-primary bg-gradient text-white rounded-3 p-3 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-semibold mb-2">Modular Architecture</h3>
+                <p class="mb-0">
+                    Extensible via a plug-and-play component system. Scale from quick prototypes to complex applications while maintaining a clean, decoupled structure.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="feature-icon bg-success bg-gradient text-white rounded-3 p-3 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M4 3.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-semibold mb-2">NTPL Templating</h3>
+                <p class="mb-0">
+                    Neutral TS provides powerful snippet composition with schema-driven data. Build dynamic UIs with clean, maintainable template code.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="feature-icon bg-info bg-gradient text-white rounded-3 p-3 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-semibold mb-2">PWA Support</h3>
+                <p class="mb-0">
+                    Built-in service worker, offline page, and web manifest component. Install your app on any device with a native-like experience.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="feature-icon bg-warning bg-gradient text-white rounded-3 p-3 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-semibold mb-2">Security First</h3>
+                <p class="mb-0">
+                    CSP, host allow-list validation, trusted proxy header guard, and security headers. Form/session token flows and rate limiting included.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="feature-icon bg-danger bg-gradient text-white rounded-3 p-3 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M3 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-semibold mb-2">Internationalization</h3>
+                <p class="mb-0">
+                    Full i18n support through component locale files. Easily translate your application into multiple languages.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+            <div class="card-body p-4">
+                <div class="feature-icon bg-secondary bg-gradient text-white rounded-3 p-3 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.697 1 10.36V15h5V8.697zM14 1h-2.5V6L14 4.5V1z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-semibold mb-2">Flask Powered</h3>
+                <p class="mb-0">
+                    Application factory with component-driven routing and blueprint registration. Python 3.10 to 3.14 support with built-in testing.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{:* Call to Action Section *:}
+<div class="bg-primary bg-gradient rounded-4 p-4 p-md-5 text-center text-white mb-4">
+    <h2 class="fw-bold mb-3">Get Started Today</h2>
+    <p class="lead mb-4 opacity-75">
+        Build modern PWAs with a clean architecture. Perfect for developers who value structure, security, and scalability.
+    </p>
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="https://github.com/FranBarInstance/neutral-starter-py" target="_blank" class="btn btn-light btn-lg px-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github me-2" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            View on GitHub
+        </a>
+        <a href="https://franbarinstance.github.io/neutral-starter-py/" target="_blank" class="btn btn-outline-light btn-lg px-4">Documentation</a>
+    </div>
+</div>
+
+{:* Footer Note *:}
+<div class="text-center text-muted py-3">
+    <small>Neutral TS Starter Py &copy; 2026. Built with Flask and Neutral TS.</small>
+</div>
