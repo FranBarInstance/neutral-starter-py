@@ -1,5 +1,7 @@
 {:* Component init for localadmin_0yt2sa *:}
 
 {:+bool; HAS_SESSION_DEV >>
-    {:^include; {:flg; require :} >> {:;localadmin_0yt2sa->path:}/neutral/snippets.ntpl :}
+    {:+bool; current_app_debug >>
+        {:^include; {:flg; require :} >> {:;localadmin_0yt2sa->path:}/neutral/snippets.ntpl :}
+    :}
 :}
