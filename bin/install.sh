@@ -159,11 +159,11 @@ set_env_value "config/.env" "SECRET_KEY" "$SECRET_KEY"
 echo "Generating randomized admin routes..."
 ROUTE_SUFFIXES="$(python -c 'import secrets; print(secrets.token_hex(6)); print(secrets.token_hex(6))')"
 ADMIN_SUFFIX="$(printf "%s\n" "$ROUTE_SUFFIXES" | sed -n '1p')"
-DEV_ADMIN_SUFFIX="$(printf "%s\n" "$ROUTE_SUFFIXES" | sed -n '2p')"
+LOCAL_ADMIN_SUFFIX="$(printf "%s\n" "$ROUTE_SUFFIXES" | sed -n '2p')"
 ADMIN_ROUTE="/admin-$ADMIN_SUFFIX"
-DEV_ADMIN_ROUTE="/dev-admin-$DEV_ADMIN_SUFFIX"
+LOCAL_ADMIN_ROUTE="/local-admin-$LOCAL_ADMIN_SUFFIX"
 
-mkdir -p src/component/cmp_7040_admin src/component/cmp_7050_dev_admin
+mkdir -p src/component/cmp_7040_admin src/component/cmp_8100_localadmin
 cat > src/component/cmp_7040_admin/custom.json <<EOF
 {
   "manifest": {
@@ -171,15 +171,15 @@ cat > src/component/cmp_7040_admin/custom.json <<EOF
   }
 }
 EOF
-cat > src/component/cmp_7050_dev_admin/custom.json <<EOF
+cat > src/component/cmp_8100_localadmin/custom.json <<EOF
 {
   "manifest": {
-    "route": "$DEV_ADMIN_ROUTE"
+    "route": "$LOCAL_ADMIN_ROUTE"
   }
 }
 EOF
 echo "Admin route: $ADMIN_ROUTE"
-echo "Dev admin route: $DEV_ADMIN_ROUTE"
+echo "Local admin route: $LOCAL_ADMIN_ROUTE"
 
 echo "Bootstrapping databases..."
 python bin/bootstrap_db.py
@@ -203,7 +203,6 @@ python bin/create_user.py "$DEV_NAME" "$DEV_EMAIL" "$DEV_PASSWORD" "$DEV_BIRTHDA
 
 set_env_value "config/.env" "DEV_ADMIN_USER" "$DEV_EMAIL"
 set_env_value "config/.env" "DEV_ADMIN_PASSWORD" "$DEV_PASSWORD"
-set_env_value "config/.env" "DEV_ADMIN_LOCAL_ONLY" "true"
 set_env_value "config/.env" "DEV_ADMIN_ALLOWED_IPS" "127.0.0.1,::1"
 echo "DEV_ADMIN_* updated in config/.env"
 
@@ -211,7 +210,7 @@ echo "Installation completed."
 echo "Important: first sign-in may require the PIN generated for the user."
 echo "Keep the PIN shown in the create_user output."
 echo "Admin route created: $ADMIN_ROUTE (src/component/cmp_7040_admin/custom.json)"
-echo "Dev admin route created: $DEV_ADMIN_ROUTE (src/component/cmp_7050_dev_admin/custom.json)"
+echo "Local admin route created: $LOCAL_ADMIN_ROUTE (src/component/cmp_8100_localadmin/custom.json)"
 echo "Project directory: $INSTALL_DIR"
 echo "Run with:"
 echo "  cd \"$INSTALL_DIR\" && . .venv/bin/activate && python src/run.py"

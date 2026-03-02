@@ -185,14 +185,14 @@ Set-EnvValue -Path "config/.env" -Key "SECRET_KEY" -Value $secretKey
 
 Write-Host "Generating randomized admin routes..."
 $adminSuffix = (& $venvPython -c "import secrets; print(secrets.token_hex(6))").Trim()
-$devAdminSuffix = (& $venvPython -c "import secrets; print(secrets.token_hex(6))").Trim()
+$localAdminSuffix = (& $venvPython -c "import secrets; print(secrets.token_hex(6))").Trim()
 $adminRoute = "/admin-$adminSuffix"
-$devAdminRoute = "/dev-admin-$devAdminSuffix"
+$localAdminRoute = "/local-admin-$localAdminSuffix"
 
 $adminCustomPath = "src/component/cmp_7040_admin/custom.json"
-$devAdminCustomPath = "src/component/cmp_7050_dev_admin/custom.json"
+$localAdminCustomPath = "src/component/cmp_8100_localadmin/custom.json"
 New-Item -ItemType Directory -Path (Split-Path -Parent $adminCustomPath) -Force | Out-Null
-New-Item -ItemType Directory -Path (Split-Path -Parent $devAdminCustomPath) -Force | Out-Null
+New-Item -ItemType Directory -Path (Split-Path -Parent $localAdminCustomPath) -Force | Out-Null
 
 $adminJson = @{
     manifest = @{
@@ -200,16 +200,16 @@ $adminJson = @{
     }
 } | ConvertTo-Json -Depth 3
 
-$devAdminJson = @{
+$localAdminJson = @{
     manifest = @{
-        route = $devAdminRoute
+        route = $localAdminRoute
     }
 } | ConvertTo-Json -Depth 3
 
 Set-Content -Path $adminCustomPath -Value $adminJson
-Set-Content -Path $devAdminCustomPath -Value $devAdminJson
+Set-Content -Path $localAdminCustomPath -Value $localAdminJson
 Write-Host "Admin route: $adminRoute"
-Write-Host "Dev admin route: $devAdminRoute"
+Write-Host "Local admin route: $localAdminRoute"
 
 Write-Host "Bootstrapping databases..."
 & $venvPython "bin/bootstrap_db.py"
@@ -240,7 +240,6 @@ Write-Host "Creating DEV user..."
 
 Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_USER" -Value $devEmail
 Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_PASSWORD" -Value $devPassword
-Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_LOCAL_ONLY" -Value "true"
 Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_ALLOWED_IPS" -Value "127.0.0.1,::1"
 Write-Host "DEV_ADMIN_* updated in config/.env"
 
@@ -248,7 +247,7 @@ Write-Host "Installation completed."
 Write-Host "Important: first sign-in may require the PIN generated for the user."
 Write-Host "Keep the PIN shown in the create_user output."
 Write-Host "Admin route created: $adminRoute (src/component/cmp_7040_admin/custom.json)"
-Write-Host "Dev admin route created: $devAdminRoute (src/component/cmp_7050_dev_admin/custom.json)"
+Write-Host "Local admin route created: $localAdminRoute (src/component/cmp_8100_localadmin/custom.json)"
 Write-Host "Project directory: $installDir"
 Write-Host "Run with:"
 Write-Host "  .\.venv\Scripts\python.exe src\run.py"
