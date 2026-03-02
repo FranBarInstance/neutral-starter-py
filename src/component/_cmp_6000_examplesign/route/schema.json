@@ -1,0 +1,71 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {}
+        },
+        "data": {}
+    },
+    "data": {
+        "current_forms": {
+            "fake_login": {
+                "check_fields": [
+                    "email",
+                    "password",
+                    "notrobot-hidden",
+                    "notrobot"
+                ],
+                "validation": {
+                    "minfields": 4,
+                    "maxfields": 5,
+                    "allow_fields": [
+                        "email",
+                        "password",
+                        "notrobot-hidden",
+                        "notrobot",
+                        "ftoken.*"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+                    },
+                    "password": {
+                        "required": true,
+                        "minlength": 8,
+                        "maxlength": 70,
+                        "pattern": "^\\S(?:.*\\S)?$",
+                        "regex": "^\\S(?:.*\\S)?$"
+                    },
+                    "notrobot": {
+                        "required": true,
+                        "value": "human"
+                    },
+                    "notrobot-hidden": {
+                        "set": false
+                    }
+                }
+            },
+            "fake_logout": {
+                "check_fields": [
+                    "logout"
+                ],
+                "validation": {
+                    "minfields": 1,
+                    "maxfields": 2,
+                    "allow_fields": [
+                        "send",
+                        "logout"
+                    ]
+                },
+                "rules": {
+                    "logout": {
+                        "required": true,
+                        "value": "1"
+                    }
+                }
+            }
+        }
+    }
+}

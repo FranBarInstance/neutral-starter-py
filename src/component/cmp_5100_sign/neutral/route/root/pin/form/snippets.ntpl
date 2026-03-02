@@ -4,21 +4,18 @@
     PIN confirmation form by email token
 *:}
 
-{:+bool; sign_pin_form->error->field >>
+{:*
+    Generate form errors snippets for each field:
+    - {:snip; is-invalid:{:;field:} :}
+    - {:snip; error-msg:{:;field:} :}
+
+    If there are no errors, the snippets for each field will be empty.
+ *:}
+{:+each; sign_in_form->error->field field msg >>
     {:+code;
-        {:param; field >> pin :}
-        {:param; msg >> {:;sign_pin_form->error->field->pin:} :}
-        {:param; help-item >> sign_in_form-pin :}
-        {:snip; forms:set-form-field-error :}
-
-        {:param; field >> notrobot :}
-        {:param; msg >> {:;sign_pin_form->error->field->notrobot:} :}
-        {:param; help-item >> notrobot :}
-        {:snip; forms:set-form-field-error :}
-
-        {:param; field >> notrobot-hidden :}
-        {:param; msg >> {:;sign_pin_form->error->field->notrobot-hidden:} :}
-        {:param; help-item >> notrobot :}
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item >> sign_in_form-{:;field:} :}
         {:snip; forms:set-form-field-error :}
     :}
 :}
@@ -42,10 +39,10 @@
                     class="form-control ftoken-field-key ftoken-field-value"
                     placeholder="{:trans; PIN :}"
                     aria-label="{:trans; PIN :}"
-                    pattern="{:;core->forms->sign_pin_form->rules->pin->pattern:}"
+                    pattern="{:;current_forms->sign_pin_form->rules->pin->pattern:}"
                     data-ftokenid="sign_pin_form-ftoken"
                     data-ftoken-onfocus-reset="sign_pin_form-notrobot"
-                    {:bool; core->forms->sign_pin_form->rules->pin->required >> required :}
+                    {:bool; current_forms->sign_pin_form->rules->pin->required >> required :}
                 >
                 <label for="sign_pin_form-pin">{:trans; PIN :}</label>
             </div>
@@ -67,9 +64,9 @@
                     name="notrobot"
                     class="form-check-input"
                     aria-label="{:trans; I am not a robot :}"
-                    value="{:;core->forms->sign_pin_form->rules->notrobot->value:}"
+                    value="{:;current_forms->sign_pin_form->rules->notrobot->value:}"
                     data-ftoken-onclick-remove="sign_pin_form-notrobot-hidden"
-                    {:bool; core->forms->sign_pin_form->rules->notrobot->required >> required :}
+                    {:bool; current_forms->sign_pin_form->rules->notrobot->required >> required :}
                 >
             </span>
             <label role="button" class="form-check-label form-control" for="sign_pin_form-notrobot">{:trans; I am not a robot :}</label>

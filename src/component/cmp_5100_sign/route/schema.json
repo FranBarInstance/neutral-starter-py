@@ -1,0 +1,202 @@
+{
+    "data": {
+        "current_forms": {
+            "sign_in_form": {
+                "check_fields": [
+                    "email",
+                    "password",
+                    "remember",
+                    "notrobot-hidden",
+                    "notrobot",
+                    "pin"
+                ],
+                "validation": {
+                    "minfields": 4,
+                    "maxfields": 6,
+                    "allow_fields": [
+                        "email",
+                        "password",
+                        "remember",
+                        "notrobot-hidden",
+                        "notrobot",
+                        "pin",
+                        "ftoken.*"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+                    },
+                    "password": {
+                        "required": true,
+                        "minlength": 8,
+                        "maxlength": 70,
+                        "pattern": "^\\S(?:.*\\S)?$",
+                        "regex": "^\\S(?:.*\\S)?$"
+                    },
+                    "remember": {
+                        "required": false,
+                        "value": "true"
+                    },
+                    "notrobot": {
+                        "required": true,
+                        "value": "human"
+                    },
+                    "notrobot-hidden": {
+                        "set": false
+                    },
+                    "pin": {
+                        "pattern": "^[A-Za-z0-9]{4,10}$"
+                    }
+                }
+            },
+            "sign_pin_form": {
+                "check_fields": [
+                    "pin",
+                    "notrobot-hidden",
+                    "notrobot"
+                ],
+                "validation": {
+                    "minfields": 2,
+                    "maxfields": 4,
+                    "allow_fields": [
+                        "pin",
+                        "notrobot-hidden",
+                        "notrobot",
+                        "ftoken.*"
+                    ]
+                },
+                "rules": {
+                    "pin": {
+                        "required": true,
+                        "pattern": "^[A-Za-z0-9]{4,10}$",
+                        "regex": "^[A-Za-z0-9]{4,10}$"
+                    },
+                    "notrobot": {
+                        "required": true,
+                        "value": "human"
+                    },
+                    "notrobot-hidden": {
+                        "set": false
+                    }
+                }
+            },
+            "sign_out_form": {
+                "check_fields": [],
+                "validation": {},
+                "rules": {}
+            },
+            "sign_reminder_form": {
+                "check_fields": [
+                    "email",
+                    "notrobot-hidden",
+                    "notrobot"
+                ],
+                "validation": {
+                    "minfields": 2,
+                    "maxfields": 4,
+                    "allow_fields": [
+                        "email",
+                        "notrobot-hidden",
+                        "notrobot",
+                        "ftoken.*"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "dns": "MX"
+                    },
+                    "notrobot": {
+                        "required": true,
+                        "value": "human"
+                    },
+                    "notrobot-hidden": {
+                        "set": false
+                    }
+                }
+            },
+            "sign_up_form": {
+                "check_fields": [
+                    "alias",
+                    "email",
+                    "password",
+                    "rptpassword",
+                    "birthdate",
+                    "agree",
+                    "notrobot",
+                    "notrobot-hidden"
+                ],
+                "validation": {
+                    "minfields": 5,
+                    "maxfields": 9,
+                    "allow_fields": [
+                        "alias",
+                        "email",
+                        "password",
+                        "rptpassword",
+                        "birthdate",
+                        "notrobot-hidden",
+                        "notrobot",
+                        "agree",
+                        "ftoken.*"
+                    ]
+                },
+                "rules": {
+                    "alias": {
+                        "_comment_:example": "Comment example.",
+                        "required": true,
+                        "minlength": 3,
+                        "maxlength": 50,
+                        "pattern": "[^<>\\{\\}&quot;,@#$%*+=~`;:]+",
+                        "regex": "^\\p{L}[\\p{L}\\s'\\-\\.0-9]+$"
+                    },
+                    "email": {
+                        "required": true,
+                        "minlength": 6,
+                        "maxlength": 200,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "dns": "MX"
+                    },
+                    "password": {
+                        "required": true,
+                        "minlength": 8,
+                        "maxlength": 70,
+                        "pattern": "^\\S(?:.*\\S)?$",
+                        "regex": "^\\S(?:.*\\S)?$",
+                        "match": "rptpassword"
+                    },
+                    "rptpassword": {
+                        "required": true,
+                        "minlength": 8,
+                        "maxlength": 70,
+                        "pattern": "^\\S(?:.*\\S)?$",
+                        "regex": "^\\S(?:.*\\S)?$",
+                        "match": "password"
+                    },
+                    "birthdate": {
+                        "required": true,
+                        "minage": 13,
+                        "maxage": 100
+                    },
+                    "agree": {
+                        "required": true,
+                        "value": "true"
+                    },
+                    "notrobot": {
+                        "required": true,
+                        "value": "human"
+                    },
+                    "notrobot-hidden": {
+                        "set": false
+                    }
+                }
+            }
+        }
+    }
+}

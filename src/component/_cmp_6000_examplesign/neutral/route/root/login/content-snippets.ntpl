@@ -1,0 +1,8 @@
+{:data; #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::current->theme->class->container:}">
+        {:snip; examplesign_0yt2sa:fake_login-content :}
+    </div>
+:}
+{:^;:}

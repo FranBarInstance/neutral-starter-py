@@ -1,79 +1,5 @@
 {
     "inherit": {
-        "locale": {
-            "trans": {
-                "en": {
-                    "FORM VALIDATION ERROR": "FORM VALIDATION ERROR",
-                    "Please reload the page and try again, if the error persists contact the admin.": "Please reload the page and try again, if the error persists contact the admin.",
-                    "FORM TOKEN ERROR": "FORM TOKEN ERROR",
-                    "LINK TOKEN ERROR": "LINK TOKEN ERROR",
-                    "(This page requires security cookies)": "(This page requires security cookies)",
-                    "ERROR": "ERROR",
-                    "See help.": "See help.",
-                    "Help": "Help"
-                },
-                "es": {
-                    "FORM VALIDATION ERROR": "ERROR DE VALIDACIÓN DEL FORMULARIO",
-                    "Please reload the page and try again, if the error persists contact the admin.": "Por favor recarga la página e intenta de nuevo, si el error persiste contacta al administrador.",
-                    "FORM TOKEN ERROR": "ERROR DE TOKEN DEL FORMULARIO",
-                    "LINK TOKEN ERROR": "ERROR DE TOKEN DEL ENLACE",
-                    "(This page requires security cookies)": "(Esta página requiere cookies de seguridad)",
-                    "ERROR": "ERROR",
-                    "See help.": "Ver ayuda.",
-                    "Help": "Ayuda"
-                },
-                "de": {
-                    "FORM VALIDATION ERROR": "FORMULARVALIDIERUNGSFEHLER",
-                    "Please reload the page and try again, if the error persists contact the admin.": "Bitte die Seite neu laden und erneut versuchen, wenn der Fehler weiterhin besteht, kontaktieren Sie den Administrator.",
-                    "FORM TOKEN ERROR": "FORMULAR-TOKEN-FEHLER",
-                    "LINK TOKEN ERROR": "LINK-TOKEN-FEHLER",
-                    "(This page requires security cookies)": "(Diese Seite erfordert Sicherheitscookies)",
-                    "ERROR": "FEHLER",
-                    "See help.": "Hilfe anzeigen.",
-                    "Help": "Hilfe"
-                },
-                "fr": {
-                    "FORM VALIDATION ERROR": "ERREUR DE VALIDATION DU FORMULAIRE",
-                    "Please reload the page and try again, if the error persists contact the admin.": "Veuillez recharger la page et réessayer, si l'erreur persiste, contactez l'administrateur.",
-                    "FORM TOKEN ERROR": "ERREUR DE JETON DE FORMULAIRE",
-                    "LINK TOKEN ERROR": "ERREUR DE JETON DE LIEN",
-                    "(This page requires security cookies)": "(Cette page nécessite des cookies de sécurité)",
-                    "ERROR": "ERREUR",
-                    "See help.": "Voir l'aide.",
-                    "Help": "Aide"
-                },
-                "ar": {
-                    "FORM VALIDATION ERROR": "خطأ في التحقق من صحة النموذج",
-                    "Please reload the page and try again, if the error persists contact the admin.": "يرجى إعادة تحميل الصفحة والمحاولة مرة أخرى، إذا استمر الخطأ اتصل بالمسؤول.",
-                    "FORM TOKEN ERROR": "خطأ في رمز النموذج",
-                    "LINK TOKEN ERROR": "خطأ في رمز الرابط",
-                    "(This page requires security cookies)": "(هذه الصفحة تتطلب ملفات تعريف الارتباط الأمنية)",
-                    "ERROR": "خطأ",
-                    "See help.": "انظر المساعدة.",
-                    "Help": "مساعدة"
-                },
-                "zh": {
-                    "FORM VALIDATION ERROR": "表单验证错误",
-                    "Please reload the page and try again, if the error persists contact the admin.": "请重新加载页面并重试，如果错误仍然存在，请联系管理员。",
-                    "FORM TOKEN ERROR": "表单令牌错误",
-                    "LINK TOKEN ERROR": "链接令牌错误",
-                    "(This page requires security cookies)": "（此页面需要安全 cookies）",
-                    "ERROR": "错误",
-                    "See help.": "查看帮助。",
-                    "Help": "帮助"
-                },
-                "ja": {
-                    "FORM VALIDATION ERROR": "フォーム検証エラー",
-                    "Please reload the page and try again, if the error persists contact the admin.": "ページをリロードして再度お試しください。エラーが続く場合は、管理者に連絡してください。",
-                    "FORM TOKEN ERROR": "フォームトークンエラー",
-                    "LINK TOKEN ERROR": "リンクトークンエラー",
-                    "(This page requires security cookies)": "（このページはセキュリティクッキーを必要とします）",
-                    "ERROR": "エラー",
-                    "See help.": "ヘルプを見る。",
-                    "Help": "ヘルプ"
-                }
-            }
-        },
         "data": {
             "current": {
                 "forms": {
@@ -83,6 +9,5 @@
                 }
             }
         }
-    },
-    "data": {}
+    }
 }

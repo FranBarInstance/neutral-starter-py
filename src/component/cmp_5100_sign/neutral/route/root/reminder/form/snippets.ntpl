@@ -32,24 +32,18 @@
 :}
 
 {:*
-    Create error snippet for each field
-*:}
-{:+bool; sign_reminder_form->error->field >>
+    Generate form errors snippets for each field:
+    - {:snip; is-invalid:{:;field:} :}
+    - {:snip; error-msg:{:;field:} :}
+
+    If there are no errors, the snippets for each field will be empty.
+ *:}
+{:+each; sign_in_form->error->field field msg >>
     {:+code;
-        {:param; field >> email :}
-        {:param; msg >> {:;sign_reminder_form->error->field->email:} :}
-        {:param; help-item >> reminder-email :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> notrobot :}
-        {:param; msg >> {:;sign_reminder_form->error->field->notrobot:} :}
-        {:param; help-item >> notrobot :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> notrobot-hidden :}
-        {:param; msg >> {:;sign_reminder_form->error->field->notrobot-hidden:} :}
-        {:param; help-item >> notrobot :}
-        {:snip; forms:set-form-field-error:}
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item >> sign_in_form-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
     :}
 :}
 
@@ -66,12 +60,12 @@
                     class="form-control ftoken-field-key ftoken-field-value"
                     placeholder="{:trans; Your email address :}"
                     aria-label="{:trans; Your email address :}"
-                    minlength="{:;core->forms->sign_reminder_form->rules->email->minlength:}"
-                    maxlength="{:;core->forms->sign_reminder_form->rules->email->maxlength:}"
-                    pattern="{:;core->forms->sign_reminder_form->rules->email->pattern:}"
+                    minlength="{:;current_forms->sign_reminder_form->rules->email->minlength:}"
+                    maxlength="{:;current_forms->sign_reminder_form->rules->email->maxlength:}"
+                    pattern="{:;current_forms->sign_reminder_form->rules->email->pattern:}"
                     data-ftokenid="reminder-form-ftoken"
                     data-ftoken-onfocus-reset="reminder-form-notrobot"
-                    {:bool; core->forms->sign_reminder_form->rules->email->required >> required :}
+                    {:bool; current_forms->sign_reminder_form->rules->email->required >> required :}
                 >
                 <label for="reminder-form-email">{:trans; Your email address :}</label>
             </div>
@@ -101,9 +95,9 @@
                     name="notrobot"
                     class="form-check-input"
                     aria-label="{:trans; I am not a robot :}"
-                    value="{:;core->forms->sign_reminder_form->rules->notrobot->value:}"
+                    value="{:;current_forms->sign_reminder_form->rules->notrobot->value:}"
                     data-ftoken-onclick-remove="reminder-form-notrobot-hidden"
-                    {:bool; core->forms->sign_reminder_form->rules->notrobot->required >> required :}
+                    {:bool; current_forms->sign_reminder_form->rules->notrobot->required >> required :}
                 >
             </span>
             <label role="button" class="form-check-label form-control" for="reminder-form-notrobot">{:trans; I am not a robot :}</label>

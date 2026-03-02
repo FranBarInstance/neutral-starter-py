@@ -1,5 +1,7 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
+{:!locale; {:flg; require :} >> #/locale.json :}
+
 {:snip; forms:field-is-invalid >>
     text-danger
 :}

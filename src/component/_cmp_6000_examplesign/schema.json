@@ -1,0 +1,50 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {}
+        },
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "examplesign-tab": {
+                            "name": "Example Sign",
+                            "tabs": "examplesign-tab",
+                            "icon": "x-icon-sign"
+                        }
+                    },
+                    "session:true": {
+                        "examplesign-tab": {
+                            "name": "Example Sign",
+                            "tabs": "examplesign-tab",
+                            "icon": "x-icon-sign"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:": {
+                    "examplesign-tab": {
+                        "index": {
+                            "text": "Form Sign Example",
+                            "link": "[:;data->examplesign_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-sign"
+                        }
+                    }
+                },
+                "session:true": {
+                    "examplesign-tab": {
+                        "index": {
+                            "text": "Form Sign Example",
+                            "link": "[:;data->examplesign_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-sign"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "data": {
+        "_core": {}
+    }
+}

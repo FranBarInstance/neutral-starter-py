@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Fake Login Form",
+                "description": "Enter your username to set the fake session cookie",
+                "h1": "Login Page (Fake)"
+            }
+        }
+    }
+}

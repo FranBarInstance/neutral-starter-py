@@ -1006,9 +1006,9 @@ Add JavaScript to body end
         value="{:;CONTEXT->POST->name:}"
         class="form-control"
         placeholder="{:trans; Your name :}"
-        minlength="{:;core->forms->contact_form->rules->name->minlength:}"
-        maxlength="{:;core->forms->contact_form->rules->name->maxlength:}"
-        {:bool; core->forms->contact_form->rules->name->required >> required :}
+        minlength="{:;current_forms->contact_form->rules->name->minlength:}"
+        maxlength="{:;current_forms->contact_form->rules->name->maxlength:}"
+        {:bool; current_forms->contact_form->rules->name->required >> required :}
       >
       <label for="contact_form-name">{:trans; Your name :}</label>
     </div>
@@ -1040,8 +1040,8 @@ Add JavaScript to body end
       name="message"
       class="form-control"
       placeholder="{:trans; Your message :}"
-      minlength="{:;core->forms->contact_form->rules->message->minlength:}"
-      maxlength="{:;core->forms->contact_form->rules->message->maxlength:}"
+      minlength="{:;current_forms->contact_form->rules->message->minlength:}"
+      maxlength="{:;current_forms->contact_form->rules->message->maxlength:}"
     >{:;CONTEXT->POST->message:}</textarea>
     <label for="contact_form-message">{:trans; Your message :}</label>
   </div>

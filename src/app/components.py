@@ -42,6 +42,7 @@ class Components:
         self._parse_schema_vars()
         self._register_main_module()
         self._register_blueprints()
+        self._register_bp_schema()
         self._component_snip()
 
     def _register_manifest(self):
@@ -174,6 +175,16 @@ class Components:
                         print(
                             f"✗ No blueprint found in {component['name']} uuid:{uuid}"
                         )
+
+    def _register_bp_schema(self):
+        """Registers blueprint route schema if present."""
+        for uuid, component in self.collection.items():
+            schema_path = os.path.join(component["path"], "route", "schema.json")
+
+            if os.path.exists(schema_path):
+                self.schema['data'][uuid]['bp_schema'] = schema_path
+                if self.app.debug:
+                    print(f"✓ bp_schema for {component['name']} uuid:{uuid}")
 
     def _component_snip(self):
         for uuid, component in self.collection.items():

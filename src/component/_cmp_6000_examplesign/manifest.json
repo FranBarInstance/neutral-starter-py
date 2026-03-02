@@ -1,0 +1,7 @@
+{
+    "uuid": "examplesign_0yt2sa",
+    "name": "cmp_6000_examplesign_local",
+    "description": "Fake login example using cookies and AJAX",
+    "version": "0.0.0",
+    "route": "/example-sign"
+}

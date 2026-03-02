@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Fake Logout Form",
+                "description": "Click to remove the fake session cookie",
+                "h1": "Logout Page (Fake)"
+            }
+        }
+    }
+}

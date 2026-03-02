@@ -5,37 +5,25 @@
 *:}
 
 {:*
-    Create error snippet for each field
-*:}
-{:+bool; sign_in_form->error->field >>
+    Generate form errors snippets for each field:
+    - {:snip; is-invalid:{:;field:} :}
+    - {:snip; error-msg:{:;field:} :}
+
+    If there are no errors, the snippets for each field will be empty.
+ *:}
+{:+each; sign_in_form->error->field field msg >>
     {:+code;
-        {:param; field >> email :}
-        {:param; msg >> {:;sign_in_form->error->field->email:} :}
-        {:param; help-item >> sign_in_form-email :}
-        {:snip; forms:set-form-field-error :}
-
-        {:param; field >> password :}
-        {:param; msg >> {:;sign_in_form->error->field->password:} :}
-        {:param; help-item >> sign_in_form-password :}
-        {:snip; forms:set-form-field-error :}
-
-        {:param; field >> remember :}
-        {:param; msg >> {:;sign_in_form->error->field->remember:} :}
-        {:param; help-item >> sign_in_form-remember :}
-        {:snip; forms:set-form-field-error :}
-
-        {:param; field >> notrobot :}
-        {:param; msg >> {:;sign_in_form->error->field->notrobot:} :}
-        {:param; help-item >> notrobot :}
-        {:snip; forms:set-form-field-error :}
-
-        {:param; field >> notrobot-hidden :}
-        {:param; msg >> {:;sign_in_form->error->field->notrobot-hidden:} :}
-        {:param; help-item >> notrobot :}
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item >> sign_in_form-{:;field:} :}
         {:snip; forms:set-form-field-error :}
     :}
 :}
 
+{:*
+    Special case to avoid revealing whether the user exists or not,
+    or if the password is correct
+*:}
 {:+bool; sign_in_form->error->login >>
     {:snip; sign_in_form-error >>
         <div id="sign_in_form-error-alert" class="alert alert-dismissible alert-danger py-2 mt-0 mb-2">
@@ -62,12 +50,12 @@
                 class="form-control ftoken-field-key ftoken-field-value"
                 placeholder="{:trans; Your email address :}"
                 aria-label="{:trans; Your email address :}"
-                minlength="{:;core->forms->sign_in_form->rules->email->minlength:}"
-                maxlength="{:;core->forms->sign_in_form->rules->email->maxlength:}"
-                pattern="{:;core->forms->sign_in_form->rules->email->pattern:}"
+                minlength="{:;current_forms->sign_in_form->rules->email->minlength:}"
+                maxlength="{:;current_forms->sign_in_form->rules->email->maxlength:}"
+                pattern="{:;current_forms->sign_in_form->rules->email->pattern:}"
                 data-ftokenid="sign_in_form-ftoken"
                 data-ftoken-onfocus-reset="sign_in_form-notrobot"
-                {:bool; core->forms->sign_in_form->rules->email->required >> required :}
+                {:bool; current_forms->sign_in_form->rules->email->required >> required :}
             >
             <label for="sign_in_form-email">{:trans; Your email address :}</label>
         </div>
@@ -96,10 +84,10 @@
                 class="form-control"
                 placeholder="{:trans; Password :}"
                 aria-label="{:trans; Password :}"
-                minlength="{:;core->forms->sign_in_form->rules->password->minlength:}"
-                maxlength="{:;core->forms->sign_in_form->rules->password->maxlength:}"
-                pattern="{:;core->forms->sign_in_form->rules->password->pattern:}"
-                {:bool; core->forms->sign_in_form->rules->password->required >> required :}
+                minlength="{:;current_forms->sign_in_form->rules->password->minlength:}"
+                maxlength="{:;current_forms->sign_in_form->rules->password->maxlength:}"
+                pattern="{:;current_forms->sign_in_form->rules->password->pattern:}"
+                {:bool; current_forms->sign_in_form->rules->password->required >> required :}
             >
             <label for="sign_in_form-password">{:trans; Password :}</label>
         </div>
@@ -125,7 +113,7 @@
                 name="remember"
                 class="form-check-input"
                 aria-label="{:trans; Remember device :}"
-                value="{:;core->forms->sign_in_form->rules->remember->value:}"
+                value="{:;current_forms->sign_in_form->rules->remember->value:}"
                 {:filled; CONTEXT->POST->remember >> checked :}
             >
         </span>
@@ -158,7 +146,7 @@
                 class="form-control"
                 placeholder="{:trans; Requires PIN :}"
                 aria-label="{:trans; Requires PIN :}"
-                pattern="{:;core->forms->sign_in_form->rules->pin->pattern:}"
+                pattern="{:;current_forms->sign_in_form->rules->pin->pattern:}"
                 required
             >
             <label for="sign_in_form-password">{:trans; Requires PIN :}</label>
@@ -224,9 +212,9 @@
                     name="notrobot"
                     class="form-check-input"
                     aria-label="{:trans; I am not a robot :}"
-                    value="{:;core->forms->sign_in_form->rules->notrobot->value:}"
+                    value="{:;current_forms->sign_in_form->rules->notrobot->value:}"
                     data-ftoken-onclick-remove="sign_in_form-notrobot-hidden"
-                    {:bool; core->forms->sign_in_form->rules->notrobot->required >> required :}
+                    {:bool; current_forms->sign_in_form->rules->notrobot->required >> required :}
                 >
             </span>
             <label role="button" class="form-check-label form-control" for="sign_in_form-notrobot">{:trans; I am not a robot :}</label>

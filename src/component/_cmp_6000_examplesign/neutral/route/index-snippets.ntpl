@@ -1,0 +1,12 @@
+
+{:*
+    Disable carousel for all component routes
+    -----------------------------------------
+*:}
+{:snip; current:template:body-carousel >> :}
+
+{:*
+    Include form snippets
+    ---------------------
+*:}
+{:include; {:flg; require :} >> #/form-snippets.ntpl :}

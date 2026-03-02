@@ -59,13 +59,11 @@
         "mail_data": {},
         "HTTP_ERROR": {},
         "dispatch_result": false,
-        "core": {
-            "forms": {
-                "_unused_form": {
-                    "check_fields": [],
-                    "validation": {},
-                    "rules": {}
-                }
+        "current_forms": {
+            "_unused_form": {
+                "check_fields": [],
+                "validation": {},
+                "rules": {}
             }
         }
     }

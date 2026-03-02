@@ -1,7 +1,9 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-{:!locale; #/locale-{:lang;:}.json :}
+{:* --- Required Snippets for Forms --- *:}
+{:include; {:flg; require :} >> {:;forms_0yt2sa->path:}/neutral/snippets.ntpl :}
 
+{:!locale; #/locale-{:lang;:}.json :}
 {:!include; {:flg; require :} >> #/snippets.ntpl :}
 
 {:*

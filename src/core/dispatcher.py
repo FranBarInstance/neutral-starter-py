@@ -1,5 +1,7 @@
 """Core dispatcher module."""
 
+import os
+import json
 from app.config import Config
 from constants import DELETED, MODERATED, SPAM, UNCONFIRMED, UNVALIDATED
 from utils.tokens import (
@@ -9,6 +11,7 @@ from utils.tokens import (
 )
 from utils.sbase64url import sbase64url_md5
 from utils.nonce import get_nonce
+from utils import merge_dict
 from .schema import Schema
 from .session import Session
 from .user import User
@@ -25,22 +28,32 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
         self._neutral_route = neutral_route
         self._ltoken = ltoken
         self.schema = Schema(self.req)
+        self._set_current_comp()
+        self._merge_bp_schema()
         self.schema_data = self.schema.properties['data']
         self.schema_local_data = self.schema.properties['inherit']['data']
         self.ajax_request = self.schema_data['CONTEXT']['HEADERS'].get("Requested-With-Ajax") or False  # pylint: disable=line-too-long
         self.session = Session(self.schema_data['CONTEXT']['SESSION'])
         self.user = User()
         self.view = Template(self.schema)
-        self._set_current_comp()
         self.common()
 
+    def _merge_bp_schema(self) -> None:
+        schema_path = self.schema.properties['data']['CURRENT_BP_SCHEMA']
+        if schema_path:
+            with open(schema_path, "r", encoding="utf-8") as file:
+                merge_dict(self.schema.properties, json.load(file))
+
     def _set_current_comp(self) -> None:
-        self.schema_data['CURRENT_COMP_ROUTE'] = self._comp_route
-        self.schema_data['CURRENT_COMP_ROUTE_SANITIZED'] = self._comp_route.replace("/", ":")
-        self.schema_data['CURRENT_NEUTRAL_ROUTE'] = self._neutral_route or self.schema_data['CURRENT_NEUTRAL_ROUTE']  # pylint: disable=line-too-long
-        name, uuid = self.extract_comp_from_path(self.schema_data['CURRENT_NEUTRAL_ROUTE'])
-        self.schema_data['CURRENT_COMP_NAME'] = name
-        self.schema_data['CURRENT_COMP_UUID'] = uuid
+        data = self.schema.properties['data']
+        data['CURRENT_COMP_ROUTE'] = self._comp_route
+        data['CURRENT_COMP_ROUTE_SANITIZED'] = self._comp_route.replace("/", ":")
+        data['CURRENT_NEUTRAL_ROUTE'] = self._neutral_route or data['CURRENT_NEUTRAL_ROUTE']  # pylint: disable=line-too-long
+        name, uuid = self.extract_comp_from_path(data['CURRENT_NEUTRAL_ROUTE'])
+        data['CURRENT_COMP_NAME'] = name
+        data['CURRENT_COMP_UUID'] = uuid
+        data['CURRENT_COMP_PATH'] = os.path.join(Config.COMPONENT_DIR, name)
+        data['CURRENT_BP_SCHEMA'] = data[uuid].get('bp_schema', None)
 
     def common(self) -> None:
         """Perform common initialization tasks for all requests."""
@@ -183,4 +196,4 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
         else:
             return None, None
 
-        return name, self.schema_data['COMPONENTS_MAP_BY_NAME'][name]
+        return name, self.schema.properties['data']['COMPONENTS_MAP_BY_NAME'][name]

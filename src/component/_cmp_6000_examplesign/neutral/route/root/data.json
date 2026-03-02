@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Fake Login Example",
+                "description": "A demonstration of AJAX forms and cookies using Neutral TS",
+                "h1": "Fake Login Dashboard"
+            }
+        }
+    }
+}

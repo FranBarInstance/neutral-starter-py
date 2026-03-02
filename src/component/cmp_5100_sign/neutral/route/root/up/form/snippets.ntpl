@@ -35,55 +35,28 @@
     :}
 :}
 
-{:*
-    Create error snippet for each field
-*:}
-{:+bool; sign_up_form->error->field >>
+
+{:+filled; sign_up_form->error->field >>
     {:snip; has-field-error >>
         <div id="sign_up_form-error-alert" class="alert alert-dismissible alert-danger py-2 mb-2 mb-0">
             <span class="{:;local::x-icon-error:}"></span> {:trans; Please check the form for errors. :}
         </div>
     :}
+:}
+
+{:*
+    Generate form errors snippets for each field:
+    - {:snip; is-invalid:{:;field:} :}
+    - {:snip; error-msg:{:;field:} :}
+
+    If there are no errors, the snippets for each field will be empty.
+ *:}
+{:+each; sign_in_form->error->field field msg >>
     {:+code;
-        {:param; field >> alias :}
-        {:param; msg >> {:;sign_up_form->error->field->alias:} :}
-        {:param; help-item >> sign_up_form-alias :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> email :}
-        {:param; msg >> {:;sign_up_form->error->field->email:} :}
-        {:param; help-item >> sign_up_form-email :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> password :}
-        {:param; msg >> {:;sign_up_form->error->field->password:} :}
-        {:param; help-item >> sign_up_form-password :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> rptpassword :}
-        {:param; msg >> {:;sign_up_form->error->field->rptpassword:} :}
-        {:param; help-item >> sign_up_form-password :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> birthdate :}
-        {:param; msg >> {:;sign_up_form->error->field->birthdate:} :}
-        {:param; help-item >> sign_up_form-birthdate :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> agree :}
-        {:param; msg >> {:;sign_up_form->error->field->agree:} :}
-        {:param; help-item >> sign_up_form-agree :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> notrobot :}
-        {:param; msg >> {:;sign_up_form->error->field->notrobot:} :}
-        {:param; help-item >> notrobot :}
-        {:snip; forms:set-form-field-error:}
-
-        {:param; field >> notrobot-hidden :}
-        {:param; msg >> {:;sign_up_form->error->field->notrobot-hidden:} :}
-        {:param; help-item >> notrobot :}
-        {:snip; forms:set-form-field-error:}
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item >> sign_in_form-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
     :}
 :}
 
@@ -103,10 +76,10 @@
                     class="form-control"
                     placeholder="{:trans; Name or alias (is public) :}"
                     aria-label="{:trans; Name or alias (is public) :}"
-                    minlength="{:;core->forms->sign_up_form->rules->alias->minlength:}"
-                    maxlength="{:;core->forms->sign_up_form->rules->alias->maxlength:}"
-                    pattern="{:;core->forms->sign_up_form->rules->alias->pattern:}"
-                    {:bool; core->forms->sign_up_form->rules->alias->required >> required :}
+                    minlength="{:;current_forms->sign_up_form->rules->alias->minlength:}"
+                    maxlength="{:;current_forms->sign_up_form->rules->alias->maxlength:}"
+                    pattern="{:;current_forms->sign_up_form->rules->alias->pattern:}"
+                    {:bool; current_forms->sign_up_form->rules->alias->required >> required :}
                 >
                 <label for="sign_up_form-alias">{:trans; Name or alias (is public) :}</label>
             </div>
@@ -135,12 +108,12 @@
                     class="form-control ftoken-field-key ftoken-field-value"
                     placeholder="{:trans; Email address (is private) :}"
                     aria-label="{:trans; Email address (is private) :}"
-                    minlength="{:;core->forms->sign_up_form->rules->email->minlength:}"
-                    maxlength="{:;core->forms->sign_up_form->rules->email->maxlength:}"
-                    pattern="{:;core->forms->sign_up_form->rules->email->pattern:}"
+                    minlength="{:;current_forms->sign_up_form->rules->email->minlength:}"
+                    maxlength="{:;current_forms->sign_up_form->rules->email->maxlength:}"
+                    pattern="{:;current_forms->sign_up_form->rules->email->pattern:}"
                     data-ftokenid="sign_up_form-ftoken"
                     data-ftoken-onfocus-reset="sign_up_form-notrobot"
-                    {:bool; core->forms->sign_up_form->rules->email->required >> required :}
+                    {:bool; current_forms->sign_up_form->rules->email->required >> required :}
                 >
                 <label for="sign_up_form-email">{:trans; Email address (is private) :}</label>
             </div>
@@ -171,10 +144,10 @@
                             class="form-control"
                             placeholder="{:trans; Password :}"
                             aria-label="{:trans; Password :}"
-                            minlength="{:;core->forms->sign_up_form->rules->password->minlength:}"
-                            maxlength="{:;core->forms->sign_up_form->rules->password->maxlength:}"
-                            pattern="{:;core->forms->sign_up_form->rules->password->pattern:}"
-                            {:bool; core->forms->sign_up_form->rules->password->required >> required :}
+                            minlength="{:;current_forms->sign_up_form->rules->password->minlength:}"
+                            maxlength="{:;current_forms->sign_up_form->rules->password->maxlength:}"
+                            pattern="{:;current_forms->sign_up_form->rules->password->pattern:}"
+                            {:bool; current_forms->sign_up_form->rules->password->required >> required :}
                         >
                         <label for="sign_up_form-password">{:trans; Password :}</label>
                     </div>
@@ -204,10 +177,10 @@
                             class="form-control"
                             placeholder="{:trans; Repeat password :}"
                             aria-label="{:trans; Repeat password :}"
-                            minlength="{:;core->forms->sign_up_form->rules->password->minlength:}"
-                            maxlength="{:;core->forms->sign_up_form->rules->password->maxlength:}"
-                            pattern="{:;core->forms->sign_up_form->rules->password->pattern:}"
-                            {:bool; core->forms->sign_up_form->rules->password->required >> required :}
+                            minlength="{:;current_forms->sign_up_form->rules->password->minlength:}"
+                            maxlength="{:;current_forms->sign_up_form->rules->password->maxlength:}"
+                            pattern="{:;current_forms->sign_up_form->rules->password->pattern:}"
+                            {:bool; current_forms->sign_up_form->rules->password->required >> required :}
                         >
                         <label for="sign_up_form-rptpassword">{:trans; Repeat password :}</label>
                     </div>
@@ -238,7 +211,7 @@
                     class="form-control"
                     placeholder="{:trans; Your date of birth (is private) :}"
                     aria-label="{:trans; Your date of birth (is private) :}"
-                    {:bool; core->forms->sign_up_form->rules->birthdate->required >> required :}
+                    {:bool; current_forms->sign_up_form->rules->birthdate->required >> required :}
                 >
                 <label for="sign_up_form-birthdate">{:trans; Your date of birth (is private) :}</label>
             </div>
@@ -268,9 +241,9 @@
                     name="notrobot"
                     class="form-check-input"
                     aria-label="{:trans; I am not a robot :}"
-                    value="{:;core->forms->sign_up_form->rules->notrobot->value:}"
+                    value="{:;current_forms->sign_up_form->rules->notrobot->value:}"
                     data-ftoken-onclick-remove="sign_up_form-notrobot-hidden"
-                    {:bool; core->forms->sign_up_form->rules->notrobot->required >> required :}
+                    {:bool; current_forms->sign_up_form->rules->notrobot->required >> required :}
                 >
             </span>
             <label role="button" class="form-check-label form-control" for="sign_up_form-notrobot">{:trans; I am not a robot :}</label>
@@ -296,9 +269,9 @@
                     name="agree"
                     class="form-check-input"
                     aria-label="{:trans; I agree with the terms of use :}"
-                    value="{:;core->forms->sign_up_form->rules->agree->value:}"
+                    value="{:;current_forms->sign_up_form->rules->agree->value:}"
                     {:filled; CONTEXT->POST->agree >> checked :}
-                    {:bool; core->forms->sign_up_form->rules->agree->required >> required :}
+                    {:bool; current_forms->sign_up_form->rules->agree->required >> required :}
                 >
             </span>
             <label role="button" title="{:trans; I agree with the terms of use :}" class="form-check-label form-control text-truncate" for="sign_up_form-agree">{:trans; I agree with the terms of use :}</label>
