@@ -7,6 +7,7 @@ import secrets
 from flask import Response, current_app, request, session
 
 from app.config_db import (
+    delete_component_custom_override,
     ensure_config_db,
     get_component_custom_entry,
     list_component_custom_entries,
@@ -68,7 +69,13 @@ class DispatcherLocalAdmin(Dispatcher):
             "custom_edit_uuid": "",
             "custom_edit_json": '{\n    "manifest": {},\n    "schema": {}\n}',
             "custom_edit_enabled": True,
-            "component_uuids": sorted(self.schema_data.get("COMPONENTS_MAP_BY_UUID", {}).keys()),
+            "component_uuids": [
+                {
+                    "uuid": uuid,
+                    "name": self.schema_data.get("COMPONENTS_MAP_BY_UUID", {}).get(uuid, "")
+                }
+                for uuid in sorted(self.schema_data.get("COMPONENTS_MAP_BY_UUID", {}).keys())
+            ],
         }
 
     def _current_auth_status(self):
@@ -204,7 +211,23 @@ class DispatcherLocalAdmin(Dispatcher):
                 except json.JSONDecodeError:
                     state["error"] = "Override JSON must be a JSON object."
 
-        if edit_uuid and not state["custom_edit_uuid"]:
+        if request.method == "POST" and action == "delete":
+            delete_uuid = (request.form.get("comp_uuid") or "").strip()
+
+            if not self._is_valid_comp_uuid(delete_uuid):
+                state["error"] = "comp_uuid format is invalid."
+            else:
+                deleted = delete_component_custom_override(db_path, delete_uuid)
+                if deleted:
+                    state["message"] = "Override deleted."
+                    # Clear edit fields after delete
+                    state["custom_edit_uuid"] = ""
+                    state["custom_edit_json"] = '{\n    "manifest": {},\n    "schema": {}\n}'
+                    state["custom_edit_enabled"] = True
+                else:
+                    state["error"] = "Failed to delete override."
+
+        if edit_uuid and edit_uuid != state.get("custom_edit_uuid", ""):
             state["custom_edit_uuid"] = edit_uuid
             entry = get_component_custom_entry(
                 db_path, edit_uuid, debug=current_app.debug
@@ -258,7 +281,7 @@ class DispatcherLocalAdmin(Dispatcher):
         custom_route_processed = False
         if request.method == "POST":
             if self._raw_route == "custom":
-                if action == "save":
+                if action == "save" or action == "delete":
                     if not self._csrf_valid():
                         state["error"] = "Invalid CSRF token."
                     else:

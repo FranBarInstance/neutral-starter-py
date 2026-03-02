@@ -3,8 +3,21 @@
 *:}
 
 {:*
-    Data and locale for all /local-admin/* routes
+    Disable carousel
+    ----------------
 *:}
+{:snip; current:template:body-carousel >> :}
+
+{:*
+    Disable lateralbar
+    ------------------
+*:}
+{:snip; current:template:body-lateral-bar >> :}
+
+{:* Include forms component for form styling and error handling *:}
+{:include; {:flg; require :} >> {:;forms_0yt2sa->path:}/neutral/snippets.ntpl :}
+
+{:* Data and locale for all /local-admin/* routes *:}
 {:data; {:flg; require :} >> #/root/data.json :}
 
 {:locale;
@@ -34,36 +47,57 @@
             <input type="hidden" name="action" value="login">
             <input type="hidden" name="csrf_token" value="{:&;local_admin->csrf_token:}">
 
-            <div class="mb-3">
-                <label class="form-label" for="localadmin-username">{:trans; Username :}</label>
-                <input
-                    id="localadmin-username"
-                    class="form-control"
-                    name="username"
-                    type="text"
-                    inputmode="text"
-                    maxlength="128"
-                    autocapitalize="none"
-                    spellcheck="false"
-                    autocomplete="username"
-                    required
-                >
+            <div class="input-group">
+                <span class="input-group-text {:;local::x-icon-user:}"></span>
+                <div class="form-floating">
+                    <input
+                        id="localadmin-username"
+                        class="form-control"
+                        name="username"
+                        type="text"
+                        inputmode="text"
+                        maxlength="128"
+                        autocapitalize="none"
+                        spellcheck="false"
+                        autocomplete="username"
+                        placeholder="{:trans; Username :}"
+                        required
+                    >
+                    <label for="localadmin-username">{:trans; Username :}</label>
+                </div>
             </div>
+            {:snip; error-msg:username :}
+            <div class="{:;local::current->forms->field-spacing:}"></div>
 
-            <div class="mb-3">
-                <label class="form-label" for="localadmin-password">{:trans; Password :}</label>
-                <input
-                    id="localadmin-password"
-                    class="form-control"
-                    name="password"
-                    type="password"
-                    maxlength="256"
-                    autocomplete="current-password"
-                    required
-                >
+            <div class="input-group">
+                <span class="input-group-text {:;local::x-icon-user-password:}"></span>
+                <div class="form-floating">
+                    <input
+                        id="localadmin-password"
+                        class="form-control"
+                        name="password"
+                        type="password"
+                        maxlength="256"
+                        autocomplete="current-password"
+                        placeholder="{:trans; Password :}"
+                        required
+                    >
+                    <label for="localadmin-password">{:trans; Password :}</label>
+                </div>
             </div>
+            {:snip; error-msg:password :}
+            <div class="{:;local::current->forms->field-spacing:}"></div>
 
-            <button type="submit" class="btn btn-primary">{:trans; Sign in :}</button>
+            <div class="row gx-2">
+                <div class="col-2">
+                    <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light me-2">
+                        <span class="{:;local::x-icon-reload:}"></span>
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="submit" class="w-100 btn btn-primary {:;local::x-icon-sign-in:}"> {:trans; Sign in :}</button>
+                </div>
+            </div>
         </form>
     :}
 :}

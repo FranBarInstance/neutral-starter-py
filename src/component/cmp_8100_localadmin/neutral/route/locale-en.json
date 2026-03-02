@@ -22,12 +22,14 @@
                 "Password": "Password",
                 "Sign in": "Sign in",
                 "Close": "Close",
+                "Reload form": "Reload form",
                 "Loading secure form...": "Loading secure form...",
                 "Open custom config editor": "Open custom config editor",
                 "Open login route": "Open login route",
                 "You must sign in to edit custom config overrides.": "You must sign in to edit custom config overrides.",
                 "Custom Overrides": "Custom Overrides",
                 "Component UUID": "Component UUID",
+                "Select a component": "Select a component",
                 "Override JSON": "Override JSON",
                 "Save override": "Save override",
                 "Existing Overrides": "Existing Overrides",
@@ -38,7 +40,11 @@
                 "comp_uuid format is invalid.": "comp_uuid format is invalid.",
                 "Override JSON must be a JSON object.": "Override JSON must be a JSON object.",
                 "Selected UUID does not exist in loaded components.": "Selected UUID does not exist in loaded components.",
-                "config.db is not available.": "config.db is not available."
+                "config.db is not available.": "config.db is not available.",
+                "Delete": "Delete",
+                "Delete override": "Delete override",
+                "Override deleted.": "Override deleted.",
+                "Actions": "Actions"
             }
         }
     }

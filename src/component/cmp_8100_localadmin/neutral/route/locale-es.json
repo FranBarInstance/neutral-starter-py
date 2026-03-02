@@ -22,12 +22,14 @@
                 "Password": "Contrasena",
                 "Sign in": "Entrar",
                 "Close": "Cerrar",
+                "Reload form": "Recargar formulario",
                 "Loading secure form...": "Cargando formulario seguro...",
                 "Open custom config editor": "Abrir editor de configuracion custom",
                 "Open login route": "Abrir ruta de acceso",
                 "You must sign in to edit custom config overrides.": "Debes iniciar sesion para editar sobrescrituras custom.",
                 "Custom Overrides": "Sobrescrituras Custom",
                 "Component UUID": "UUID del componente",
+                "Select a component": "Selecciona un componente",
                 "Override JSON": "JSON de sobrescritura",
                 "Save override": "Guardar sobrescritura",
                 "Existing Overrides": "Sobrescrituras existentes",
@@ -38,7 +40,11 @@
                 "comp_uuid format is invalid.": "El formato de comp_uuid es invalido.",
                 "Override JSON must be a JSON object.": "El JSON de sobrescritura debe ser un objeto JSON.",
                 "Selected UUID does not exist in loaded components.": "El UUID seleccionado no existe en los componentes cargados.",
-                "config.db is not available.": "config.db no esta disponible."
+                "config.db is not available.": "config.db no esta disponible.",
+                "Delete": "Eliminar",
+                "Delete override": "Eliminar sobrescritura",
+                "Override deleted.": "Sobrescritura eliminada.",
+                "Actions": "Acciones"
             }
         }
     }

@@ -1,9 +1,7 @@
 {:data; {:flg; require :} >> #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="container py-4">
-        {:snip; localadmin_0yt2sa:alerts :}
-
+    <div class="{:;local::current->theme->class->container:}">
         {:!bool; local_admin->auth_ok >>
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
@@ -12,41 +10,50 @@
                 </div>
             </div>
         :}{:else;
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 class="m-0">{:trans; Custom Overrides :}</h3>
-                <a class="btn btn-outline-secondary btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}/login">{:trans; Open login route :}</a>
-            </div>
-
             <form method="post" class="card card-body mb-4">
                 <input type="hidden" name="action" value="save">
                 <input type="hidden" name="csrf_token" value="{:&;local_admin->csrf_token:}">
                 <div class="mb-3">
-                    <label class="form-label" for="comp-uuid">{:trans; Component UUID :}</label>
-                    <input
-                        id="comp-uuid"
-                        class="form-control"
-                        name="comp_uuid"
-                        value="{:&;local_admin->custom_edit_uuid:}"
-                        list="component-uuids"
-                        required
-                    >
-                    <datalist id="component-uuids">
-                        {:each; local_admin->component_uuids none comp_uuid >>
-                            <option value="{:&;comp_uuid:}"></option>
-                        :}
-                    </datalist>
+                    <div class="form-floating">
+                        <select
+                            id="comp-uuid"
+                            class="form-select"
+                            name="comp_uuid"
+                            required
+                        >
+                            <option value="">{:trans; Select a component :}</option>
+                            {:each; local_admin->component_uuids none comp >>
+                                <option value="{:;comp->uuid:}"{:same; /{:;local_admin->custom_edit_uuid:}/{:;comp->uuid:}/ >> selected :}>{:;comp->uuid:} - {:;comp->name:}</option>
+                            :}
+                        </select>
+                        <label for="comp-uuid">{:trans; Component UUID :}</label>
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="override-json">{:trans; Override JSON :}</label>
-                    <textarea id="override-json" class="form-control ff-mono" name="override_json" rows="14" required>{:&;local_admin->custom_edit_json:}</textarea>
+                    <div class="form-floating">
+                        <textarea
+                            id="override-json"
+                            class="form-control ff-mono"
+                            name="override_json"
+                            placeholder="{:trans; Override JSON :}"
+                            required
+                        >{:&;local_admin->custom_edit_json:}</textarea>
+                        <label for="override-json">{:trans; Override JSON :}</label>
+                    </div>
                 </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="override-enabled" name="enabled" value="1"{:bool; local_admin->custom_edit_enabled >> checked :}>
-                    <label class="form-check-label" for="override-enabled">{:trans; Enabled :}</label>
+                <div class="row align-items-center mb-3">
+                    <div class="col-6 col-md-8">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="override-enabled" name="enabled" value="1"{:bool; local_admin->custom_edit_enabled >> checked :}>
+                            <label class="form-check-label" for="override-enabled">{:trans; Enabled :}</label>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                        <button class="btn btn-primary w-100" type="submit">{:trans; Save override :}</button>
+                    </div>
                 </div>
-                <button class="btn btn-primary" type="submit">{:trans; Save override :}</button>
             </form>
-
+            {:snip; localadmin_0yt2sa:alerts :}
             <h4>{:trans; Existing Overrides :}</h4>
             <div class="table-responsive">
                 <table class="table table-sm table-striped">
@@ -55,7 +62,7 @@
                             <th>{:trans; Component UUID :}</th>
                             <th>{:trans; Enabled :}</th>
                             <th>{:trans; Updated At :}</th>
-                            <th>{:trans; Load :}</th>
+                            <th class="text-end">{:trans; Actions :}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,7 +71,15 @@
                                 <td><code>{:;entry->comp_uuid:}</code></td>
                                 <td>{:;entry->enabled:}</td>
                                 <td>{:;entry->updated_at:}</td>
-                                <td><a href="?edit_uuid={:;entry->comp_uuid:}">{:trans; Load :}</a></td>
+                                <td class="text-end">
+                                    <a class="btn btn-outline-primary btn-sm me-1" href="?edit_uuid={:;entry->comp_uuid:}">{:trans; Load :}</a>
+                                    <form method="post" class="d-inline" data-delete-confirm="Delete override for {:;entry->comp_uuid:}?">
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="csrf_token" value="{:&;local_admin->csrf_token:}">
+                                        <input type="hidden" name="comp_uuid" value="{:;entry->comp_uuid:}">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm">{:trans; Delete :}</button>
+                                    </form>
+                                </td>
                             </tr>
                         :}
                     </tbody>
@@ -73,4 +88,52 @@
         :}
     </div>
 :}
+
+{:moveto; /body >>
+    <script nonce="{:;CSP_NONCE:}">
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-dismiss alerts after 5 seconds
+            setTimeout(function() {
+                document.querySelectorAll('.alert').forEach(function(alert) {
+                    var bsAlert = new bootstrap.Alert(alert);
+                    if (bsAlert._element.classList.contains('alert-success')) {
+                        bsAlert.close();
+                    }
+                });
+            }, 3000);
+
+            // Handle delete confirmation
+            document.querySelectorAll('form[data-delete-confirm]').forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    var message = form.getAttribute('data-delete-confirm');
+                    if (!confirm(message)) {
+                        event.preventDefault();
+                    }
+                });
+            });
+
+            // Handle select change to load component config
+            var compSelect = document.getElementById('comp-uuid');
+            if (compSelect) {
+                compSelect.addEventListener('change', function() {
+                    var uuid = this.value;
+                    if (uuid) {
+                        var baseUrl = window.location.pathname;
+                        window.location.href = baseUrl + '?edit_uuid=' + encodeURIComponent(uuid);
+                    }
+                });
+            }
+        });
+    </script>
+:}
+
+{:moveto; /head >>
+    <style nonce="{:;CSP_NONCE:}">
+        #override-json {
+            width: 100%;
+            min-height: 300px;
+        }
+    </style>
+:}
+
 {:^;:}

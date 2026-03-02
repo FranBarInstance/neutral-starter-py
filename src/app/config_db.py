@@ -168,3 +168,18 @@ def upsert_component_custom_override(db_path, component_uuid, override, enabled=
             """,
             (component_uuid, payload, enabled_value, now),
         )
+
+
+def delete_component_custom_override(db_path, component_uuid, debug=False):
+    """Delete component custom override from custom table."""
+    try:
+        with sqlite3.connect(db_path) as conn:
+            conn.execute(
+                "DELETE FROM custom WHERE comp_uuid = ?",
+                (component_uuid,),
+            )
+        return True
+    except sqlite3.Error as exc:
+        if debug:
+            print(f"✗ config.db delete failed for {component_uuid}: {exc}")
+        return False
