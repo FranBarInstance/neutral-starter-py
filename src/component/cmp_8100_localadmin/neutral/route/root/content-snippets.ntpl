@@ -1,5 +1,4 @@
 {:data; {:flg; require :} >> #/data.json :}
-{:!include; {:flg; require :} >> #/../index-snippets.ntpl :}
 
 {:snip; current:template:body-main-content >>
     <div class="{:;local::current->theme->class->container:} py-4">

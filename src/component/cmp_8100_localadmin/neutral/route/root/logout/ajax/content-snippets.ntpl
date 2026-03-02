@@ -1,10 +1,6 @@
-{:data; {:flg; require :} >> #/../../login/data.json :}
-{:!include; {:flg; require :} >> #/../../../index-snippets.ntpl :}
-
 {:snip; current:template:body-main-content >>
     <div id="localadmin-login-wrap">
         {:snip; localadmin_0yt2sa:alerts :}
-        {:*  {:snip; localadmin_0yt2sa:login-form :}  *:}
         {:snip; util:reload-page-self :}
     </div>
 :}
