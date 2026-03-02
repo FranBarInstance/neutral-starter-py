@@ -1,141 +1,341 @@
-
-{:* Hero Section *:}
-<div class="rounded-4 p-4 p-md-5 mb-5 text-center shadow-sm">
+{:* ─── Hero Section ─── *:}
+<div class="border rounded-4 p-4 p-md-5 mb-5 text-center bg-body-tertiary">
     <div class="row justify-content-center">
-        <div class="col-12 col-lg-10">
-            <h1 class="mb-3 display-4 fw">Neutral TS Starter Py</h1>
-            <p class="lead mb-4">
-                مجموعة أدوات معيارية ورائدة لبناء تطبيقات الويب التقدمية (PWA) باستخدام
-                <strong>Python (Flask)</strong> في الخلفية و <strong>Neutral TS</strong> كقالب محرك غير متحيز عالمي.
+        <div class="col-12 col-lg-9 col-xl-8">
+            <span class="badge border text-body-secondary text-uppercase px-3 py-2 mb-3"
+                  style="letter-spacing:1px; font-size:.7rem">
+                مجموعة بدء مفتوحة المصدر
+            </span>
+            <h1 class="display-4 fw-bold mb-3">Neutral TS Starter Py</h1>
+            <p class="lead text-body-secondary mb-4 mx-auto" style="max-width:640px">
+                مجموعة بدء معيارية ومتخصصة لبناء
+                <strong class="text-body">تطبيقات الويب التقدومية</strong> باستخدام
+                <strong class="text-body">Python&nbsp;(Flask)</strong> في الخلفية و
+                <strong class="text-body">Neutral&nbsp;TS</strong> كمحرك قوالب عالمي.
             </p>
-            <div class="d-flex flex-wrap justify-content-center gap-2">
-                <span class="badge bg-primary-subtle text-primary-emphasis px-3 py-2">Flask</span>
-                <span class="badge bg-success-subtle text-success-emphasis px-3 py-2">PWA Ready</span>
-                <span class="badge bg-info-subtle text-info-emphasis px-3 py-2">Neutral TS</span>
-                <span class="badge bg-warning-subtle text-warning-emphasis px-3 py-2">Modular</span>
+            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                <span class="badge border rounded-pill text-body-secondary px-3 py-2">🐍 Flask</span>
+                <span class="badge border rounded-pill text-body-secondary px-3 py-2">📱 PWA Ready</span>
+                <span class="badge border rounded-pill text-body-secondary px-3 py-2">🧩 Neutral TS</span>
+                <span class="badge border rounded-pill text-body-secondary px-3 py-2">🔒 الأمان</span>
+                <span class="badge border rounded-pill text-body-secondary px-3 py-2">🌐 i18n</span>
+            </div>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="https://github.com/FranBarInstance/neutral-starter-py"
+                   target="_blank"
+                   class="btn btn-dark btn-lg px-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         fill="currentColor" class="me-2 mb-1" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54
+                            2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+                            1.08.58 1.23.82.72 1.21 1.87.87
+                            2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+                            0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
+                            0 0 .67-.21 2.2.82.64-.18
+                            1.32-.27 2-.27.68 0 1.36.09 2
+                            .27 1.53-1.04 2.2-.82
+                            2.2-.82.44 1.1.16 1.92.08
+                            2.12.51.56.82 1.27.82
+                            2.15 0 3.07-1.87 3.75-3.65
+                            3.95.29.25.54.73.54 1.48 0
+                            1.07-.01 1.93-.01 2.2 0
+                            .21.15.46.55.38A8.012 8.012 0 0 0
+                            16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    عرض على GitHub
+                </a>
+                <a href="https://franbarinstance.github.io/neutral-starter-py/"
+                   target="_blank"
+                   class="btn btn-outline-secondary btn-lg px-4">
+                    التوثيق →
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-{:* Features Section *:}
-<div class="row g-4 mb-5">
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="feature-icon bg-primary bg-gradient text-white rounded-3 p-3 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                    </svg>
-                </div>
-                <h3 class="h5 fw-semibold mb-2">البنية المعيارية</h3>
-                <p class="mb-0">
-                    قابل للتوسيع عبر نظام المكونات القابل للتوصيل والتشغيل. قم بالتحويل من النماذج الأولية السريعة إلى التطبيقات المعقدة مع الحفاظ على هيكل نظيف ومفصول.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="feature-icon bg-success bg-gradient text-white rounded-3 p-3 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <path d="M4 3.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                </div>
-                <h3 class="h5 fw-semibold mb-2">قوالب NTPL</h3>
-                <p class="mb-0">
-                    يوفر Neutral TS تكوين مقتطفات قوي مع بيانات موجهة بالمخطط. قم ببناء واجهات مستخدم ديناميكية باستخدام رمز قوالب نظيف وقابل للصيانة.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="feature-icon bg-info bg-gradient text-white rounded-3 p-3 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                    </svg>
-                </div>
-                <h3 class="h5 fw-semibold mb-2">دعم PWA</h3>
-                <p class="mb-0">
-                    عامل الخدمة المدمج وصفحة غير متصلة ومكون بيان الويب. قم بتثبيت تطبيقك على أي جهاز مع تجربة شبيهة بالتطبيقات الأصلية.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="feature-icon bg-warning bg-gradient text-white rounded-3 p-3 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                    </svg>
-                </div>
-                <h3 class="h5 fw-semibold mb-2">الأمان أولاً</h3>
-                <p class="mb-0">
-                    CSP والتحقق من قائمة السماح للمضيفين وحماية رؤوس الوكيل الموثوق ورؤوس الأمان. تدفقات رموز النموذج/الجلسة وتقييد المعدل مضمنة.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="feature-icon bg-danger bg-gradient text-white rounded-3 p-3 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M3 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                </div>
-                <h3 class="h5 fw-semibold mb-2">التدويل</h3>
-                <p class="mb-0">
-                    دعم كامل لـ i18n من خلال ملفات لغة المكونات. ترجم تطبيقك بسهولة إلى عدة لغات.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border-0 shadow-sm">
-            <div class="card-body p-4">
-                <div class="feature-icon bg-secondary bg-gradient text-white rounded-3 p-3 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.697 1 10.36V15h5V8.697zM14 1h-2.5V6L14 4.5V1z"/>
-                    </svg>
-                </div>
-                <h3 class="h5 fw-semibold mb-2">مدعوم بـ Flask</h3>
-                <p class="mb-0">
-                    مصنع التطبيقات مع التوجيه القائم على المكونات وتسجيل Blueprint. دعم Python 3.10 إلى 3.14 مع الاختبارات المدمجة.
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-{:* Call to Action Section *:}
-<div class="bg-primary bg-gradient rounded-4 p-4 p-md-5 text-center text-white mb-4">
-    <h2 class="fw-bold mb-3">ابدأ اليوم</h2>
-    <p class="lead mb-4 opacity-75">
-        قم ببناء تطبيقات الويب التقدمية الحديثة بهيكل نظيف. مثالي للمطورين الذين يقدرون الهيكل والأمان وقابلية التوسع.
+{:* ─── Features Header ─── *:}
+<div class="text-center mb-4">
+    <p class="text-body-tertiary text-uppercase fw-semibold mb-1"
+       style="letter-spacing:2px; font-size:.75rem">الميزات</p>
+    <h2 class="fw-bold mb-2">كل ما تحتاجه</h2>
+    <p class="text-body-secondary mx-auto mb-0" style="max-width:540px">
+        أسس جاهزة للإنتاج حتى تتمكن من التركيز على بناء منتجك، وليس الكود القياسي.
     </p>
-    <div class="d-flex flex-wrap justify-content-center gap-3">
-        <a href="https://github.com/FranBarInstance/neutral-starter-py" target="_blank" class="btn btn-light btn-lg px-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github me-2" viewBox="0 0 16 16">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-            </svg>
-            عرض على GitHub
-        </a>
-        <a href="https://franbarinstance.github.io/neutral-starter-py/" target="_blank" class="btn btn-outline-light btn-lg px-4">الوثائق</a>
+</div>
+
+{:* ─── Features Grid ─── *:}
+<div class="row g-4 mb-5">
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border rounded-4">
+            <div class="card-body p-4">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
+                     style="width:48px;height:48px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                         fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
+                        <path d="M6 2a.5.5 0 0 1 .47.33L10
+                            12.036l1.53-4.208A.5.5 0 0 1
+                            12 7.5h3.5a.5.5 0 0 1
+                            0 1h-3.15l-1.88
+                            5.17a.5.5 0 0
+                            1-.94 0L6
+                            3.964 4.47
+                            8.171A.5.5 0 0 1
+                            4 8.5H.5a.5.5 0 0 1
+                            0-1h3.15l1.88-5.17A.5.5
+                            0 0 1 6 2z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-bold mb-2">البنية المعيارية</h3>
+                <p class="text-body-secondary mb-0">
+                    نظام مكونات قابل للتوصيل والتشغيل. تمتد من النماذج الأولية السريعة إلى
+                    التطبيقات المعقدة مع الحفاظ على هيكل نظيف ومنفصل.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border rounded-4">
+            <div class="card-body p-4">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
+                     style="width:48px;height:48px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                         fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1
+                            1 0 0 1-1 1H2a1 1 0 0
+                            1-1-1V2a1 1 0 0 1
+                            1-1h12zM2 0a2 2 0 0
+                            0-2 2v12a2 2 0 0 0
+                            2 2h12a2 2 0 0 0
+                            2-2V2a2 2 0 0 0-2-2H2z"/>
+                        <path d="M4 3.5a.5.5 0 0 1
+                            .5-.5h7a.5.5 0 0 1
+                            0 1h-7a.5.5 0 0
+                            1-.5-.5zm0 2a.5.5 0
+                            0 1 .5-.5h7a.5.5 0
+                            0 1 0 1h-7a.5.5 0
+                            0 1-.5-.5zm0 2a.5.5
+                            0 0 1 .5-.5h4a.5.5
+                            0 0 1 0 1h-4a.5.5
+                            0 0 1-.5-.5z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-bold mb-2">قوالب NTPL</h3>
+                <p class="text-body-secondary mb-0">
+                    تكوين مقتطفات قوي مع بيانات موجهة بالمخطط. قم ببناء واجهات مستخدم ديناميكية
+                    باستخدام كود قوالب نظيف وقابل للصيانة.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border rounded-4">
+            <div class="card-body p-4">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
+                     style="width:48px;height:48px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                         fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
+                        <path d="M11.251.068a.5.5 0 0 1
+                            .227.58L9.677 6.5H13a.5.5 0
+                            0 1 .364.843l-8
+                            8.5a.5.5 0 0
+                            1-.842-.49L6.323
+                            9.5H3a.5.5 0 0
+                            1-.364-.843l8-8.5a.5.5
+                            0 0 1 .615-.089z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-bold mb-2">دعم PWA</h3>
+                <p class="text-body-secondary mb-0">
+                   service worker مدمج وصفحة غير متصلة و manifest الويب.
+                    قم بتثبيت تطبيقك على أي جهاز مع تجربة شبيهة بالتطبيق الأصلي.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border rounded-4">
+            <div class="card-body p-4">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
+                     style="width:48px;height:48px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                         fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
+                        <path d="M5.338 1.59a61.44 61.44
+                            0 0 0-2.837.856.481.481
+                            0 0 0-.328.39c-.554
+                            4.157.726 7.19 2.253
+                            9.188a.48.48 0 0 0
+                            .328.224c.896.212
+                            1.77.36 2.612.456a.479.479
+                            0 0 0 .473-.223c.246-.378.476-.782.688-1.21a.516.516
+                            0 0 0-.282-.676 6.815
+                            6.815 0 0
+                            1-1.025-.445.519.519
+                            0 0 1-.053-.84c.069-.051.138-.106.206-.161a8.232
+                            8.232 0 0 0
+                            7.042 0c.069.058.138.112.207.163a.519.519
+                            0 0 1-.052.838
+                            6.42 6.42 0 0
+                            1-1.027.448.517.517
+                            0 0 0-.28.677c.213.431.444.837.692
+                            1.216a.478.478 0 0
+                            0 .472.221c.844-.098
+                            1.72-.248
+                            2.616-.462a.479.479
+                            0 0 0
+                            .326-.224c1.53-2.002
+                            2.81-5.037
+                            2.253-9.188a.48.48
+                            0 0
+                            0-.328-.39 21.498
+                            21.498 0 0
+                            0-2.837-.857.49.49
+                            0 0
+                            0-.517.252 14.5
+                            14.5 0 0
+                            0-.66 1.352
+                            15.773 15.773
+                            0 0 0-4.716
+                            0 13.883 13.883
+                            0 0 0-.667-1.356.49.49
+                            0 0 0-.516-.249z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-bold mb-2">الأمان أولاً</h3>
+                <p class="text-body-secondary mb-0">
+                    CSP وقائمة السماح للمضيفين وحماية رؤوس البروksi الموثوقة ورؤوس الأمان
+                    وتدفقات رموز النموذج/الجلسة وتقييد المعدل مضمنة.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border rounded-4">
+            <div class="card-body p-4">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
+                     style="width:48px;height:48px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                         fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
+                        <path d="M4.545 6.714 4.11
+                            8H3a1 1 0 1 0 0
+                            2h1.669l-.278
+                            1H3a1 1 0 1 0
+                            0 2h.836l-.569
+                            2.047a1 1 0 0
+                            0 1.932.506L5.762
+                            13h2.477l-.569
+                            2.047a1 1 0 0
+                            0 1.932.506L10.165
+                            13H11a1 1 0 1
+                            0 0-2h-.28l.278-1H12a1
+                            1 0 1 0
+                            0-2h-1.447l.434-1.714a1
+                            1 0 0 0-1.932-.506L8.492
+                            8H6.015l.434-1.714a1
+                            1 0 1 0-1.932-.506zM7.174
+                            11H9.65l.278-1H7.452l-.278
+                            1z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-bold mb-2">التدويل</h3>
+                <p class="text-body-secondary mb-0">
+                    دعم كامل لـ i18n من خلال ملفات لغة المكونات. ترجم تطبيقك بسهولة
+                    إلى لغات متعددة بدون احتكاك.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border rounded-4">
+            <div class="card-body p-4">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
+                     style="width:48px;height:48px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                         fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
+                        <path d="M10.478 1.647a.5.5 0 1
+                            0-.956-.294l-4
+                            13a.5.5 0 0 0
+                            .956.294l4-13zM4.854
+                            4.146a.5.5 0 0
+                            1 0 .708L1.707
+                            8l3.147 3.146a.5.5
+                            0 0 1-.708.708l-3.5-3.5a.5.5
+                            0 0 1
+                            0-.708l3.5-3.5a.5.5
+                            0 0 1
+                            .708 0zm6.292
+                            0a.5.5 0 0 0
+                            0 .708L14.293
+                            8l-3.147
+                            3.146a.5.5 0
+                            0 0 .708.708l3.5-3.5a.5.5
+                            0 0 0
+                            0-.708l-3.5-3.5a.5.5
+                            0 0 0-.708 0z"/>
+                    </svg>
+                </div>
+                <h3 class="h5 fw-bold mb-2">مدعوم بـ Flask</h3>
+                <p class="text-body-secondary mb-0">
+                    مصنع تطبيقات مع توجيه يعتمد على المكونات وتسجيل blueprints.
+                    Python 3.10 – 3.14 مع اختبارات مدمجة.
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
-{:* Footer Note *:}
-<div class="text-center text-muted py-3">
-    <small>Neutral TS Starter Py &copy; 2026. مبني بـ Flask و Neutral TS.</small>
+{:* ─── Call to Action ─── *:}
+<div class="border rounded-4 bg-body-secondary p-4 p-md-5 text-center mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <p class="text-body-tertiary text-uppercase fw-semibold mb-2"
+               style="letter-spacing:2px; font-size:.75rem">مستعد للبناء؟</p>
+            <h2 class="fw-bold mb-3">ابدأ اليوم</h2>
+            <p class="text-body-secondary mb-4 mx-auto" style="max-width:520px">
+                قم ببناء PWAs الحديثة بهندسة نظيفة — مثالي للمطورين
+                الذين يقدرون الهيكل والأمان وقابلية التوسع.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="https://github.com/FranBarInstance/neutral-starter-py"
+                   target="_blank"
+                   class="btn btn-dark btn-lg px-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                         fill="currentColor" class="me-2 mb-1" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54
+                            2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+                            1.08.58 1.23.82.72 1.21 1.87.87
+                            2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+                            0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12
+                            0 0 .67-.21 2.2.82.64-.18
+                            1.32-.27 2-.27.68 0 1.36.09 2
+                            .27 1.53-1.04 2.2-.82
+                            2.2-.82.44 1.1.16 1.92.08
+                            2.12.51.56.82 1.27.82
+                            2.15 0 3.07-1.87 3.75-3.65
+                            3.95.29.25.54.73.54 1.48 0
+                            1.07-.01 1.93-.01 2.2 0
+                            .21.15.46.55.38A8.012 8.012 0 0 0
+                            16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    عرض على GitHub
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
+
+{:* ─── Footer ─── *:}
+<footer class="text-center py-4">
+    <hr class="mx-auto mb-3" style="width:60px">
+    <p class="text-body-tertiary mb-0 small">
+        Neutral TS Starter Py &copy; 2026 — مبني بـ Flask & Neutral TS
+    </p>
+</footer>
