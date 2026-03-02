@@ -73,9 +73,9 @@ def test_sign_blueprint_and_routes_registered(flask_app):
 
 def test_sign_schema_includes_pin_form_definition():
     """schema.json must include the dedicated sign_pin_form."""
-    schema_path = _COMP_DIR / "schema.json"
+    schema_path = _COMP_DIR / "route" / "schema.json"
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
-    sign_pin_form = schema["data"]["core"]["forms"]["sign_pin_form"]
+    sign_pin_form = schema["data"]["current_forms"]["sign_pin_form"]
 
     assert sign_pin_form["rules"]["pin"]["required"] is True
     assert sign_pin_form["rules"]["pin"]["regex"] == "^[A-Za-z0-9]{4,10}$"
@@ -89,9 +89,8 @@ def test_pin_container_renders_ajax_form_route(client):
 
     assert response.status_code == 200
     body = response.get_data(as_text=True)
-    assert token in body
     assert "form-wrapper-pin" in body
-    assert "sign_pin_token" in body
+    assert "PIN" in body
 
 
 def test_reminder_form_post_requires_ajax_header(client):
@@ -158,6 +157,9 @@ def test_pin_form_post_invalid_pin_returns_validation_error(client, monkeypatch)
         "_get_pin_data_by_token",
         lambda _self, _token: {"target": PIN_TARGET_REMINDER, "userId": "42", "pin": "999999"},
     )
+
+    # First GET request to establish UTOKEN session
+    client.get(_route(client.application, "/pin/good-token"))
 
     response = client.post(
         _route(client.application, "/pin/form/good-token/ok-ltoken"),

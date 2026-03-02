@@ -11,7 +11,7 @@
 
     If there are no errors, the snippets for each field will be empty.
  *:}
-{:+each; sign_in_form->error->field field msg >>
+{:+each; sign_pin_form->error->field field msg >>
     {:+code;
         {:param; field >> {:;field:} :}
         {:param; msg >> {:;msg:} :}
