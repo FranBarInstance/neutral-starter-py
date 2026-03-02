@@ -29,7 +29,7 @@
                 <div class="row align-items-center mb-5">
                     <div class="col-lg-5 mb-4 mb-lg-0">
                         <img
-                            src="https://picsum.photos/600/400?random={:rand; 100..999 :}"
+                            src="/img/logo.jpg"
                             alt="Placeholder image"
                             class="img-fluid rounded-3 shadow-sm"
                         >
