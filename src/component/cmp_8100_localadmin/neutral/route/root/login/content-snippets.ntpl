@@ -1,14 +1,11 @@
 {:data; {:flg; require :} >> #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="container py-4">
+    <div class="{:;local::current->theme->class->container:} py-4">
         {:snip; localadmin_0yt2sa:alerts :}
 
         {:!bool; HAS_SESSION_DEV >>
             {:snip; localadmin_0yt2sa:login-form-wrapper :}
-            <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#localAdminLoginModal">
-                {:trans; Open login modal :}
-            </button>
         :}{:else;
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
@@ -16,6 +13,11 @@
                     <code>dev_admin_role={:;dev_admin_role:}</code>
                     <div id="localadmin-login-wrap">
                         {:snip; localadmin_0yt2sa:logout-form :}
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a class="btn btn-outline-primary btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}">{:trans; Go to component home :}</a>
+                        <a class="btn btn-outline-dark btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}/custom">{:trans; Open custom config editor :}</a>
+                        <a class="btn btn-outline-dark btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}/icons">{:trans; Open icons list :}</a>
                     </div>
                 </div>
             </div>
