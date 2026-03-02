@@ -37,12 +37,6 @@
                     "The application": "应用程序",
                     "Internet connection required": "需要互联网连接",
                     "No connection": "无连接"
-                },
-                "ja": {
-                    "Install APP": "APP をインストール",
-                    "The application": "アプリケーション",
-                    "Internet connection required": "インターネット接続が必要です",
-                    "No connection": "接続なし"
                 }
             }
         },

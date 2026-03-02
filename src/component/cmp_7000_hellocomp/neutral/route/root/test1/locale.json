@@ -54,15 +54,6 @@
             "dispatch_result": "dispatch_结果",
             "foo value": "foo 值",
             "Back to home": "返回首页"
-        },
-        "ja": {
-            "Test One": "テスト1",
-            "Hello Component Test One": "Helloコンポーネントテスト1",
-            "Route with custom dispatcher logic": "カスタムディスパッチャーロジック付きルート",
-            "This route uses the custom dispatcher class.": "このルートはカスタムディスパッチャークラスを使用します。",
-            "dispatch_result": "dispatch_結果",
-            "foo value": "foo値",
-            "Back to home": "ホームに戻る"
         }
     }
 }

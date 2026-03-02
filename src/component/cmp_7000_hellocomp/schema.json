@@ -64,18 +64,6 @@
                     "Error 404": "错误 404",
                     "Error 500": "错误 500",
                     "Redirect": "重定向"
-                },
-                "ja": {
-                    "Hello": "こんにちは",
-                    "Hello Component": "Helloコンポーネント",
-                    "Global snippet from Hello Component": "Helloコンポーネントからのグローバルスニペット",
-                    "Test One": "テスト1",
-                    "Test Two": "テスト2",
-                    "Test Error 404": "テストエラー404",
-                    "Translating content": "コンテンツ翻訳",
-                    "Error 404": "エラー404",
-                    "Error 500": "エラー500",
-                    "Redirect": "リダイレクト"
                 }
             }
         },

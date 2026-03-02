@@ -26,10 +26,6 @@
                 "zh": {
                     "Internal Server Error": "内部服务器错误",
                     "An internal error occurred in app.": "应用程序中发生内部错误。"
-                },
-                "ja": {
-                    "Internal Server Error": "内部サーバーエラー",
-                    "An internal error occurred in app.": "アプリで内部エラーが発生しました。"
                 }
             }
         }

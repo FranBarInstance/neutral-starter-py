@@ -85,20 +85,6 @@
                     "(This page requires security cookies)": "（此页面需要安全 cookies）",
                     "Please reload the page and try again, if the error persists contact the admin.": "请重新加载页面并重试，如果错误仍然存在，请联系管理员。",
                     "Not Found": "未找到"
-                },
-                "ja": {
-                    "ref:tab-changes:reload_msg": "別のタブの変更には、このタブをリロードする必要があります。リロードしますか？",
-                    "Error loading this complement": "この補完の読み込みエラー",
-                    "An error has occurred": "エラーが発生しました",
-                    "Go home": "家に帰る",
-                    "Menu": "メニュー",
-                    "Install APP": "APP をインストール",
-                    "Previous": "前へ",
-                    "Next": "次へ",
-                    "Form ERROR!": "フォームエラー！",
-                    "(This page requires security cookies)": "（このページはセキュリティクッキーを必要とします）",
-                    "Please reload the page and try again, if the error persists contact the admin.": "ページをリロードして再度お試しください。エラーが続く場合は、管理者に連絡してください。",
-                    "Not Found": "見つかりません"
                 }
             }
         }

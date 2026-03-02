@@ -36,13 +36,6 @@
                     "Sign up": "注册",
                     "Sign out": "退出",
                     "Confirm logout": "确认注销"
-                },
-                "ja": {
-                    "Reminder": "リマインダー",
-                    "Sign in": "サインイン",
-                    "Sign up": "サインアップ",
-                    "Sign out": "サインアウト",
-                    "Confirm logout": "ログアウトを確認"
                 }
             }
         },

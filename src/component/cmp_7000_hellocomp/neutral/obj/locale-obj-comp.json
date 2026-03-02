@@ -15,9 +15,6 @@
         "ar": {
             "I'm a message from a component in obj": "أنا رسالة من مكون في obj"
         },
-        "ja": {
-            "I'm a message from a component in obj": "私は obj 内のコンポーネントからのメッセージです"
-        },
         "zh": {
             "I'm a message from a component in obj": "我是 obj 中一个组件的消息"
         }

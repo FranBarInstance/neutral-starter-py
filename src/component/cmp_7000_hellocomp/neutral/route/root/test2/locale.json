@@ -54,15 +54,6 @@
             "Name": "名称",
             "Topic": "主题",
             "Back to home": "返回首页"
-        },
-        "ja": {
-            "Test Two": "テスト2",
-            "Hello Component Test Two": "Helloコンポーネントテスト2",
-            "Route that receives GET form data": "GETフォームデータを受け取るルート",
-            "This route receives GET data from the modal form.": "このルートはモーダルフォームからGETデータを受け取ります。",
-            "Name": "名前",
-            "Topic": "トピック",
-            "Back to home": "ホームに戻る"
         }
     }
 }

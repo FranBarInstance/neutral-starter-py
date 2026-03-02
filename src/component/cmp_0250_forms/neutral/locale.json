@@ -59,16 +59,6 @@
             "ERROR": "错误",
             "See help.": "查看帮助。",
             "Help": "帮助"
-        },
-        "ja": {
-            "FORM VALIDATION ERROR": "フォーム検証エラー",
-            "Please reload the page and try again, if the error persists contact the admin.": "ページをリロードして再度お試しください。エラーが続く場合は、管理者に連絡してください。",
-            "FORM TOKEN ERROR": "フォームトークンエラー",
-            "LINK TOKEN ERROR": "リンクトークンエラー",
-            "(This page requires security cookies)": "（このページはセキュリティクッキーを必要とします）",
-            "ERROR": "エラー",
-            "See help.": "ヘルプを見る。",
-            "Help": "ヘルプ"
         }
     }
 }

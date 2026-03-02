@@ -10,8 +10,7 @@
                     "ref:locale:de": "Deutsch",
                     "ref:locale:fr": "Français",
                     "ref:locale:ar": "العربية",
-                    "ref:locale:zh": "中文",
-                    "ref:locale:ja": "日本語"
+                    "ref:locale:zh": "中文"
                 },
                 "es": {
                     "ref:locale:en": "English",
@@ -20,7 +19,6 @@
                     "ref:locale:fr": "Français",
                     "ref:locale:ar": "العربية",
                     "ref:locale:zh": "中文",
-                    "ref:locale:ja": "日本語",
                     "Language": "Idioma",
                     "Open": "Abrir",
                     "Close": "Cerrar",
@@ -34,7 +32,6 @@
                     "ref:locale:fr": "Français",
                     "ref:locale:ar": "العربية",
                     "ref:locale:zh": "中文",
-                    "ref:locale:ja": "日本語",
                     "Language": "Langue",
                     "Open": "Ouvrir",
                     "Close": "Fermer",
@@ -48,7 +45,6 @@
                     "ref:locale:fr": "Français",
                     "ref:locale:ar": "العربية",
                     "ref:locale:zh": "中文",
-                    "ref:locale:ja": "日本語",
                     "Language": "Sprache",
                     "Open": "Öffnen",
                     "Close": "Schließen",
@@ -62,7 +58,6 @@
                     "ref:locale:fr": "Français",
                     "ref:locale:ar": "العربية",
                     "ref:locale:zh": "中文",
-                    "ref:locale:ja": "日本語",
                     "Language": "اللغة",
                     "Open": "فتح",
                     "Close": "إغلاق",
@@ -76,26 +71,11 @@
                     "ref:locale:fr": "Français",
                     "ref:locale:ar": "العربية",
                     "ref:locale:zh": "中文",
-                    "ref:locale:ja": "日本語",
                     "Language": "语言",
                     "Open": "打开",
                     "Close": "关闭",
                     "Menu": "菜单",
                     "Back": "返回"
-                },
-                "ja": {
-                    "ref:locale:en": "English",
-                    "ref:locale:es": "Español",
-                    "ref:locale:de": "Deutsch",
-                    "ref:locale:fr": "Français",
-                    "ref:locale:ar": "العربية",
-                    "ref:locale:zh": "中文",
-                    "ref:locale:ja": "日本語",
-                    "Language": "言語",
-                    "Open": "開く",
-                    "Close": "閉じる",
-                    "Menu": "メニュー",
-                    "Back": "戻る"
                 }
             }
         },
@@ -151,8 +131,7 @@
                     "de",
                     "fr",
                     "ar",
-                    "zh",
-                    "ja"
+                    "zh"
                 ],
                 "languages_dir": {
                     "en": "ltr",
@@ -160,8 +139,7 @@
                     "de": "ltr",
                     "fr": "ltr",
                     "ar": "rtl",
-                    "zh": "ltr",
-                    "ja": "ltr"
+                    "zh": "ltr"
                 }
             }
         }

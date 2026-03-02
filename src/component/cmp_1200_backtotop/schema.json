@@ -19,9 +19,6 @@
                 },
                 "zh": {
                     "ref:backtotop:go-top": "转到页面顶部"
-                },
-                "ja": {
-                    "ref:backtotop:go-top": "ページのトップへ"
                 }
             }
         }
