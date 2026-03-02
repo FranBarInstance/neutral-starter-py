@@ -1,0 +1,32 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE) *:}
+
+
+{:snip; current:template:body-main-content >>
+    <div class="help-item-wrap">
+
+        {:*
+            Translation for "lang", eg. item-en.ntpl
+        *:}
+        {:^include;
+            #/{:!allow; traversal >> {:;help_item:} :}-{:lang;:}.ntpl
+        :}{:^else;
+
+            {:*
+                There is no translation for “lang”, the default, eg. item-default.ntpl
+            *:}
+            {:^include;
+                #/{:!allow; traversal >> {:;help_item:} :}-default.ntpl
+            :}{:^else;
+
+                {:*
+                    No translation.
+                *:}
+                <p>
+                    {:trans; There is still no help for this topic, sorry. :}
+                </p>
+            :}
+        :}
+    </div>
+:}
+
+{:^;:}

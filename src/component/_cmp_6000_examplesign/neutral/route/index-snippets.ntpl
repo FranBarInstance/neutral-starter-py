@@ -1,4 +1,12 @@
 
+
+{:*
+    Load locale file
+    ----------------
+*:}
+{:!locale; #/locale-{:lang;:}.json :}
+{:else; {:!locale; #/locale-en.json :} :}
+
 {:*
     Disable carousel for all component routes
     -----------------------------------------

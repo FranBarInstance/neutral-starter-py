@@ -65,7 +65,7 @@
                     href="#help-item"
                     data-template="#templateHelp"
                     data-title="{:trans; Help :}"
-                    data-url="/help-item/{:param; help-item :}"
+                    data-url="{:param; help-item-url :}"
                     data-width="450"
                     data-class="fade"
                 >

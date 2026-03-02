@@ -1,0 +1,32 @@
+{
+    "trans": {
+        "zh": {
+            "ref:fake_login_form_error_email_not_match": "邮箱不匹配",
+            "ref:fake_login_form_error_password_not_match": "密码不匹配",
+            "ref:fake_login_form_error_set_true": "错误",
+            "ref:fake_login_form_error_set_false": "错误",
+            "ref:fake_login_form_error_required_true": "必填",
+            "ref:fake_login_form_error_required_false": "非必填",
+            "ref:fake_login_form_error_minlength": "太短",
+            "ref:fake_login_form_error_maxlength": "太长",
+            "ref:fake_login_form_error_regex": "无效字符",
+            "ref:fake_login_form_error_value": "无效值",
+            "ref:fake_login_form_error_unsetmatch": "不匹配",
+            "ref:fake_login_form_error_match": "不匹配",
+            "ref:fake_login_form_error_dns": "无效域名",
+            "ref:fake_logout_form_error_set_true": "错误",
+            "ref:fake_logout_form_error_set_false": "错误",
+            "ref:fake_logout_form_error_required_true": "必填",
+            "ref:fake_logout_form_error_required_false": "非必填",
+            "ref:fake_logout_form_error_minage": "无效日期",
+            "ref:fake_logout_form_error_maxage": "无效日期",
+            "ref:fake_logout_form_error_minlength": "太短",
+            "ref:fake_logout_form_error_maxlength": "太长",
+            "ref:fake_logout_form_error_regex": "无效字符",
+            "ref:fake_logout_form_error_value": "无效值",
+            "ref:fake_logout_form_error_unsetmatch": "不匹配",
+            "ref:fake_logout_form_error_match": "不匹配",
+            "ref:fake_logout_form_error_dns": "无效域名"
+        }
+    }
+}

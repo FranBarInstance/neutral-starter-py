@@ -1,0 +1,32 @@
+{
+    "trans": {
+        "en": {
+            "ref:fake_login_form_error_email_not_match": "Email not match",
+            "ref:fake_login_form_error_password_not_match": "Password not match",
+            "ref:fake_login_form_error_set_true": "error",
+            "ref:fake_login_form_error_set_false": "error",
+            "ref:fake_login_form_error_required_true": "Required",
+            "ref:fake_login_form_error_required_false": "Not required",
+            "ref:fake_login_form_error_minlength": "Very short",
+            "ref:fake_login_form_error_maxlength": "Very large",
+            "ref:fake_login_form_error_regex": "Invalid characters",
+            "ref:fake_login_form_error_value": "Invalid value",
+            "ref:fake_login_form_error_unsetmatch": "Unset match",
+            "ref:fake_login_form_error_match": "Does not match",
+            "ref:fake_login_form_error_dns": "Invalid domain",
+            "ref:fake_logout_form_error_set_true": "error",
+            "ref:fake_logout_form_error_set_false": "error",
+            "ref:fake_logout_form_error_required_true": "Required",
+            "ref:fake_logout_form_error_required_false": "Not required",
+            "ref:fake_logout_form_error_minage": "Invalid date",
+            "ref:fake_logout_form_error_maxage": "Invalid date",
+            "ref:fake_logout_form_error_minlength": "Very short",
+            "ref:fake_logout_form_error_maxlength": "Very large",
+            "ref:fake_logout_form_error_regex": "Invalid characters",
+            "ref:fake_logout_form_error_value": "Invalid value",
+            "ref:fake_logout_form_error_unsetmatch": "Unset match",
+            "ref:fake_logout_form_error_match": "Does not match",
+            "ref:fake_logout_form_error_dns": "Invalid domain"
+        }
+    }
+}

@@ -13,7 +13,7 @@
     {:+code;
         {:param; field >> {:;field:} :}
         {:param; msg >> {:;msg:} :}
-        {:param; help-item >> fake_login-{:;field:} :}
+        {:param; help-item-url >> {:;examplesign_0yt2sa->manifest->route:}/help/fake_login_form-{:;field:} :}
         {:snip; forms:set-form-field-error :}
     :}
 :}
@@ -22,7 +22,7 @@
     {:+code;
         {:param; field >> {:;field:} :}
         {:param; msg >> {:;msg:} :}
-        {:param; help-item >> fake_logout-{:;field:} :}
+        {:param; help-item-url >> {:;examplesign_0yt2sa->manifest->route:}/help/fake_logout_form-{:;field:} :}
         {:snip; forms:set-form-field-error :}
     :}
 :}

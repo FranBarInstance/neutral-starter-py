@@ -6,6 +6,8 @@ In real applications, create appropriate logic in custom Dispatcher, eg: Dispatc
 """
 
 from flask import request, Response
+from app.extensions import require_header_set
+from app.config import Config
 from .dispatcher_example_sign import (
     DispatcherFormExampleSign,
     DispatcherFormExampleSignIn,
@@ -103,4 +105,19 @@ def logout_ajax_post(route, ltoken) -> Response:
         "fake_logout"
     )
     dispatch.schema_data["dispatch_result"] = dispatch.post()
+    return dispatch.view.render()
+
+
+@bp.route("/help/<item>", defaults={"route": "help"}, methods=["GET"])
+@require_header_set("Requested-With-Ajax", "Require Ajax")
+def sign_help_item(route, item) -> Response:
+    """Serve cached help content for specific items."""
+    dispatch = DispatcherFormExampleSign(
+        request,
+        route,
+        bp.neutral_route
+    )
+    dispatch.schema_data["help_item"] = item
+    dispatch.schema_data["dispatch_result"] = True
+    dispatch.view.response.headers["Cache-Control"] = Config.STATIC_CACHE_CONTROL
     return dispatch.view.render()

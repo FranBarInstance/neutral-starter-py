@@ -1,0 +1,32 @@
+{
+    "trans": {
+        "ar": {
+            "ref:fake_login_form_error_email_not_match": "البريد الإلكتروني غير متطابق",
+            "ref:fake_login_form_error_password_not_match": "كلمة المرور غير متطابقة",
+            "ref:fake_login_form_error_set_true": "خطأ",
+            "ref:fake_login_form_error_set_false": "خطأ",
+            "ref:fake_login_form_error_required_true": "مطلوب",
+            "ref:fake_login_form_error_required_false": "غير مطلوب",
+            "ref:fake_login_form_error_minlength": "قصير جداً",
+            "ref:fake_login_form_error_maxlength": "طويل جداً",
+            "ref:fake_login_form_error_regex": "أحرف غير صالحة",
+            "ref:fake_login_form_error_value": "قيمة غير صالحة",
+            "ref:fake_login_form_error_unsetmatch": "عدم تطابق",
+            "ref:fake_login_form_error_match": "لا يتطابق",
+            "ref:fake_login_form_error_dns": "نطاق غير صالح",
+            "ref:fake_logout_form_error_set_true": "خطأ",
+            "ref:fake_logout_form_error_set_false": "خطأ",
+            "ref:fake_logout_form_error_required_true": "مطلوب",
+            "ref:fake_logout_form_error_required_false": "غير مطلوب",
+            "ref:fake_logout_form_error_minage": "تاريخ غير صالح",
+            "ref:fake_logout_form_error_maxage": "تاريخ غير صالح",
+            "ref:fake_logout_form_error_minlength": "قصير جداً",
+            "ref:fake_logout_form_error_maxlength": "طويل جداً",
+            "ref:fake_logout_form_error_regex": "أحرف غير صالحة",
+            "ref:fake_logout_form_error_value": "قيمة غير صالحة",
+            "ref:fake_logout_form_error_unsetmatch": "عدم تطابق",
+            "ref:fake_logout_form_error_match": "لا يتطابق",
+            "ref:fake_logout_form_error_dns": "نطاق غير صالح"
+        }
+    }
+}

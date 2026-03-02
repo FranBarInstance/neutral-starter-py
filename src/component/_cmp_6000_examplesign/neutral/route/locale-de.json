@@ -1,0 +1,32 @@
+{
+    "trans": {
+        "de": {
+            "ref:fake_login_form_error_email_not_match": "E-Mail stimmt nicht überein",
+            "ref:fake_login_form_error_password_not_match": "Passwort stimmt nicht überein",
+            "ref:fake_login_form_error_set_true": "Fehler",
+            "ref:fake_login_form_error_set_false": "Fehler",
+            "ref:fake_login_form_error_required_true": "Erforderlich",
+            "ref:fake_login_form_error_required_false": "Nicht erforderlich",
+            "ref:fake_login_form_error_minlength": "Sehr kurz",
+            "ref:fake_login_form_error_maxlength": "Sehr lang",
+            "ref:fake_login_form_error_regex": "Ungültige Zeichen",
+            "ref:fake_login_form_error_value": "Ungültiger Wert",
+            "ref:fake_login_form_error_unsetmatch": "Keine Übereinstimmung gesetzt",
+            "ref:fake_login_form_error_match": "Entspricht nicht",
+            "ref:fake_login_form_error_dns": "Ungültige Domain",
+            "ref:fake_logout_form_error_set_true": "Fehler",
+            "ref:fake_logout_form_error_set_false": "Fehler",
+            "ref:fake_logout_form_error_required_true": "Erforderlich",
+            "ref:fake_logout_form_error_required_false": "Nicht erforderlich",
+            "ref:fake_logout_form_error_minage": "Ungültiges Datum",
+            "ref:fake_logout_form_error_maxage": "Ungültiges Datum",
+            "ref:fake_logout_form_error_minlength": "Sehr kurz",
+            "ref:fake_logout_form_error_maxlength": "Sehr lang",
+            "ref:fake_logout_form_error_regex": "Ungültige Zeichen",
+            "ref:fake_logout_form_error_value": "Ungültiger Wert",
+            "ref:fake_logout_form_error_unsetmatch": "Keine Übereinstimmung gesetzt",
+            "ref:fake_logout_form_error_match": "Entspricht nicht",
+            "ref:fake_logout_form_error_dns": "Ungültige Domain"
+        }
+    }
+}

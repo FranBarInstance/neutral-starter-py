@@ -15,7 +15,7 @@
     {:+code;
         {:param; field >> {:;field:} :}
         {:param; msg >> {:;msg:} :}
-        {:param; help-item >> sign_in_form-{:;field:} :}
+        {:param; help-item-url >> {:;sign_0yt2sa->manifest->route:}/help/sign_pin_form-{:;field:} :}
         {:snip; forms:set-form-field-error :}
     :}
 :}

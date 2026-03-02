@@ -1,0 +1,32 @@
+{
+    "trans": {
+        "fr": {
+            "ref:fake_login_form_error_email_not_match": "L'e-mail ne correspond pas",
+            "ref:fake_login_form_error_password_not_match": "Le mot de passe ne correspond pas",
+            "ref:fake_login_form_error_set_true": "erreur",
+            "ref:fake_login_form_error_set_false": "erreur",
+            "ref:fake_login_form_error_required_true": "Requis",
+            "ref:fake_login_form_error_required_false": "Non requis",
+            "ref:fake_login_form_error_minlength": "Très court",
+            "ref:fake_login_form_error_maxlength": "Très long",
+            "ref:fake_login_form_error_regex": "Caractères invalides",
+            "ref:fake_login_form_error_value": "Valeur invalide",
+            "ref:fake_login_form_error_unsetmatch": "Correspondance non définie",
+            "ref:fake_login_form_error_match": "Ne correspond pas",
+            "ref:fake_login_form_error_dns": "Domaine invalide",
+            "ref:fake_logout_form_error_set_true": "erreur",
+            "ref:fake_logout_form_error_set_false": "erreur",
+            "ref:fake_logout_form_error_required_true": "Requis",
+            "ref:fake_logout_form_error_required_false": "Non requis",
+            "ref:fake_logout_form_error_minage": "Date invalide",
+            "ref:fake_logout_form_error_maxage": "Date invalide",
+            "ref:fake_logout_form_error_minlength": "Très court",
+            "ref:fake_logout_form_error_maxlength": "Très long",
+            "ref:fake_logout_form_error_regex": "Caractères invalides",
+            "ref:fake_logout_form_error_value": "Valeur invalide",
+            "ref:fake_logout_form_error_unsetmatch": "Correspondance non définie",
+            "ref:fake_logout_form_error_match": "Ne correspond pas",
+            "ref:fake_logout_form_error_dns": "Domaine invalide"
+        }
+    }
+}

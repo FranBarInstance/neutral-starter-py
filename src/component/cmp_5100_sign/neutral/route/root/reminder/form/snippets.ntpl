@@ -38,11 +38,11 @@
 
     If there are no errors, the snippets for each field will be empty.
  *:}
-{:+each; sign_in_form->error->field field msg >>
+{:+each; sign_reminder_form->error->field field msg >>
     {:+code;
         {:param; field >> {:;field:} :}
         {:param; msg >> {:;msg:} :}
-        {:param; help-item >> sign_in_form-{:;field:} :}
+        {:param; help-item-url >> {:;sign_0yt2sa->manifest->route:}/help/sign_reminder_form-{:;field:} :}
         {:snip; forms:set-form-field-error :}
     :}
 :}

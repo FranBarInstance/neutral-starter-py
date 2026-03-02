@@ -1,0 +1,32 @@
+{
+    "trans": {
+        "es": {
+            "ref:fake_login_form_error_email_not_match": "El correo no coincide",
+            "ref:fake_login_form_error_password_not_match": "La contraseña no coincide",
+            "ref:fake_login_form_error_set_true": "error",
+            "ref:fake_login_form_error_set_false": "error",
+            "ref:fake_login_form_error_required_true": "Requerido",
+            "ref:fake_login_form_error_required_false": "No requerido",
+            "ref:fake_login_form_error_minlength": "Muy corto",
+            "ref:fake_login_form_error_maxlength": "Muy largo",
+            "ref:fake_login_form_error_regex": "Caracteres inválidos",
+            "ref:fake_login_form_error_value": "Valor inválido",
+            "ref:fake_login_form_error_unsetmatch": "Coincidencia no establecida",
+            "ref:fake_login_form_error_match": "No coincide",
+            "ref:fake_login_form_error_dns": "Dominio inválido",
+            "ref:fake_logout_form_error_set_true": "error",
+            "ref:fake_logout_form_error_set_false": "error",
+            "ref:fake_logout_form_error_required_true": "Requerido",
+            "ref:fake_logout_form_error_required_false": "No requerido",
+            "ref:fake_logout_form_error_minage": "Fecha inválida",
+            "ref:fake_logout_form_error_maxage": "Fecha inválida",
+            "ref:fake_logout_form_error_minlength": "Muy corto",
+            "ref:fake_logout_form_error_maxlength": "Muy largo",
+            "ref:fake_logout_form_error_regex": "Caracteres inválidos",
+            "ref:fake_logout_form_error_value": "Valor inválido",
+            "ref:fake_logout_form_error_unsetmatch": "Coincidencia no establecida",
+            "ref:fake_logout_form_error_match": "No coincide",
+            "ref:fake_logout_form_error_dns": "Dominio inválido"
+        }
+    }
+}
