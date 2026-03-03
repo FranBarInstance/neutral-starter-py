@@ -26,7 +26,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-lg-3">
-                    <label class="form-label" for="admin-disabled-filter">{:trans; User Disabled Status filter :}</label>
+                    <label class="form-label" for="admin-disabled-filter">{:trans; Disabled Status filter :}</label>
                     <select id="admin-disabled-filter" class="form-select" name="disabled_filter">
                         <option value="">{:trans; All disabled states :}</option>
                         {:each; admin_user->disabled_options dk drow >>
@@ -114,16 +114,30 @@
                                 </div>
                             </div>
                             <div class="col-12 col-xl-4">
-                                <div class="h-100 p-2 -border rounded">
-                                    {:bool; admin_user->can_full >>
-                                        <div class="mb-1"><strong>{:trans; Alias :}</strong> {:&;user->user_profile.alias:}</div>
-                                        <div class="mb-1"><strong>{:trans; Locale :}</strong> {:&;user->user_profile.locale:}</div>
-                                        <div class="mb-0"><strong>{:trans; Email :}</strong> {:&;user->user_email.email:}</div>
-                                    :}
-                                    {:!bool; admin_user->can_full >>
-                                        <div class="mb-1"><strong>{:trans; Alias :}</strong> {:&;user->user_profile.alias:}</div>
-                                        <div class="mb-0"><strong>{:trans; Locale :}</strong> {:&;user->user_profile.locale:}</div>
-                                    :}
+                                <div class="h-100 p-2 border rounded bg-light">
+                                    <h6 class="mb-2 fw-bold">{:trans; Email :}</h6>
+                                    <div class="mb-3"><code class="text-break">{:&;user->user_email->email:}</code></div>
+                                    <h6 class="mb-2 fw-bold">{:trans; Profiles :}</h6>
+                                    <div class="d-flex flex-column gap-1">
+                                        {:each; user->profiles k profile >>
+                                            <div class="p-2 border rounded bg-white shadow-sm mb-1">
+                                                <div class="d-flex justify-content-between align-items-center mb-1">
+                                                    <code class="small fw-bold">{:&;profile->profileId:}</code>
+                                                    <a class="btn btn-sm btn-outline-primary py-0" style="font-size: 0.7rem;" href="{:;admin_0yt2sa->manifest->route:}/profile?search={:&;profile->profileId:}">
+                                                        {:trans; Edit :}
+                                                    </a>
+                                                </div>
+                                                <div class="small text-muted">{:&;profile->alias:} ({:&;profile->locale:})</div>
+                                                {:each; user->profile_disabled kd dis >>
+                                                    {:same; /{:;profile->profileId:}/{:&;dis->profileId:}/ >>
+                                                        <div class="mt-1 small text-danger" style="font-size: 0.75rem;">
+                                                            <i class="bi bi-x-circle"></i> {:&;dis->name:}
+                                                        </div>
+                                                    :}
+                                                :}
+                                            </div>
+                                        :}
+                                    </div>
                                 </div>
                             </div>
                         </div>

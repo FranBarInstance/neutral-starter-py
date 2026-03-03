@@ -352,7 +352,7 @@ class User:
         if not result or not result.get("rows"):
             return False
 
-        profile_id = result["rows"][0][result["columns"].index("user_profile.profileId")]
+        profile_id = result["rows"][0][list(result["columns"]).index("user_profile.profileId")]
         return self.assign_role_to_profile(profile_id, code)
 
     def assign_role_to_profile(self, profile_id, role_code: str) -> bool:
@@ -382,7 +382,7 @@ class User:
         if not result or not result.get("rows"):
             return False
 
-        profile_id = result["rows"][0][result["columns"].index("user_profile.profileId")]
+        profile_id = result["rows"][0][list(result["columns"]).index("user_profile.profileId")]
         return self.remove_role_from_profile(profile_id, code)
 
     def remove_role_from_profile(self, profile_id, role_code: str) -> bool:
@@ -413,8 +413,27 @@ class User:
     def _rows_to_dicts(result) -> list[dict]:
         if not result or not result.get("rows"):
             return []
-        columns = list(dict.fromkeys(result["columns"]))
-        return [dict(zip(columns, row)) for row in result["rows"]]
+
+        cols = result["columns"]
+        rows = result["rows"]
+        res = []
+
+        for row in rows:
+            d = {}
+            for i, col in enumerate(cols):
+                val = row[i]
+                if "." in col:
+                    parts = col.split(".")
+                    curr = d
+                    for part in parts[:-1]:
+                        if part not in curr or not isinstance(curr[part], dict):
+                            curr[part] = {}
+                        curr = curr[part]
+                    curr[parts[-1]] = val
+                else:
+                    d[col] = val
+            res.append(d)
+        return res
 
     @staticmethod
     def _format_unix_timestamp(value) -> str:
@@ -469,44 +488,58 @@ class User:
         if self.model.has_error:
             return []
 
+        # Helper to recursively decode bytes
+        def decode_dict(target):
+            for k, v in list(target.items()):
+                if isinstance(v, (bytes, bytearray)):
+                    target[k] = v.decode("utf-8", errors="ignore")
+                elif isinstance(v, dict):
+                    decode_dict(v)
+
         users = self._rows_to_dicts(result)
         for user_row in users:
-            for key, value in list(user_row.items()):
-                if isinstance(value, (bytes, bytearray)):
-                    user_row[key] = value.decode("utf-8", errors="ignore")
+            decode_dict(user_row)
             user_row["created_human"] = self._format_unix_timestamp(user_row.get("created"))
             user_row["modified_human"] = self._format_unix_timestamp(user_row.get("modified"))
             user_row["lasttime_human"] = self._format_unix_timestamp(user_row.get("lasttime"))
             user_id = user_row.get("userId")
-            profile_id = user_row.get("user_profile.profileId")
-            if profile_id:
-                user_row["roles"] = self.get_roles_by_profile(profile_id)
+
+            # Fetch all profiles for this user
+            p_res = self.model.exec("user", "admin-get-profiles-by-userid", {"userId": user_id})
+            if self.model.has_error:
+                user_row["profiles"] = []
+                self.model.clear_error()
             else:
-                user_row["roles"] = self.get_roles(user_id)
+                user_row["profiles"] = self._rows_to_dicts(p_res)
+
+            # Keep compatibility for existing templates/logic that might look at user-level roles
+            # We use roles from any of the user's profiles
+            user_row["roles"] = self.get_roles(user_id)
+
             disabled_result = self.model.exec("user", "admin-get-disabled-by-userid", {"userId": user_id})
             if self.model.has_error:
                 user_row["disabled"] = []
                 self.model.clear_error()
-                continue
-            user_row["disabled"] = self._rows_to_dicts(disabled_result)
+            else:
+                user_row["disabled"] = self._rows_to_dicts(disabled_result)
             for disabled_row in user_row["disabled"]:
                 disabled_row["created_human"] = self._format_unix_timestamp(disabled_row.get("created"))
                 disabled_row["modified_human"] = self._format_unix_timestamp(disabled_row.get("modified"))
 
-            # Per-profile disabled info
-            profile_id = user_row.get("user_profile.profileId")
-            if profile_id:
-                p_disabled_result = self.model.exec("user", "admin-get-profile-disabled-by-profileid", {"profileId": profile_id})
+            # Per-profile disabled info for all profiles
+            user_row["profile_disabled"] = []
+            for profile in user_row["profiles"]:
+                p_id = profile.get("profileId")
+                p_disabled_result = self.model.exec("user", "admin-get-profile-disabled-by-profileid", {"profileId": p_id})
                 if self.model.has_error:
-                    user_row["profile_disabled"] = []
                     self.model.clear_error()
                 else:
-                    user_row["profile_disabled"] = self._rows_to_dicts(p_disabled_result)
-                    for p_disabled_row in user_row["profile_disabled"]:
-                        p_disabled_row["created_human"] = self._format_unix_timestamp(p_disabled_row.get("created"))
-                        p_disabled_row["modified_human"] = self._format_unix_timestamp(p_disabled_row.get("modified"))
-            else:
-                user_row["profile_disabled"] = []
+                    p_disabled = self._rows_to_dicts(p_disabled_result)
+                    for p_row in p_disabled:
+                        p_row["profileId"] = p_id
+                        p_row["created_human"] = self._format_unix_timestamp(p_row.get("created"))
+                        p_row["modified_human"] = self._format_unix_timestamp(p_row.get("modified"))
+                    user_row["profile_disabled"].extend(p_disabled)
 
         return users
 
@@ -591,7 +624,6 @@ class User:
                 'message': 'Could not generate reminder token and pin',
                 'reminder_data': {}
             }
-
         return {
             'success': True,
             'error': '',
@@ -606,3 +638,71 @@ class User:
                 'pin': pin_params['pin']
             }
         }
+
+    def admin_list_profiles(
+        self,
+        order_by="created",
+        search="",
+        role_code="",
+        disabled_reason="",
+        limit=100,
+        offset=0,
+    ) -> list[dict]:
+        """List profiles for admin views with roles and disabled flags."""
+        operation_map = {
+            "created": "admin-profile-list-by-created",
+            "modified": "admin-profile-list-by-modified",
+        }
+        operation = operation_map.get(order_by, "admin-profile-list-by-created")
+
+        normalized_disabled_reason = ""
+        if str(disabled_reason).strip():
+            try:
+                normalized_disabled_reason = int(disabled_reason)
+            except (TypeError, ValueError):
+                normalized_disabled_reason = ""
+
+        result = self.model.exec(
+            "user",
+            operation,
+            {
+                "search": (search or "").strip(),
+                "role_code": self._normalize_role_code(role_code),
+                "disabled_reason": normalized_disabled_reason,
+                "limit": int(limit),
+                "offset": int(offset),
+            },
+        )
+        if self.model.has_error:
+            return []
+
+        # Helper to recursively decode bytes
+        def decode_dict(target):
+            for k, v in list(target.items()):
+                if isinstance(v, (bytes, bytearray)):
+                    target[k] = v.decode("utf-8", errors="ignore")
+                elif isinstance(v, dict):
+                    decode_dict(v)
+
+        profiles = self._rows_to_dicts(result)
+        for profile_row in profiles:
+            decode_dict(profile_row)
+            profile_row["created_human"] = self._format_unix_timestamp(profile_row.get("created"))
+            profile_row["modified_human"] = self._format_unix_timestamp(profile_row.get("modified"))
+            profile_row["lasttime_human"] = self._format_unix_timestamp(profile_row.get("lasttime"))
+
+            profile_id = profile_row.get("user_profile", {}).get("profileId")
+
+            profile_row["roles"] = self.get_roles_by_profile(profile_id)
+
+            p_disabled_result = self.model.exec("user", "admin-get-profile-disabled-by-profileid", {"profileId": profile_id})
+            if self.model.has_error:
+                profile_row["profile_disabled"] = []
+                self.model.clear_error()
+            else:
+                profile_row["profile_disabled"] = self._rows_to_dicts(p_disabled_result)
+                for p_row in profile_row["profile_disabled"]:
+                    p_row["created_human"] = self._format_unix_timestamp(p_row.get("created"))
+                    p_row["modified_human"] = self._format_unix_timestamp(p_row.get("modified"))
+
+        return profiles

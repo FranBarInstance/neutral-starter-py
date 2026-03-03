@@ -141,6 +141,12 @@ class DispatcherAdmin(Dispatcher):
                 state["error"] = "Invalid disabled reason."
                 return
 
+            if can_moderate and not can_full:
+                allowed = {Config.DISABLED[UNVALIDATED], Config.DISABLED[MODERATED]}
+                if reason not in allowed:
+                    state["error"] = "Moderators can only set unvalidated or moderated."
+                    return
+
             if reason == Config.DISABLED[MODERATED] and not description:
                 state["error"] = "Description is required for moderated."
                 return
@@ -162,6 +168,15 @@ class DispatcherAdmin(Dispatcher):
             except ValueError:
                 state["error"] = "Invalid disabled reason."
                 return
+
+            if not can_full:
+                if not can_moderate:
+                    state["error"] = "Action not allowed for current role."
+                    return
+                allowed = {Config.DISABLED[UNVALIDATED], Config.DISABLED[MODERATED]}
+                if reason not in allowed:
+                    state["error"] = "Moderators can only remove unvalidated or moderated."
+                    return
 
             if not self.user.delete_profile_disabled(profile_id, reason):
                 state["error"] = "Unable to remove profile disabled status."
@@ -253,14 +268,25 @@ class DispatcherAdmin(Dispatcher):
         return state
 
     def _fill_user_list(self, state: dict) -> None:
-        state["users"] = self.user.admin_list_users(
-            order_by=state["order"],
-            search=state["search"],
-            role_code=state["role_filter"],
-            disabled_reason=state["disabled_filter"],
-            limit=100,
-            offset=0,
-        )
+        current = (self._raw_route or "").strip("/")
+        if current == "profile":
+            state["users"] = self.user.admin_list_profiles(
+                order_by=state["order"],
+                search=state["search"],
+                role_code=state["role_filter"],
+                disabled_reason=state["disabled_filter"],
+                limit=100,
+                offset=0,
+            )
+        else:
+            state["users"] = self.user.admin_list_users(
+                order_by=state["order"],
+                search=state["search"],
+                role_code=state["role_filter"],
+                disabled_reason=state["disabled_filter"],
+                limit=100,
+                offset=0,
+            )
 
         disabled_labels = {
             int(code): name

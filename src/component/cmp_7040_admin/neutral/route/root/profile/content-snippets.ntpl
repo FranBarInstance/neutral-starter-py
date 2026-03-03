@@ -54,8 +54,13 @@
                         <div class="row g-2">
                             <div class="col-12 col-xl-4">
                                 <div class="h-100 p-2 -border rounded">
-                                    <div class="mb-2"><strong>{:trans; Profile ID :}</strong> <code class="text-break">{:&;user->user_profile.profileId:}</code></div>
-                                    <div class="mb-2"><strong>{:trans; User ID :}</strong> <code class="text-break">{:&;user->userId:}</code></div>
+                                    <div class="mb-2"><strong>{:trans; Profile ID :}</strong> <code class="text-break">{:&;user->user_profile->profileId:}</code></div>
+                                    <div class="mb-2">
+                                        <strong>{:trans; User ID :}</strong>
+                                        <a href="{:;admin_0yt2sa->manifest->route:}/user?search={:&;user->userId:}">
+                                            <code class="text-break">{:&;user->userId:}</code>
+                                        </a>
+                                    </div>
                                     <div class="mb-2">
                                         <strong>{:trans; Profile Roles :}</strong><br>
                                         {:each; user->roles k role >>
@@ -63,7 +68,7 @@
                                         :}
                                     </div>
                                     <div class="mb-0">
-                                        <strong>{:trans; Profile Disabled :}</strong><br>
+                                        <strong>{:trans; Status :}</strong><br>
                                         {:each; user->profile_disabled k item >>
                                             <div class="small mb-1">
                                                 <code>{:&;item->name:}</code>
@@ -71,15 +76,19 @@
                                                     <span>- {:&;item->description:}</span>
                                                 :}
                                             </div>
+                                        :}{:else;
+                                            <div class="small mb-1">
+                                                <span class="text-muted">{:trans; none :}</span>
+                                            </div>
                                         :}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-xl-4">
                                 <div class="h-100 p-2 -border rounded">
-                                    <div class="mb-1"><strong>{:trans; Alias :}</strong> {:&;user->user_profile.alias:}</div>
-                                    <div class="mb-1"><strong>{:trans; Locale :}</strong> {:&;user->user_profile.locale:}</div>
-                                    <div class="mb-1"><strong>{:trans; Region :}</strong> {:&;user->user_profile.region:}</div>
+                                    <div class="mb-1"><strong>{:trans; Alias :}</strong> {:&;user->user_profile->alias:}</div>
+                                    <div class="mb-1"><strong>{:trans; Locale :}</strong> {:&;user->user_profile->locale:}</div>
+                                    <div class="mb-1"><strong>{:trans; Region :}</strong> {:&;user->user_profile->region:}</div>
                                 </div>
                             </div>
                             <div class="col-12 col-xl-4">
@@ -100,11 +109,10 @@
                                 <input type="hidden" name="disabled_filter" value="{:&;admin_profile->disabled_filter:}">
                                 <input type="hidden" name="order" value="{:&;admin_profile->order:}">
                                 <input type="hidden" name="user_id" value="{:&;user->userId:}">
-                                <input type="hidden" name="profile_id" value="{:&;user->user_profile.profileId:}">
+                                <input type="hidden" name="profile_id" value="{:&;user->user_profile->profileId:}">
                                 <div class="row g-2">
                                     <div class="col-12 col-xl-6">
                                         <div class="mb-0 p-2 border rounded">
-                                            <label class="small fw-bold mb-1">{:trans; Profile Roles :}</label>
                                             <select class="form-select form-select-sm mb-1" name="role_code">
                                                 <option value="">{:trans; Select role :}</option>
                                                 {:each; admin_profile->roles_available rk rcode >>
@@ -119,9 +127,8 @@
                                     </div>
                                     <div class="col-12 col-xl-6">
                                         <div class="mb-0 p-2 border rounded">
-                                            <label class="small fw-bold mb-1">{:trans; Profile Disabled Status :}</label>
                                             <select class="form-select form-select-sm mb-1" name="reason">
-                                                <option value="">{:trans; Select reason :}</option>
+                                                <option value="">{:trans; Select status :}</option>
                                                 {:each; admin_profile->disabled_options dk drow >>
                                                     <option value="{:&;drow->code:}">{:&;drow->name:} ({:&;drow->code:})</option>
                                                 :}
@@ -133,6 +140,27 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </form>
+                        :}
+                        {:!bool; admin_profile->can_full >>
+                            <form method="post" class="mb-0">
+                                <input type="hidden" name="ltoken" value="{:&;admin_profile->ltoken:}">
+                                <input type="hidden" name="search" value="{:&;admin_profile->search:}">
+                                <input type="hidden" name="role_filter" value="{:&;admin_profile->role_filter:}">
+                                <input type="hidden" name="disabled_filter" value="{:&;admin_profile->disabled_filter:}">
+                                <input type="hidden" name="order" value="{:&;admin_profile->order:}">
+                                <input type="hidden" name="user_id" value="{:&;user->userId:}">
+                                <input type="hidden" name="profile_id" value="{:&;user->user_profile->profileId:}">
+                                <select class="form-select form-select-sm mb-1" name="reason">
+                                    <option value="">{:trans; Select status :}</option>
+                                    <option value="{:;admin_profile->reason_unvalidated:}">{:trans; unvalidated :}</option>
+                                    <option value="{:;admin_profile->reason_moderated:}">{:trans; moderated :}</option>
+                                </select>
+                                <input class="form-control form-control-sm mb-1" name="description" placeholder="{:trans; required for moderated :}">
+                                <div class="d-grid gap-1">
+                                    <button class="btn btn-sm btn-outline-warning" type="submit" name="action" value="set-profile-disabled">{:trans; Set profile status :}</button>
+                                    <button class="btn btn-sm btn-outline-success" type="submit" name="action" value="remove-profile-disabled">{:trans; Remove profile status :}</button>
                                 </div>
                             </form>
                         :}
