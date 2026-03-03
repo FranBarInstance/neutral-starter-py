@@ -435,7 +435,7 @@ The standalone form page:
 {:data; #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->route->container:}">
+    <div class="{:;local::current->theme->class->container:}">
         {:snip; cmp_uuid:my_form-content :}
     </div>
 :}
@@ -443,7 +443,7 @@ The standalone form page:
 {:^;:}
 ```
 
-**Note:** Use `{:;local::current->route->container:}` or `{:;local::current->theme->class->container:}` for the container class (theme-provided).
+**Note:** Use `{:;local::current->theme->class->container:}` for the container class (theme-provided).
 
 #### Page Data (`root/subroute/data.json`)
 
