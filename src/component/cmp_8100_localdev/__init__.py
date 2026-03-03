@@ -16,16 +16,16 @@ def init_component(component, component_schema, _schema):
     drawer = {
         'menu': {
             'session:': {
-                'localadmin': {
+                'localdev': {
                     "name": "Local Admin",
-                    "tabs": "localadmin",
+                    "tabs": "localdev",
                     "icon": "x-icon-dev",
                 }
             },
             'session:true': {
-                'localadmin': {
+                'localdev': {
                     "name": "Local Admin",
-                    "tabs": "localadmin",
+                    "tabs": "localdev",
                     "icon": "x-icon-dev",
                 }
             }
@@ -36,8 +36,8 @@ def init_component(component, component_schema, _schema):
 
     menu = {
         "session:": {
-            "localadmin": {
-                "localadmin-home": {
+            "localdev": {
+                "localdev-home": {
                     "text": "Local Admin",
                     "link": route,
                     "icon": "x-icon-dev"
@@ -55,8 +55,8 @@ def init_component(component, component_schema, _schema):
             }
         },
         "session:true": {
-            "localadmin": {
-                "localadmin-home": {
+            "localdev": {
+                "localdev-home": {
                     "text": "Local Admin",
                     "link": route,
                     "icon": "x-icon-dev"

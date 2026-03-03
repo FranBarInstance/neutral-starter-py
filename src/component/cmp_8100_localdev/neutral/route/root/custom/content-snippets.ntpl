@@ -6,7 +6,7 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <p class="mb-3">{:trans; You must sign in to edit custom config overrides. :}</p>
-                    <a class="btn btn-outline-primary btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}/login">{:trans; Go to secure login :}</a>
+                    <a class="btn btn-outline-primary btn-sm" href="{:;localdev_0yt2sa->manifest->route:}/login">{:trans; Go to secure login :}</a>
                 </div>
             </div>
         :}{:else;
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </form>
-            {:snip; localadmin_0yt2sa:alerts :}
+            {:snip; localdev_0yt2sa:alerts :}
             <h4>{:trans; Existing Overrides :}</h4>
             <div class="table-responsive">
                 <table class="table table-sm table-striped">

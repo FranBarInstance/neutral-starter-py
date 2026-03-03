@@ -1,6 +1,6 @@
 {:snip; current:template:body-main-content >>
-    <div id="localadmin-login-wrap">
-        {:snip; localadmin_0yt2sa:alerts :}
+    <div id="localdev-login-wrap">
+        {:snip; localdev_0yt2sa:alerts :}
         {:snip; util:reload-page-self :}
     </div>
 :}

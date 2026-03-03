@@ -1,0 +1,145 @@
+{:data; #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::current->theme->class->container:} mb-3">
+        {:filled; admin_profile->error >>
+            <div class="alert alert-danger">{:&;admin_profile->error:}</div>
+        :}
+
+        {:filled; admin_profile->message >>
+            <div class="alert alert-success">{:&;admin_profile->message:}</div>
+        :}
+
+        <form method="get" class="card card-body mb-4">
+            <div class="row g-2 align-items-end">
+                <div class="col-12 col-lg-3">
+                    <label class="form-label" for="admin-search">{:trans; Search profileId or Alias :}</label>
+                    <input id="admin-search" class="form-control" name="search" value="{:&;admin_profile->search:}" placeholder="prof_... or alias...">
+                </div>
+                <div class="col-12 col-lg-2">
+                    <label class="form-label" for="admin-role-filter">{:trans; Role filter :}</label>
+                    <select id="admin-role-filter" class="form-select" name="role_filter">
+                        <option value="">{:trans; All roles :}</option>
+                        {:each; admin_profile->roles_available rk rcode >>
+                            <option value="{:&;rcode:}"{:same; /{:;admin_profile->role_filter:}/{:&;rcode:}/ >> selected :}>{:&;rcode:}</option>
+                        :}
+                    </select>
+                </div>
+                <div class="col-12 col-lg-3">
+                    <label class="form-label" for="admin-disabled-filter">{:trans; Profile Disabled filter :}</label>
+                    <select id="admin-disabled-filter" class="form-select" name="disabled_filter">
+                        <option value="">{:trans; All disabled states :}</option>
+                        {:each; admin_profile->disabled_options dk drow >>
+                            <option value="{:&;drow->code:}"{:same; /{:;admin_profile->disabled_filter:}/{:&;drow->code:}/ >> selected :}>{:&;drow->name:} ({:&;drow->code:})</option>
+                        :}
+                    </select>
+                </div>
+                <div class="col-12 col-lg-2">
+                    <label class="form-label" for="admin-order">{:trans; Order by :}</label>
+                    <select id="admin-order" class="form-select" name="order">
+                        <option value="created"{:same; /{:;admin_profile->order:}/created/ >> selected :}>{:trans; Created date :}</option>
+                        <option value="modified"{:same; /{:;admin_profile->order:}/modified/ >> selected :}>{:trans; Modified date :}</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-2 d-grid">
+                    <button class="btn btn-primary w-100" type="submit">{:trans; Apply filters :}</button>
+                </div>
+            </div>
+        </form>
+
+        <div>
+            {:each; admin_profile->users idx user >>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row g-2">
+                            <div class="col-12 col-xl-4">
+                                <div class="h-100 p-2 -border rounded">
+                                    <div class="mb-2"><strong>{:trans; Profile ID :}</strong> <code class="text-break">{:&;user->user_profile.profileId:}</code></div>
+                                    <div class="mb-2"><strong>{:trans; User ID :}</strong> <code class="text-break">{:&;user->userId:}</code></div>
+                                    <div class="mb-2">
+                                        <strong>{:trans; Profile Roles :}</strong><br>
+                                        {:each; user->roles k role >>
+                                            <span class="badge text-bg-secondary me-1 mb-1">{:&;role:}</span>
+                                        :}
+                                    </div>
+                                    <div class="mb-0">
+                                        <strong>{:trans; Profile Disabled :}</strong><br>
+                                        {:each; user->profile_disabled k item >>
+                                            <div class="small mb-1">
+                                                <code>{:&;item->name:}</code>
+                                                {:filled; item->description >>
+                                                    <span>- {:&;item->description:}</span>
+                                                :}
+                                            </div>
+                                        :}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-4">
+                                <div class="h-100 p-2 -border rounded">
+                                    <div class="mb-1"><strong>{:trans; Alias :}</strong> {:&;user->user_profile.alias:}</div>
+                                    <div class="mb-1"><strong>{:trans; Locale :}</strong> {:&;user->user_profile.locale:}</div>
+                                    <div class="mb-1"><strong>{:trans; Region :}</strong> {:&;user->user_profile.region:}</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-4">
+                                <div class="h-100 p-2 -border rounded">
+                                    <div class="mb-1"><strong>{:trans; Created :}</strong> {:&;user->created_human:}</div>
+                                    <div class="mb-1"><strong>{:trans; Modified :}</strong> {:&;user->modified_human:}</div>
+                                    <div class="mb-0"><strong>{:trans; Last access :}</strong> {:&;user->lasttime_human:}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        {:bool; admin_profile->can_full >>
+                            <form method="post" class="mb-0">
+                                <input type="hidden" name="ltoken" value="{:&;admin_profile->ltoken:}">
+                                <input type="hidden" name="search" value="{:&;admin_profile->search:}">
+                                <input type="hidden" name="role_filter" value="{:&;admin_profile->role_filter:}">
+                                <input type="hidden" name="disabled_filter" value="{:&;admin_profile->disabled_filter:}">
+                                <input type="hidden" name="order" value="{:&;admin_profile->order:}">
+                                <input type="hidden" name="user_id" value="{:&;user->userId:}">
+                                <input type="hidden" name="profile_id" value="{:&;user->user_profile.profileId:}">
+                                <div class="row g-2">
+                                    <div class="col-12 col-xl-6">
+                                        <div class="mb-0 p-2 border rounded">
+                                            <label class="small fw-bold mb-1">{:trans; Profile Roles :}</label>
+                                            <select class="form-select form-select-sm mb-1" name="role_code">
+                                                <option value="">{:trans; Select role :}</option>
+                                                {:each; admin_profile->roles_available rk rcode >>
+                                                    <option value="{:&;rcode:}">{:&;rcode:}</option>
+                                                :}
+                                            </select>
+                                            <div class="d-grid gap-1">
+                                                <button class="btn btn-sm btn-outline-primary" type="submit" name="action" value="assign-role">{:trans; Add role to profile :}</button>
+                                                <button class="btn btn-sm btn-outline-danger" type="submit" name="action" value="remove-role">{:trans; Remove role from profile :}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-6">
+                                        <div class="mb-0 p-2 border rounded">
+                                            <label class="small fw-bold mb-1">{:trans; Profile Disabled Status :}</label>
+                                            <select class="form-select form-select-sm mb-1" name="reason">
+                                                <option value="">{:trans; Select reason :}</option>
+                                                {:each; admin_profile->disabled_options dk drow >>
+                                                    <option value="{:&;drow->code:}">{:&;drow->name:} ({:&;drow->code:})</option>
+                                                :}
+                                            </select>
+                                            <input class="form-control form-control-sm mb-1" name="description" placeholder="{:trans; description (optional) :}">
+                                            <div class="d-grid gap-1">
+                                                <button class="btn btn-sm btn-outline-warning" type="submit" name="action" value="set-profile-disabled">{:trans; Set profile status :}</button>
+                                                <button class="btn btn-sm btn-outline-success" type="submit" name="action" value="remove-profile-disabled">{:trans; Remove profile status :}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        :}
+                    </div>
+                </div>
+            :}
+        </div>
+    </div>
+:}
+{:^;:}

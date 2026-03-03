@@ -190,7 +190,7 @@ $adminRoute = "/admin-$adminSuffix"
 $localAdminRoute = "/local-admin-$localAdminSuffix"
 
 $adminCustomPath = "src/component/cmp_7040_admin/custom.json"
-$localAdminCustomPath = "src/component/cmp_8100_localadmin/custom.json"
+$localAdminCustomPath = "src/component/cmp_8100_localdev/custom.json"
 New-Item -ItemType Directory -Path (Split-Path -Parent $adminCustomPath) -Force | Out-Null
 New-Item -ItemType Directory -Path (Split-Path -Parent $localAdminCustomPath) -Force | Out-Null
 
@@ -247,7 +247,7 @@ Write-Host "Installation completed."
 Write-Host "Important: first sign-in may require the PIN generated for the user."
 Write-Host "Keep the PIN shown in the create_user output."
 Write-Host "Admin route created: $adminRoute (src/component/cmp_7040_admin/custom.json)"
-Write-Host "Local admin route created: $localAdminRoute (src/component/cmp_8100_localadmin/custom.json)"
+Write-Host "Local dev route created: $localAdminRoute (src/component/cmp_8100_localdev/custom.json)"
 Write-Host "Project directory: $installDir"
 Write-Host "Run with:"
 Write-Host "  .\.venv\Scripts\python.exe src\run.py"

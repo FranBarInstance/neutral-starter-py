@@ -1,10 +1,10 @@
-"""Tests for localadmin component."""
+"""Tests for localdev component."""
 
 import json
 
 from app.config_db import get_component_custom_override
 
-_BP_NAME = "bp_cmp_8100_localadmin"
+_BP_NAME = "bp_cmp_8100_localdev"
 
 
 def _route_prefix(flask_app) -> str:
@@ -25,12 +25,12 @@ def _extract_csrf(html: str) -> str:
     return html[start:end]
 
 
-def test_localadmin_blueprint_registered(flask_app):
+def test_localdev_blueprint_registered(flask_app):
     """Component blueprint should be registered."""
     assert _BP_NAME in flask_app.blueprints
 
 
-def test_localadmin_root_message(client):
+def test_localdev_root_message(client):
     """Main route should show future message."""
     response = client.get(_route(client.application, "/"), environ_base={"REMOTE_ADDR": "127.0.0.1"})
     assert response.status_code == 200
@@ -38,19 +38,19 @@ def test_localadmin_root_message(client):
     assert _route(client.application, "/login/ajax").encode() in response.data
 
 
-def test_localadmin_custom_route_requires_auth(client):
+def test_localdev_custom_route_requires_auth(client):
     """Custom route should be blocked without active local admin session."""
     response = client.get(_route(client.application, "/custom"), environ_base={"REMOTE_ADDR": "127.0.0.1"})
     assert response.status_code == 403
 
 
-def test_localadmin_icons_route_requires_auth(client):
+def test_localdev_icons_route_requires_auth(client):
     """Icons route should be blocked without active local admin session."""
     response = client.get(_route(client.application, "/icons"), environ_base={"REMOTE_ADDR": "127.0.0.1"})
     assert response.status_code == 403
 
 
-def test_localadmin_login_and_role_variable(client):
+def test_localdev_login_and_role_variable(client):
     """Valid login should activate isolated session and role variable."""
     client.application.config["DEV_ADMIN_USER"] = "admin"
     client.application.config["DEV_ADMIN_PASSWORD"] = "secret"
@@ -83,7 +83,7 @@ def test_localadmin_login_and_role_variable(client):
     assert any("dev_admin_role=true" in item for item in set_cookie_headers)
 
 
-def test_localadmin_custom_save_override(client, tmp_path):
+def test_localdev_custom_save_override(client, tmp_path):
     """Authenticated user should save custom override into config.db from /custom."""
     db_path = tmp_path / "config.db"
     client.application.config["DEV_ADMIN_USER"] = "admin"
@@ -131,7 +131,7 @@ def test_localadmin_custom_save_override(client, tmp_path):
     assert stored == payload
 
 
-def test_localadmin_rejects_invalid_csrf(client):
+def test_localdev_rejects_invalid_csrf(client):
     """POST login must reject invalid CSRF token."""
     client.application.config["DEV_ADMIN_USER"] = "admin"
     client.application.config["DEV_ADMIN_PASSWORD"] = "secret"
@@ -150,7 +150,7 @@ def test_localadmin_rejects_invalid_csrf(client):
     assert b"Invalid CSRF token." in response.data
 
 
-def test_localadmin_login_form_allows_direct_and_ajax(client):
+def test_localdev_login_form_allows_direct_and_ajax(client):
     """Login form endpoint should support direct and AJAX access."""
     client.application.config["DEV_ADMIN_USER"] = "admin"
     client.application.config["DEV_ADMIN_PASSWORD"] = "secret"
@@ -167,10 +167,10 @@ def test_localadmin_login_form_allows_direct_and_ajax(client):
         environ_base={"REMOTE_ADDR": "127.0.0.1"},
     )
     assert allowed.status_code == 200
-    assert b"localadmin-login-form" in allowed.data
+    assert b"localdev-login-form" in allowed.data
 
 
-def test_localadmin_logout_ajax_requires_header_and_clears_cookie(client):
+def test_localdev_logout_ajax_requires_header_and_clears_cookie(client):
     """Logout AJAX should require header and close isolated session."""
     client.application.config["DEV_ADMIN_USER"] = "admin"
     client.application.config["DEV_ADMIN_PASSWORD"] = "secret"
@@ -208,7 +208,7 @@ def test_localadmin_logout_ajax_requires_header_and_clears_cookie(client):
     )
     assert allowed.status_code == 200
     assert b"Session closed." in allowed.data
-    assert b"localadmin-login-form" in allowed.data
+    assert b"localdev-login-form" in allowed.data
 
     set_cookie_headers = allowed.headers.getlist("Set-Cookie")
     assert any("DEV_ADMIN_SESSION=" in item and "Max-Age=0" in item for item in set_cookie_headers)

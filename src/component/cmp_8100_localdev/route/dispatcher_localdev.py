@@ -21,7 +21,7 @@ from utils.utils import get_ip
 _UUID_ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyz0123456789_")
 
 
-class DispatcherLocalAdmin(Dispatcher):
+class DispatcherLocalDev(Dispatcher):
     """Local Admin route dispatcher."""
 
     def __init__(self, req, comp_route, neutral_route=None, ltoken=None):

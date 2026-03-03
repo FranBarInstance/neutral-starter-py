@@ -1,0 +1,28 @@
+{:data; {:flg; require :} >> #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::current->theme->class->container:} py-4">
+        {:snip; localdev_0yt2sa:alerts :}
+
+        {:!bool; HAS_SESSION_DEV >>
+            {:snip; localdev_0yt2sa:login-form-wrapper :}
+        :}{:else;
+            <div class="card border-0 shadow-sm">
+                <div class="card-body">
+                    <p class="mb-3">{:trans; Authenticated in isolated local admin session. :}</p>
+                    <code>dev_admin_role={:;dev_admin_role:}</code>
+                    <div id="localdev-login-wrap">
+                        {:snip; localdev_0yt2sa:logout-form :}
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a class="btn btn-outline-primary btn-sm" href="{:;localdev_0yt2sa->manifest->route:}">{:trans; Go to component home :}</a>
+                        <a class="btn btn-outline-dark btn-sm" href="{:;localdev_0yt2sa->manifest->route:}/custom">{:trans; Open custom config editor :}</a>
+                        <a class="btn btn-outline-dark btn-sm" href="{:;localdev_0yt2sa->manifest->route:}/icons">{:trans; Open icons list :}</a>
+                    </div>
+                </div>
+            </div>
+        :}
+    </div>
+:}
+
+{:^;:}

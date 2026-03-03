@@ -247,6 +247,8 @@ def test_user_check_login_with_unconfirmed_pin_clears_state(monkeypatch):
                 }
             if operation == "get-pin":
                 return {"columns": ["pin"], "rows": [[params["pin"]]]}
+            if operation == "admin-list-by-created":
+                return {"columns": ["user_profile.profileId"], "rows": [["100"]]}
             return {"success": True}
 
     fake_model = FakeModel()
@@ -356,7 +358,10 @@ def test_user_role_helpers_assign_and_remove():
             self.roles = {"admin", "editor"}
 
         def exec(self, _domain, operation, params):
+            if operation == "admin-list-by-created":
+                return {"columns": ["user_profile.profileId"], "rows": [["p42"]]}
             if operation == "assign-role-by-code":
+                assert params["profileId"] == "p42"
                 assert params["code"] == "admin"
                 return {"success": True, "rowcount": 0}
             if operation == "has-role":
@@ -364,7 +369,13 @@ def test_user_role_helpers_assign_and_remove():
                     "columns": ["count"],
                     "rows": [[1 if params["code"] in self.roles else 0]],
                 }
+            if operation == "has-role-by-profileid":
+                return {
+                    "columns": ["count"],
+                    "rows": [[1 if params["code"] in self.roles else 0]],
+                }
             if operation == "remove-role-by-code":
+                assert params["profileId"] == "p42"
                 self.roles.discard(params["code"])
                 return {"success": True, "rowcount": 1}
             if operation == "get-roles-by-userid":

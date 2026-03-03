@@ -71,13 +71,14 @@ class DispatcherAdmin(Dispatcher):
 
         action = (request.form.get("action") or "").strip()
         user_id = (request.form.get("user_id") or "").strip()
+        profile_id = (request.form.get("profile_id") or "").strip()
         reason_raw = (request.form.get("reason") or "").strip()
         description = (request.form.get("description") or "").strip()
         role_code = (request.form.get("role_code") or "").strip().lower()
         delete_confirm = (request.form.get("delete_confirm") or "").strip()
 
-        if not user_id:
-            state["error"] = "user_id is required."
+        if not user_id and not profile_id:
+            state["error"] = "user_id or profile_id is required."
             return
 
         if action == "set-disabled":
@@ -130,38 +131,80 @@ class DispatcherAdmin(Dispatcher):
             state["search"] = user_id
             return
 
+        if action == "set-profile-disabled":
+            if not profile_id:
+                state["error"] = "profile_id is required."
+                return
+            try:
+                reason = int(reason_raw)
+            except ValueError:
+                state["error"] = "Invalid disabled reason."
+                return
+
+            if reason == Config.DISABLED[MODERATED] and not description:
+                state["error"] = "Description is required for moderated."
+                return
+
+            if not self.user.set_profile_disabled(profile_id, reason, description):
+                state["error"] = "Unable to update profile disabled status."
+                return
+
+            state["message"] = "Profile disabled status updated."
+            state["search"] = profile_id
+            return
+
+        if action == "remove-profile-disabled":
+            if not profile_id:
+                state["error"] = "profile_id is required."
+                return
+            try:
+                reason = int(reason_raw)
+            except ValueError:
+                state["error"] = "Invalid disabled reason."
+                return
+
+            if not self.user.delete_profile_disabled(profile_id, reason):
+                state["error"] = "Unable to remove profile disabled status."
+                return
+
+            state["message"] = "Profile disabled status removed."
+            state["search"] = profile_id
+            return
+
         if action == "assign-role":
             if not can_full:
                 state["error"] = "Action not allowed for moderator role."
                 return
-
             if not role_code:
                 state["error"] = "Role code is required."
                 return
-
-            if not self.user.assign_role(user_id, role_code):
+            if profile_id:
+                success = self.user.assign_role_to_profile(profile_id, role_code)
+            else:
+                success = self.user.assign_role(user_id, role_code)
+            if not success:
                 state["error"] = "Unable to assign role."
                 return
-
             state["message"] = "Role assigned."
-            state["search"] = user_id
+            state["search"] = profile_id or user_id
             return
 
         if action == "remove-role":
             if not can_full:
                 state["error"] = "Action not allowed for moderator role."
                 return
-
             if not role_code:
                 state["error"] = "Role code is required."
                 return
-
-            if not self.user.remove_role(user_id, role_code):
+            if profile_id:
+                success = self.user.remove_role_from_profile(profile_id, role_code)
+            else:
+                success = self.user.remove_role(user_id, role_code)
+            if not success:
                 state["error"] = "Unable to remove role."
                 return
-
             state["message"] = "Role removed."
-            state["search"] = user_id
+            state["search"] = profile_id or user_id
             return
 
         if action == "delete-user":
@@ -239,6 +282,20 @@ class DispatcherAdmin(Dispatcher):
                 )
             user_row["disabled"] = disabled_items
 
+            p_disabled_items = []
+            for item in user_row.get("profile_disabled", []):
+                reason_code = int(item.get("reason"))
+                p_disabled_items.append(
+                    {
+                        "reason": reason_code,
+                        "name": disabled_labels.get(reason_code, str(reason_code)),
+                        "description": item.get("description") or "",
+                        "created": item.get("created"),
+                        "modified": item.get("modified"),
+                    }
+                )
+            user_row["profile_disabled"] = p_disabled_items
+
     def render_route(self) -> Response:
         """Execute admin route logic and render."""
         self.schema_data["dispatch_result"] = True
@@ -268,7 +325,7 @@ class DispatcherAdmin(Dispatcher):
             }
             return self.view.render()
 
-        if current != "user":
+        if current not in ["user", "profile"]:
             abort(404)
 
         state = self._build_user_state(can_full=can_full, can_moderate=can_moderate)
@@ -289,5 +346,9 @@ class DispatcherAdmin(Dispatcher):
         state["reason_moderated"] = Config.DISABLED[MODERATED]
         state["reason_spam"] = Config.DISABLED[SPAM]
 
-        self.schema_data["admin_user"] = state
+        if current == "user":
+            self.schema_data["admin_user"] = state
+        else:
+            self.schema_data["admin_profile"] = state
+
         return self.view.render()

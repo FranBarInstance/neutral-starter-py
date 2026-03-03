@@ -137,7 +137,7 @@ Includes:
 - copy from `config/.env.example` to `config/.env` + `SECRET_KEY` generation
 - automatic generation of randomized routes in:
   - `src/component/cmp_7040_admin/custom.json` -> `/admin-[random]`
-  - `src/component/cmp_8100_localadmin/custom.json` -> `/local-admin-[random]`
+  - `src/component/cmp_8100_localdev/custom.json` -> `/local-dev-[random]`
 - `bootstrap_db.py`
 - required creation of `dev` user (prompts for data) and update of `DEV_ADMIN_*` in `.env`
 

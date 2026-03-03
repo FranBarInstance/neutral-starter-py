@@ -157,6 +157,40 @@ Outputs empty string. Use `{:^;:}` to eliminate whitespace, or `{:;:}` to preser
 
 ## Control Flow BIFs
 
+Use snippet for control flow
+
+```
+{:snippet; foo >>
+    ...
+:}
+
+{:snippet; bar >>
+    ...
+:}
+
+{:same; /{:;varname:}/foo/ >>
+    {:snippet; foo :}
+:}
+
+{:same; /{:;varname:}/bar/ >>
+    {:snippet; var :}
+:}
+```
+
+This is clearer and less computationally expensive:
+
+```
+{:snippet; option-foo >>
+    ...
+:}
+
+{:snippet; option-bar >>
+    ...
+:}
+
+{:snippet; option-{:;varname:} :}
+```
+
 ### Conditionals
 ```
 {:filled; varname >> content :}                  # If variable has content

@@ -6,9 +6,9 @@
             <div class="card-body">
                 <p class="mb-3">{:trans; This route is reserved for future development tools. :}</p>
                 <div class="d-flex flex-wrap gap-2">
-                    <a class="btn btn-outline-primary btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}/login">{:trans; Go to secure login :}</a>
-                    <a class="btn btn-outline-dark btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}/custom">{:trans; Open custom config editor :}</a>
-                    <a class="btn btn-outline-dark btn-sm" href="{:;localadmin_0yt2sa->manifest->route:}/icons">{:trans; Open icons list :}</a>
+                    <a class="btn btn-outline-primary btn-sm" href="{:;localdev_0yt2sa->manifest->route:}/login">{:trans; Go to secure login :}</a>
+                    <a class="btn btn-outline-dark btn-sm" href="{:;localdev_0yt2sa->manifest->route:}/custom">{:trans; Open custom config editor :}</a>
+                    <a class="btn btn-outline-dark btn-sm" href="{:;localdev_0yt2sa->manifest->route:}/icons">{:trans; Open icons list :}</a>
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@
     {:locale; #/locale-en.json :}
 :}
 
-{:snip; localadmin_0yt2sa:alerts >>
+{:snip; localdev_0yt2sa:alerts >>
     {:filled; local_admin->error >>
         <div class="alert alert-danger" role="alert">{:trans; {:;local_admin->error:} :}</div>
     :}
@@ -35,13 +35,13 @@
     :}
 :}
 
-{:snip; localadmin_0yt2sa:login-form >>
-    {:fetch; |{:;localadmin_0yt2sa->manifest->route:}/login/ajax|form|localadmin-login-wrap|localadmin-login-form| >>
+{:snip; localdev_0yt2sa:login-form >>
+    {:fetch; |{:;localdev_0yt2sa->manifest->route:}/login/ajax|form|localdev-login-wrap|localdev-login-form| >>
         <form
-            id="localadmin-login-form"
-            class="localadmin-login-form card card-body border-0 shadow-sm"
+            id="localdev-login-form"
+            class="localdev-login-form card card-body border-0 shadow-sm"
             method="POST"
-            action="{:;localadmin_0yt2sa->manifest->route:}/login/ajax"
+            action="{:;localdev_0yt2sa->manifest->route:}/login/ajax"
             autocomplete="off"
         >
             <input type="hidden" name="action" value="login">
@@ -51,7 +51,7 @@
                 <span class="input-group-text {:;local::x-icon-user:}"></span>
                 <div class="form-floating">
                     <input
-                        id="localadmin-username"
+                        id="localdev-username"
                         class="form-control"
                         name="username"
                         type="text"
@@ -63,7 +63,7 @@
                         placeholder="{:trans; Username :}"
                         required
                     >
-                    <label for="localadmin-username">{:trans; Username :}</label>
+                    <label for="localdev-username">{:trans; Username :}</label>
                 </div>
             </div>
             {:snip; error-msg:username :}
@@ -73,7 +73,7 @@
                 <span class="input-group-text {:;local::x-icon-user-password:}"></span>
                 <div class="form-floating">
                     <input
-                        id="localadmin-password"
+                        id="localdev-password"
                         class="form-control"
                         name="password"
                         type="password"
@@ -82,7 +82,7 @@
                         placeholder="{:trans; Password :}"
                         required
                     >
-                    <label for="localadmin-password">{:trans; Password :}</label>
+                    <label for="localdev-password">{:trans; Password :}</label>
                 </div>
             </div>
             {:snip; error-msg:password :}
@@ -102,12 +102,12 @@
     :}
 :}
 
-{:snip; localadmin_0yt2sa:logout-form >>
-    {:fetch; |{:;localadmin_0yt2sa->manifest->route:}/logout/ajax|form|localadmin-login-wrap|localadmin-logout-form| >>
+{:snip; localdev_0yt2sa:logout-form >>
+    {:fetch; |{:;localdev_0yt2sa->manifest->route:}/logout/ajax|form|localdev-login-wrap|localdev-logout-form| >>
         <form
-            class="localadmin-logout-form mt-3"
+            class="localdev-logout-form mt-3"
             method="POST"
-            action="{:;localadmin_0yt2sa->manifest->route:}/logout/ajax"
+            action="{:;localdev_0yt2sa->manifest->route:}/logout/ajax"
         >
             <input type="hidden" name="action" value="logout">
             <input type="hidden" name="csrf_token" value="{:&;local_admin->csrf_token:}">
@@ -116,17 +116,17 @@
     :}
 :}
 
-{:snip; localadmin_0yt2sa:login-modal >>
-    <div class="modal fade" id="localAdminLoginModal" tabindex="-1" aria-labelledby="localAdminLoginModalLabel" aria-hidden="true">
+{:snip; localdev_0yt2sa:login-modal >>
+    <div class="modal fade" id="localDevLoginModal" tabindex="-1" aria-labelledby="localDevLoginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="localAdminLoginModalLabel">{:trans; Local Admin Login :}</h5>
+                    <h5 class="modal-title" id="localDevLoginModalLabel">{:trans; Local Admin Login :}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="localadmin-login-modal-wrap">
-                        {:fetch; |{:;localadmin_0yt2sa->manifest->route:}/login/ajax|visible|localadmin-login-modal-wrap| >>
+                    <div id="localdev-login-modal-wrap">
+                        {:fetch; |{:;localdev_0yt2sa->manifest->route:}/login/ajax|visible|localdev-login-modal-wrap| >>
                             <div class="text-center p-3">
                                 <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                                 <span class="ms-2">{:trans; Loading secure form... :}</span>
@@ -139,13 +139,13 @@
     </div>
 :}
 
-{:snip; localadmin_0yt2sa:login-form-wrapper >>
+{:snip; localdev_0yt2sa:login-form-wrapper >>
     <div class="container p-0">
         <div class="row justify-content-center">
             <div class="col-md-9 col-lg-7 col-12 max-w-550px">
                 <div class="card border-light mb-3 mt-md-4">
-                    <div id="localadmin-login-wrap" class="card-body px-md-4 pb-md-4 pt-md-3 p-2">
-                        {:snip; localadmin_0yt2sa:login-form :}
+                    <div id="localdev-login-wrap" class="card-body px-md-4 pb-md-4 pt-md-3 p-2">
+                        {:snip; localdev_0yt2sa:login-form :}
                     </div>
                 </div>
             </div>
@@ -154,5 +154,5 @@
 :}
 
 {:moveto; /body >>
-    {:snip; localadmin_0yt2sa:login-modal :}
+    {:snip; localdev_0yt2sa:login-modal :}
 :}

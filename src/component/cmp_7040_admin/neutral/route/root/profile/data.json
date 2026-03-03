@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Profiles Admin",
+                "description": "Administer user profiles, roles, and status",
+                "h1": "Profiles"
+            }
+        }
+    }
+}

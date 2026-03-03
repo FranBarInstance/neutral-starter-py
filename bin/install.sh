@@ -163,7 +163,7 @@ LOCAL_ADMIN_SUFFIX="$(printf "%s\n" "$ROUTE_SUFFIXES" | sed -n '2p')"
 ADMIN_ROUTE="/admin-$ADMIN_SUFFIX"
 LOCAL_ADMIN_ROUTE="/local-admin-$LOCAL_ADMIN_SUFFIX"
 
-mkdir -p src/component/cmp_7040_admin src/component/cmp_8100_localadmin
+mkdir -p src/component/cmp_7040_admin src/component/cmp_8100_localdev
 cat > src/component/cmp_7040_admin/custom.json <<EOF
 {
   "manifest": {
@@ -171,7 +171,7 @@ cat > src/component/cmp_7040_admin/custom.json <<EOF
   }
 }
 EOF
-cat > src/component/cmp_8100_localadmin/custom.json <<EOF
+cat > src/component/cmp_8100_localdev/custom.json <<EOF
 {
   "manifest": {
     "route": "$LOCAL_ADMIN_ROUTE"
@@ -210,7 +210,7 @@ echo "Installation completed."
 echo "Important: first sign-in may require the PIN generated for the user."
 echo "Keep the PIN shown in the create_user output."
 echo "Admin route created: $ADMIN_ROUTE (src/component/cmp_7040_admin/custom.json)"
-echo "Local admin route created: $LOCAL_ADMIN_ROUTE (src/component/cmp_8100_localadmin/custom.json)"
+echo "Local dev route created: $LOCAL_ADMIN_ROUTE (src/component/cmp_8100_localdev/custom.json)"
 echo "Project directory: $INSTALL_DIR"
 echo "Run with:"
 echo "  cd \"$INSTALL_DIR\" && . .venv/bin/activate && python src/run.py"

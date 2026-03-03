@@ -46,7 +46,7 @@ def test_bootstrap_databases_creates_required_schema(tmp_path):
         "user_disabled",
         "pin",
         "role",
-        "user_role",
+        "profile_role",
     ):
         assert required in pwa_tables
     assert "session" in safe_tables

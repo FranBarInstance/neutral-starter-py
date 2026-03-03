@@ -240,13 +240,14 @@ class User:
             'alias': user_data_list[0].get('user_profile.alias') or "",
             'locale': user_data_list[0].get('user_profile.locale') or "",
             "user_disabled": {},
+            "profile_disabled": {},
             "roles": self._extract_roles(user_data_list),
         }
 
         for row in user_data_list:
             if row.get('user_disabled.reason'):
                 key = str(row['user_disabled.reason'])
-                user_data['user_disabled'][Config.DISABLED_KEY[key]] = key
+                user_data['user_disabled'][Config.DISABLED_KEY.get(key, key)] = key
                 if pin and row['user_disabled.reason'] == unconfirmed:
                     target = str(unconfirmed)
                     result_pin = self.model.exec('user', 'get-pin', {
@@ -260,7 +261,10 @@ class User:
                             "reason": unconfirmed, "userId": user_data_list[0]['userId']
                         })
                         self.model.exec('user', 'delete-pin', {"target": target, "userId": user_data_list[0]['userId'], "pin": pin})
-                        user_data['user_disabled'].pop(Config.DISABLED_KEY[key])
+                        user_data['user_disabled'].pop(Config.DISABLED_KEY.get(key, key))
+            if row.get('profile_disabled.reason'):
+                key = str(row['profile_disabled.reason'])
+                user_data['profile_disabled'][Config.DISABLED_KEY.get(key, key)] = key
 
         return user_data
 
@@ -299,7 +303,7 @@ class User:
         }
 
     def get_roles(self, user_id) -> list[str]:
-        """Get all role codes assigned to a user."""
+        """Get all role codes assigned to a user (via any of their profiles)."""
         if not user_id:
             return []
         result = self.model.exec("user", "get-roles-by-userid", {"userId": user_id})
@@ -307,8 +311,17 @@ class User:
             return []
         return sorted({str(row[0]) for row in result["rows"] if row and row[0]})
 
+    def get_roles_by_profile(self, profile_id) -> list[str]:
+        """Get all role codes assigned to a specific profile."""
+        if not profile_id:
+            return []
+        result = self.model.exec("user", "get-roles-by-profileid", {"profileId": profile_id})
+        if not result or not result.get("rows"):
+            return []
+        return sorted({str(row[0]) for row in result["rows"] if row and row[0]})
+
     def has_role(self, user_id, role_code: str) -> bool:
-        """Check if a user has a role."""
+        """Check if a user has a role in any of their profiles."""
         code = self._normalize_role_code(role_code)
         if not user_id or not code:
             return False
@@ -317,37 +330,76 @@ class User:
             return False
         return bool(result["rows"][0][0])
 
+    def has_role_by_profile(self, profile_id, role_code: str) -> bool:
+        """Check if a specific profile has a role."""
+        code = self._normalize_role_code(role_code)
+        if not profile_id or not code:
+            return False
+        result = self.model.exec("user", "has-role-by-profileid", {"profileId": profile_id, "code": code})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            return False
+        return bool(result["rows"][0][0])
+
     def assign_role(self, user_id, role_code: str) -> bool:
-        """Assign a role to a user. Idempotent."""
+        """Assign a role to a user. If the user has multiple profiles, it's ambiguous,
+        so it assigns to the first profile found. Use assign_role_to_profile for clarity."""
         code = self._normalize_role_code(role_code)
         if not user_id or not code:
+            return False
+
+        # For backward compatibility, we find the first profile of the user
+        result = self.model.exec("user", "admin-list-by-created", {"search": user_id, "role_code": "", "disabled_reason": "", "limit": 1, "offset": 0})
+        if not result or not result.get("rows"):
+            return False
+
+        profile_id = result["rows"][0][result["columns"].index("user_profile.profileId")]
+        return self.assign_role_to_profile(profile_id, code)
+
+    def assign_role_to_profile(self, profile_id, role_code: str) -> bool:
+        """Assign a role to a specific profile. Idempotent."""
+        code = self._normalize_role_code(role_code)
+        if not profile_id or not code:
             return False
         result = self.model.exec(
             "user",
             "assign-role-by-code",
-            {"userId": user_id, "code": code, "created": self.now},
+            {"profileId": profile_id, "code": code, "created": self.now},
         )
         if self.model.has_error:
             return False
         if result and result.get("rowcount", 0) > 0:
             return True
-        return self.has_role(user_id, code)
+        return self.has_role_by_profile(profile_id, code)
 
     def remove_role(self, user_id, role_code: str) -> bool:
-        """Remove a role from a user. Idempotent."""
+        """Remove a role from a user. Ambiguous if multiple profiles exist.
+        Removes from the first profile found."""
         code = self._normalize_role_code(role_code)
         if not user_id or not code:
+            return False
+
+        result = self.model.exec("user", "admin-list-by-created", {"search": user_id, "role_code": "", "disabled_reason": "", "limit": 1, "offset": 0})
+        if not result or not result.get("rows"):
+            return False
+
+        profile_id = result["rows"][0][result["columns"].index("user_profile.profileId")]
+        return self.remove_role_from_profile(profile_id, code)
+
+    def remove_role_from_profile(self, profile_id, role_code: str) -> bool:
+        """Remove a role from a specific profile. Idempotent."""
+        code = self._normalize_role_code(role_code)
+        if not profile_id or not code:
             return False
         result = self.model.exec(
             "user",
             "remove-role-by-code",
-            {"userId": user_id, "code": code},
+            {"profileId": profile_id, "code": code},
         )
         if self.model.has_error:
             return False
         if result and result.get("rowcount", 0) > 0:
             return True
-        return not self.has_role(user_id, code)
+        return not self.has_role_by_profile(profile_id, code)
 
     def build_session_user_data(self, user_id) -> dict:
         """Build a minimal session payload with current user roles."""
@@ -426,7 +478,11 @@ class User:
             user_row["modified_human"] = self._format_unix_timestamp(user_row.get("modified"))
             user_row["lasttime_human"] = self._format_unix_timestamp(user_row.get("lasttime"))
             user_id = user_row.get("userId")
-            user_row["roles"] = self.get_roles(user_id)
+            profile_id = user_row.get("user_profile.profileId")
+            if profile_id:
+                user_row["roles"] = self.get_roles_by_profile(profile_id)
+            else:
+                user_row["roles"] = self.get_roles(user_id)
             disabled_result = self.model.exec("user", "admin-get-disabled-by-userid", {"userId": user_id})
             if self.model.has_error:
                 user_row["disabled"] = []
@@ -436,6 +492,21 @@ class User:
             for disabled_row in user_row["disabled"]:
                 disabled_row["created_human"] = self._format_unix_timestamp(disabled_row.get("created"))
                 disabled_row["modified_human"] = self._format_unix_timestamp(disabled_row.get("modified"))
+
+            # Per-profile disabled info
+            profile_id = user_row.get("user_profile.profileId")
+            if profile_id:
+                p_disabled_result = self.model.exec("user", "admin-get-profile-disabled-by-profileid", {"profileId": profile_id})
+                if self.model.has_error:
+                    user_row["profile_disabled"] = []
+                    self.model.clear_error()
+                else:
+                    user_row["profile_disabled"] = self._rows_to_dicts(p_disabled_result)
+                    for p_disabled_row in user_row["profile_disabled"]:
+                        p_disabled_row["created_human"] = self._format_unix_timestamp(p_disabled_row.get("created"))
+                        p_disabled_row["modified_human"] = self._format_unix_timestamp(p_disabled_row.get("modified"))
+            else:
+                user_row["profile_disabled"] = []
 
         return users
 
@@ -450,6 +521,37 @@ class User:
                 "description": (description or "").strip() or None,
                 "created": self.now,
                 "modified": self.now,
+            },
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def set_profile_disabled(self, profile_id, reason, description="") -> bool:
+        """Add or update a disabled reason for a profile."""
+        result = self.model.exec(
+            "user",
+            "upsert-profile-disabled",
+            {
+                "reason": reason,
+                "profileId": profile_id,
+                "description": (description or "").strip() or None,
+                "created": self.now,
+                "modified": self.now,
+            },
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def delete_profile_disabled(self, profile_id, reason) -> bool:
+        """Remove a disabled reason for a profile."""
+        result = self.model.exec(
+            "user",
+            "delete-profile-disabled",
+            {
+                "reason": reason,
+                "profileId": profile_id,
             },
         )
         if self.model.has_error:
