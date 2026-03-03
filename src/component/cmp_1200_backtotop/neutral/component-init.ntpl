@@ -5,7 +5,7 @@
 :}
 
 {:snip; backtotop_0yt2sa-body-end >>
-    <button type="buttom" id="back-to-top" class="back-to-top d-none" title="{:trans; ref:backtotop:go-top :}" aria-label="{:trans; ref:backtotop:go-top :}">
+    <button type="buttom" id="back-to-top" class="back-to-top" title="{:trans; ref:backtotop:go-top :}" aria-label="{:trans; ref:backtotop:go-top :}">
         <span><i class="{:;local::x-icon-up:} x-icon-24px"></i></span>
     </button>
     <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/backtotop.min.js"></script>

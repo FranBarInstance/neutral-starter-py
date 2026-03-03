@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 backToTop.style.opacity = '0';
                 setTimeout(() => {
                     backToTop.style.display = 'none';
-                }, 200);
+                }, 100);
             }
 
             if (setOpacity) {
