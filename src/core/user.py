@@ -14,8 +14,14 @@ from .model import Model
 # import pprint
 
 
-class User:
-    """User creation and authentication handler"""
+class User:  # pylint: disable=too-many-public-methods
+    """User creation and authentication handler.
+
+    This class intentionally has many public methods as it serves as the primary
+    interface for all user-related operations including authentication,
+    profile management, role assignment, and administrative functions.
+    The high method count reflects the comprehensive nature of user management.
+    """
     RBAC_DEFAULT_ROLES = (
         ("role_dev", "dev", "Developer", "Development role"),
         ("role_admin", "admin", "Administrator", "Administrative role"),
@@ -585,6 +591,20 @@ class User:
             {
                 "reason": reason,
                 "profileId": profile_id,
+            },
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def delete_user_disabled(self, user_id, reason) -> bool:
+        """Remove a disabled reason for a user."""
+        result = self.model.exec(
+            "user",
+            "delete-disabled",
+            {
+                "reason": reason,
+                "userId": user_id,
             },
         )
         if self.model.has_error:

@@ -42,6 +42,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-lg-2 d-grid">
+                    <a class="btn btn-sm btn-secondary w-100 mb-2" href="{:;admin_0yt2sa->manifest->route:}/profile">{:trans; Clear filters :}</a>
                     <button class="btn btn-primary w-100" type="submit">{:trans; Apply filters :}</button>
                 </div>
             </div>

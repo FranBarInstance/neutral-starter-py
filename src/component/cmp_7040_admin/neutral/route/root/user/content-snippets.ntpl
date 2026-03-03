@@ -45,6 +45,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-lg-2 d-grid">
+                    <a class="btn btn-sm btn-secondary w-100 mb-2" href="{:;admin_0yt2sa->manifest->route:}/user">{:trans; Clear filters :}</a>
                     <button class="btn btn-primary w-100" type="submit">{:trans; Apply filters :}</button>
                 </div>
             </div>
@@ -57,7 +58,7 @@
                         <div class="row g-2">
                             <div class="col-12 col-xl-4">
                                 <div class="h-100 p-2 -border rounded">
-                                    <div class="mb-2"><strong>{:trans; User ID :}</strong> <code class="text-break">{:&;user->userId:}</code></div>
+                                    <div class="mb-2"><strong>{:trans; User ID :}</strong> <code class="text-break ms-1">{:&;user->userId:}</code></div>
                                     {:bool; admin_user->can_full >>
                                         <div class="mb-2">
                                             <strong>{:trans; Roles :}</strong><br>
@@ -114,10 +115,9 @@
                                 </div>
                             </div>
                             <div class="col-12 col-xl-4">
-                                <div class="h-100 p-2 border rounded bg-light">
-                                    <h6 class="mb-2 fw-bold">{:trans; Email :}</h6>
-                                    <div class="mb-3"><code class="text-break">{:&;user->user_email->email:}</code></div>
-                                    <h6 class="mb-2 fw-bold">{:trans; Profiles :}</h6>
+                                <div class="h-100 p-2 border rounded">
+                                    <div class="mb-2"><strong>{:trans; Email :}</strong> <code class="text-break ms-1">{:&;user->user_email->email:}</code></div>
+                                    <div class="mb-2"><strong>{:trans; Profiles :}</strong></div>
                                     <div class="d-flex flex-column gap-1">
                                         {:each; user->profiles k profile >>
                                             <div class="p-2 border rounded bg-white shadow-sm mb-1">

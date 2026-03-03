@@ -1,21 +1,51 @@
 """Dispatcher for admin component routes and user administration logic."""
 
+import re
 import time
 
 from flask import Response, abort, request
 
 from app.config import Config
-from constants import DELETED, MODERATED, SPAM, UNCONFIRMED, UNVALIDATED
+from constants import (
+    DELETED,
+    MODERATED,
+    SPAM,
+    UNCONFIRMED,
+    UNVALIDATED,
+)
 from core.dispatcher import Dispatcher
 from utils.tokens import ltoken_check
 
 
-class DispatcherAdmin(Dispatcher):
-    """Admin route dispatcher with role-based access control."""
+class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
+    """Admin route dispatcher with role-based access control.
+
+    This class intentionally has few public methods because it inherits
+    from Dispatcher and only overrides the render_route method.
+    Additional methods are private helpers for security validation.
+    """
+
+    # Valid ID pattern: alphanumeric, hyphens, and underscores only
+    _VALID_ID_PATTERN = re.compile(r'^[a-zA-Z0-9_-]+$')
+    _MAX_ID_LENGTH = 64
 
     def __init__(self, req, comp_route, neutral_route=None, ltoken=None):
         self._raw_route = comp_route
         super().__init__(req, comp_route, neutral_route, ltoken)
+
+    @classmethod
+    def _is_valid_id(cls, value: str) -> bool:
+        """Validate that an ID contains only allowed characters and length."""
+        if not value or not isinstance(value, str):
+            return False
+        if len(value) > cls._MAX_ID_LENGTH:
+            return False
+        return bool(cls._VALID_ID_PATTERN.match(value))
+
+    @staticmethod
+    def _is_valid_disabled_reason(reason: int) -> bool:
+        """Validate that a disabled reason is one of the allowed values."""
+        return reason in Config.DISABLED.values()
 
     @staticmethod
     def _build_disabled_options() -> list[dict]:
@@ -60,7 +90,15 @@ class DispatcherAdmin(Dispatcher):
 
         return user_id, roles
 
-    def _apply_user_action(self, state: dict, can_full: bool, can_moderate: bool) -> None:
+    def _apply_user_action(self, state: dict, can_full: bool, can_moderate: bool) -> None:  # pylint: disable=too-many-return-statements,too-many-branches,too-many-statements
+        """Apply user actions with comprehensive security validation.
+
+        This function handles multiple action types (set-disabled, remove-disabled,
+        assign-role, remove-role, delete-user, etc.) with early return pattern
+        for security validation. The complexity is necessary to ensure each
+        action is properly validated for permissions and input format before
+        execution. Refactoring would reduce security clarity.
+        """
         if request.method != "POST":
             return
 
@@ -77,6 +115,14 @@ class DispatcherAdmin(Dispatcher):
         role_code = (request.form.get("role_code") or "").strip().lower()
         delete_confirm = (request.form.get("delete_confirm") or "").strip()
 
+        # Validate IDs if provided
+        if user_id and not self._is_valid_id(user_id):
+            state["error"] = "Invalid user_id format."
+            return
+        if profile_id and not self._is_valid_id(profile_id):
+            state["error"] = "Invalid profile_id format."
+            return
+
         if not user_id and not profile_id:
             state["error"] = "user_id or profile_id is required."
             return
@@ -86,6 +132,10 @@ class DispatcherAdmin(Dispatcher):
                 reason = int(reason_raw)
             except ValueError:
                 state["error"] = "Invalid disabled reason."
+                return
+
+            if not self._is_valid_disabled_reason(reason):
+                state["error"] = "Invalid disabled reason value."
                 return
 
             if can_moderate and not can_full:
@@ -113,6 +163,10 @@ class DispatcherAdmin(Dispatcher):
                 state["error"] = "Invalid disabled reason."
                 return
 
+            if not self._is_valid_disabled_reason(reason):
+                state["error"] = "Invalid disabled reason value."
+                return
+
             if not can_full:
                 if not can_moderate:
                     state["error"] = "Action not allowed for moderator role."
@@ -122,8 +176,7 @@ class DispatcherAdmin(Dispatcher):
                     state["error"] = "Moderators can only remove unvalidated or moderated."
                     return
 
-            self.user.model.exec("user", "delete-disabled", {"reason": reason, "userId": user_id})
-            if self.user.model.has_error:
+            if not self.user.delete_user_disabled(user_id, reason):
                 state["error"] = "Unable to remove disabled status."
                 return
 
@@ -139,6 +192,10 @@ class DispatcherAdmin(Dispatcher):
                 reason = int(reason_raw)
             except ValueError:
                 state["error"] = "Invalid disabled reason."
+                return
+
+            if not self._is_valid_disabled_reason(reason):
+                state["error"] = "Invalid disabled reason value."
                 return
 
             if can_moderate and not can_full:
@@ -167,6 +224,10 @@ class DispatcherAdmin(Dispatcher):
                 reason = int(reason_raw)
             except ValueError:
                 state["error"] = "Invalid disabled reason."
+                return
+
+            if not self._is_valid_disabled_reason(reason):
+                state["error"] = "Invalid disabled reason value."
                 return
 
             if not can_full:
