@@ -1,6 +1,6 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-{:snip; current:template:head:materialicons_0yt2sa >>
+{:snip; materialicons_0yt2sa-head >>
     <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 :}
 
@@ -49,3 +49,5 @@
         :}
     </div>
 :}
+
+{:moveto; /head >> {:snip; materialicons_0yt2sa-head :} :}

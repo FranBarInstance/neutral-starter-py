@@ -13,15 +13,9 @@
         {:each; local::current->route->meta name content >>
             <meta name="{:;name:}" content="{:;content:}" />
         :}
-        {:each; COMPONENTS_MAP_BY_UUID component none >>
-            {:snip; current:template:head:{:;component:} :}
-        :}
         {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
     </head>
     <body class="{:;local::current->theme->class->body:}">
-        {:each; COMPONENTS_MAP_BY_UUID component none >>
-            {:snip; current:template:body-start:{:;component:} :}
-        :}
         {:snip; current:template:main-navbar :}
         {:snip; current:template:main-drawer :}
         {:snip; current:template:page-h1 :}
@@ -51,9 +45,6 @@
         {:snip; current:template:body-footer :}
         {:snip; current:template:modals :}
         {:snip; neutral.js :}
-        {:each; COMPONENTS_MAP_BY_UUID component none >>
-            {:snip; current:template:body-end:{:;component:} :}
-        :}
         <script nonce="{:;CSP_NONCE:}">var lib_config = { cookie_tab: '{:;TAB_CHANGES_KEY:}', reload_msg: '{:trans; ref:tab-changes:reload_msg :}'};</script>
         <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/lib.min.js"></script>
         <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/modal-dynamic.min.js"></script>

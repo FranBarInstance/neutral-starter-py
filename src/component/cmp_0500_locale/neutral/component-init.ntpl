@@ -17,7 +17,7 @@
     :}
 :}
 
-{:snip; current:template:body-end:locale_0yt2sa >>
+{:snip; locale_0yt2sa-body-end >>
     {:filled; current->site->languages->1 >>
         {:bool; locale_0yt2sa->manifest->config->menu-drawer-enable >>
             <script nonce="{:;CSP_NONCE:}">
@@ -31,3 +31,5 @@
         :}
     :}
 :}
+
+{:moveto; /body >> {:snip; locale_0yt2sa-body-end :} :}

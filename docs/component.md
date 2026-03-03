@@ -851,7 +851,7 @@ Snippets available globally across all components
 Add CSS/JS to head
 ------------------
 *:}
-{:snip; current:template:head:component >>
+{:moveto; /head >>
 <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;CURRENT_COMP_ROUTE:}/static/component.css" />
 <style nonce="{:;CSP_NONCE:}">
   .component-custom { color: blue; }
@@ -862,7 +862,7 @@ Add CSS/JS to head
 Add JavaScript to body end
 --------------------------
 *:}
-{:snip; current:template:body-end:component >>
+{:moveto; /body >>
 <script nonce="{:;CSP_NONCE:}">
   (function() {
     console.log("Component initialized");

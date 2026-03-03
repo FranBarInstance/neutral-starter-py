@@ -34,7 +34,7 @@
     :}
 :}
 
-{:snip; current:template:body-end:settheme_0yt2sa >>
+{:snip; settheme_0yt2sa-body-end >>
     {:bool; settheme_0yt2sa->manifest->config->menu-drawer-enable >>
         {:filled; local::current->theme->allow_themes->1 >>
             <script nonce="{:;CSP_NONCE:}">
@@ -58,3 +58,5 @@
         :}
     :}
 :}
+
+{:moveto; /body >> {:snip; settheme_0yt2sa-body-end :} :}

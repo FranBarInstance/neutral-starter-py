@@ -1,5 +1,5 @@
 
-{:snip; current:template:head:rrss_0yt2sa >>
+{:snip; rrss_0yt2sa-head >>
     <style nonce="{:;CSP_NONCE:}">
         .rrss-wrapper img {
             width: 180px !important;
@@ -9,7 +9,7 @@
     </style>
 :}
 
-{:snip; current:template:body-end:rrss_0yt2sa >>
+{:snip; rrss_0yt2sa-body-end >>
     <script nonce="{:;CSP_NONCE:}">
         function rrss_feed_script() {
             document.querySelectorAll('.rrss-wrapper').forEach(wrapper => {
@@ -153,3 +153,6 @@
         {:snip; rrss:play-static :}
     :}
 :}
+
+{:moveto; /head >> {:snip; rrss_0yt2sa-head :} :}
+{:moveto; /body >> {:snip; rrss_0yt2sa-body-end :} :}

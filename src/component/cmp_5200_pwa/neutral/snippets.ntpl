@@ -1,7 +1,6 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-{:snip; current:template:head:pwa_0yt2sa >>
-    {:;:}
+{:snip; pwa_0yt2sa-head >>
     <meta name="application-name" content="{:trans; {:;current->site->name:} :}" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="theme-color" content="{:;pwa_0yt2sa->manifest->config->theme_color:}" />
@@ -16,7 +15,7 @@
     <link nonce="{:;CSP_NONCE:}" rel="manifest" href="{:;current->site->static:}pwa/manifest.json" />
 :}
 
-{:snip; current:template:body-end:pwa_0yt2sa >>
+{:snip; pwa_0yt2sa-body-end >>
     <script nonce="{:;CSP_NONCE:}">
         window.addEventListener('load', () => {
             if ('serviceWorker' in navigator) {
@@ -80,3 +79,6 @@
         :}
     :}
 :}
+
+{:moveto; /head >> {:snip; pwa_0yt2sa-head :} :}
+{:moveto; /body >> {:snip; pwa_0yt2sa-body-end :} :}
