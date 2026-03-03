@@ -26,7 +26,6 @@
         {:snip; current:template:main-drawer :}
         {:snip; current:template:page-h1 :}
         <div class="container mt-4 template-main-container">
-            {:snip; theme-body-start :}
             <main class="">
                 <div class="container mt-3 text-center">
                     <h1 class="border-bottom p-2">{:trans; {:;HTTP_ERROR->text:} :}</h1>
@@ -44,7 +43,6 @@
                     </div>
                 </div>
             </main>
-            {:snip; theme-body-end :}
         </div>
         {:!cache;
             {:snip; comp-debug-button-context :}
