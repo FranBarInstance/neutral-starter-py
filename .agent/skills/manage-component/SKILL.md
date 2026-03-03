@@ -55,6 +55,7 @@ src/component/cmp_NNNN_name/
 │           └── subroute_name/            # Maps to subroute_name, e.g. /example/subroute_name
 │               ├── data.json             # Local data, usually title, subtitle, h1, etc.
 │               └── content-snippets.ntpl # Content snippets for subroute
+├── model/                                # SQLAlchemy models
 ├── static/                               # CSS, JS, images
 ├── src/                                  # Backend logic snippets
 │   └── module.py                         # Python functions for templates
@@ -64,6 +65,8 @@ src/component/cmp_NNNN_name/
     ├── conftest.py                       # Test configuration
     └── test_component.py                 # Component tests
 ```
+
+- **IMPORTANT**: Each component must be independent and must contain its own model. See `docs/model.md`, `src/model/`, and `src/core/model.py` for more information.
 
 ## Manifest and Configuration
 
