@@ -21,13 +21,13 @@ This is a summary for the context of AI; the full documentation is here: [Neutra
         <title>{:trans; Site title :}</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {:snippet; current-theme:head :}
+        {:snip; current-theme:head :}
         <link rel="stylesheet" href="bootstrap.min.css">
     </head>
     <body class="{:;body-class:}">
-        {:snippet; current-theme:body_begin  :}
-        {:snippet; current-theme:body-content :}
-        {:snippet; current-theme:body-footer  :}
+        {:snip; current-theme:body_begin  :}
+        {:snip; current-theme:body-content :}
+        {:snip; current-theme:body-footer  :}
         <script src="jquery.min.js"></script>
     </body>
 </html>
@@ -329,7 +329,7 @@ All user-provided data (GET, POST, COOKIES, ENV) is auto-escaped and stored in C
 
 #### **Snippets**
 
-Snippets are reusable code fragments in templates, similar to functions, that avoid repetition by allowing you to define a block (such as a form) once and use it across multiple templates. You can use `{:snippet;` or `{:snip;` interchangeably.
+Snippets are reusable code fragments in templates, similar to functions, that avoid repetition by allowing you to define a block (such as a form) once and use it across multiple templates. You can use `{:snip;` or `{:snip;` interchangeably.
 
 ```ntpl
 {:* Define a snippet (must be in file with "snippet" in name) *:}

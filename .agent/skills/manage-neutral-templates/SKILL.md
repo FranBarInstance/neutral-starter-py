@@ -239,9 +239,9 @@ And then use it like this:
 You can use `{:snippet; ... :}` or `{:snip; ... :}` interchangeably.
 
 ```
-{:snippet; name >> content :}   # Define snippet
-{:snippet; name :}              # Use snippet
-{:snip; name >> content :}      # Alias for snippet
+{:snip; name >> content :}   # Define snippet
+{:snip; name :}              # Use snippet
+{:snip; name >> content :}   # Replace snippet
 ```
 
 ## Safety Features
@@ -396,15 +396,15 @@ By default, definitions have block scope. `+` extends to current level:
 ```
 {:code;
     {:include; snippet.ntpl :}
-    {:snippet; name :}     # Not available outside
+    {:snip; name :}     # Not available outside
 :}
-{:snippet; name :}         # Not available
+{:snip; name :}         # Not available
 
 {:+code;
     {:include; snippet.ntpl :}
-    {:snippet; name :}     # Available outside
+    {:snip; name :}     # Available outside
 :}
-{:snippet; name :}         # Still available
+{:snip; name :}         # Still available
 ```
 
 ## HTTP Features
@@ -451,8 +451,8 @@ Events: `auto`, `none`, `click`, `visible`, `form`
 | `{:each; arr k v >> c :}` | Loop through array |
 | `{:for; v 1..10 >> c :}` | For loop |
 | `{:include; file :}` | Include file |
-| `{:snippet; n >> c :}` | Define snippet |
-| `{:snippet; n :}` | Play snippet |
+| `{:snip; n >> c :}` | Define snippet |
+| `{:snip; n :}` | Play snippet |
 | `{:trans; text :}` | Translate |
 | `{:cache; /t/ >> c :}` | Cache content |
 | `{:coalesce; ... :}` | First non-empty |

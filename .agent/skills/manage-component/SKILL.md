@@ -268,8 +268,8 @@ Use `nonce` in `<script>` and `<style>` tags.
 | `{:each; arr k v >> code :}` | Loop through array |
 | `{:for; v 1..10 >> code :}` | For loop |
 | `{:include; file :}` | Include file |
-| `{:snippet; n >> code :}` | Define snippet |
-| `{:snippet; n :}` | Play snippet |
+| `{:snip; n >> code :}` | Define snippet |
+| `{:snip; n :}` | Play snippet |
 | `{:trans; text :}` | Translate |
 | `{:cache; /t/ >> code :}` | Cache content |
 | `{:coalesce; ... :}` | First non-empty |
