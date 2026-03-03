@@ -144,6 +144,8 @@ Add a menu for each route.
 }
 ```
 
+- Choose the menu icons from `src/component/cmp_1100_materialicons/schema.json`
+
 ### Route Reference Rule (IMPORTANT)
 
 - In component `schema.json`, you can use route references like:
