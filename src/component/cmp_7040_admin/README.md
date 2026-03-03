@@ -1,104 +1,81 @@
 # Admin Component (`admin_0yt2sa`)
 
-Role-based administration panel for user management.
+Role-based administration panel for managing users and their multiple profiles.
 
-## Routes
+## Architecture: User vs Profile
 
-- Admin home.
-- User administration.
-- Post administration (Placeholder for future post administration.
+The system follows a profile-centric model where a single **User** (global account, email, login) can manage multiple **Profiles** (identities, aliases, roles).
+
+- **Users (`/admin/user`)**: Global account management. Focuses on identity, main email, and global account-level disabling.
+- **Profiles (`/admin/profile`)**: specific identity management. Focuses on aliases, localized settings (locale/region), and profile-specific roles and statuses.
 
 ## Access Model
 
-- `dev` / `admin` (`can_full = true`)
-  - Full visibility and full user operations.
-- `moderator` (`can_moderate = true`, `can_full = false`)
-  - Limited moderation view and limited status operations.
-- Any other role / no role
+- **`dev` / `admin`** (`can_full = true`)
+  - Full visibility and operations across users and profiles.
+- **`moderator`** (`can_moderate = true`, `can_full = false`)
+  - Can manage `unvalidated` and `moderated` statuses at both user and profile levels.
+  - `moderated` status **requires** a description.
+- **Any other role / no role**
   - Access denied (`403`).
 
-## User Listing (`/admin/user`)
+## Sections
 
-### Filters
+### Users (`/admin/user`)
 
-- `search`
-  - Exact match against `userId` or `login` hash.
-- `role_filter`
-  - Filter users by role code (`dev`, `admin`, `moderator`, `editor`).
-- `disabled_filter`
-  - Filter users by disabled reason code.
-- `order`
-  - `created`
-  - `modified`
-  - `role_date` (last role assignment timestamp)
-  - `disabled_created_date` (last disabled record creation timestamp)
-  - `disabled_modified_date` (last disabled record modification timestamp)
+Main list of global accounts.
+- Shows associated **Profile IDs** with direct "Edit" links to the profile section.
+- Allows global account searching by `userId`, `login` hash, or any associated profile `Alias`.
+- Management of global **Roles** (consolidated from all profiles) and **User Disabled Status**.
 
-### Date Semantics
+### Profiles (`/admin/profile`)
 
-For `user_disabled` records:
+Individual identity management.
+- Shows specific data: `Alias`, `Locale`, `Region`.
+- Management of **Profile Roles** and **Profile Status** (Disabled reasons).
+- Direct link to the owner's **User ID** for global management.
 
-- `created`: when the disabled record was first created.
-- `modified`: updated when description/status is updated.
+## Filters and Ordering
 
-`upsert-disabled` preserves `created` and updates `modified` on update.
+Both sections support:
+- `search`: IDs or Aliases.
+- `role_filter`: Filter by specific role codes.
+- `disabled_filter`: Filter by reason code.
+- `order`:
+  - `created`: Record creation date.
+  - `modified`: Last modification date.
+  - `role_date` (User only): Last role assignment.
+  - `disabled_modified_date` (User only): Last status change.
 
-## Permissions by Action
+## Permissions by Role
 
 ### `dev` / `admin`
-
-- View: full user card data (`User ID`, `Roles`, `Disabled`, `Alias`, `Locale`, `Email`, timestamps).
-- Roles:
-  - Assign role
-  - Remove role
-- Disabled:
-  - Set any disabled reason
-  - Remove any disabled reason
-- Delete user:
-  - Physical delete enabled
-  - Requires explicit confirmation text: `DELETE`
-  - UI warns this is an extreme action; preferred path is setting disabled status (`deleted`).
+- **Full View**: All IDs, roles, statuses, and metadata.
+- **Roles**: Assign/Remove roles to users (affects first profile) or specific profiles.
+- **Statuses**: Set/Remove any disabled reason.
+- **Delete**: Physical user deletion (requires `DELETE` confirmation).
 
 ### `moderator`
+- **Limited View**: Access to IDs, roles, and statuses.
+- **Statuses**: Can only Set/Remove `unvalidated` or `moderated`.
+- **Constraint**: `moderated` always requires a description.
 
-- View:
-  - `User ID`
-  - `Roles` (read-only)
-  - `Disabled` (read-only list)
-  - `Alias`
-  - `Locale`
-  - timestamps
-- Disabled operations allowed only for:
-  - `unvalidated`
-  - `moderated`
-- `moderated` requires non-empty description.
-- Not allowed:
-  - Role assign/remove
-  - User delete
-  - Other disabled reasons (`deleted`, `unconfirmed`, `spam`, etc.)
+## Technical Implementation Notes
 
-## UX Behavior
-
-- After successful role/disabled change, listing is focused to the target user by setting `search=<userId>`.
-- Filters (`search`, `role_filter`, `disabled_filter`, `order`) are preserved across action forms.
-- Responsive card layout is used in both mobile and desktop.
+- **Query Consolidation**: User-level searches automatically join and group profile data to avoid duplicates while allowing searches by alias.
+- **Nested Data**: The `User._rows_to_dicts` helper automatically expands dot-separated SQL column names (e.g., `user_profile.alias`) into nested dictionaries, allowing templates to use `user->user_profile->alias` syntax.
+- **Profile Roles**: Roles are physically stored in `profile_role`, linking them to specific identities rather than the global account.
 
 ## Key Files
 
-- Backend route/controller:
-  - `src/component/cmp_7040_admin/route/routes.py`
-- UI template:
+- **Backend Dispatcher**: `src/component/cmp_7040_admin/route/dispatcher_admin.py`
+- **User Service**: `src/core/user.py` (Methods: `admin_list_users`, `admin_list_profiles`).
+- **SQL Queries**: `src/model/user.json`.
+- **Templates**:
   - `src/component/cmp_7040_admin/neutral/route/root/user/content-snippets.ntpl`
-- SQL model queries:
-  - `src/model/user.json`
-- User service helpers:
-  - `src/core/user.py`
-- Component tests:
-  - `src/component/cmp_7040_admin/tests/test_admin_component.py`
+  - `src/component/cmp_7040_admin/neutral/route/root/profile/content-snippets.ntpl`
 
 ## Tests
-
-Run:
 
 ```bash
 source .venv/bin/activate && pytest -q src/component/cmp_7040_admin
