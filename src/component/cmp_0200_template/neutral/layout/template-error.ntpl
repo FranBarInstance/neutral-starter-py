@@ -50,4 +50,5 @@
         <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/modal-dynamic.min.js"></script>
         <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/modal-close-on-back.min.js"></script>
     </body>
+    {:!cache; {:snip; comp-debug-common :} :}
 </html>

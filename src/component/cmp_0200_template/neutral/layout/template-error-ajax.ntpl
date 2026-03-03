@@ -7,9 +7,4 @@
         <p class="">{:trans; {:;HTTP_ERROR->param:} :}</p>
     :}
 </div>
-{:!cache;
-    {:bool; current_app_debug >>
-        {:!include; {:;current->template->dir:}/layout/debug-snippets.ntpl :}
-        {:snip; comp-debug-button-data :}
-    :}
-:}
+{:!cache; {:snip; comp-debug-common :} :}
