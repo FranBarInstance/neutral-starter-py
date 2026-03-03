@@ -19,7 +19,9 @@
         {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
     </head>
     <body class="{:;local::current->theme->class->body:}">
-        {:snip; current-theme-body-start :}
+        {:each; COMPONENTS_MAP_BY_UUID component none >>
+            {:snip; current:template:body-start:{:;component:} :}
+        :}
         {:snip; current:template:main-navbar :}
         {:snip; current:template:main-drawer :}
         {:snip; current:template:page-h1 :}

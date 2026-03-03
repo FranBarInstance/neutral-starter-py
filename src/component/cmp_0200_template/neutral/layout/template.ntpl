@@ -24,7 +24,9 @@
         {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
     </head>
     <body class="{:;local::current->theme->class->body:}">
-        {:snip; current-theme-body-start :}
+        {:each; COMPONENTS_MAP_BY_UUID component none >>
+            {:snip; current:template:body-start:{:;component:} :}
+        :}
         {:cache; /{:;current->template->nav_cache_seconds:}/ >>
             {:snip; current:template:main-navbar :}
             {:snip; current:template:main-drawer :}
