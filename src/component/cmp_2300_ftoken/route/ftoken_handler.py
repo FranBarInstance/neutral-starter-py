@@ -1,12 +1,12 @@
-"""FToken dispatcher module."""
+"""FToken request handler module."""
 
 from ftoken_0yt2sa import ftoken_create
 
-from core.dispatcher import Dispatcher
+from core.request_handler import RequestHandler
 
 
-class DispatcherFtoken(Dispatcher):
-    """Dispatcher class specialized for ftoken operations."""
+class FtokenRequestHandler(RequestHandler):
+    """Request handler class specialized for ftoken operations."""
 
     def ftoken(self, key, fetch_id, form_id) -> bool:
         """Generate and store form token."""

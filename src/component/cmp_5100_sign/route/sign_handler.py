@@ -1,4 +1,4 @@
-"""Dispatcher for sign-related forms (sign-in, sign-up, sign-out, etc.)."""
+"""Request handlers for sign-related forms (sign-in, sign-up, sign-out, etc.)."""
 
 import time
 
@@ -6,24 +6,24 @@ from ftoken_0yt2sa import ftoken_check
 
 from app.config import Config
 from constants import PIN_TARGET_REMINDER, UNCONFIRMED, UNVALIDATED, USER_EXISTS
-from core.dispatcher_form import DispatcherForm
 from core.mail import Mail
+from core.request_handler_form import FormRequestHandler
 from utils.utils import format_ua
 
 
-class DispatcherFormSign(DispatcherForm):
+class SignRequestHandler(FormRequestHandler):
     """Base class for handling authentication form validation logic."""
 
     def __init__(
         self,
-        req,
-        comp_route,
-        neutral_route=None,
-        ltoken=None,
-        form_name="_unused_form",
-        ftoken_field_name=None,
+        prepared_request,
+        comp_route: str = "",
+        neutral_route: str | None = None,
+        ltoken: str | None = None,
+        form_name: str = "_unused_form",
+        ftoken_field_name: str | None = None,
     ):
-        super().__init__(req, comp_route, neutral_route, ltoken, form_name)
+        super().__init__(prepared_request, comp_route, neutral_route, ltoken, form_name)
         self._ftoken_field_name = ftoken_field_name
         self.error["form"]["ftoken"] = None
 
@@ -44,7 +44,7 @@ class DispatcherFormSign(DispatcherForm):
 
         return True
 
-    def validate_post(self, error_prefix) -> bool:
+    def validate_post(self, error_prefix: str = "ref:form_error") -> bool:
         """Validate POST request for authentication forms."""
 
         # Do not reminder while logged in.
@@ -119,7 +119,7 @@ class DispatcherFormSign(DispatcherForm):
 
 
 # In
-class DispatcherFormSignIn(DispatcherFormSign):
+class SignInRequestHandler(SignRequestHandler):
     """Handles sign-in form processing and user authentication."""
 
     def form_post(self) -> bool:
@@ -153,7 +153,7 @@ class DispatcherFormSignIn(DispatcherFormSign):
         return self.create_session(user_data)
 
 # Up
-class DispatcherFormSignUp(DispatcherFormSign):
+class SignUpRequestHandler(SignRequestHandler):
     """Handles user registration form processing."""
 
     def form_post(self) -> bool:
@@ -234,7 +234,7 @@ class DispatcherFormSignUp(DispatcherFormSign):
 
 
 # Out
-class DispatcherFormSignOut(DispatcherFormSign):
+class SignOutRequestHandler(SignRequestHandler):
     """Handles user sign-out and session termination."""
 
     def logout(self) -> bool:
@@ -251,7 +251,7 @@ class DispatcherFormSignOut(DispatcherFormSign):
 
 
 # Reminder
-class DispatcherFormSignReminder(DispatcherFormSign):
+class SignReminderRequestHandler(SignRequestHandler):
     """Handles password reminder form processing."""
 
     def form_post(self) -> bool:
@@ -272,7 +272,7 @@ class DispatcherFormSignReminder(DispatcherFormSign):
 
 
 # PIN
-class DispatcherFormSignPin(DispatcherFormSign):
+class SignPinRequestHandler(SignRequestHandler):
     """Handles PIN-based authentication or verification."""
 
     def _get_pin_data_by_token(self, pin_token: str) -> dict | None:
