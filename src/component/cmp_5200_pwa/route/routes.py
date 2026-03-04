@@ -2,11 +2,11 @@
 
 import os
 
-from flask import Response, request, send_from_directory
+from flask import Response, g, send_from_directory
 
 from app.config import Config
 from app.extensions import limiter
-from core.dispatcher import Dispatcher
+from core.request_handler import RequestHandler
 
 from . import bp  # pylint: disable=no-name-in-module
 
@@ -42,7 +42,7 @@ def pwa_manifest_json(route) -> Response:
         response.headers["Cache-Control"] = Config.STATIC_CACHE_CONTROL
         return response
 
-    dispatch = Dispatcher(request, route, bp.neutral_route)
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
     template = f"{bp.neutral_route}/{route}"
 
     headers = {
@@ -50,7 +50,7 @@ def pwa_manifest_json(route) -> Response:
         "Content-Type": "application/json",
     }
 
-    return dispatch.view.render(template, headers)
+    return handler.view.render(template, headers)
 
 
 @bp.route(
@@ -65,10 +65,10 @@ def pwa_offline(route) -> Response:
         response.headers["Cache-Control"] = Config.STATIC_CACHE_CONTROL
         return response
 
-    dispatch = Dispatcher(request, route, bp.neutral_route)
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
     template = f"{bp.neutral_route}/{route}"
 
-    return dispatch.view.render(template)
+    return handler.view.render(template)
 
 
 @bp.route(f"/{DIR}/<relative_route>", methods=["GET"])
@@ -89,5 +89,5 @@ def pwa_static(relative_route) -> Response:
         response.headers["Cache-Control"] = Config.STATIC_CACHE_CONTROL
         return response
 
-    dispatch = Dispatcher(request, "404")
-    return dispatch.view.render_error()
+    handler = RequestHandler(g.pr, "404")
+    return handler.render_error()

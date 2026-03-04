@@ -1,16 +1,16 @@
 """HTTP errors routes module."""
 
-from flask import current_app, request
+from flask import current_app, g
 from werkzeug.exceptions import HTTPException
 
-from core.dispatcher import Dispatcher
+from core.request_handler import RequestHandler
 
 from . import bp  # pylint: disable=no-name-in-module
 
 
 @bp.errorhandler(Exception)
 def handle_exception(e):
-    """Handle exceptions globally."""
+    """Handle exceptions for this component's routes."""
 
     if isinstance(e, HTTPException):
         code = e.code
@@ -24,5 +24,5 @@ def handle_exception(e):
         name = "Internal Server Error"
         description = "An internal error occurred in app."
 
-    dispatch = Dispatcher(request, "HTTP_ERROR", bp.neutral_route)
-    return dispatch.view.render_error(code, name, description)
+    handler = RequestHandler(g.pr, "HTTP_ERROR", bp.neutral_route)
+    return handler.render_error(code, name, description)

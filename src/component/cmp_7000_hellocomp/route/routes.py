@@ -4,15 +4,15 @@
 
 import os
 
-from flask import Response, request, send_from_directory
+from flask import Response, g, send_from_directory
 from hellocomp_0yt2sa import hellocomp
 
 from app.config import Config
 from app.extensions import require_header_set
-from core.dispatcher import Dispatcher
+from core.request_handler import RequestHandler
 
 from . import bp  # pylint: disable=no-name-in-module
-from .dispatcher_hellocomp import DispatcherHelloComp
+from .hellocomp_handler import HelloCompRequestHandler
 
 STATIC = f"{bp.component['path']}/static"
 
@@ -20,28 +20,28 @@ STATIC = f"{bp.component['path']}/static"
 @bp.route("/test1", defaults={"route": "test1"}, methods=["GET"])
 def test1(route) -> Response:
     """Handle test1 requests."""
-    dispatch = DispatcherHelloComp(request, route, bp.neutral_route)
-    dispatch.schema_local_data["message"] = hellocomp()
-    dispatch.schema_data["dispatch_result"] = dispatch.test1()
-    return dispatch.view.render()
+    handler = HelloCompRequestHandler(g.pr, route, bp.neutral_route)
+    handler.schema_local_data["message"] = hellocomp()
+    handler.schema_data["dispatch_result"] = handler.test1()
+    return handler.render_route()
 
 
 @bp.route("/ajax/example", defaults={"route": "ajax/example"}, methods=["GET"])
 @require_header_set('Requested-With-Ajax', 'Only accessible with Ajax')
 def ajax_example(route) -> Response:
     """Handle generic ajax example requests."""
-    dispatch = Dispatcher(request, route, bp.neutral_route)
-    dispatch.schema_local_data["message"] = hellocomp()
-    return dispatch.view.render()
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
+    handler.schema_local_data["message"] = hellocomp()
+    return handler.render_route()
 
 
 @bp.route("/ajax/modal-content", defaults={"route": "ajax/modal-content"}, methods=["GET"])
 @require_header_set('Requested-With-Ajax', 'Only accessible with Ajax')
 def ajax_modal_content(route) -> Response:
     """Handle ajax modal content requests."""
-    dispatch = Dispatcher(request, route, bp.neutral_route)
-    dispatch.schema_local_data["message"] = hellocomp()
-    return dispatch.view.render()
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
+    handler.schema_local_data["message"] = hellocomp()
+    return handler.render_route()
 
 
 @bp.route("/", defaults={"route": ""}, methods=["GET"])
@@ -56,6 +56,6 @@ def hellocomp_catch_all(route) -> Response:
             response.headers["Cache-Control"] = Config.STATIC_CACHE_CONTROL
             return response
 
-    dispatch = Dispatcher(request, route, bp.neutral_route)
-    dispatch.schema_local_data["message"] = hellocomp()
-    return dispatch.view.render()
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
+    handler.schema_local_data["message"] = hellocomp()
+    return handler.render_route()

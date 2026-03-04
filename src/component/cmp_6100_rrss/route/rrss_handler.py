@@ -1,12 +1,10 @@
-# Copyright (C) 2025 https://github.com/FranBarInstance/neutral-pwa-py (See LICENCE)
+"""Request handler for Read RSS."""
 
-"""Dispatcher for Read RSS."""
-
-from core.dispatcher import Dispatcher
+from core.request_handler import RequestHandler
 
 
-class DispatcherRrss(Dispatcher):
-    """Dispatcher for Read RSS."""
+class RrssRequestHandler(RequestHandler):
+    """Request handler for Read RSS."""
 
     def set_rss_name(self, component_schema, rrss_name=None) -> bool:
         """Set RSS name."""
