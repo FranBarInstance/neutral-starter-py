@@ -4,6 +4,16 @@
     "description": "Provides PWA features",
     "version": "0.0.0",
     "route": "",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
     "config": {
         "static-dir": "pwa",
         "enable": true,

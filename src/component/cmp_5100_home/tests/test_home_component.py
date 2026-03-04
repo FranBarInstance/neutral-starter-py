@@ -35,3 +35,66 @@ def test_home_route_responds(client):
     response = client.get(_route(client.application, "/"))
     assert response.status_code == 200
 
+
+def test_home_route_denies_when_security_policy_missing(client):
+    """Home route should fail closed when manifest security block is missing."""
+    app = client.application
+    bp = app.blueprints[_BP_NAME]
+    component_uuid = bp.component["manifest"]["uuid"]
+    component_data = app.components.schema["data"][component_uuid]
+    original_manifest = dict(component_data["manifest"])
+    try:
+        patched_manifest = dict(component_data["manifest"])
+        patched_manifest.pop("security", None)
+        component_data["manifest"] = patched_manifest
+
+        response = client.get(_route(app, "/"))
+        assert response.status_code == 403
+    finally:
+        component_data["manifest"] = original_manifest
+
+
+def test_home_route_denies_unauthenticated_when_require_auth_true(client):
+    """Home route should return 401 if policy requires authentication."""
+    app = client.application
+    bp = app.blueprints[_BP_NAME]
+    component_uuid = bp.component["manifest"]["uuid"]
+    component_data = app.components.schema["data"][component_uuid]
+    original_manifest = dict(component_data["manifest"])
+    try:
+        patched_manifest = dict(component_data["manifest"])
+        patched_manifest["security"] = {
+            "require_auth": True,
+            "routes_role": {
+                "/": ["*"],
+            },
+        }
+        component_data["manifest"] = patched_manifest
+
+        response = client.get(_route(app, "/"))
+        assert response.status_code == 401
+    finally:
+        component_data["manifest"] = original_manifest
+
+
+def test_home_route_denies_when_route_not_mapped_in_policy(client):
+    """Home route should return 403 when route is not present in routes_role."""
+    app = client.application
+    bp = app.blueprints[_BP_NAME]
+    component_uuid = bp.component["manifest"]["uuid"]
+    component_data = app.components.schema["data"][component_uuid]
+    original_manifest = dict(component_data["manifest"])
+    try:
+        patched_manifest = dict(component_data["manifest"])
+        patched_manifest["security"] = {
+            "require_auth": False,
+            "routes_role": {
+                "/other": ["*"],
+            },
+        }
+        component_data["manifest"] = patched_manifest
+
+        response = client.get(_route(app, "/"))
+        assert response.status_code == 403
+    finally:
+        component_data["manifest"] = original_manifest

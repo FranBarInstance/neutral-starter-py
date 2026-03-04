@@ -3,5 +3,13 @@
     "name": "Info",
     "description": "Provides skeleton pages for info, about, help, etc.",
     "version": "0.0.0",
-    "route": "/info"
+    "route": "/info",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

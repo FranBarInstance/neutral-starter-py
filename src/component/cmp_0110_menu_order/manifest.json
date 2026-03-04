@@ -3,5 +3,13 @@
     "name": "menu_order",
     "description": "Reserve space for menu keys to set the order.",
     "version": "0.0.0",
-    "route": ""
+    "route": "",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

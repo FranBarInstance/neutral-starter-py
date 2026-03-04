@@ -3,5 +3,13 @@
     "name": "Local Admin",
     "description": "Development-only isolated session and login area",
     "version": "1.0.0",
-    "route": "/local-dev"
+    "route": "/local-dev",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

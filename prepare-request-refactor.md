@@ -11,6 +11,7 @@ Define a single, mandatory core bootstrap object for every HTTP request.
 - It runs in the first global `app.before_request`.
 - It builds and centralizes core context for the request.
 - Component routes and dispatchers consume `g.pr` and do not rebuild core context.
+- Access control is enforced by core before route logic runs.
 
 ## Naming Convention (Dispatcher replacement)
 `Dispatcher` naming is replaced by `RequestHandler` naming.
@@ -36,6 +37,7 @@ Rationale:
 3. Core checks are centralized and mandatory.
 4. Components should focus on their own behavior, not core plumbing.
 5. Fail closed by default.
+6. Current redesign scope is limited to `cmp_5100_home` and `cmp_5150_testing`.
 
 ## PreparedRequest Mission
 `PreparedRequest` handles all declared core functionalities for one request.
@@ -98,18 +100,32 @@ Use short request-scope naming:
 
 `g.pr` is the only canonical request bootstrap object used by component handlers and dispatchers.
 
+## Access Permission Ownership (Core-only)
+Access permissions are a core responsibility, not a component responsibility.
+
+1. `PreparedRequest` evaluates `security` policy in core (`auth`, status restrictions, roles).
+2. If policy check fails, core returns generic `401` immediately from global `before_request` (temporary design stage behavior).
+3. Request execution stops there; component route logic is not executed.
+4. `RequestHandler` must not decide access control and must not implement fallback permission checks.
+
 ## Mandatory Execution Order
-Register global `before_request` for `PreparedRequest` before loading component blueprints.
+In request processing order:
+1. Host validation guard runs first (`reject_disallowed_host`).
+2. `PreparedRequest` runs next (`prepare_request_context`).
+3. Component route logic runs only if access is allowed.
 
 If this order is not guaranteed, app startup must fail.
 
-## Component Manifest Contract (roles only)
-Manifest defines role access by route and authentication requirement.
+## Component Manifest Contract (route auth + roles)
+Manifest defines authentication and role access by route.
 
 ```json
 {
   "security": {
-    "require_auth": true,
+    "routes_auth": {
+      "/": true,
+      "/public": false
+    },
     "routes_role": {
       "/": ["*"],
       "/user": ["admin", "dev", "moderator"],
@@ -123,20 +139,24 @@ Manifest defines role access by route and authentication requirement.
 
 ### Semantics
 1. Keys are absolute component-relative paths.
-2. `require_auth` controls whether session-authenticated user is required.
-3. `require_auth` default is `true`.
+2. `routes_auth` controls whether session-authenticated user is required for each route prefix.
+3. `routes_role` controls role access for each route prefix.
 4. `*` means role wildcard (any role).
 5. Role list uses OR semantics.
-6. Missing route key -> deny.
-7. Missing `security` or `routes_role` -> deny.
+6. Prefix matching is used (not exact only): `/x` applies to `/x` and `/x/...`.
+7. Most specific prefix wins.
+8. Missing role route key -> deny.
+9. Missing `security` or `routes_role` -> deny.
+10. Missing auth route key -> deny.
+11. `require_auth` is invalid in the new design and must not be used.
 
 ## Authentication vs Authorization
 Two separated core checks:
-1. Authentication group (`require_auth`): has session started.
+1. Authentication group (`routes_auth`): has session started.
 2. Role group (`routes_role`): role access per route.
 
 Mandatory evaluation order in `PreparedRequest`:
-1. `require_auth`
+1. `routes_auth`
 2. status restrictions (core)
 3. `routes_role`
 
@@ -145,12 +165,13 @@ Before route lookup:
 1. Empty path -> `/`
 2. Ensure leading slash.
 3. Remove trailing slash except root.
-4. Exact match only.
+4. Prefix policy matching (segment-aware).
 
 Examples:
 - `""` -> `/`
 - `/profile/` -> `/profile`
 - `/profile/any` -> `/profile/any`
+- Policy key `/profile` matches `/profile` and `/profile/any`.
 
 ## Blueprint Usage Pattern
 
@@ -160,13 +181,8 @@ from flask import g
 @bp.route("/", defaults={"route": ""}, methods=["GET"])
 @bp.route("/<path:route>", methods=["GET", "POST"])
 def index(route):
-    if not g.pr.allowed:
-        deny = Dispatcher(g.pr, route, bp.neutral_route)
-        if g.pr.deny_reason:
-            deny.schema_data["security_error"] = g.pr.deny_reason
-        return deny.view.render()  # or abort(g.pr.deny_status)
-
-    dispatch = Dispatcher(g.pr, route, bp.neutral_route)
+    # If security fails, core already rendered generic 401 in before_request.
+    dispatch = RequestHandler(g.pr, route, bp.neutral_route)
     return dispatch.render_route()
 ```
 
@@ -180,10 +196,11 @@ Performance optimizations are framework responsibility:
 ## Validation Rules (Mandatory)
 At startup/registration:
 1. `security.routes_role` exists and is dict.
-2. Route keys are normalized absolute paths.
-3. Role lists are non-empty string arrays.
-4. `*` is not mixed with explicit roles in same entry.
-5. Any validation error fails app startup.
+2. `security.routes_auth` exists and is dict.
+3. Route keys are normalized absolute paths.
+4. Role lists are non-empty string arrays.
+5. `*` is not mixed with explicit roles in same entry.
+6. Any validation error fails app startup.
 
 ## Observability (Mandatory)
 1. Structured deny logs with normalized route, component id, deny reason.
@@ -228,3 +245,14 @@ At startup/registration:
 2. Components cannot bypass core auth/status/role checks.
 3. Dispatcher receives prepared context and does not rebuild core bootstrap.
 4. Missing policy mapping denies access by default.
+
+## Work Completed So Far
+1. `PreparedRequest` was introduced as the mandatory core object per request and exposed as `g.pr`.
+2. Migrated routes now use `RequestHandler(g.pr, route, bp.neutral_route)`.
+3. Security evaluation was centralized in core using `security.routes_auth` and `security.routes_role`.
+4. Policy resolution now uses route-prefix matching, with the most specific match taking priority.
+5. `require_auth` compatibility was removed from the redesign; it is invalid in the new contract.
+6. During the design stage, deny responses intentionally return a generic `401`.
+7. `before_request` order was adjusted so Host validation runs before `PreparedRequest`.
+8. `cmp_5100_home` was adapted to the new pattern, and `cmp_5150_testing` was created for route/policy testing.
+9. `cmp_9100_catch_all` was adapted to use `RequestHandler` to avoid blocking design-stage tests.

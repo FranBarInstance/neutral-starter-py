@@ -3,5 +3,13 @@
     "name": "Site",
     "description": "Provides site data and locale menu",
     "version": "0.0.0",
-    "route": ""
+    "route": "",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

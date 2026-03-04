@@ -4,6 +4,14 @@
     "description": "Provides theme data and css",
     "version": "0.0.0",
     "route": "",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
     "config": {
         "menu-drawer-enable": true
     }

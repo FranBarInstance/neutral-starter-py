@@ -3,5 +3,13 @@
     "name": "Hello Component",
     "description": "Visual showcase component with snippets, ajax and modals",
     "version": "0.0.0",
-    "route": "/hello-component"
+    "route": "/hello-component",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

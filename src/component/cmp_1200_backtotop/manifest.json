@@ -13,5 +13,13 @@
                 "data": "x-icon-up"
             }
         }
+    },
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
     }
 }

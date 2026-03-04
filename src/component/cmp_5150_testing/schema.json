@@ -1,0 +1,81 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "en": {
+                    "Testing": "Testing",
+                    "Root": "Root",
+                    "Uno A B": "Uno A B",
+                    "Dos A B": "Dos A B"
+                },
+                "es": {
+                    "Testing": "Pruebas",
+                    "Root": "Raiz",
+                    "Uno A B": "Uno A B",
+                    "Dos A B": "Dos A B"
+                }
+            }
+        },
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "testing": {
+                            "name": "Testing",
+                            "tabs": "testing",
+                            "icon": "x-icon-info"
+                        }
+                    },
+                    "session:true": {
+                        "testing": {
+                            "name": "Testing",
+                            "tabs": "testing",
+                            "icon": "x-icon-info"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:": {
+                    "testing": {
+                        "root": {
+                            "text": "Root",
+                            "link": "[:;data->testing_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-home"
+                        },
+                        "unoab": {
+                            "text": "Uno A B",
+                            "link": "[:;data->testing_0yt2sa->manifest->route:]/uno/a/b",
+                            "icon": "x-icon-about"
+                        },
+                        "dosab": {
+                            "text": "Dos A B",
+                            "link": "[:;data->testing_0yt2sa->manifest->route:]/dos/a/b",
+                            "icon": "x-icon-legal"
+                        }
+                    }
+                },
+                "session:true": {
+                    "testing": {
+                        "root": {
+                            "text": "Root",
+                            "link": "[:;data->testing_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-home"
+                        },
+                        "unoab": {
+                            "text": "Uno A B",
+                            "link": "[:;data->testing_0yt2sa->manifest->route:]/uno/a/b",
+                            "icon": "x-icon-about"
+                        },
+                        "dosab": {
+                            "text": "Dos A B",
+                            "link": "[:;data->testing_0yt2sa->manifest->route:]/dos/a/b",
+                            "icon": "x-icon-legal"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "data": {}
+}

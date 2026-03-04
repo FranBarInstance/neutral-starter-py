@@ -4,6 +4,14 @@
     "description": "Library to access multiple AI models (OpenAI, Anthropic, Google) from backend",
     "version": "0.0.0",
     "route": "",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
     "config": {
         "profiles": {
             "openai_default": {

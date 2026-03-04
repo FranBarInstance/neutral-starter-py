@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Testing",
+                "description": "Testing root route",
+                "h1": "Testing"
+            }
+        }
+    }
+}

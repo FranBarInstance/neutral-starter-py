@@ -5,8 +5,9 @@ import json
 import os
 import fnmatch
 from importlib import import_module
+from http import HTTPStatus
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort, g
 from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.routing import PathConverter
 
@@ -19,6 +20,7 @@ from .bootstrap_db import bootstrap_databases
 from .components import Components
 from .debug_guard import is_debug_enabled, is_wsgi_debug_enabled
 from .extensions import cache, limiter
+from core.prepared_request import PreparedRequest
 
 
 class TrustedProxyHeaderGuard: # pylint: disable=too-few-public-methods
@@ -187,6 +189,34 @@ def create_app(config_class=Config, debug=None):
         normalized_host = normalize_host(raw_host)
         if not normalized_host or not is_allowed_host(normalized_host, app.config.get("ALLOWED_HOSTS", [])):  # pylint: disable=line-too-long
             abort(400)
+
+    @app.before_request
+    def prepare_request_context():
+        """Build canonical request bootstrap object (`g.pr`) after host validation."""
+        component_bp = app.blueprints.get(request.blueprint) if request.blueprint else None
+        view_args = request.view_args if isinstance(request.view_args, dict) else {}
+
+        if component_bp is None:
+            try:
+                adapter = app.url_map.bind_to_environ(request.environ)
+                rule, matched_args = adapter.match(return_rule=True)
+                endpoint = rule.endpoint
+                bp_name = str(endpoint).split(".", 1)[0]
+                component_bp = app.blueprints.get(bp_name)
+                if isinstance(matched_args, dict):
+                    view_args = matched_args
+            except Exception:  # pylint: disable=broad-except
+                pass
+
+        if component_bp is None and request.endpoint:
+            bp_name = str(request.endpoint).split(".", 1)[0]
+            component_bp = app.blueprints.get(bp_name)
+
+        route = view_args.get("route", "") if isinstance(view_args, dict) else ""
+        g.pr = PreparedRequest(request).build(component_bp=component_bp, route=route)
+        if not g.pr.allowed:
+            # Design stage behavior: generic unauthorized response for all deny cases.
+            return g.pr.view.render_error(401, HTTPStatus(401).phrase, "Unauthorized")
 
 
     # Register security headers

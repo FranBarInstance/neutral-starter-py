@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Testing Dos A B",
+                "description": "Testing route /testing/dos/a/b",
+                "h1": "Testing Dos A B"
+            }
+        }
+    }
+}

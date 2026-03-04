@@ -4,6 +4,14 @@
     "description": "Read RSS feed and show it in a list",
     "version": "0.0.0",
     "route": "/rrss",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
     "config": {
         "cache_seconds": 300,
         "rsss_default": "BBC",

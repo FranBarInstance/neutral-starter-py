@@ -4,5 +4,12 @@
     "description": "Provides a template layout for entire application",
     "version": "0.0.0",
     "route": "",
-    "config": {}
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

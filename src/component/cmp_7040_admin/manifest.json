@@ -3,5 +3,13 @@
     "name": "Admin",
     "description": "Role-based admin panel for user operations",
     "version": "1.0.0",
-    "route": "/admin"
+    "route": "/admin",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

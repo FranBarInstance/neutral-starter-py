@@ -1,0 +1,18 @@
+{
+    "uuid": "testing_0yt2sa",
+    "name": "Testing",
+    "description": "Testing routes for PreparedRequest security checks",
+    "version": "0.0.0",
+    "route": "/testing",
+    "security": {
+        "routes_auth": {
+            "/": false,
+            "/uno/a/b": true
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
+}

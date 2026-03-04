@@ -265,7 +265,7 @@ class Components:
 
     def validate_manifest(self, manifest):
         """Validates required fields in the manifest."""
-        required_fields = ["uuid", "name", "description", "version", "route"]
+        required_fields = ["uuid", "name", "description", "version", "route", "security"]
 
         for field in required_fields:
             if field not in manifest:
@@ -275,6 +275,19 @@ class Components:
         if not self.validate_uuid(manifest["uuid"]):
             print(f"⚠️  Invalid uuid {manifest['uuid']}")
             return False
+
+        if not isinstance(manifest.get("security"), dict):
+            print("⚠️  field security must be a JSON object")
+            return False
+
+        # TODO(security-contract): Enforce minimum security contract in manifest:
+        # {
+        #   "security": {
+        #     "routes_auth": { "/": <bool> },
+        #     "routes_role": { "/": [<role>, ...] }
+        #   }
+        # }
+        # Include strict type validation and fail app startup on any mismatch.
 
         return True
 

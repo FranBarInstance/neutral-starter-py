@@ -3,5 +3,15 @@
     "name": "Catch All",
     "description": "Provides fallback routes",
     "version": "0.0.0",
-    "route": ""
+    "route": "",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }

@@ -1,0 +1,9 @@
+
+{:snip; current:template:body-main-content >>
+    <div class="container py-4">
+        <p>Testing route: <code>/testing</code></p>
+        <p>Simple route for security policy checks.</p>
+    </div>
+:}
+
+{:^;:}

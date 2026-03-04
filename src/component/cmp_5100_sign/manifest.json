@@ -4,6 +4,14 @@
     "description": "Sign in and up",
     "version": "0.0.0",
     "route": "/sign",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
     "required": {
         "component": {
             "ftoken_0yt2sa": "0.0.x"

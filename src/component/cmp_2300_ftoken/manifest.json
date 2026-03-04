@@ -4,6 +4,14 @@
     "description": "Token for forms security, provides snippets and js files",
     "version": "0.0.0",
     "route": "/ftoken",
+    "security": {
+        "require_auth": false,
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
     "required": {
         "component": {
             "cryptojs_0yt2sa": "0.0.x"
