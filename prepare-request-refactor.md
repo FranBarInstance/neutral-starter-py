@@ -5,6 +5,8 @@ Define a single, mandatory core bootstrap object for every HTTP request.
 
 `PreparedRequest` is not only a security helper. It is the request-level core orchestrator that initializes shared framework capabilities before component logic runs.
 
+It must be clear that absolutely no route executes without `PreparedRequest` granting permission, without exceptions. This is the ultimate goal of this refactor.
+
 ## Core Design Decision
 `PreparedRequest` is the first and mandatory step of request processing.
 
@@ -93,6 +95,9 @@ class PreparedRequest:
         return self
 ```
 
+If access is not allowed, it renders with a generic 401 directly.
+
+
 ## `flask.g` Contract
 Use short request-scope naming:
 
@@ -118,6 +123,8 @@ If this order is not guaranteed, app startup must fail.
 
 ## Component Manifest Contract (route auth + roles)
 Manifest defines authentication and role access by route.
+
+Routes inherit from the path; to allow everything, using `"/": true` or `"/": ["*"]` is sufficient.
 
 ```json
 {
@@ -247,12 +254,21 @@ At startup/registration:
 4. Missing policy mapping denies access by default.
 
 ## Work Completed So Far
+
+**IMPORTANT**: At this point there are NO tests. Existing tests are neither executed nor verified because they will fail. Once the new design is implemented, the corresponding tests will be performed.
+
 1. `PreparedRequest` was introduced as the mandatory core object per request and exposed as `g.pr`.
-2. Migrated routes now use `RequestHandler(g.pr, route, bp.neutral_route)`.
-3. Security evaluation was centralized in core using `security.routes_auth` and `security.routes_role`.
-4. Policy resolution now uses route-prefix matching, with the most specific match taking priority.
-5. `require_auth` compatibility was removed from the redesign; it is invalid in the new contract.
-6. During the design stage, deny responses intentionally return a generic `401`.
-7. `before_request` order was adjusted so Host validation runs before `PreparedRequest`.
-8. `cmp_5100_home` was adapted to the new pattern, and `cmp_5150_testing` was created for route/policy testing.
-9. `cmp_9100_catch_all` was adapted to use `RequestHandler` to avoid blocking design-stage tests.
+2. `PreparedRequest` now fully replaces `Dispatcher` functionality:
+   - Initializes Schema, Session, User, Template (same as Dispatcher)
+   - Sets up component context using blueprint directly (not path parsing)
+   - Merges blueprint schema (fail closed - errors propagate)
+   - Builds CURRENT_USER with roles/status (bug fixed: db_roles `is not None` check)
+   - Handles UTOKEN/LTOKEN and cookies
+3. `RequestHandler` simplified to thin adapter - does NOT re-evaluate security policies.
+4. Security evaluation centralized in core using `security.routes_auth` and `security.routes_role`.
+5. Policy resolution uses route-prefix matching (most specific wins).
+6. Fail closed: No bypass for non-component requests - denied with `missing_component_policy`.
+7. `require_auth` compatibility removed; invalid in new contract.
+8. Design stage: deny responses return generic `401`.
+9. `before_request` order: Host validation → PreparedRequest → component route.
+10. Components adapted: `cmp_5100_home`, `cmp_5150_testing`, `cmp_9100_catch_all`.

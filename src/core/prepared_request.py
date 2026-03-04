@@ -1,9 +1,10 @@
 """Request bootstrap object built once per request and shared via Flask.g."""
 
+from dataclasses import dataclass, field
+from typing import Any
 import os
 import json
-from dataclasses import dataclass
-from typing import Any
+import logging
 
 from app.config import Config
 from constants import DELETED
@@ -20,129 +21,195 @@ from .session import Session
 from .user import User
 from .template import Template
 
+logger = logging.getLogger(__name__)
+
 
 @dataclass
-class PreparedRequest:  # pylint: disable=too-many-instance-attributes
-    """Core bootstrap object shared for the current request."""
+class PreparedRequest:
+    """Core bootstrap object shared for the current request.
 
+    Built once per request in the global before_request handler.
+    Evaluates security policies and exposes the final access decision.
+    """
+
+    # Request object (required)
     req: Any
 
-    # initialized by build()
+    # Core objects (initialized by build())
     schema: Any | None = None
     session: Any | None = None
     user: Any | None = None
     view: Any | None = None
-    schema_data: dict | None = None
-    schema_local_data: dict | None = None
+
+    # Shared request data (initialized by build())
+    schema_data: dict = field(default_factory=dict)
+    schema_local_data: dict = field(default_factory=dict)
     ajax_request: bool = False
 
-    # routing/policy
+    # Routing/policy context
     route_path: str = "/"
     policy: dict | None = None
     allowed_roles: list[str] | None = None
     route_require_auth: bool | None = None
 
-    # access decision
+    # Access decision (fail closed by default)
     allowed: bool = False
     deny_status: int | None = None
     deny_reason: str | None = None
-    component_bp: Any | None = None
 
-    def build(self, component_bp=None, route="") -> "PreparedRequest":
-        """Build all request-scoped core context."""
-        self.component_bp = component_bp
+    # Internal state
+    _component_bp: Any = None
+    _component_uuid: str | None = None
+
+    def build(self, component_bp=None, route: str = "") -> "PreparedRequest":
+        """Build all request-scoped core context and evaluate policies.
+
+        Stages:
+        1. Core schema initialization
+        2. Component context setup (including CURRENT_BP_SCHEMA)
+        3. Blueprint schema merge
+        4. Core objects initialization (Session, User, Template)
+        5. Context materialization (user, tokens, cookies)
+        6. Route/policy resolution
+        7. Policy evaluation (auth → status → roles)
+        """
+        self._component_bp = component_bp
+
+        # Stage 1: Initialize schema (needed for everything else)
         self.schema = Schema(self.req)
-        self._set_current_comp(route, component_bp=component_bp)
-        self._merge_bp_schema()
-
         self.schema_data = self.schema.properties["data"]
         self.schema_local_data = self.schema.properties["inherit"]["data"]
-        self.ajax_request = bool(
-            self.schema_data["CONTEXT"]["HEADERS"].get("Requested-With-Ajax")
+
+        # Stage 2: Setup component context (establishes CURRENT_BP_SCHEMA)
+        self._setup_component_context(route)
+
+        # Stage 3: Merge blueprint-specific schema
+        self._merge_bp_schema()
+
+        # Stage 4: Initialize remaining core objects
+        self._init_core_objects()
+
+        # Stage 5: Materialize request context
+        self._materialize_context()
+
+        # Stage 6: Resolve route security policy
+        self._resolve_route_policy(route)
+
+        # Stage 7: Evaluate security policy
+        self._evaluate_policy()
+
+        return self
+
+    def _setup_component_context(self, comp_route: str) -> None:
+        """Setup component context variables in schema data.
+
+        Establishes:
+        - CURRENT_COMP_ROUTE
+        - CURRENT_COMP_ROUTE_SANITIZED
+        - CURRENT_NEUTRAL_ROUTE
+        - CURRENT_COMP_NAME
+        - CURRENT_COMP_UUID
+        - CURRENT_COMP_PATH
+        - CURRENT_BP_SCHEMA
+
+        Note: All requests must belong to a component. If no blueprint is provided,
+        the component UUID will be None and the request will be denied.
+        """
+        data = self.schema_data
+
+        # Normalize component route
+        normalized_comp_route = f"{Config.COMP_ROUTE_ROOT}/{comp_route or ''}".strip("/")
+        data["CURRENT_COMP_ROUTE"] = normalized_comp_route
+        data["CURRENT_COMP_ROUTE_SANITIZED"] = normalized_comp_route.replace("/", ":")
+
+        # Get component info from blueprint (required)
+        # If no blueprint, UUID remains None and request will be denied
+        name = None
+        uuid = None
+        neutral_route = data.get("CURRENT_NEUTRAL_ROUTE", "")
+
+        if self._component_bp and hasattr(self._component_bp, "component"):
+            component = self._component_bp.component
+            name = component.get("name")
+            uuid = component.get("manifest", {}).get("uuid")
+            neutral_route = getattr(self._component_bp, "neutral_route", neutral_route)
+
+        data["CURRENT_NEUTRAL_ROUTE"] = neutral_route
+        data["CURRENT_COMP_NAME"] = name
+        data["CURRENT_COMP_UUID"] = uuid
+        self._component_uuid = uuid
+
+        # Component path
+        data["CURRENT_COMP_PATH"] = (
+            os.path.join(Config.COMPONENT_DIR, name)
+            if name
+            else data.get("CURRENT_COMP_PATH", "")
         )
+
+        # Blueprint schema path (critical for _merge_bp_schema)
+        if uuid and uuid in data:
+            data["CURRENT_BP_SCHEMA"] = data[uuid].get("bp_schema")
+        else:
+            data["CURRENT_BP_SCHEMA"] = None
+
+    def _merge_bp_schema(self) -> None:
+        """Merge component-specific schema into main schema.
+
+        Fail closed: if schema exists but cannot be loaded, raise exception.
+        """
+        schema_path = self.schema_data.get("CURRENT_BP_SCHEMA")
+        if not schema_path:
+            return
+
+        # Fail closed: schema errors propagate (request will fail)
+        with open(schema_path, "r", encoding="utf-8") as file:
+            merge_dict(self.schema.properties, json.load(file))
+
+    def _init_core_objects(self) -> None:
+        """Initialize core framework objects that depend on schema."""
         self.session = Session(self.schema_data["CONTEXT"]["SESSION"])
         self.user = User()
         self.view = Template(self.schema)
 
-        self._build_common()
-        self._resolve_route_metadata(component_bp=component_bp, route=route)
-        self._evaluate_core_policy()
-        return self
-
-    def set_route_context(self, route="", neutral_route=None, component_bp=None) -> "PreparedRequest":
-        """Refresh route metadata and access decision for current request."""
-        component_bp = component_bp or self.component_bp
-        self._set_current_comp(route, neutral_route=neutral_route, component_bp=component_bp)
-        self._resolve_route_metadata(component_bp=component_bp, route=route)
-        self._evaluate_core_policy()
-        return self
-
-    def _merge_bp_schema(self) -> None:
-        schema_path = self.schema.properties["data"]["CURRENT_BP_SCHEMA"]
-        if schema_path:
-            with open(schema_path, "r", encoding="utf-8") as file:
-                merge_dict(self.schema.properties, json.load(file))
-
-    def _set_current_comp(self, comp_route, neutral_route=None, component_bp=None) -> None:
-        data = self.schema.properties["data"]
-        normalized_comp_route = f"{Config.COMP_ROUTE_ROOT}/{comp_route or ''}".strip("/")
-        data["CURRENT_COMP_ROUTE"] = normalized_comp_route
-
-        data["CURRENT_COMP_ROUTE_SANITIZED"] = normalized_comp_route.replace("/", ":")
-        data["CURRENT_NEUTRAL_ROUTE"] = (
-            neutral_route
-            or getattr(component_bp, "neutral_route", None)
-            or data["CURRENT_NEUTRAL_ROUTE"]
+        # Detect AJAX request
+        self.ajax_request = bool(
+            self.schema_data["CONTEXT"]["HEADERS"].get("Requested-With-Ajax")
         )
 
-        name, uuid = self.extract_comp_from_path(data["CURRENT_NEUTRAL_ROUTE"])
-        data["CURRENT_COMP_NAME"] = name
-        data["CURRENT_COMP_UUID"] = uuid
-        data["CURRENT_COMP_PATH"] = (
-            os.path.join(Config.COMPONENT_DIR, name)
-            if name
-            else data.get("CURRENT_COMP_PATH")
-        )
-        data["CURRENT_BP_SCHEMA"] = data.get(uuid, {}).get("bp_schema", None) if uuid else None
-
-    def _build_common(self) -> None:
-        """Perform request bootstrap tasks reused by request handlers."""
+    def _materialize_context(self) -> None:
+        """Build request context: session, user, tokens, cookies."""
+        # Session handling
         session_id, session_cookie = self.session.get()
         self.schema_data["CONTEXT"]["SESSION"] = session_id
+
+        # Session data
         session_data = self.session.get_session_properties() if session_id else {}
         self.schema_data["CONTEXT"]["SESSION_DATA"] = (
             session_data if isinstance(session_data, dict) else {}
         )
+
+        # Current user
         self.schema_data["CURRENT_USER"] = self._build_current_user(
             self.schema_data["CONTEXT"]["SESSION_DATA"]
         )
+
+        # Session flags
         self.schema_data["HAS_SESSION"] = "true" if session_id else None
         self.schema_data["HAS_SESSION_STR"] = "true" if session_id else "false"
+
+        # Security tokens
         self.schema_data["CSP_NONCE"] = get_nonce()
         self._parse_utoken()
-        self.schema_data["LTOKEN"] = ltoken_create(self.schema_data["CONTEXT"]["UTOKEN"])
+        self.schema_data["LTOKEN"] = ltoken_create(
+            self.schema_data["CONTEXT"]["UTOKEN"]
+        )
 
+        # Non-AJAX: setup cookies
         if not self.ajax_request:
-            self._cookie_tab_changes()
-            self.view.add_cookie(
-                {
-                    **session_cookie,
-                    Config.THEME_KEY: {
-                        "key": Config.THEME_KEY,
-                        "value": self.schema_local_data["current"]["theme"]["theme"],
-                    },
-                    Config.THEME_COLOR_KEY: {
-                        "key": Config.THEME_COLOR_KEY,
-                        "value": self.schema_local_data["current"]["theme"]["color"],
-                    },
-                    Config.LANG_KEY: {
-                        "key": Config.LANG_KEY,
-                        "value": self.schema.properties["inherit"]["locale"]["current"],
-                    },
-                }
-            )
+            self._setup_cookies(session_cookie)
 
     def _build_current_user(self, session_data: dict) -> dict:
+        """Build CURRENT_USER dict from session data."""
         current_user = {
             "auth": False,
             "id": "",
@@ -163,18 +230,27 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         if not isinstance(user_data, dict):
             return current_user
 
-        user_id = str(user_data.get("userId") or "")
+        user_id = str(user_data.get("userId") or "").strip()
         if not user_id:
             return current_user
 
+        # Authenticated user
         current_user["auth"] = True
         current_user["id"] = user_id
 
-        roles = user_data.get("roles", [])
-        if user_id:
-            db_roles = self.user.get_roles(user_id)
-            if db_roles:
-                roles = db_roles
+        # Roles: prioritize DB over session
+        # DB is authoritative; only fall back to session if DB returns None (not []).
+        session_roles = user_data.get("roles", [])
+        db_roles = self.user.get_roles(user_id)
+
+        # db_roles is authoritative even if empty ([] means no roles)
+        # Only fall back to session if DB returns None (error/not implemented)
+        if db_roles is not None:
+            roles = db_roles
+        elif isinstance(session_roles, list):
+            roles = session_roles
+        else:
+            roles = []
 
         role_map = {}
         for role in roles:
@@ -184,177 +260,210 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
                 role_map[role_key] = role_key
         current_user["roles"] = role_map
 
+        # User status flags (from disabled status)
         user_disabled = user_data.get("user_disabled", {})
         if isinstance(user_disabled, dict):
             current_user["status"] = {
-                str(key): "true"
+                str(key).strip(): "true"
                 for key, value in user_disabled.items()
                 if str(key).strip() and str(value).strip()
             }
 
-        current_user["profile"]["id"] = str(user_data.get("profileId") or "")
-        current_user["profile"]["alias"] = str(user_data.get("alias") or "")
-        current_user["profile"]["locale"] = str(user_data.get("locale") or "")
+        # Profile data
+        current_user["profile"]["id"] = str(user_data.get("profileId") or "").strip()
+        current_user["profile"]["alias"] = str(user_data.get("alias") or "").strip()
+        current_user["profile"]["locale"] = str(user_data.get("locale") or "").strip()
+
         profile_disabled = user_data.get("profile_disabled", {})
         if isinstance(profile_disabled, dict):
             current_user["profile"]["status"] = {
-                str(key): "true"
+                str(key).strip(): "true"
                 for key, value in profile_disabled.items()
                 if str(key).strip() and str(value).strip()
             }
 
         return current_user
 
-    def _cookie_tab_changes(self) -> None:
-        detect = "start"
-        detect += self.schema_data["CONTEXT"].get("UTOKEN") or "none"
-        detect += self.schema_data["CONTEXT"].get("SESSION") or "none"
-        self.view.add_cookie(
-            {
-                Config.TAB_CHANGES_KEY: {
-                    "key": Config.TAB_CHANGES_KEY,
-                    "value": sbase64url_md5(detect),
-                }
-            }
-        )
-
     def _parse_utoken(self) -> None:
+        """Parse/update UTOKEN for form submission protection."""
+        utoken_cookie_value = self.req.cookies.get(Config.UTOKEN_KEY)
+
         if self.req.method == "GET" and not self.ajax_request:
-            utoken_token, utoken_cookie = utoken_update(
-                self.req.cookies.get(Config.UTOKEN_KEY)
-            )
+            utoken_token, utoken_cookie = utoken_update(utoken_cookie_value)
         else:
-            utoken_token, utoken_cookie = utoken_extract(
-                self.req.cookies.get(Config.UTOKEN_KEY)
-            )
+            utoken_token, utoken_cookie = utoken_extract(utoken_cookie_value)
 
         self.schema_data["CONTEXT"]["UTOKEN"] = utoken_token
+
         if not self.ajax_request:
             self.view.add_cookie({**utoken_cookie})
 
-    def _resolve_route_metadata(self, component_bp=None, route="") -> None:
+    def _setup_cookies(self, session_cookie: dict) -> None:
+        """Setup all non-AJAX cookies."""
+        # Tab change detection cookie
+        detect = "start"
+        detect += self.schema_data["CONTEXT"].get("UTOKEN") or "none"
+        detect += self.schema_data["CONTEXT"].get("SESSION") or "none"
+
+        cookies = {
+            **session_cookie,
+            Config.TAB_CHANGES_KEY: {
+                "key": Config.TAB_CHANGES_KEY,
+                "value": sbase64url_md5(detect),
+            },
+            Config.THEME_KEY: {
+                "key": Config.THEME_KEY,
+                "value": self.schema_local_data["current"]["theme"]["theme"],
+            },
+            Config.THEME_COLOR_KEY: {
+                "key": Config.THEME_COLOR_KEY,
+                "value": self.schema_local_data["current"]["theme"]["color"],
+            },
+            Config.LANG_KEY: {
+                "key": Config.LANG_KEY,
+                "value": self.schema.properties["inherit"]["locale"]["current"],
+            },
+        }
+
+        self.view.add_cookie(cookies)
+
+    def _resolve_route_policy(self, route: str) -> None:
+        """Resolve route metadata and security policy from blueprint manifest."""
+        # Normalize route path
         self.route_path = self._normalize_route_path(route)
+
+        # Reset policy state
         self.policy = None
         self.allowed_roles = None
         self.route_require_auth = None
 
-        # Security policy is resolved from request schema data (single source in runtime).
-        component_uuid = (self.schema_data or {}).get("CURRENT_COMP_UUID")
-        if not component_uuid:
+        # Ensure we have component UUID and blueprint
+        self._component_uuid = self.schema_data.get("CURRENT_COMP_UUID")
+        if not self._component_uuid:
+            # No component UUID - policy remains None, will be denied in _evaluate_policy
             return
 
-        component_data = (self.schema_data or {}).get(component_uuid, {})
-        manifest = component_data.get("manifest", {}) if isinstance(component_data, dict) else {}
-        security = manifest.get("security") if isinstance(manifest, dict) else None
-        self.policy = security if isinstance(security, dict) else {}
-        if not isinstance(self.policy, dict):
+        # Load security policy from blueprint manifest (required)
+        # If no blueprint or no security policy, request will be denied
+        if not self._component_bp or not hasattr(self._component_bp, "manifest"):
             return
 
-        routes_auth = self.policy.get("routes_auth")
-        matched_require_auth = self._resolve_policy_by_prefix(
-            self.route_path,
-            routes_auth if isinstance(routes_auth, dict) else None,
-            expected_type=bool,
-        )
-        if isinstance(matched_require_auth, bool):
-            self.route_require_auth = matched_require_auth
+        manifest = self._component_bp.manifest
+        if not isinstance(manifest, dict):
+            return
 
-        routes_role = self.policy.get("routes_role")
-        matched_roles = self._resolve_policy_by_prefix(
-            self.route_path,
-            routes_role if isinstance(routes_role, dict) else None,
-            expected_type=list,
-        )
-        if isinstance(matched_roles, list):
-            self.allowed_roles = [
-                str(role).strip().lower()
-                for role in matched_roles
-                if str(role).strip()
-            ]
+        security = manifest.get("security")
+        if not isinstance(security, dict):
+            return
 
-    def _evaluate_core_policy(self) -> None:
+        self.policy = security
+
+        # Resolve routes_auth policy
+        routes_auth = security.get("routes_auth")
+        if isinstance(routes_auth, dict):
+            self.route_require_auth = self._resolve_policy_by_prefix(
+                self.route_path, routes_auth, expected_type=bool
+            )
+
+        # Resolve routes_role policy
+        routes_role = security.get("routes_role")
+        if isinstance(routes_role, dict):
+            matched_roles = self._resolve_policy_by_prefix(
+                self.route_path, routes_role, expected_type=list
+            )
+            if matched_roles is not None:
+                self.allowed_roles = [
+                    str(role).strip().lower()
+                    for role in matched_roles
+                    if str(role).strip()
+                ]
+
+    def _evaluate_policy(self) -> None:
+        """Evaluate core security policy: auth → status → roles.
+
+        Fail closed by default. Any missing policy or failed check denies access.
+        """
         self.allowed = False
         self.deny_status = None
         self.deny_reason = None
 
-        # Non-component requests are not evaluated with component manifest policy.
+        # Fail closed: policy must exist (all requests must belong to a component)
         if self.policy is None:
-            self.allowed = True
+            self._deny(403, "missing_component_policy")
             return
 
+        # Validate policy structure
         if not isinstance(self.policy, dict):
-            self.deny_status = 403
-            self.deny_reason = "invalid_security_policy"
+            self._deny(403, "invalid_security_policy")
             return
 
         routes_auth = self.policy.get("routes_auth")
+        routes_role = self.policy.get("routes_role")
+
         if not isinstance(routes_auth, dict):
-            self.deny_status = 403
-            self.deny_reason = "missing_routes_auth_policy"
+            self._deny(403, "missing_routes_auth_policy")
             return
 
-        routes_role = self.policy.get("routes_role")
         if not isinstance(routes_role, dict):
-            self.deny_status = 403
-            self.deny_reason = "missing_routes_role_policy"
+            self._deny(403, "missing_routes_role_policy")
+            return
+
+        # Check 1: Route must be mapped in both policies
+        if self.route_require_auth is None:
+            self._deny(403, "route_not_mapped_in_auth_policy")
             return
 
         if self.allowed_roles is None:
-            self.deny_status = 403
-            self.deny_reason = "route_not_mapped_in_policy"
+            self._deny(403, "route_not_mapped_in_roles_policy")
             return
 
+        # Check 2: Roles list must not be empty
         if not self.allowed_roles:
-            self.deny_status = 403
-            self.deny_reason = "empty_roles_policy"
+            self._deny(403, "empty_roles_policy")
             return
 
+        # Check 3: Wildcard '*' cannot be mixed with explicit roles
         if "*" in self.allowed_roles and len(self.allowed_roles) > 1:
-            self.deny_status = 403
-            self.deny_reason = "invalid_roles_policy_wildcard_mixed"
+            self._deny(403, "invalid_roles_wildcard_mixed")
             return
 
-        # 1) Authentication (route-level policy)
-        if self.route_require_auth is None:
-            self.deny_status = 403
-            self.deny_reason = "route_not_mapped_in_auth_policy"
+        # Stage 1: Authentication check
+        is_authenticated = bool(self.schema_data["CURRENT_USER"].get("auth"))
+        if self.route_require_auth and not is_authenticated:
+            self._deny(401, "auth_required")
             return
 
-        require_auth = self.route_require_auth
-
-        is_auth = bool(self.schema_data["CURRENT_USER"].get("auth"))
-        if require_auth and not is_auth:
-            self.deny_status = 401
-            self.deny_reason = "auth_required"
+        # Stage 2: Status restrictions (core policy)
+        status_reason = self._get_restricted_status_reason()
+        if status_reason:
+            self._deny(403, status_reason)
             return
 
-        # 2) Status restrictions (core)
-        restricted_reason = self._get_restricted_status_reason()
-        if restricted_reason:
-            self.deny_status = 403
-            self.deny_reason = restricted_reason
-            return
-
-        # 3) Role policy
+        # Stage 3: Role authorization check
         if "*" in self.allowed_roles:
+            # Wildcard allows any role (including no role if auth not required)
             self.allowed = True
             return
 
-        role_map = self.schema_data["CURRENT_USER"].get("roles", {})
-        current_roles = {
-            str(key).replace("role_", "", 1).strip().lower()
-            for key in role_map.keys()
-            if str(key).startswith("role_")
+        # Check if user has any of the allowed roles
+        user_role_map = self.schema_data["CURRENT_USER"].get("roles", {})
+        user_roles = {
+            key.replace("role_", "", 1)
+            for key in user_role_map.keys()
+            if key.startswith("role_")
         }
-        if not current_roles.intersection(set(self.allowed_roles)):
-            self.deny_status = 403
-            self.deny_reason = "role_not_allowed"
+
+        if not user_roles.intersection(set(self.allowed_roles)):
+            self._deny(403, "role_not_allowed")
             return
 
         self.allowed = True
 
     def _get_restricted_status_reason(self) -> str | None:
-        """Return deny reason if current user/profile is in restricted status."""
+        """Check if user/profile status restricts access.
+
+        Returns deny reason string if restricted, None if allowed.
+        """
         current_user = self.schema_data.get("CURRENT_USER", {})
         user_status = current_user.get("status", {})
         profile_status = current_user.get("profile", {}).get("status", {})
@@ -364,65 +473,115 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         if not isinstance(profile_status, dict):
             profile_status = {}
 
-        # Deleted users are always blocked.
+        # Deleted users are always blocked (highest priority)
         if DELETED in user_status:
             return "user_status_deleted"
 
-        # Any remaining status flag is treated as restricted by core policy.
+        # Any other user status flag restricts access
         if user_status:
             return "user_status_restricted"
 
+        # Profile status restrictions
         if profile_status:
             return "profile_status_restricted"
 
         return None
 
+    def _deny(self, status: int, reason: str) -> None:
+        """Record denial and log structured deny event."""
+        self.allowed = False
+        self.deny_status = status
+        self.deny_reason = reason
+
+        # Structured deny log for observability
+        logger.warning(
+            "Access denied: component=%s route=%s reason=%s status=%d",
+            self._component_uuid or "none",
+            self.route_path,
+            reason,
+            status,
+            extra={
+                "event": "access_denied",
+                "component_uuid": self._component_uuid,
+                "route_path": self.route_path,
+                "deny_reason": reason,
+                "deny_status": status,
+                "user_id": self.schema_data.get("CURRENT_USER", {}).get("id"),
+                "has_session": self.schema_data.get("HAS_SESSION") == "true",
+            }
+        )
+
     @staticmethod
-    def _normalize_route_path(route) -> str:
+    def _normalize_route_path(route: str) -> str:
+        """Normalize route path for policy lookup.
+
+        Rules:
+        - Empty path -> /
+        - Ensure leading slash
+        - Remove trailing slash except root
+        """
         path = (route or "").strip()
+
         if not path:
             return "/"
+
         if not path.startswith("/"):
             path = f"/{path}"
-        if len(path) > 1:
+
+        # Remove trailing slash except for root
+        if len(path) > 1 and path.endswith("/"):
             path = path.rstrip("/")
-            if not path:
-                return "/"
-        return path
+
+        return path or "/"
 
     @staticmethod
     def _route_matches_prefix(route_path: str, prefix_path: str) -> bool:
-        """Prefix matching with segment boundary (except root, which matches all)."""
+        """Check if route_path matches the given prefix.
+
+        - Root prefix "/" matches all routes
+        - Otherwise matches exact or prefix with segment boundary
+        """
         if prefix_path == "/":
             return True
-        return route_path == prefix_path or route_path.startswith(f"{prefix_path}/")
+        return (
+            route_path == prefix_path or
+            route_path.startswith(f"{prefix_path}/")
+        )
 
-    def _resolve_policy_by_prefix(self, route_path: str, mapping: dict | None, expected_type: type):
-        """Return best policy match by prefix (most specific wins)."""
-        if not isinstance(mapping, dict):
+    def _resolve_policy_by_prefix(
+        self,
+        route_path: str,
+        policy_map: dict | None,
+        expected_type: type
+    ) -> Any:
+        """Resolve policy by prefix matching (most specific wins).
+
+        Args:
+            route_path: Normalized route path
+            policy_map: Dict mapping path prefixes to policy values
+            expected_type: Expected type of policy value
+
+        Returns:
+            Best matching policy value or None if no match
+        """
+        if not isinstance(policy_map, dict):
             return None
 
-        matched_prefix = None
-        matched_value = None
+        best_prefix: str | None = None
+        best_value: Any = None
 
-        for prefix, value in mapping.items():
+        for prefix, value in policy_map.items():
             normalized_prefix = self._normalize_route_path(prefix)
+
             if not self._route_matches_prefix(route_path, normalized_prefix):
                 continue
+
             if not isinstance(value, expected_type):
                 continue
-            if matched_prefix is None or len(normalized_prefix) > len(matched_prefix):
-                matched_prefix = normalized_prefix
-                matched_value = value
 
-        return matched_value
+            # Most specific (longest) prefix wins
+            if best_prefix is None or len(normalized_prefix) > len(best_prefix):
+                best_prefix = normalized_prefix
+                best_value = value
 
-    def extract_comp_from_path(self, path) -> tuple[str | None, str | None]:
-        if "/component/cmp_" in path:
-            part = path.split("component/cmp_")[1]
-            name = "cmp_" + part.split("/")[0]
-        else:
-            return None, None
-
-        uuid = self.schema.properties["data"]["COMPONENTS_MAP_BY_NAME"].get(name)
-        return name, uuid
+        return best_value

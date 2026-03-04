@@ -5,7 +5,9 @@
     "version": "0.0.0",
     "route": "/ftoken",
     "security": {
-        "require_auth": false,
+        "routes_auth": {
+            "/": false
+        },
         "routes_role": {
             "/": [
                 "*"

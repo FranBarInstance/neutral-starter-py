@@ -1,15 +1,35 @@
 """Request handler base that consumes PreparedRequest (`g.pr`)."""
 
-from .prepared_request import PreparedRequest
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .prepared_request import PreparedRequest
 
 
-class RequestHandler:  # pylint: disable=too-few-public-methods
-    """Thin adapter around PreparedRequest for blueprint route handlers."""
+class RequestHandler:
+    """Thin adapter around PreparedRequest for blueprint route handlers.
 
-    def __init__(self, prepared_request: PreparedRequest, comp_route="", neutral_route=None):
+    Provides convenient access to PreparedRequest context and default
+    route rendering behavior. Does NOT re-evaluate security policies
+    (those are evaluated once in the global before_request).
+    """
+
+    def __init__(
+        self,
+        prepared_request: "PreparedRequest",
+        comp_route: str = "",
+        neutral_route: str | None = None
+    ):
+        """Initialize handler with PreparedRequest context.
+
+        Args:
+            prepared_request: The PreparedRequest built in before_request
+            comp_route: Component-relative route path
+            neutral_route: Neutral template route path
+        """
         self.pr = prepared_request
-        self.pr.set_route_context(route=comp_route, neutral_route=neutral_route)
 
+        # Expose commonly used attributes for convenience
         self.req = self.pr.req
         self.schema = self.pr.schema
         self.schema_data = self.pr.schema_data
@@ -19,6 +39,29 @@ class RequestHandler:  # pylint: disable=too-few-public-methods
         self.user = self.pr.user
         self.view = self.pr.view
 
+        # Store route context for potential template/debug use
+        self.comp_route = comp_route
+        self.neutral_route = neutral_route
+
+        # Expose security decision
+        self.allowed = self.pr.allowed
+        self.deny_status = self.pr.deny_status
+        self.deny_reason = self.pr.deny_reason
+
     def render_route(self):
-        """Default route render behavior."""
+        """Default route render behavior.
+
+        Returns the rendered template response from the view.
+        Component handlers can extend this for custom behavior.
+        """
         return self.view.render()
+
+    def render_error(self, status: int = 404, message: str = "", param: str = ""):
+        """Render error response.
+
+        Args:
+            status: HTTP status code
+            message: Error message
+            param: Additional error parameter
+        """
+        return self.view.render_error(status, message, param)

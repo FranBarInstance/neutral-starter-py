@@ -15,7 +15,9 @@
         }
     },
     "security": {
-        "require_auth": false,
+        "routes_auth": {
+            "/": false
+        },
         "routes_role": {
             "/": [
                 "*"
