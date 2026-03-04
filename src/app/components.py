@@ -280,14 +280,49 @@ class Components:
             print("⚠️  field security must be a JSON object")
             return False
 
-        # TODO(security-contract): Enforce minimum security contract in manifest:
-        # {
-        #   "security": {
-        #     "routes_auth": { "/": <bool> },
-        #     "routes_role": { "/": [<role>, ...] }
-        #   }
-        # }
-        # Include strict type validation and fail app startup on any mismatch.
+        # Enforce minimum security contract in manifest
+        security = manifest.get("security", {})
+
+        # Validate routes_auth exists and is a dict
+        routes_auth = security.get("routes_auth")
+        if not isinstance(routes_auth, dict):
+            print("⚠️  field security.routes_auth must be a JSON object")
+            return False
+
+        # Validate routes_role exists and is a dict
+        routes_role = security.get("routes_role")
+        if not isinstance(routes_role, dict):
+            print("⚠️  field security.routes_role must be a JSON object")
+            return False
+
+        # Validate routes_auth has at least one entry
+        if not routes_auth:
+            print("⚠️  security.routes_auth cannot be empty")
+            return False
+
+        # Validate routes_role has at least one entry
+        if not routes_role:
+            print("⚠️  security.routes_role cannot be empty")
+            return False
+
+        # Validate routes_auth values are booleans
+        for key, value in routes_auth.items():
+            if not isinstance(value, bool):
+                print(f"⚠️  security.routes_auth['{key}'] must be a boolean, got {type(value).__name__}")
+                return False
+
+        # Validate routes_role values are lists of strings
+        for key, value in routes_role.items():
+            if not isinstance(value, list):
+                print(f"⚠️  security.routes_role['{key}'] must be a list, got {type(value).__name__}")
+                return False
+            if not value:  # Empty list
+                print(f"⚠️  security.routes_role['{key}'] cannot be an empty list")
+                return False
+            for role in value:
+                if not isinstance(role, str):
+                    print(f"⚠️  security.routes_role['{key}'] values must be strings, found {type(role).__name__}")
+                    return False
 
         return True
 

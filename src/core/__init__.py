@@ -5,6 +5,8 @@ from app.config import Config
 from .dispatcher import Dispatcher
 from .dispatcher_form import DispatcherForm
 from .model import Model
+from .prepared_request import PreparedRequest
+from .request_handler import RequestHandler
 from .schema import Schema
 from .session import Session
 from .user import User
@@ -16,6 +18,8 @@ __all__ = [
     'Dispatcher',
     'DispatcherForm',
     'Model',
+    'PreparedRequest',
+    'RequestHandler',
     'Schema',
     'Session',
     'User',
