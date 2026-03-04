@@ -1,6 +1,7 @@
 """Request handler base that consumes PreparedRequest (`g.pr`)."""
 
 from typing import TYPE_CHECKING
+from app.config import Config
 
 if TYPE_CHECKING:
     from .prepared_request import PreparedRequest
@@ -38,6 +39,12 @@ class RequestHandler:
         self.session = self.pr.session
         self.user = self.pr.user
         self.view = self.pr.view
+
+        # Set CURRENT_COMP_ROUTE with actual component-relative route
+        # This is the route value from the route handler (e.g., "users" from "/<path:route>")
+        normalized_comp_route = f"{Config.COMP_ROUTE_ROOT}/{comp_route or ''}".strip("/")
+        self.schema_data["CURRENT_COMP_ROUTE"] = normalized_comp_route
+        self.schema_data["CURRENT_COMP_ROUTE_SANITIZED"] = normalized_comp_route.replace("/", ":")
 
         # Store route context for potential template/debug use
         self.comp_route = comp_route

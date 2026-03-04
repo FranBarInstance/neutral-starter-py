@@ -23,6 +23,53 @@ from .extensions import cache, limiter
 from core.prepared_request import PreparedRequest
 
 
+def _verify_before_request_order(app):
+    """Verify mandatory execution order of before_request handlers.
+
+    Security invariant: reject_disallowed_host must run before prepare_request_context.
+    If this order is not guaranteed, the app must fail to start (fail closed).
+
+    Raises:
+        RuntimeError: If before_request handlers are not in correct order.
+    """
+    # Get all before_request handlers (None key means app-level handlers)
+    handlers = app.before_request_funcs.get(None, [])
+
+    # Find positions of our security handlers
+    host_guard_pos = None
+    prepared_request_pos = None
+
+    for idx, handler in enumerate(handlers):
+        # Check function names (handler could be wrapped by functools.wraps)
+        handler_name = getattr(handler, '__name__', str(handler))
+        if handler_name == 'reject_disallowed_host':
+            host_guard_pos = idx
+        elif handler_name == 'prepare_request_context':
+            prepared_request_pos = idx
+
+    # Verify both handlers exist
+    if host_guard_pos is None:
+        raise RuntimeError(
+            "SECURITY INVARIANT VIOLATION: reject_disallowed_host before_request handler not found. "
+            "Host validation must run before PreparedRequest. App startup aborted."
+        )
+
+    if prepared_request_pos is None:
+        raise RuntimeError(
+            "SECURITY INVARIANT VIOLATION: prepare_request_context before_request handler not found. "
+            "PreparedRequest must be registered. App startup aborted."
+        )
+
+    # Verify order: host guard must come before prepared request
+    if host_guard_pos >= prepared_request_pos:
+        raise RuntimeError(
+            f"SECURITY INVARIANT VIOLATION: before_request order incorrect. "
+            f"reject_disallowed_host (pos {host_guard_pos}) must run before "
+            f"prepare_request_context (pos {prepared_request_pos}). "
+            f"App startup aborted."
+        )
+
+
 class TrustedProxyHeaderGuard: # pylint: disable=too-few-public-methods
     """Strip forwarded headers when request does not come from a trusted proxy."""
 
@@ -212,12 +259,20 @@ def create_app(config_class=Config, debug=None):
             bp_name = str(request.endpoint).split(".", 1)[0]
             component_bp = app.blueprints.get(bp_name)
 
-        route = view_args.get("route", "") if isinstance(view_args, dict) else ""
-        g.pr = PreparedRequest(request).build(component_bp=component_bp, route=route)
+        # Use request.path for security evaluation (full path)
+        full_path = request.path
+
+        g.pr = PreparedRequest(request).build(
+            component_bp=component_bp,
+            full_path=full_path
+        )
         if not g.pr.allowed:
             # Design stage behavior: generic unauthorized response for all deny cases.
             return g.pr.view.render_error(401, HTTPStatus(401).phrase, "Unauthorized")
 
+    # Verify mandatory execution order: reject_disallowed_host must run before prepare_request_context
+    # This is a security invariant - if order is wrong, the app must fail to start
+    _verify_before_request_order(app)
 
     # Register security headers
     app.after_request(add_security_headers)

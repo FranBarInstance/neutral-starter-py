@@ -61,8 +61,12 @@ class PreparedRequest:
     _component_bp: Any = None
     _component_uuid: str | None = None
 
-    def build(self, component_bp=None, route: str = "") -> "PreparedRequest":
+    def build(self, component_bp=None, full_path: str = "") -> "PreparedRequest":
         """Build all request-scoped core context and evaluate policies.
+
+        Args:
+            component_bp: The component blueprint
+            full_path: Full request path (for security policy evaluation)
 
         Stages:
         1. Core schema initialization
@@ -81,7 +85,8 @@ class PreparedRequest:
         self.schema_local_data = self.schema.properties["inherit"]["data"]
 
         # Stage 2: Setup component context (establishes CURRENT_BP_SCHEMA)
-        self._setup_component_context(route)
+        # Note: CURRENT_COMP_ROUTE will be set by RequestHandler
+        self._setup_component_context()
 
         # Stage 3: Merge blueprint-specific schema
         self._merge_bp_schema()
@@ -92,19 +97,19 @@ class PreparedRequest:
         # Stage 5: Materialize request context
         self._materialize_context()
 
-        # Stage 6: Resolve route security policy
-        self._resolve_route_policy(route)
+        # Stage 6: Resolve route security policy (uses full path)
+        self._resolve_route_policy(full_path)
 
         # Stage 7: Evaluate security policy
         self._evaluate_policy()
 
         return self
 
-    def _setup_component_context(self, comp_route: str) -> None:
+    def _setup_component_context(self) -> None:
         """Setup component context variables in schema data.
 
         Establishes:
-        - CURRENT_COMP_ROUTE
+        - CURRENT_COMP_ROUTE (set by RequestHandler with actual route)
         - CURRENT_COMP_ROUTE_SANITIZED
         - CURRENT_NEUTRAL_ROUTE
         - CURRENT_COMP_NAME
@@ -114,13 +119,16 @@ class PreparedRequest:
 
         Note: All requests must belong to a component. If no blueprint is provided,
         the component UUID will be None and the request will be denied.
+
+        Note: CURRENT_COMP_ROUTE is intentionally left for RequestHandler to set,
+        as it has access to the actual component-relative route from the route handler.
         """
         data = self.schema_data
 
-        # Normalize component route
-        normalized_comp_route = f"{Config.COMP_ROUTE_ROOT}/{comp_route or ''}".strip("/")
-        data["CURRENT_COMP_ROUTE"] = normalized_comp_route
-        data["CURRENT_COMP_ROUTE_SANITIZED"] = normalized_comp_route.replace("/", ":")
+        # CURRENT_COMP_ROUTE will be set by RequestHandler with the actual route
+        # We only set a placeholder here for backward compatibility
+        data["CURRENT_COMP_ROUTE"] = Config.COMP_ROUTE_ROOT
+        data["CURRENT_COMP_ROUTE_SANITIZED"] = Config.COMP_ROUTE_ROOT.replace("/", ":")
 
         # Get component info from blueprint (required)
         # If no blueprint, UUID remains None and request will be denied
@@ -328,8 +336,12 @@ class PreparedRequest:
         self.view.add_cookie(cookies)
 
     def _resolve_route_policy(self, route: str) -> None:
-        """Resolve route metadata and security policy from blueprint manifest."""
-        # Normalize route path
+        """Resolve route metadata and security policy from blueprint manifest.
+
+        Policy keys in manifest are relative to component route.
+        They are expanded with component route for matching against full request path.
+        """
+        # Normalize route path (use full path as-is)
         self.route_path = self._normalize_route_path(route)
 
         # Reset policy state
@@ -358,18 +370,24 @@ class PreparedRequest:
 
         self.policy = security
 
+        # Get component route for expanding relative policy keys
+        # e.g., component route="/admin", policy key "/users" → expanded "/admin/users"
+        component_route = manifest.get("route", "")
+
         # Resolve routes_auth policy
         routes_auth = security.get("routes_auth")
         if isinstance(routes_auth, dict):
             self.route_require_auth = self._resolve_policy_by_prefix(
-                self.route_path, routes_auth, expected_type=bool
+                self.route_path, routes_auth, expected_type=bool,
+                component_route=component_route
             )
 
         # Resolve routes_role policy
         routes_role = security.get("routes_role")
         if isinstance(routes_role, dict):
             matched_roles = self._resolve_policy_by_prefix(
-                self.route_path, routes_role, expected_type=list
+                self.route_path, routes_role, expected_type=list,
+                component_route=component_route
             )
             if matched_roles is not None:
                 self.allowed_roles = [
@@ -552,14 +570,16 @@ class PreparedRequest:
         self,
         route_path: str,
         policy_map: dict | None,
-        expected_type: type
+        expected_type: type,
+        component_route: str = ""
     ) -> Any:
         """Resolve policy by prefix matching (most specific wins).
 
         Args:
-            route_path: Normalized route path
-            policy_map: Dict mapping path prefixes to policy values
+            route_path: Normalized route path (full request path)
+            policy_map: Dict mapping relative path prefixes to policy values
             expected_type: Expected type of policy value
+            component_route: Component's base route for expanding relative keys
 
         Returns:
             Best matching policy value or None if no match
@@ -571,7 +591,14 @@ class PreparedRequest:
         best_value: Any = None
 
         for prefix, value in policy_map.items():
-            normalized_prefix = self._normalize_route_path(prefix)
+            # Expand relative policy key with component route
+            # e.g., prefix="/users" + component_route="/admin" → expanded="/admin/users"
+            if component_route and prefix.startswith("/"):
+                expanded_prefix = component_route + prefix
+            else:
+                expanded_prefix = prefix
+
+            normalized_prefix = self._normalize_route_path(expanded_prefix)
 
             if not self._route_matches_prefix(route_path, normalized_prefix):
                 continue

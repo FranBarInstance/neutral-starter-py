@@ -257,18 +257,47 @@ At startup/registration:
 
 **IMPORTANT**: At this point there are NO tests. Existing tests are neither executed nor verified because they will fail. Once the new design is implemented, the corresponding tests will be performed.
 
-1. `PreparedRequest` was introduced as the mandatory core object per request and exposed as `g.pr`.
-2. `PreparedRequest` now fully replaces `Dispatcher` functionality:
-   - Initializes Schema, Session, User, Template (same as Dispatcher)
-   - Sets up component context using blueprint directly (not path parsing)
-   - Merges blueprint schema (fail closed - errors propagate)
+### Core Architecture
+
+1. **`PreparedRequest`** - Mandatory bootstrap object per request:
+   - Exposed as `g.pr` in `before_request`
+   - Uses `request.path` (full path) for security evaluation
+   - Initializes Schema, Session, User, Template
+   - Merges blueprint schema (fail closed)
    - Builds CURRENT_USER with roles/status (bug fixed: db_roles `is not None` check)
    - Handles UTOKEN/LTOKEN and cookies
-3. `RequestHandler` simplified to thin adapter - does NOT re-evaluate security policies.
-4. Security evaluation centralized in core using `security.routes_auth` and `security.routes_role`.
-5. Policy resolution uses route-prefix matching (most specific wins).
-6. Fail closed: No bypass for non-component requests - denied with `missing_component_policy`.
-7. `require_auth` compatibility removed; invalid in new contract.
-8. Design stage: deny responses return generic `401`.
-9. `before_request` order: Host validation → PreparedRequest → component route.
-10. Components adapted: `cmp_5100_home`, `cmp_5150_testing`, `cmp_9100_catch_all`.
+   - Evaluates security policies: auth → status → roles
+
+2. **`RequestHandler`** - Thin adapter for route handlers:
+   - Receives `g.pr` and actual component route from handler
+   - Sets `CURRENT_COMP_ROUTE` with real route value
+   - Does NOT re-evaluate security (already done in `before_request`)
+   - Provides convenient access to PreparedRequest context
+
+3. **Security Policy Resolution**:
+   - Policy keys in manifest are **relative to component route**
+   - Keys are expanded with component route for matching (e.g., `"/users"` + component route `"/admin"` → `"/admin/users"`)
+   - Route-prefix matching: most specific wins
+   - Full request path (`request.path`) used for evaluation
+
+4. **Fail Closed by Default**:
+   - No bypass for non-component requests
+   - Denied with `missing_component_policy` if no component
+   - Denied if policy missing/invalid
+   - Startup verification of `before_request` order
+
+5. **Execution Order Verification**:
+   - `_verify_before_request_order()` checks at startup
+   - Verifies: `reject_disallowed_host` → `prepare_request_context`
+   - App fails to start if order incorrect (security invariant)
+
+6. **Contracts Updated**:
+   - `require_auth` removed (use `routes_auth` instead)
+   - Design stage: generic `401` for denies
+   - Components migrated: `cmp_5100_home`, `cmp_5150_testing`, `cmp_9100_catch_all`
+
+### Pending (Not Critical for Core Security)
+
+- Metrics counters (denied by auth, status, role, policy)
+- Debug trace for route normalization
+- Comprehensive tests
