@@ -1,7 +1,11 @@
-"""Dispatcher for example sign-related forms."""
+"""Request handlers for example sign-related forms.
+
+This module provides form handlers for the fake login demonstration.
+In real applications, create appropriate logic in custom handlers.
+"""
 
 from ftoken_0yt2sa import ftoken_check
-from core.dispatcher_form import DispatcherForm
+from core.request_handler_form import FormRequestHandler
 
 
 # sign-in fake data
@@ -10,19 +14,19 @@ EMAIL = 'email@example.com'
 PASSWORD = '12345678'
 
 
-class DispatcherFormExampleSign(DispatcherForm):
+class ExampleSignRequestHandler(FormRequestHandler):
     """Base class for handling authentication form validation logic."""
 
     def __init__(  # pylint: disable=too-many-arguments
         self,
-        req,
-        comp_route,
-        neutral_route=None,
-        ltoken=None,
-        form_name="_unused_form",
-        ftoken_field_name=None,
+        prepared_request,
+        comp_route: str = "",
+        neutral_route: str | None = None,
+        ltoken: str | None = None,
+        form_name: str = "_unused_form",
+        ftoken_field_name: str | None = None,
     ):
-        super().__init__(req, comp_route, neutral_route, ltoken, form_name)
+        super().__init__(prepared_request, comp_route, neutral_route, ltoken, form_name)
         self._ftoken_field_name = ftoken_field_name
         self.error["form"]["ftoken"] = None
         self.schema_data["dispatch_result"] = True
@@ -40,7 +44,7 @@ class DispatcherFormExampleSign(DispatcherForm):
 
         return True
 
-    def validate_post(self, error_prefix) -> bool:
+    def validate_post(self, error_prefix: str = "ref:fake_login_form_error") -> bool:
         """Validate POST request for authentication forms."""
 
         if not self.valid_form_tokens_post():
@@ -78,7 +82,7 @@ class DispatcherFormExampleSign(DispatcherForm):
         self.view.add_cookie({
             "fake-login-session": {
                 "key": "fake-login-session",
-                "value":  "true",
+                "value": "true",
                 "path": "/"
             }
         })
@@ -91,7 +95,7 @@ class DispatcherFormExampleSign(DispatcherForm):
         self.view.add_cookie({
             "fake-login-session": {
                 "key": "fake-login-session",
-                "value":  "",
+                "value": "",
                 "path": "/",
                 "expires": 0
             }
@@ -101,7 +105,7 @@ class DispatcherFormExampleSign(DispatcherForm):
 
 
 # Login
-class DispatcherFormExampleSignIn(DispatcherFormExampleSign):
+class ExampleSignInRequestHandler(ExampleSignRequestHandler):
     """Handles sign-in form processing and user authentication."""
 
     def get(self) -> bool:
@@ -147,7 +151,7 @@ class DispatcherFormExampleSignIn(DispatcherFormExampleSign):
 
 
 # Logout
-class DispatcherFormExampleSignOut(DispatcherFormExampleSign):
+class ExampleSignOutRequestHandler(ExampleSignRequestHandler):
     """Handles user sign-out and session termination."""
 
     def get(self) -> bool:
