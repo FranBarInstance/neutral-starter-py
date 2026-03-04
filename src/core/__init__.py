@@ -7,6 +7,7 @@ from .dispatcher_form import DispatcherForm
 from .model import Model
 from .prepared_request import PreparedRequest
 from .request_handler import RequestHandler
+from .request_handler_form import FormRequestHandler
 from .schema import Schema
 from .session import Session
 from .user import User
@@ -17,6 +18,7 @@ from .mail import Mail
 __all__ = [
     'Dispatcher',
     'DispatcherForm',
+    'FormRequestHandler',
     'Model',
     'PreparedRequest',
     'RequestHandler',

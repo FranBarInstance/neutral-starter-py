@@ -25,6 +25,8 @@ It must be clear that absolutely no route executes without `PreparedRequest` gra
 Use `Domain + RequestHandler` (not `RequestHandler + Domain`).
 
 Examples:
+- `Dispatcher` -> `RequestHandler`
+- `DispatcherForm` -> `FormRequestHandler`
 - `DispatcherFormSign` -> `SignRequestHandler`
 - `DispatcherAdmin` -> `AdminRequestHandler`
 
@@ -182,8 +184,11 @@ Examples:
 
 ## Blueprint Usage Pattern
 
+### Standard RequestHandler
+
 ```python
 from flask import g
+from core import RequestHandler
 
 @bp.route("/", defaults={"route": ""}, methods=["GET"])
 @bp.route("/<path:route>", methods=["GET", "POST"])
@@ -191,6 +196,28 @@ def index(route):
     # If security fails, core already rendered generic 401 in before_request.
     dispatch = RequestHandler(g.pr, route, bp.neutral_route)
     return dispatch.render_route()
+```
+
+### FormRequestHandler (for form processing)
+
+```python
+from flask import g
+from core import FormRequestHandler
+
+@bp.route("/form/<ltoken>", defaults={"route": "form"}, methods=["GET", "POST"])
+def form_handler(route, ltoken):
+    handler = FormRequestHandler(
+        g.pr, route, bp.neutral_route, ltoken, "my_form"
+    )
+
+    if handler.req.method == "POST":
+        if handler.form_post():
+            # Form valid - process data
+            return handler.render_route()
+    else:
+        handler.form_get()
+
+    return handler.render_route()
 ```
 
 ## Performance and Caching (Core-owned)
@@ -226,9 +253,10 @@ At startup/registration:
 3. Register first global `before_request` to set `g.pr`.
 
 ### Phase 2
-1. Refactor `Dispatcher` to consume `g.pr`.
-2. Migrate component routes to standard pattern.
-3. Remove duplicated core/bootstrap logic from dispatchers.
+1. Refactor `Dispatcher` to consume `g.pr` -> `RequestHandler`.
+2. Refactor `DispatcherForm` to consume `g.pr` -> `FormRequestHandler`.
+3. Migrate component routes to standard pattern.
+4. Remove duplicated core/bootstrap logic from dispatchers.
 
 ### Phase 3
 1. Enforce strict startup validation and fail-closed runtime behavior.
@@ -291,7 +319,14 @@ At startup/registration:
    - Verifies: `reject_disallowed_host` → `prepare_request_context`
    - App fails to start if order incorrect (security invariant)
 
-6. **Contracts Updated**:
+6. **`FormRequestHandler`** - Form handling migrated to new pattern:
+   - Extends `RequestHandler` with form-specific functionality
+   - Receives `prepared_request`, `comp_route`, `neutral_route`, `ltoken`, `form_name`
+   - Maintains all form validation: tokens, field rules, error handling
+   - Located in `src/core/request_handler_form.py`
+   - Replaces `DispatcherForm` (kept for backward compatibility temporarily)
+
+7. **Contracts Updated**:
    - `require_auth` removed (use `routes_auth` instead)
    - Design stage: generic `401` for denies
    - Components migrated: `cmp_5100_home`, `cmp_5150_testing`, `cmp_9100_catch_all`

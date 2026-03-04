@@ -3,5 +3,15 @@
     "name": "cmp_6000_examplesign_local",
     "description": "Fake login example using cookies and AJAX",
     "version": "0.0.0",
-    "route": "/example-sign"
+    "route": "/example-sign",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
 }
