@@ -56,6 +56,18 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
         return [{"name": name, "code": code} for name, code in pairs]
 
     @staticmethod
+    def _build_profile_disabled_options() -> list[dict]:
+        allowed_codes = {
+            Config.DISABLED[MODERATED],
+            Config.DISABLED[SPAM],
+        }
+        return [
+            item
+            for item in DispatcherAdmin._build_disabled_options()
+            if item["code"] in allowed_codes
+        ]
+
+    @staticmethod
     def _default_user_state() -> dict:
         return {
             "message": "",
@@ -90,7 +102,13 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
 
         return user_id, roles
 
-    def _apply_user_action(self, state: dict, can_full: bool, can_moderate: bool) -> None:  # pylint: disable=too-many-return-statements,too-many-branches,too-many-statements
+    def _apply_user_action(
+        self,
+        state: dict,
+        can_full: bool,
+        can_moderate: bool,
+        current_user_id: str | None,
+    ) -> None:  # pylint: disable=too-many-return-statements,too-many-branches,too-many-statements
         """Apply user actions with comprehensive security validation.
 
         This function handles multiple action types (set-disabled, remove-disabled,
@@ -137,7 +155,6 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
             if not self._is_valid_disabled_reason(reason):
                 state["error"] = "Invalid disabled reason value."
                 return
-
             if can_moderate and not can_full:
                 allowed = {Config.DISABLED[UNVALIDATED], Config.DISABLED[MODERATED]}
                 if reason not in allowed:
@@ -197,11 +214,18 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
             if not self._is_valid_disabled_reason(reason):
                 state["error"] = "Invalid disabled reason value."
                 return
+            allowed_profile_reasons = {
+                Config.DISABLED[MODERATED],
+                Config.DISABLED[SPAM],
+            }
+            if reason not in allowed_profile_reasons:
+                state["error"] = "Allowed profile reasons are moderated or spam."
+                return
 
             if can_moderate and not can_full:
-                allowed = {Config.DISABLED[UNVALIDATED], Config.DISABLED[MODERATED]}
+                allowed = {Config.DISABLED[MODERATED], Config.DISABLED[SPAM]}
                 if reason not in allowed:
-                    state["error"] = "Moderators can only set unvalidated or moderated."
+                    state["error"] = "Moderators can only set moderated or spam."
                     return
 
             if reason == Config.DISABLED[MODERATED] and not description:
@@ -229,14 +253,21 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
             if not self._is_valid_disabled_reason(reason):
                 state["error"] = "Invalid disabled reason value."
                 return
+            allowed_profile_reasons = {
+                Config.DISABLED[MODERATED],
+                Config.DISABLED[SPAM],
+            }
+            if reason not in allowed_profile_reasons:
+                state["error"] = "Allowed profile reasons are moderated or spam."
+                return
 
             if not can_full:
                 if not can_moderate:
                     state["error"] = "Action not allowed for current role."
                     return
-                allowed = {Config.DISABLED[UNVALIDATED], Config.DISABLED[MODERATED]}
+                allowed = {Config.DISABLED[MODERATED], Config.DISABLED[SPAM]}
                 if reason not in allowed:
-                    state["error"] = "Moderators can only remove unvalidated or moderated."
+                    state["error"] = "Moderators can only remove moderated or spam."
                     return
 
             if not self.user.delete_profile_disabled(profile_id, reason):
@@ -253,6 +284,9 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
                 return
             if not role_code:
                 state["error"] = "Role code is required."
+                return
+            if role_code not in set(state["roles_available"]):
+                state["error"] = "Invalid role code."
                 return
             if profile_id:
                 success = self.user.assign_role_to_profile(profile_id, role_code)
@@ -272,6 +306,12 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
             if not role_code:
                 state["error"] = "Role code is required."
                 return
+            if role_code not in set(state["roles_available"]):
+                state["error"] = "Invalid role code."
+                return
+            if current_user_id and user_id == current_user_id and role_code in {"dev", "admin"}:
+                state["error"] = "Removing your own dev/admin role is not allowed."
+                return
             if profile_id:
                 success = self.user.remove_role_from_profile(profile_id, role_code)
             else:
@@ -286,6 +326,9 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
         if action == "delete-user":
             if not can_full:
                 state["error"] = "Action not allowed for moderator role."
+                return
+            if current_user_id and user_id == current_user_id:
+                state["error"] = "Deleting your own user is not allowed."
                 return
 
             if delete_confirm != "DELETE":
@@ -313,6 +356,9 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
         state["role_filter"] = requested_role_filter if requested_role_filter in set(state["roles_available"]) else ""
 
         requested_disabled_filter = (request.values.get("disabled_filter") or "").strip()
+        current = (self._raw_route or "").strip("/")
+        if current == "profile":
+            state["disabled_options"] = self._build_profile_disabled_options()
         disabled_codes = {str(item["code"]) for item in state["disabled_options"]}
         state["disabled_filter"] = requested_disabled_filter if requested_disabled_filter in disabled_codes else ""
 
@@ -357,7 +403,10 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
         for user_row in state["users"]:
             disabled_items = []
             for item in user_row.get("disabled", []):
-                reason_code = int(item.get("reason"))
+                try:
+                    reason_code = int(item.get("reason"))
+                except (TypeError, ValueError):
+                    continue
                 disabled_items.append(
                     {
                         "reason": reason_code,
@@ -371,7 +420,10 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
 
             p_disabled_items = []
             for item in user_row.get("profile_disabled", []):
-                reason_code = int(item.get("reason"))
+                try:
+                    reason_code = int(item.get("reason"))
+                except (TypeError, ValueError):
+                    continue
                 p_disabled_items.append(
                     {
                         "reason": reason_code,
@@ -387,7 +439,7 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
         """Execute admin route logic and render."""
         self.schema_data["dispatch_result"] = True
 
-        _user_id, roles = self._resolve_current_roles()
+        current_user_id, roles = self._resolve_current_roles()
         can_full = bool({"dev", "admin"}.intersection(roles))
         can_moderate = "moderator" in roles
 
@@ -416,7 +468,12 @@ class DispatcherAdmin(Dispatcher):  # pylint: disable=too-few-public-methods
             abort(404)
 
         state = self._build_user_state(can_full=can_full, can_moderate=can_moderate)
-        self._apply_user_action(state, can_full=can_full, can_moderate=can_moderate)
+        self._apply_user_action(
+            state,
+            can_full=can_full,
+            can_moderate=can_moderate,
+            current_user_id=current_user_id,
+        )
         self._fill_user_list(state)
 
         state["moderator_reasons"] = [

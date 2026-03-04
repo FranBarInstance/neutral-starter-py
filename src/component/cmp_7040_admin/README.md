@@ -14,7 +14,8 @@ The system follows a profile-centric model where a single **User** (global accou
 - **`dev` / `admin`** (`can_full = true`)
   - Full visibility and operations across users and profiles.
 - **`moderator`** (`can_moderate = true`, `can_full = false`)
-  - Can manage `unvalidated` and `moderated` statuses at both user and profile levels.
+  - Can manage user statuses: `unvalidated` and `moderated`.
+  - Can manage profile statuses: `moderated` and `spam`.
   - `moderated` status **requires** a description.
 - **Any other role / no role**
   - Access denied (`403`).
@@ -51,13 +52,17 @@ Both sections support:
 
 ### `dev` / `admin`
 - **Full View**: All IDs, roles, statuses, and metadata.
-- **Roles**: Assign/Remove roles to users (affects first profile) or specific profiles.
+- **Roles**: Assign/Remove roles to users (resolved by exact `userId` to first profile) or specific profiles.
 - **Statuses**: Set/Remove any disabled reason.
-- **Delete**: Physical user deletion (requires `DELETE` confirmation).
+- **Safety Guards**:
+  - Cannot remove own `dev`/`admin` role.
+  - Cannot delete own user account.
+- **Delete**: Physical user deletion for other users (requires `DELETE` confirmation).
 
 ### `moderator`
 - **Limited View**: Access to IDs, roles, and statuses.
-- **Statuses**: Can only Set/Remove `unvalidated` or `moderated`.
+- **User Statuses**: Can only Set/Remove `unvalidated` or `moderated`.
+- **Profile Statuses**: Can only Set/Remove `moderated` or `spam`.
 - **Constraint**: `moderated` always requires a description.
 
 ## Technical Implementation Notes

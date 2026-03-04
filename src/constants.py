@@ -22,7 +22,6 @@ DELETED = 'deleted'
 UNCONFIRMED = 'unconfirmed'
 UNVALIDATED = 'unvalidated'
 MODERATED = 'moderated'
+SPAM = 'spam'
 PIN_TARGET_REMINDER = "reminder"
 USER_EXISTS = "USER_EXISTS"
-
-SPAM = 'spam'

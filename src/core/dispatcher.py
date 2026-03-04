@@ -3,7 +3,6 @@
 import os
 import json
 from app.config import Config
-from constants import DELETED, MODERATED, SPAM, UNCONFIRMED, UNVALIDATED
 from utils.tokens import (
     utoken_extract,
     utoken_update,
@@ -102,21 +101,33 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
               "role_admin": false,
               "role_dev": false
           }
+        - `CURRENT_USER.status` is a sparse map generated from `user_data.user_disabled`:
+          only keys present in DB are emitted, and each emitted value is the
+          lowercase string `"true"`.
+          Example:
+          {
+              "moderated": "true"
+          }
+          If no disabled rows exist for user, emit:
+          {}
+        - `CURRENT_USER.profile.status` is a sparse map generated from
+          `user_data.profile_disabled` with the same rule (`"true"` string values,
+          no default false keys).
+        - `CURRENT_USER.status` and `CURRENT_USER.profile.status` are independent:
+          user disabled rows do not populate profile status, and profile disabled
+          rows do not populate user status.
+        - `CURRENT_USER.profile.id` is copied from `user_data.profileId`.
         """
         current_user = {
             "auth": False,
             "id": "",
             "roles": {},
-            "status": {
-                DELETED: False,
-                UNCONFIRMED: False,
-                UNVALIDATED: False,
-                MODERATED: False,
-                SPAM: False,
-            },
+            "status": {},
             "profile": {
+                "id": "",
                 "alias": "",
                 "locale": "",
+                "status": {},
             },
         }
 
@@ -151,11 +162,22 @@ class Dispatcher: # pylint: disable=too-many-instance-attributes
 
         user_disabled = user_data.get("user_disabled", {})
         if isinstance(user_disabled, dict):
-            for key in current_user["status"]:
-                current_user["status"][key] = bool(user_disabled.get(key))
+            current_user["status"] = {
+                str(key): "true"
+                for key, value in user_disabled.items()
+                if str(key).strip() and str(value).strip()
+            }
 
+        current_user["profile"]["id"] = str(user_data.get("profileId") or "")
         current_user["profile"]["alias"] = str(user_data.get("alias") or "")
         current_user["profile"]["locale"] = str(user_data.get("locale") or "")
+        profile_disabled = user_data.get("profile_disabled", {})
+        if isinstance(profile_disabled, dict):
+            current_user["profile"]["status"] = {
+                str(key): "true"
+                for key, value in profile_disabled.items()
+                if str(key).strip() and str(value).strip()
+            }
 
         return current_user
 

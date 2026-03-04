@@ -358,8 +358,8 @@ def test_user_role_helpers_assign_and_remove():
             self.roles = {"admin", "editor"}
 
         def exec(self, _domain, operation, params):
-            if operation == "admin-list-by-created":
-                return {"columns": ["user_profile.profileId"], "rows": [["p42"]]}
+            if operation == "admin-get-profiles-by-userid":
+                return {"columns": ["profileId"], "rows": [["p42"]]}
             if operation == "assign-role-by-code":
                 assert params["profileId"] == "p42"
                 assert params["code"] == "admin"
@@ -387,6 +387,56 @@ def test_user_role_helpers_assign_and_remove():
     assert user.has_role("42", "admin") is True
     assert user.remove_role("42", "admin") is True
     assert user.get_roles("42") == ["editor"]
+
+
+def test_dispatcher_current_user_status_is_user_only():
+    """CURRENT_USER.status must reflect only user_disabled flags."""
+    dispatcher = core_dispatcher_module.Dispatcher.__new__(core_dispatcher_module.Dispatcher)
+    dispatcher.user = SimpleNamespace(get_roles=lambda _user_id: [])
+
+    session_data = {
+        "user_data": {
+            "userId": "8512993199045",
+            "profileId": "p_8512993199045",
+            "roles": [],
+            "user_disabled": {"moderated": "300"},
+            "profile_disabled": {},
+            "alias": "Usuario Dos",
+            "locale": "en",
+        }
+    }
+
+    current_user = dispatcher._build_current_user(session_data)  # pylint: disable=protected-access
+
+    assert current_user["auth"] is True
+    assert current_user["status"] == {"moderated": "true"}
+    assert current_user["profile"]["id"] == "p_8512993199045"
+    assert current_user["profile"]["status"] == {}
+
+
+def test_dispatcher_current_user_profile_status_is_profile_only():
+    """CURRENT_USER.profile.status must reflect only profile_disabled flags."""
+    dispatcher = core_dispatcher_module.Dispatcher.__new__(core_dispatcher_module.Dispatcher)
+    dispatcher.user = SimpleNamespace(get_roles=lambda _user_id: [])
+
+    session_data = {
+        "user_data": {
+            "userId": "8512993199045",
+            "profileId": "p_8512993199045",
+            "roles": [],
+            "user_disabled": {},
+            "profile_disabled": {"moderated": "300"},
+            "alias": "Usuario Dos",
+            "locale": "en",
+        }
+    }
+
+    current_user = dispatcher._build_current_user(session_data)  # pylint: disable=protected-access
+
+    assert current_user["auth"] is True
+    assert current_user["status"] == {}
+    assert current_user["profile"]["id"] == "p_8512993199045"
+    assert current_user["profile"]["status"] == {"moderated": "true"}
 
 
 def _build_pin_dispatcher_for_unit(pin_data, submitted_pin="111111"):

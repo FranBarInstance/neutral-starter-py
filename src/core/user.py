@@ -235,6 +235,7 @@ class User:  # pylint: disable=too-many-public-methods
         unconfirmed = Config.DISABLED[UNCONFIRMED]
         user_data = {
             'userId': user_data_list[0]['userId'],
+            'profileId': user_data_list[0].get('user_profile.profileId') or "",
             'birthdate': (
                 user_data_list[0]['birthdate'].decode('utf-8')
                 if isinstance(user_data_list[0]['birthdate'], (bytes, bytearray))
@@ -347,18 +348,29 @@ class User:  # pylint: disable=too-many-public-methods
         return bool(result["rows"][0][0])
 
     def assign_role(self, user_id, role_code: str) -> bool:
-        """Assign a role to a user. If the user has multiple profiles, it's ambiguous,
-        so it assigns to the first profile found. Use assign_role_to_profile for clarity."""
+        """Assign a role to a user.
+
+        The role storage is profile-based, so this method resolves the user's first
+        profile by exact `userId` and applies the role there.
+        """
         code = self._normalize_role_code(role_code)
         if not user_id or not code:
             return False
 
-        # For backward compatibility, we find the first profile of the user
-        result = self.model.exec("user", "admin-list-by-created", {"search": user_id, "role_code": "", "disabled_reason": "", "limit": 1, "offset": 0})
+        result = self.model.exec(
+            "user",
+            "admin-get-profiles-by-userid",
+            {"userId": user_id},
+        )
         if not result or not result.get("rows"):
             return False
 
-        profile_id = result["rows"][0][list(result["columns"]).index("user_profile.profileId")]
+        columns = list(result["columns"])
+        try:
+            profile_col = columns.index("profileId")
+        except ValueError:
+            return False
+        profile_id = result["rows"][0][profile_col]
         return self.assign_role_to_profile(profile_id, code)
 
     def assign_role_to_profile(self, profile_id, role_code: str) -> bool:
@@ -378,17 +390,29 @@ class User:  # pylint: disable=too-many-public-methods
         return self.has_role_by_profile(profile_id, code)
 
     def remove_role(self, user_id, role_code: str) -> bool:
-        """Remove a role from a user. Ambiguous if multiple profiles exist.
-        Removes from the first profile found."""
+        """Remove a role from a user.
+
+        The role storage is profile-based, so this method resolves the user's first
+        profile by exact `userId` and removes the role there.
+        """
         code = self._normalize_role_code(role_code)
         if not user_id or not code:
             return False
 
-        result = self.model.exec("user", "admin-list-by-created", {"search": user_id, "role_code": "", "disabled_reason": "", "limit": 1, "offset": 0})
+        result = self.model.exec(
+            "user",
+            "admin-get-profiles-by-userid",
+            {"userId": user_id},
+        )
         if not result or not result.get("rows"):
             return False
 
-        profile_id = result["rows"][0][list(result["columns"]).index("user_profile.profileId")]
+        columns = list(result["columns"])
+        try:
+            profile_col = columns.index("profileId")
+        except ValueError:
+            return False
+        profile_id = result["rows"][0][profile_col]
         return self.remove_role_from_profile(profile_id, code)
 
     def remove_role_from_profile(self, profile_id, role_code: str) -> bool:

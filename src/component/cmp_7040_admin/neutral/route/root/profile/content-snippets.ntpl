@@ -155,8 +155,8 @@
                                 <input type="hidden" name="profile_id" value="{:&;user->user_profile->profileId:}">
                                 <select class="form-select form-select-sm mb-1" name="reason">
                                     <option value="">{:trans; Select status :}</option>
-                                    <option value="{:;admin_profile->reason_unvalidated:}">{:trans; unvalidated :}</option>
                                     <option value="{:;admin_profile->reason_moderated:}">{:trans; moderated :}</option>
+                                    <option value="{:;admin_profile->reason_spam:}">{:trans; spam :}</option>
                                 </select>
                                 <input class="form-control form-control-sm mb-1" name="description" placeholder="{:trans; required for moderated :}">
                                 <div class="d-grid gap-1">

@@ -41,16 +41,11 @@
             "auth": false,
             "id": "",
             "roles": {},
-            "status": {
-                "deleted": false,
-                "unconfirmed": false,
-                "unvalidated": false,
-                "moderated": false,
-                "spam": false
-            },
+            "status": {},
             "profile": {
                 "alias": "",
-                "locale": ""
+                "locale": "",
+                "status": {}
             }
         },
         "HAS_SESSION_DEV": null,
