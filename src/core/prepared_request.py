@@ -19,6 +19,7 @@ from typing import Any
 import os
 import json
 import logging
+from functools import lru_cache
 
 from app.config import Config
 from constants import DELETED
@@ -36,6 +37,27 @@ from .user import User
 from .template import Template
 
 logger = logging.getLogger(__name__)
+
+
+# Cache for parsed blueprint schemas to avoid reading JSON on every request
+@lru_cache(maxsize=128)
+def _load_bp_schema_cached(schema_path: str) -> dict:
+    """Load and parse blueprint schema with caching.
+
+    Args:
+        schema_path: Path to the schema JSON file
+
+    Returns:
+        Parsed JSON as dict
+    """
+    with open(schema_path, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+
+# Short-lived cache for user roles to avoid DB queries on every request
+# Key: (user_id, db_url) to handle multi-tenant scenarios
+_user_roles_cache: dict[tuple[str, str], dict] = {}
+_USER_ROLES_CACHE_TTL = 30  # seconds
 
 
 @dataclass
@@ -195,14 +217,22 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         """Merge component-specific schema into main schema.
 
         Fail closed: if schema exists but cannot be loaded, raise exception.
+        Uses cached schema to avoid repeated file I/O.
         """
         schema_path = self.schema_data.get("CURRENT_BP_SCHEMA")
         if not schema_path:
             return
 
-        # Fail closed: schema errors propagate (request will fail)
-        with open(schema_path, "r", encoding="utf-8") as file:
-            merge_dict(self.schema.properties, json.load(file))
+        # Use cached schema to avoid repeated file reads
+        try:
+            cached_schema = _load_bp_schema_cached(schema_path)
+            merge_dict(self.schema.properties, cached_schema)
+        except Exception:
+            # Fail closed: schema errors propagate (request will fail)
+            # Invalidate cache on error and retry once
+            _load_bp_schema_cached.cache_clear()
+            cached_schema = _load_bp_schema_cached(schema_path)
+            merge_dict(self.schema.properties, cached_schema)
 
     def _init_core_objects(self) -> None:
         """Initialize core framework objects that depend on schema."""
@@ -277,10 +307,21 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         current_user["auth"] = True
         current_user["id"] = user_id
 
-        # Roles: prioritize DB over session
+        # Roles: prioritize DB over session with caching
         # DB is authoritative; only fall back to session if DB returns None (not []).
         session_roles = user_data.get("roles", [])
-        db_roles = self.user.get_roles(user_id)
+
+        # Check cache first to avoid DB query on every request
+        cache_key = (user_id, Config.DB_PWA)
+        cached_roles = _user_roles_cache.get(cache_key)
+
+        if cached_roles is not None:
+            db_roles = cached_roles
+        else:
+            db_roles = self.user.get_roles(user_id)
+            # Cache the result (even if empty list)
+            if db_roles is not None:
+                _user_roles_cache[cache_key] = db_roles
 
         # db_roles is authoritative even if empty ([] means no roles)
         # Only fall back to session if DB returns None (error/not implemented)
@@ -643,3 +684,28 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
                 best_value = value
 
         return best_value
+
+
+def invalidate_user_roles_cache(user_id: str | None = None) -> None:
+    """Invalidate user roles cache.
+
+    Args:
+        user_id: Specific user ID to invalidate, or None to clear all cache
+    """
+    global _user_roles_cache
+
+    if user_id is None:
+        _user_roles_cache.clear()
+    else:
+        # Remove all entries for this user across all DB URLs
+        keys_to_remove = [
+            key for key in _user_roles_cache.keys()
+            if key[0] == user_id
+        ]
+        for key in keys_to_remove:
+            del _user_roles_cache[key]
+
+
+def clear_bp_schema_cache() -> None:
+    """Clear the blueprint schema cache. Useful for development/hot reloading."""
+    _load_bp_schema_cached.cache_clear()

@@ -1,10 +1,9 @@
 """Extensions for flask app"""
 
 from functools import wraps
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, g
 from flask_limiter import Limiter
 from flask_caching import Cache
-from core.dispatcher import Dispatcher
 from utils.utils import get_ip
 from .config import Config
 
@@ -39,8 +38,12 @@ def require_header_set(header, msg="Require header"):
         @wraps(f)
         def wrapper(*args, **kwargs):
             if not request.headers.get(header):
-                dispatch = Dispatcher(request, "HTTP_ERROR")
-                return dispatch.view.render_error("403", "Forbidden", msg)
+                # Use PreparedRequest context if available, fallback to simple error
+                if hasattr(g, 'pr') and g.pr.view:
+                    return g.pr.view.render_error("403", "Forbidden", msg)
+                # Fallback: create minimal error response
+                from flask import Response
+                return Response(f"403 Forbidden: {msg}", status=403)
             return f(*args, **kwargs)
         return wrapper
     return decorator
