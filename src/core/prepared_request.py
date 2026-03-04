@@ -1,4 +1,18 @@
-"""Request bootstrap object built once per request and shared via Flask.g."""
+"""Request bootstrap object built once per request and shared via Flask.g.
+
+WARNING: This module is INTERNAL to the core framework.
+
+PreparedRequest is designed for internal use by the framework's request
+processing pipeline only. Component developers MUST NOT import or use
+PreparedRequest directly.
+
+For component route handlers, use RequestHandler instead:
+    from core.request_handler import RequestHandler
+    dispatch = RequestHandler(g.pr, route, bp.neutral_route)
+
+Using PreparedRequest directly from components will bypass security checks
+and may cause undefined behavior.
+"""
 
 from dataclasses import dataclass, field
 from typing import Any
@@ -25,11 +39,28 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class PreparedRequest:
+class PreparedRequest:  # pylint: disable=too-many-instance-attributes
     """Core bootstrap object shared for the current request.
 
     Built once per request in the global before_request handler.
     Evaluates security policies and exposes the final access decision.
+
+    WARNING: INTERNAL USE ONLY.
+
+    This class is part of the framework's internal request processing
+    infrastructure. It is NOT intended for use by component code.
+
+    Component route handlers must use RequestHandler instead:
+        from core.request_handler import RequestHandler
+        from flask import g
+
+        @bp.route("/")
+        def index(route):
+            dispatch = RequestHandler(g.pr, route, bp.neutral_route)
+            return dispatch.render_route()
+
+    Accessing PreparedRequest directly from components bypasses the
+    component-specific context setup and may lead to security issues.
     """
 
     # Request object (required)
