@@ -319,6 +319,10 @@ class Components:
             if not value:  # Empty list
                 print(f"⚠️  security.routes_role['{key}'] cannot be an empty list")
                 return False
+            # Validate '*' is not mixed with explicit roles
+            if "*" in value and len(value) > 1:
+                print(f"⚠️  security.routes_role['{key}'] cannot mix '*' with explicit roles")
+                return False
             for role in value:
                 if not isinstance(role, str):
                     print(f"⚠️  security.routes_role['{key}'] values must be strings, found {type(role).__name__}")
