@@ -41,7 +41,7 @@ Rationale:
 3. Core checks are centralized and mandatory.
 4. Components should focus on their own behavior, not core plumbing.
 5. Fail closed by default.
-6. Current redesign scope is limited to `cmp_5100_home` and `cmp_5150_testing`.
+6. Redesign scope extended to all components using `Dispatcher`/`DispatcherForm`.
 
 ## PreparedRequest Mission
 `PreparedRequest` handles all declared core functionalities for one request.
@@ -283,16 +283,15 @@ At startup/registration:
 
 ## Work Completed So Far
 
-**IMPORTANT**: At this point there are NO tests. Existing tests are neither executed nor verified because they will fail. Once the new design is implemented, the corresponding tests will be performed.
-
-### Core Architecture
+### Core Architecture (Implemented)
 
 1. **`PreparedRequest`** - Mandatory bootstrap object per request:
    - Exposed as `g.pr` in `before_request`
    - Uses `request.path` (full path) for security evaluation
    - Initializes Schema, Session, User, Template
-   - Merges blueprint schema (fail closed)
+   - Merges blueprint schema (fail closed) with caching (`@lru_cache`)
    - Builds CURRENT_USER with roles/status (bug fixed: db_roles `is not None` check)
+   - Caches user roles to avoid repeated DB queries
    - Handles UTOKEN/LTOKEN and cookies
    - Evaluates security policies: auth → status → roles
 
@@ -302,37 +301,67 @@ At startup/registration:
    - Does NOT re-evaluate security (already done in `before_request`)
    - Provides convenient access to PreparedRequest context
 
-3. **Security Policy Resolution**:
+3. **`FormRequestHandler`** - Form handling migrated to new pattern:
+   - Extends `RequestHandler` with form-specific functionality
+   - Receives `prepared_request`, `comp_route`, `neutral_route`, `ltoken`, `form_name`
+   - Maintains all form validation: tokens, field rules, error handling
+   - Located in `src/core/request_handler_form.py`
+   - Replaces `DispatcherForm`
+
+4. **Performance Optimizations**:
+   - Blueprint schema caching (`_load_bp_schema_cached` with `@lru_cache(maxsize=128)`)
+   - User roles caching (`_user_roles_cache` dictionary)
+   - Cache invalidation functions: `invalidate_user_roles_cache()`, `clear_bp_schema_cache()`
+
+5. **Security Policy Resolution**:
    - Policy keys in manifest are **relative to component route**
-   - Keys are expanded with component route for matching (e.g., `"/users"` + component route `"/admin"` → `"/admin/users"`)
+   - Keys are expanded with component route for matching
    - Route-prefix matching: most specific wins
    - Full request path (`request.path`) used for evaluation
 
-4. **Fail Closed by Default**:
+6. **Fail Closed by Default**:
    - No bypass for non-component requests
    - Denied with `missing_component_policy` if no component
    - Denied if policy missing/invalid
    - Startup verification of `before_request` order
 
-5. **Execution Order Verification**:
+7. **Execution Order Verification**:
    - `_verify_before_request_order()` checks at startup
    - Verifies: `reject_disallowed_host` → `prepare_request_context`
    - App fails to start if order incorrect (security invariant)
 
-6. **`FormRequestHandler`** - Form handling migrated to new pattern:
-   - Extends `RequestHandler` with form-specific functionality
-   - Receives `prepared_request`, `comp_route`, `neutral_route`, `ltoken`, `form_name`
-   - Maintains all form validation: tokens, field rules, error handling
-   - Located in `src/core/request_handler_form.py`
-   - Replaces `DispatcherForm` (kept for backward compatibility temporarily)
-
-7. **Contracts Updated**:
+8. **Contracts Updated**:
    - `require_auth` removed (use `routes_auth` instead)
    - Design stage: generic `401` for denies
-   - Components migrated: `cmp_5100_home`, `cmp_5150_testing`, `cmp_9100_catch_all`
+   - `app/extensions.py` updated to use `g.pr` context
+
+### Components Migrated
+
+| Component | Handler Created | Tests Created |
+|-----------|----------------|---------------|
+| `cmp_1200_backtotop` | No changes (no Dispatcher) | 5 |
+| `cmp_2000_ai_backend` | Library component | 24 |
+| `cmp_2000_http_errors` | Migrated (no new handler) | 4 |
+| `cmp_2300_ftoken` | `FtokenRequestHandler` | 5 |
+| `cmp_5100_home` | Migrated | - |
+| `cmp_5100_sign` | `SignRequestHandler` | 17 |
+| `cmp_5150_testing` | Migrated | - |
+| `cmp_5200_pwa` | Migrated (no new handler) | 9 |
+| `cmp_6000_examplesign` | `ExampleSignRequestHandler` | - |
+| `cmp_6100_rrss` | `RrssRequestHandler` | 10 |
+| `cmp_7000_hellocomp` | `HelloCompRequestHandler` | 12 |
+| `cmp_7000_info` | Migrated (no new handler) | 7 |
+| `cmp_9100_catch_all` | Migrated | - |
+| **Total** | | **93 tests passing** |
+
+### Performance Impact
+
+- Initial implementation: ~17% performance decrease (600 → 500 pages/second)
+- Optimizations implemented: Blueprint schema caching, user roles caching
+- Further optimizations possible: Lazy initialization of Template, profiling-guided improvements
 
 ### Pending (Not Critical for Core Security)
 
 - Metrics counters (denied by auth, status, role, policy)
 - Debug trace for route normalization
-- Comprehensive tests
+- Comprehensive integration tests for all edge cases
