@@ -2,8 +2,6 @@
 
 import json
 from app.config import Config
-from .dispatcher import Dispatcher
-from .dispatcher_form import DispatcherForm
 from .model import Model
 from .prepared_request import PreparedRequest
 from .request_handler import RequestHandler
@@ -16,8 +14,6 @@ from .mail import Mail
 
 
 __all__ = [
-    'Dispatcher',
-    'DispatcherForm',
     'FormRequestHandler',
     'Model',
     'PreparedRequest',

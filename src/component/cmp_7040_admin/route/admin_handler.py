@@ -80,7 +80,10 @@ class AdminRequestHandler(RequestHandler):
         user_data = self.schema_data.get("CURRENT_USER", {})
         user_id = user_data.get("userId")
         # Roles come from PreparedRequest's user roles cache
-        roles = set(user_data.get("roles", []))
+        # Roles are stored as {"role_admin": "role_admin", ...}
+        role_map = user_data.get("roles", {})
+        # Extract role names without "role_" prefix
+        roles = {role_key.replace("role_", "", 1) for role_key in role_map.keys()}
         return user_id, roles
 
     def _get_role_permissions(self) -> tuple[bool, bool]:

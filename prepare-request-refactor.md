@@ -335,6 +335,11 @@ At startup/registration:
    - Design stage: generic `401` for denies
    - `app/extensions.py` updated to use `g.pr` context
 
+9. **Legacy Code Removed**:
+   - `src/core/dispatcher.py` deleted
+   - `src/core/dispatcher_form.py` deleted
+   - `src/core/__init__.py` updated to remove exports
+
 ### Components Migrated
 
 | Component | Handler Created | Tests Created |
@@ -351,8 +356,10 @@ At startup/registration:
 | `cmp_6100_rrss` | `RrssRequestHandler` | 10 |
 | `cmp_7000_hellocomp` | `HelloCompRequestHandler` | 12 |
 | `cmp_7000_info` | Migrated (no new handler) | 7 |
+| `cmp_7040_admin` | `AdminRequestHandler` | 18 |
+| `cmp_8100_localdev` | `LocalDevRequestHandler` | - |
 | `cmp_9100_catch_all` | Migrated | - |
-| **Total** | | **93 tests passing** |
+| **Total** | | **130 tests passing** |
 
 ### Performance Impact
 
