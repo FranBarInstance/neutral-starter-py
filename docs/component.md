@@ -148,6 +148,14 @@ Defines component identity and registration metadata.
   "config": {
     "cache_seconds": 300,
     "custom_setting": "value"
+  },
+  "security": {
+      "routes_auth": {
+          "/": false
+      },
+      "routes_role": {
+          "/": ["*"]
+      }
   }
 }
 ```

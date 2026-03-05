@@ -81,7 +81,15 @@ uuid must be unique and follow the `name_random` format, eg: `hellocomp_0yt2sa`
     "name": "Component Name",
     "description": "Component description",
     "version": "1.0.0",
-    "route": "/route-prefix"
+    "route": "/route-prefix",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": ["*"]
+        }
+    }
 }
 ```
 

@@ -91,6 +91,47 @@ Policies use **prefix matching** (most specific wins):
 | `/admin` | ✅ | ✅ Matches | Uses `/admin` policy (more specific) |
 | `/admin/users` | ✅ | ✅ Matches | Uses `/admin` policy |
 
+### Simplifying Security Configuration
+
+When **all routes in a component share the same security requirements**, you only need to define the root route `"/"`:
+
+```json
+{
+    "security": {
+        "routes_auth": {
+            "/": true
+        },
+        "routes_role": {
+            "/": ["*"]
+        }
+    }
+}
+```
+
+This single configuration applies to all routes in the component:
+- `/component`
+- `/component/profile`
+- `/component/profile/ajax`
+- `/component/admin`
+- etc.
+
+
+```json
+{
+    "security": {
+        "routes_auth": {
+            "/": true
+        },
+        "routes_role": {
+            "/": ["*"],
+            "/admin": ["admin"],
+        }
+    }
+}
+```
+
+In this last case, the `/component/admin` route will be accessible only to users with the "admin".
+
 ## Evaluation Order
 
 When a request is received, security is evaluated in this order:
