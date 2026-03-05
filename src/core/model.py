@@ -119,7 +119,8 @@ class Model:
         self,
         name: str,
         key: str,
-        data: Union[Tuple, List[Tuple]] = None
+        data: Union[Tuple, List[Tuple]] = None,
+        model_dir: str = None
     ) -> Union[
         List[Tuple[Any, ...]],  # SELECT
         Dict[str, Any],         # writing operations
@@ -132,6 +133,7 @@ class Model:
             name: Name of the JSON file containing the queries
             key: Key of the specific query to execute
             data: Parameters for single query or list of parameters for transaction
+            model_dir: Optional directory where the JSON file is located (overrides Config.MODEL_DIR)
 
         Returns:
             For SELECT: Query results as list of tuples
@@ -142,7 +144,9 @@ class Model:
         """
         self.clear_error()
 
-        file_path = f"{Config.MODEL_DIR}/{name}.json"
+        # Use the provided model_dir or default to the shared directory
+        base_dir = model_dir or Config.MODEL_DIR
+        file_path = f"{base_dir}/{name}.json"
         try:
             with open(file_path, "r", encoding="utf-8") as file:
                 content = json.load(file)

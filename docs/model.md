@@ -62,6 +62,7 @@ result = self.exec("user", "get-by-login", {"login": "user1"})
 - **First argument:** Name of the JSON file (without extension).
 - **Second argument:** Key of the operation within the JSON.
 - **Third argument:** Dictionary of parameters (mapped to `:parameter` in the SQL).
+- **Fourth argument (optional):** Custom directory path where the JSON file is located (overrides `Config.MODEL_DIR`).
 
 ## Defined Models
 
@@ -121,3 +122,144 @@ Disabled user states are currently code-driven from application constants/config
 - `unvalidated`
 - `moderated`
 - `spam`
+
+## Component SQL Files
+
+Components can include their own SQL definition files within their directory structure. This keeps database operations self-contained and isolated within the component.
+
+### Location for Component SQL Files
+
+Create a `model/` directory inside your component:
+
+```
+src/component/cmp_NNNN_name/
+├── model/                                # Component SQL definitions
+│   └── component_queries.json            # JSON file with SQL operations
+├── route/
+├── neutral/
+└── ...
+```
+
+### File Format
+
+Component SQL files use the same JSON format as the global model files in `src/model/`:
+
+```json
+{
+    "operation-name": {
+        "@portable": "SELECT * FROM table WHERE id = :id",
+        "@mysql": "MYSQL SPECIFIC STATEMENT",
+        "@postgresql": "@portable",
+        "@sqlite": "@portable"
+    }
+}
+```
+
+### Registration and Execution
+
+The component's SQL files are **not automatically loaded**. You have three options:
+
+#### Option 1: Copy to Global Model Directory
+
+In your component's `__init__.py`, copy the JSON file to the global model directory:
+
+```python
+import os
+import shutil
+from app.config import Config
+
+def init_component(component, component_schema, _schema):
+    """Initialize component and register SQL files."""
+    component_path = component["path"]
+    model_dir = os.path.join(component_path, "model")
+
+    # Copy SQL definition files to global model directory
+    if os.path.exists(model_dir):
+        for filename in os.listdir(model_dir):
+            if filename.endswith('.json'):
+                src = os.path.join(model_dir, filename)
+                dst = os.path.join(Config.MODEL_DIR, filename)
+                shutil.copy2(src, dst)
+```
+
+#### Option 2: Execute using Custom Directory Path (Best Choice)
+
+Since the `exec()` method supports an optional `model_dir` parameter, you can execute component-specific queries directly by providing the path to your component's model folder:
+
+```python
+import os
+from core.model import Model
+from app.config import Config
+
+# Inside your route or handler:
+# 1. Get the component path (usually available in blueprint or schema)
+component_path = self.schema['data'][UUID]['path']
+custom_model_dir = os.path.join(component_path, "model")
+
+# 2. Execute passing the custom directory
+result = model.exec("component_queries", "get-items", {}, model_dir=custom_model_dir)
+```
+
+#### Option 3: Execute SQL Directly from Component (Legacy/Specific Use)
+
+> [!CAUTION]
+> **Not Recommended for Redistribution.** Using embedded SQL strings in Python code makes your component harder to maintain and less portable across different database engines.
+
+For very specific internal operations where a JSON file is not practical, you can execute SQL directly:
+
+```python
+from core.model import Model
+from app.config import Config
+
+def init_component(component, component_schema, _schema):
+    """Initialize component and setup database tables."""
+    # Get database configuration
+    db_config = Config.DB_PWA
+
+    # Create model instance
+    model = Model(db_config["url"], db_config["type"])
+
+    # Example: Execute SQL directly (Avoid this for business logic!)
+    sql = """
+        CREATE TABLE IF NOT EXISTS my_component_table (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL
+        )
+    """
+    result = model._execute_single(sql)
+```
+
+### Naming Conventions
+
+- Use descriptive filenames that reflect the component's purpose (e.g., `mycomponent_user.json`, `mycomponent_logs.json`)
+- Prefix operation names with the component name to avoid conflicts (e.g., `mycomp-get-users` instead of just `get-users`)
+- Consider using the component's UUID in operation names for guaranteed uniqueness
+
+### Example Component Structure
+
+```
+src/component/cmp_7000_mycomponent/
+├── manifest.json
+├── schema.json
+├── __init__.py                           # Contains init_component for SQL registration
+├── model/
+│   └── mycomponent_data.json             # SQL operations
+├── route/
+│   ├── __init__.py
+│   ├── routes.py                         # Uses: model.exec("mycomponent_data", "get-items", {})
+│   └── handler.py
+└── neutral/
+    └── route/
+        └── root/
+            └── content-snippets.ntpl
+```
+
+### Best Practices
+
+1. **Isolation**: Keep all SQL operations related to your component within the component's `model/` directory.
+2. **Avoid Embedded SQL**: **Never** embed SQL strings directly in your Python code for business logic or queries. Always use JSON model files. Even for `CREATE TABLE` and setup operations, using JSON files is preferred as it allows you to provide different dialects (e.g., `@mysql` vs `@sqlite`).
+3. **Redistribution**: If you plan to share your component, using JSON model files with `@portable` or multiple dialect support is **mandatory** to ensure it works on any system.
+4. **Setup Operations**: Use `setup-*` operations for creating tables and initial data, and call them using `model.exec(..., model_dir=...)` during initialization.
+5. **Transactions**: Use transaction arrays in JSON for multi-step operations that must be atomic.
+6. **Error Handling**: Always check `model.has_error` after executing operations.
+7. **Cleanup**: If your component is removed, ensure there is a way to clean up its database tables.
