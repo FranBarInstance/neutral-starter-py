@@ -62,3 +62,5 @@ coverage.xml
 .DS_Store
 docs/_build/
 .idea/
+
+/prepare-request-refactor.md
