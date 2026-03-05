@@ -75,18 +75,18 @@ def init_blueprint(component, component_schema, _schema):
     from . import routes  # pylint: disable=import-error,C0415,W0611
 ```
 
-In `route/routes.py`, define a route that uses `Dispatcher`:
+In `route/routes.py`, define a route that uses `RequestHandler`:
 
 ```python
-from flask import request, Response
-from core.dispatcher import Dispatcher
+from flask import Response, g
+from core.request_handler import RequestHandler
 from . import bp
 
 @bp.route("/", defaults={"route": ""}, methods=["GET"])
 @bp.route("/<path:route>", methods=["GET"])
 def catch_all(route) -> Response:
-    dispatch = Dispatcher(request, route, bp.neutral_route)
-    return dispatch.view.render()
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
+    return handler.render_route()
 ```
 
 ## 5. Render Real Content in NTPL

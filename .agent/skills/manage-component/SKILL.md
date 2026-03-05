@@ -14,7 +14,7 @@ If you need additional information for a specific case:
 
 - Use `view_file` on `src/component/cmp_7000_hellocomp` or `src/component/_cmp_7000_hellocomp` as a component example.
 - Use `view_file` on `docs/component.md` for component architecture details.
-- Use `view_file` on `docs/dispatcher.md` for dispatcher patterns and business logic.
+- Use `view_file` on `docs/dispatcher.md` for request handler patterns and business logic.
 - Use `view_file` on `docs/templates-neutrats.md` for NTPL syntax reference.
 - Use `view_file` on `docs/development-style-guide.md` for routing and template organization.
 - Use `view_file` on `docs/model.md` for database interaction patterns.
@@ -41,7 +41,7 @@ src/component/cmp_NNNN_name/
 ├── route/                                # Backend (Python/Flask)
 │   ├── __init__.py                       # Blueprint initialization
 │   ├── routes.py                         # Flask route definitions
-│   └── dispatcher_name.py                # Custom business logic (optional)
+│   └── handler_name.py                   # Custom request handler (optional)
 ├── neutral/                              # Frontend (Neutral TS templates)
 │   ├── component-init.ntpl               # Global snippets (app-wide)
 │   ├── obj/                              # Template-to-Python mappings
@@ -188,18 +188,18 @@ def init_blueprint(component, component_schema, _schema):
 ```
 
 ### route/routes.py
-Define the routes. The dispatcher connects Flask requests to the Neutral Templating system.
+Define the routes. The request handler connects Flask requests to the Neutral Templating system.
 
 ```python
-from flask import request, Response
-from core.dispatcher import Dispatcher
+from flask import Response, g
+from core.request_handler import RequestHandler
 from . import bp
 
 @bp.route("/", defaults={"route": ""}, methods=["GET"])
 @bp.route("/<path:route>", methods=["GET"])
 def index(route) -> Response:
-    dispatch = Dispatcher(request, route, bp.neutral_route)
-    return dispatch.view.render()
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
+    return handler.render_route()
 ```
 
 ## Frontend Templates

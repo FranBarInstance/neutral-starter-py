@@ -49,7 +49,7 @@ Security + Host/Proxy Guards
     ↓
 Flask Router + Component Blueprint
     ↓
-Component Route/Dispatcher
+Component Route/RequestHandler
     ↓
 Model/DB Access
     ↓
@@ -170,7 +170,7 @@ neutral-starter-py/
 │   ├── component/               # MODULE COLLECTION (The most important part)
 │   │   ├── cmp_7000_hellocomp/  # Example of a full component
 │   │   └── ...                  # Other components (cmp_0100_*, cmp_0200_*, etc.)
-│   ├── core/                    # Core utilities (dispatcher, helpers)
+│   ├── core/                    # Core utilities (request handlers, helpers)
 │   ├── model/                   # Data models
 │   ├── neutral/                 # Template engine core
 │   ├── utils/                   # Utility modules

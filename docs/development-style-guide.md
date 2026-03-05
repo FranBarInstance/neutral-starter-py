@@ -1,160 +1,144 @@
-# Routes and Templates in Neutral TS: Style Guide
+# Development Style Guide
 
-This guide compiles best practices and lessons learned on how to organize routes (Backend with `flask`) and templates (Frontend with `.ntpl`) when developing components for the Neutral TS framework. It should be used as a reference alongside [manage-component](../.agent/skills/manage-component/SKILL.md) and [manage-neutral-templates](../.agent/skills/manage-neutral-templates/SKILL.md).
+## 1. Flask Routes Pattern (`routes.py`)
 
----
+The `routes.py` file is **exclusively** the logical router that associates an access point (Flask) with the underlying custom request handler. **No business logic, validation rules, or database access should reside in this file**.
 
-## 1. The Route Controller (`routes.py`)
+### 1.1 Route Handler Patterns
 
-The `routes.py` file is **exclusively** the logical router that associates an access point (Flask) with the underlying custom dispatcher. **No business logic, validation rules, or database access should reside in this file**.
-
-### 1.1 Strict Division of Route Handlers
-There are two main strategies for defining route handlers depending on the complexity of your component.
-
-#### Simple components (Single Dispatcher)
-For simple use cases, you define two separate handlers: one for the root, and a general `catch-all` that delegate to a single generic dispatcher.
+#### Simple components (Single RequestHandler)
+For simple use cases, you define two separate handlers: one for the root, and a general `catch-all` that delegate to a single generic handler.
 
 ```python
 # src/component/cmp_0000_example/route/routes.py
-from flask import Response, request
+
+from flask import Response, g
+from core.request_handler import RequestHandler
 from . import bp
-from .dispatcher_example import DispatcherExample
 
-@bp.route("/", methods=["GET", "POST"])
-def index() -> Response:
+
+@bp.route("/", defaults={"route": ""}, methods=["GET"])
+def index(route) -> Response:
     """Explicit handler for the component's route root."""
-    dispatch = DispatcherExample(request, "", bp.neutral_route)
-    return dispatch.render_route()
+    handler = RequestHandler(g.pr, "", bp.neutral_route)
+    return handler.render_route()
 
-@bp.route("/<path:route>", methods=["GET", "POST"])
-def default_handler(route) -> Response:
+
+@bp.route("/<path:route>", methods=["GET"])
+def catch_all(route) -> Response:
     """Default handler (catch-all) for any other sub-route within the component."""
-    dispatch = DispatcherExample(request, route, bp.neutral_route)
-    return dispatch.render_route()
+    handler = RequestHandler(g.pr, route, bp.neutral_route)
+    return handler.render_route()
 ```
 
-#### Complex components (Multiple Specialized Dispatchers)
-When a component has many distinct business flows (like forms, data processing, etc.), **avoid creating a monolithic dispatcher map over the `route` string**. Instead, define specialized handlers for specific endpoints and delegate the execution to specific dispatcher subclasses.
+#### Complex components (Multiple Specialized Handlers)
+When a component has many distinct business flows (like forms, data processing, etc.), **avoid creating a monolithic handler map over the `route` string**. Instead, define specialized handlers for specific endpoints and delegate the execution to specific handler subclasses.
 
 ```python
-# src/component/cmp_0000_complex_example/route/routes.py (Example excerpt)
-from flask import Response, request
+# src/component/cmp_0000_example/route/routes.py
+
+from flask import Response, g
+from core.request_handler_form import FormRequestHandler
 from . import bp
-from .dispatcher_form_item import DispatcherFormCreateItem, DispatcherFormEditItem
+from .form_item_handler import FormCreateItemHandler, FormEditItemHandler
 
-@bp.route("/create/form/<ltoken>", defaults={"route": "create/form"}, methods=["POST"])
+
 def create_item_form_post(route, ltoken) -> Response:
-    """Explicitly map Item Creation logic to the DispatcherFormCreateItem subclass."""
-    dispatch = DispatcherFormCreateItem(request, route, bp.neutral_route, ltoken, "create_form", "item_id")
-    dispatch.schema_data["dispatch_result"] = dispatch.form_post()
-    return dispatch.view.render()
+    """Explicitly map Item Creation logic to the FormCreateItemHandler subclass."""
+    handler = FormCreateItemHandler(g.pr, route, bp.neutral_route, ltoken, "create_form")
+    handler.schema_data["form_result"] = handler.form_post()
+    return handler.render_route()
 
-@bp.route("/edit/form/<ltoken>", defaults={"route": "edit/form"}, methods=["POST"])
+
 def edit_item_form_post(route, ltoken) -> Response:
-    """Explicitly map Item Editing logic to the DispatcherFormEditItem subclass."""
-    dispatch = DispatcherFormEditItem(request, route, bp.neutral_route, ltoken, "edit_form", "item_id")
-    dispatch.schema_data["dispatch_result"] = dispatch.form_post()
-    return dispatch.view.render()
+    """Explicitly map Item Editing logic to the FormEditItemHandler subclass."""
+    handler = FormEditItemHandler(g.pr, route, bp.neutral_route, ltoken, "edit_form")
+    handler.schema_data["form_result"] = handler.form_post()
+    return handler.render_route()
 ```
 
 ---
 
-## 2. The Custom Dispatcher (`dispatcher_*.py`)
+## 2. The Custom Request Handler (`*_handler.py`)
 
-Neutral TS's structure delegates all authorization, database checks, and the creation of the context for our frontend templates to a delegated class known as a `Custom Dispatcher` that inherits from the base `Dispatcher` or derivatives (e.g. `DispatcherForm`).
+Neutral TS's structure delegates all authorization, database checks, and the creation of the context for our frontend templates to a delegated class known as a `Custom RequestHandler` that inherits from the base `RequestHandler` or derivatives (e.g. `FormRequestHandler`).
 
 ### 2.1 Provide Omnipresent Local Variables Early
-If you are using the single dispatcher pattern (for multiple sub-routes like `/`, `/profile`, `/settings`), they often all need to rely on common state variables (such as a session flag, base permissions, or CSRF tokens).
+If you are using the single handler pattern (for multiple sub-routes like `/`, `/profile`, `/settings`), they often all need to rely on common state variables (such as a session flag, base permissions, or CSRF tokens).
 
-When populating the global property (`self.schema_data["my_component"]`) in the `render_route()` method, you must ensure you supply the structural variables that will apply to all sub-routes **before** returning conditionally by route.
+Pre-calculate these at the end of your constructor and store them directly in `schema_data` or `schema_local_data` so they are available in all sub-routes.
 
 ```python
-# src/component/cmp_0000_example/route/dispatcher_example.py
-from flask import Response
-from core.dispatcher import Dispatcher
+# src/component/cmp_0000_example/route/example_handler.py
+from core.request_handler import RequestHandler
 
-class DispatcherExample(Dispatcher):
-    def render_route(self) -> Response:
+class ExampleRequestHandler(RequestHandler):
+    def __init__(self, prepared_request, comp_route, neutral_route=None):
+        super().__init__(prepared_request, comp_route, neutral_route)
+        # Pre-calculate common state
+        self.schema_data["has_session"] = self.schema_data.get("HAS_SESSION") == "true"
+        self.schema_data["current_user_id"] = self.schema_data.get("CURRENT_USER", {}).get("id")
 
-        # 1. Resolve global/omnipresent state (e.g. Auth, CSRF Token)
-        state = {
-            "auth_ok": self._auth_ok(),
-            "errors": []
-        }
+    def render_route(self):
+        # Route-specific logic can access pre-calculated state
+        current = (self.comp_route or "").strip("/")
 
-        # 2. Assign final state to schema_data at a common return point.
-        # This ensures that *all* NTPL sub-routes will have, for
-        # example, my_comp->auth_ok available.
-        self.schema_data["my_comp"] = state
+        # Add route-specific data
+        if current == "profile":
+            self.schema_data["profile_data"] = self._load_profile()
 
-        # 3. Detect which route we are on and execute specifics if needed
-        # Overly complex component logic here indicates you should move to
-        # the multiple specialized dispatchers pattern (see above section 1.1).
-        current = (self._raw_route or "").strip("/")
-        if current == "":
-            self._handle_root_logic(state)
-
-        return self.view.render()
+        return super().render_route()
 ```
+
+**Rule of Thumb:** If you find yourself writing multiple `if/elif` blocks checking the same condition in `render_route()`, move that logic to the constructor.
 
 ---
 
-## 3. Global Templates and *Snippets*
+## 3. State Management Between Handler and Templates
 
-To achieve maximum re-use of rendered code and respect the *DRY* principle in Neutral TS templates, we use the "Snippets" system (marked with `{:snip; name >> ... :}`).
+### 3.1 Provide Structural Properties in `schema_data`
+The `schema_data` dictionary is the primary bridge between Python handlers and NTPL templates.
 
-### 3.1 `index-snippets.ntpl` defines global blocks
-Any interface fragment that transversely serves multiple areas or sub-routes (e.g. a general login form blocking routes, repetitive listings, modals) should NOT be replicated.
+**Handler Side (Python):**
+```python
+class DashboardHandler(RequestHandler):
+    def load_dashboard(self):
+        self.schema_data["dashboard"] = {
+            "show_admin_panel": self._user_is_admin(),
+            "pending_count": self._get_pending_count(),
+            "recent_items": self._get_recent_items(),
+        }
+```
 
-The root file with global scope to the component must be `src/component/cmp_0000_example/neutral/route/index-snippets.ntpl`:
-
+**Template Side (NTPL):**
 ```html
-{:* src/component/cmp_0000_example/neutral/route/index-snippets.ntpl *:}
+{:struct; dashboard :}
+<div class="dashboard">
+  {:bool; dashboard->show_admin_panel >> :}
+    <div class="admin-panel">...</div>
+  {:else; :}
+  {:/bool;}
 
-{:* Load locales (Languages) *:}
-{:locale;
-    #/locale-{:lang;:}.json
-:}
-
-{:* Global form macro, rendered only on demand *:}
-{:snip; my-general-login-form >>
-    <form method="post" class="card mt-3">
-        ... All html markup, hidden inputs, etc...
-    </form>
-:}
+  <span>{:; dashboard->pending_count :} items pending</span>
+</div>
 ```
 
 ### 3.2 Usage with Conditional Flow Control in `content-snippets.ntpl`
-Then, the terminal views (a child template in a specific subdirectory) consume this global snippet instead of hosting raw code. Ideally they do this by evaluating the structural properties of the Dispatcher mounted in `schema_data` using NTPL language's own advanced conditionals (`{:bool; var >> ... :}{:else; ... :}`).
+Then, the terminal views (a child template in a specific subdirectory) consume this global snippet instead of hosting raw code. Ideally they do this by evaluating the structural properties of the RequestHandler mounted in `schema_data` using NTPL language's own advanced conditionals (`{:bool; var >> ... :}{:else; ... :}`).
 
-For example, conditioning the display of its own content or the Login snippet:
+**The Golden Path:**
 
-```html
-{:* src/component/cmp_0000_example/neutral/route/root/settings/content-snippets.ntpl *:}
-
-{:snip; current:template:body-main-content >>
-    <div class="my-container">
-        {:!bool; my_comp->auth_ok >>
-
-            {:* User is NOT authorized. Invokes the general access snippet: *:}
-            {:snip; my-general-login-form :}
-
-        :}{:else;
-
-            {:* User IS authorized. Shows original content: *:}
-            <h2>Personal Settings</h2>
-            <!-- Rest of HTML content and macros specific to this route -->
-
-        :}
-    </div>
-:}
-{:^;:}
-```
-
-### Summary of best practices
-
-1. Decouple `routes.py` by isolating the Controller in its own `dispatcher_*.py`.
-2. Create pure Flask handlers (one for the root, specific ones when needed, and one for `catch-all`), but delegating to a single Dispatcher function or mapping them cleanly.
+1. Decouple `routes.py` by isolating the Controller in its own `*_handler.py`.
+2. Create pure Flask handlers (one for the root, specific ones when needed, and one for `catch-all`), but delegating to a single RequestHandler function or mapping them cleanly.
 3. Pre-calculate the base variables that affect multiple sub-directions and store them in `schema_data` deterministically so that any route can access them.
-4. Large transversal fragments (like forms) should be encapsulated with `{:snip; name >> ... :}` in the transversal and upper file `index-snippets.ntpl`.
-5. The final route templates invoke the snippets conditionally through template block control (e.g. evaluating booleans injected by the backend in `schema_data`).
+
+---
+
+## Summary
+
+| Aspect | Rule |
+|--------|------|
+| **Routes** | Only routing logic, no business logic |
+| **Handlers** | Business logic, database access, state preparation |
+| **Templates** | Pure presentation, use `{:struct;}` for handler data |
+| **State** | Pre-calculate common state in handler constructor |

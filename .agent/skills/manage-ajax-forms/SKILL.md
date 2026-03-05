@@ -43,7 +43,7 @@ src/component/cmp_NNNN_name/
 └── route/
     ├── __init__.py                            # Blueprint initialization
     ├── routes.py                              # Flask routes (GET page, GET ajax, POST ajax)
-    ├── dispatcher_module.py                   # Custom DispatcherForm subclass
+    ├── request_handler_module.py              # Custom FormRequestHandler subclass
     └── schema.json                            # Form validation rules
 ```
 
@@ -502,7 +502,7 @@ Three routes per form: GET page, GET ajax, POST ajax.
 
 ```python
 from flask import request, Response
-from .dispatcher_module import DispatcherFormMyComponent, DispatcherFormMyForm
+from .request_handler_module import FormRequestHandlerMyComponent, FormRequestHandlerMyForm
 from . import bp
 
 
@@ -511,7 +511,7 @@ from . import bp
 @bp.route("/<path:route>", methods=["GET"])
 def index(route) -> Response:
     """Main index route"""
-    dispatch = DispatcherFormMyComponent(
+    dispatch = FormRequestHandlerMyComponent(
         request,
         route,
         bp.neutral_route
@@ -523,7 +523,7 @@ def index(route) -> Response:
 @bp.route("/subroute", defaults={"route": "subroute"}, methods=["GET"])
 def form_page(route) -> Response:
     """Form page — full page with form container"""
-    dispatch = DispatcherFormMyForm(
+    dispatch = FormRequestHandlerMyForm(
         request,
         route,
         bp.neutral_route,
@@ -538,7 +538,7 @@ def form_page(route) -> Response:
 @bp.route("/subroute/ajax/<ltoken>", defaults={"route": "subroute/ajax"}, methods=["GET"])
 def form_ajax_get(route, ltoken) -> Response:
     """AJAX route — GET (load form)"""
-    dispatch = DispatcherFormMyForm(
+    dispatch = FormRequestHandlerMyForm(
         request,
         route,
         bp.neutral_route,
@@ -553,7 +553,7 @@ def form_ajax_get(route, ltoken) -> Response:
 @bp.route("/subroute/ajax/<ltoken>", defaults={"route": "subroute/ajax"}, methods=["POST"])
 def form_ajax_post(route, ltoken) -> Response:
     """AJAX route — POST (process form)"""
-    dispatch = DispatcherFormMyForm(
+    dispatch = FormRequestHandlerMyForm(
         request,
         route,
         bp.neutral_route,
@@ -569,13 +569,13 @@ def form_ajax_post(route, ltoken) -> Response:
 - AJAX route: `defaults={"route": "subroute/ajax"}` — matches `root/subroute/ajax/`
 - The `route` parameter value maps to the template directory structure
 
-### 4.3 Dispatcher (`route/dispatcher_module.py`)
+### 4.3 Request Handler (`route/request_handler_module.py`)
 
 ```python
-from core.dispatcher_form import DispatcherForm
+from core.request_handler_form import FormRequestHandler
 
 
-class DispatcherFormMyComponent(DispatcherForm):
+class FormRequestHandlerMyComponent(FormRequestHandler):
     """Base dispatcher for the component."""
 
     def __init__(self, req, comp_route, neutral_route=None, ltoken=None,
@@ -584,7 +584,7 @@ class DispatcherFormMyComponent(DispatcherForm):
         self.schema_data["dispatch_result"] = True
 
 
-class DispatcherFormMyForm(DispatcherFormMyComponent):
+class FormRequestHandlerMyForm(FormRequestHandlerMyComponent):
     """Handles my_form processing."""
 
     def get(self) -> bool:
@@ -638,7 +638,7 @@ class DispatcherFormMyForm(DispatcherFormMyComponent):
         return True
 ```
 
-**Key dispatcher methods (inherited from `DispatcherForm`):**
+**Key request handler methods (inherited from `FormRequestHandler`):**
 
 | Method | Purpose |
 |--------|---------|
@@ -871,7 +871,7 @@ FToken is an optional client-side anti-bot mechanism that generates a token base
 ```python
 from ftoken_0yt2sa import ftoken_check
 
-class DispatcherFormMyForm(DispatcherForm):
+class FormRequestHandlerMyForm(FormRequestHandler):
     def __init__(self, req, comp_route, neutral_route=None, ltoken=None,
                  form_name="my_form", ftoken_field_name=None):
         super().__init__(req, comp_route, neutral_route, ltoken, form_name)
@@ -894,7 +894,7 @@ class DispatcherFormMyForm(DispatcherForm):
 
 In routes, pass the ftoken field name:
 ```python
-dispatch = DispatcherFormMyForm(request, route, bp.neutral_route, ltoken, "my_form", "email")
+dispatch = FormRequestHandlerMyForm(request, route, bp.neutral_route, ltoken, "my_form", "email")
 ```
 
 ### 7.2 Session/Cookie Management

@@ -37,10 +37,11 @@ root/
 │   │   ├── cmp_5100_sign/     # Example: Auth system (Login/Register)
 │   │   └── cmp_7000_hellocomp/# Example: Minimal component
 │   ├── core/               # Framework Core Logic
-│   │   ├── dispatcher.py   # Request Controller Base
-│   │   ├── model.py        # Database Executor
-│   │   ├── template.py     # NTPL Integration
-│   │   └── session.py      # Session Handler
+│   │   ├── prepared_request.py  # Request bootstrap (security, auth)
+│   │   ├── request_handler.py   # Component route handler
+│   │   ├── model.py             # Database Executor
+│   │   ├── template.py          # NTPL Integration
+│   │   └── session.py           # Session Handler
 │   ├── model/              # SQL Definitions (JSON)
 │   └── neutral/            # Global Templates (if any)
 └── ...
@@ -58,7 +59,7 @@ Components are loaded alphabetically based on their folder name (`cmp_NNNN_name`
     *   `schema.json`: Configuration data (menus, constants, translations).
     *   `custom.json`: *Local-only* overrides (never committed to git).
     *   `config/config.db` (table `custom`): Optional centralized per-component overrides keyed by UUID (`comp_uuid`) with JSON payload in `value_json`.
-    *   `route/`: Python backend logic (Blueprints, Dispatchers).
+    *   `route/`: Python backend logic (Blueprints, RequestHandlers).
     *   `neutral/`: Frontend templates (`.ntpl`).
 
 Override merge order:
@@ -67,20 +68,23 @@ Override merge order:
 3. `config.db` -> `custom.value_json` (if present and `enabled=1`)
 
 ### 3.2 The Request Pipeline
-1.  **Flask Route**: Receives HTTP request.
+1.  **Global before_request** (PreparedRequest):
+    *   Validates Host
+    *   Initializes `Schema`, `Session`, `User`
+    *   Evaluates security policies (auth, status, roles)
+    *   Stores result in `g.pr` (Flask g object)
+2.  **Flask Route**: Receives HTTP request (only executes if security passed).
     ```python
     @bp.route("/")
     def index():
-        dispatch = DispatcherHello(request, "", bp.neutral_route)
-        return dispatch.view.render()
+        handler = HelloRequestHandler(g.pr, "", bp.neutral_route)
+        return handler.render_route()
     ```
-2.  **Dispatcher**:
-    *   Initializes `Session` and `User`.
-    *   Validates/Generates Security Tokens (`UTOKEN`).
-    *   Prepares `CONTEXT` for the template (POST/GET data, Headers).
-3.  **Business Logic**:
-    *   Dispatcher calls `Model` to fetch data.
-    *   Data is injected into `Generic View` or `Schema`.
+3.  **RequestHandler**:
+    *   Receives `g.pr` (PreparedRequest context)
+    *   Sets `CURRENT_COMP_ROUTE`
+    *   Executes business logic
+    *   Prepares template data
 4.  **Template Rendering**:
     *   `Template` class renders the `index.ntpl` (usually from `cmp_0200_template`).
     *   `index.ntpl` dynamically includes the component's `content-snippets.ntpl`.
@@ -147,11 +151,11 @@ SQL is defined in JSON files in `src/model/`.
         ```
 
 ### 4.2 Handling Forms
-Inherit from `DispatcherForm` (see `src/core/dispatcher_form.py` and `cmp_5100_sign`).
+Inherit from `FormRequestHandler` (see `src/core/request_handler_form.py` and `cmp_5100_sign`).
 
-1.  **Dispatcher**:
+1.  **Form Handler**:
     ```python
-    class DispatcherMyForm(DispatcherForm):
+    class MyFormHandler(FormRequestHandler):
         def form_post(self) -> bool:
             if not self.validate_post("ref:my_form_error"): return False
             # Process data...

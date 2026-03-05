@@ -278,22 +278,16 @@ Modals are the most common use of `visible` loading. The complete pattern involv
 For simple content loading (no form processing), the backend route is straightforward:
 
 ```python
-from flask import request, Response
-from core.dispatcher_form import DispatcherForm
+from flask import Response, g
+from core.request_handler_form import FormRequestHandler
 from . import bp
 
 @bp.route("/details/ajax/<ltoken>", defaults={"route": "details/ajax"}, methods=["GET"])
 def details_ajax(route, ltoken) -> Response:
     """AJAX route — load details content"""
-    dispatch = DispatcherForm(
-        request,
-        route,
-        bp.neutral_route,
-        ltoken,
-        "_unused_form"
-    )
-    dispatch.schema_data["dispatch_result"] = True
-    return dispatch.view.render()
+    handler = FormRequestHandler(g.pr, route, bp.neutral_route, ltoken, "_unused_form")
+    handler.schema_data["ajax_result"] = True
+    return handler.render_route()
 ```
 
 The `route` parameter value (`"details/ajax"`) maps directly to the template directory `root/details/ajax/` where `content-snippets.ntpl` lives.
