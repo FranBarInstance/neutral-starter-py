@@ -1,9 +1,0 @@
-
-{:snip; current:template:body-main-content >>
-    <div class="container py-4">
-        <p>Testing route: <code>/testing/dos/a/b</code></p>
-        <p>Simple message for route two.</p>
-    </div>
-:}
-
-{:^;:}
