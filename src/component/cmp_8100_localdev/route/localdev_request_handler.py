@@ -1,4 +1,4 @@
-"""Dispatcher for local-admin component routes."""
+"""Request handler for local-admin component routes."""
 
 import hmac
 import json
@@ -14,21 +14,23 @@ from app.config_db import (
     upsert_component_custom_override,
 )
 from constants import UUID_MAX_LEN, UUID_MIN_LEN
-from core.dispatcher import Dispatcher
+from core.request_handler import RequestHandler
 from core.session_dev import SessionDev
 from utils.utils import get_ip
 
 _UUID_ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyz0123456789_")
 
 
-class DispatcherLocalDev(Dispatcher):
-    """Local Admin route dispatcher."""
+class LocalDevRequestHandler(RequestHandler):
+    """Local Admin route request handler."""
 
-    def __init__(self, req, comp_route, neutral_route=None, ltoken=None):
+    _PUBLIC_ROUTES = {"", "login", "login/ajax", "logout/ajax"}
+
+    def __init__(self, prepared_request, comp_route: str = "", neutral_route: str | None = None):
         self._cookie_updates = []
         self._raw_route = (comp_route or "").strip("/")
         self._session_dev = None  # Will be created on first use
-        super().__init__(req, comp_route, neutral_route, ltoken)
+        super().__init__(prepared_request, comp_route, neutral_route)
 
     def _get_session_dev(self):
         """Get or create SessionDev instance."""
@@ -97,8 +99,8 @@ class DispatcherLocalDev(Dispatcher):
             state["error"] = "Too many login attempts. Try again later."
             return
 
-        username = (request.form.get("username") or "").strip()
-        password = request.form.get("password") or ""
+        username = (self.req.form.get("username") or "").strip()
+        password = self.req.form.get("password") or ""
 
         if len(username) > 128 or len(password) > 256:
             session_dev._register_login_failure(client_ip)
@@ -133,7 +135,7 @@ class DispatcherLocalDev(Dispatcher):
         state["message"] = "Session closed."
 
     def _handle_post(self, state, client_ip, user_agent):
-        action = (request.form.get("action") or "").strip()
+        action = (self.req.form.get("action") or "").strip()
         if self._raw_route == "logout/ajax":
             action = "logout"
         if action not in {"login", "logout"}:
@@ -180,12 +182,12 @@ class DispatcherLocalDev(Dispatcher):
         if not state["auth_ok"]:
             return
 
-        edit_uuid = (request.args.get("edit_uuid") or "").strip()
+        edit_uuid = (self.req.args.get("edit_uuid") or "").strip()
 
-        if request.method == "POST" and action == "save":
-            edit_uuid = (request.form.get("comp_uuid") or "").strip()
-            raw_json = request.form.get("override_json") or ""
-            enabled = (request.form.get("enabled") or "") == "1"
+        if self.req.method == "POST" and action == "save":
+            edit_uuid = (self.req.form.get("comp_uuid") or "").strip()
+            raw_json = self.req.form.get("override_json") or ""
+            enabled = (self.req.form.get("enabled") or "") == "1"
 
             state["custom_edit_uuid"] = edit_uuid
             state["custom_edit_json"] = raw_json
@@ -211,8 +213,8 @@ class DispatcherLocalDev(Dispatcher):
                 except json.JSONDecodeError:
                     state["error"] = "Override JSON must be a JSON object."
 
-        if request.method == "POST" and action == "delete":
-            delete_uuid = (request.form.get("comp_uuid") or "").strip()
+        if self.req.method == "POST" and action == "delete":
+            delete_uuid = (self.req.form.get("comp_uuid") or "").strip()
 
             if not self._is_valid_comp_uuid(delete_uuid):
                 state["error"] = "comp_uuid format is invalid."
@@ -245,9 +247,6 @@ class DispatcherLocalDev(Dispatcher):
             db_path, debug=current_app.debug
         )
 
-    def _route_requires_auth(self):
-        return self._raw_route not in self._PUBLIC_ROUTES
-
     def _render_http_error(self, status_code, status_text, status_param):
         """Render Neutral custom HTTP error page."""
         return self.view.render_error(status_code, status_text, status_param)
@@ -267,9 +266,9 @@ class DispatcherLocalDev(Dispatcher):
                 403, "Forbidden", "Access allowed only from local/dev configured IPs."
             )
 
-        user_agent = request.headers.get("User-Agent", "")
+        user_agent = self.req.headers.get("User-Agent", "")
         auth_ok = session_dev.check_session()
-        if self._route_requires_auth() and not auth_ok:
+        if self._raw_route not in self._PUBLIC_ROUTES and not auth_ok:
             return self._render_http_error(
                 403, "Forbidden", "Local admin session required."
             )
@@ -277,11 +276,11 @@ class DispatcherLocalDev(Dispatcher):
         state = self._build_initial_state(auth_ok)
         state["csrf_token"] = self._ensure_csrf_token()
 
-        action = (request.form.get("action") or "").strip()
+        action = (self.req.form.get("action") or "").strip()
         custom_route_processed = False
-        if request.method == "POST":
+        if self.req.method == "POST":
             if self._raw_route == "custom":
-                if action == "save" or action == "delete":
+                if action in ("save", "delete"):
                     if not self._csrf_valid():
                         state["error"] = "Invalid CSRF token."
                     else:
@@ -317,4 +316,3 @@ class DispatcherLocalDev(Dispatcher):
         )
         self._apply_cookie_updates(response)
         return response
-    _PUBLIC_ROUTES = {"", "login", "login/ajax", "logout/ajax"}

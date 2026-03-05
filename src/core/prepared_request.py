@@ -261,6 +261,8 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         self.schema_data["CURRENT_USER"] = self._build_current_user(
             self.schema_data["CONTEXT"]["SESSION_DATA"]
         )
+        # Add dev role if SessionDev session is active
+        self._add_dev_role_if_session_dev()
 
         # Session flags
         self.schema_data["HAS_SESSION"] = "true" if session_id else None
@@ -363,6 +365,16 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             }
 
         return current_user
+
+    def _add_dev_role_if_session_dev(self) -> None:
+        """Add 'dev' role to CURRENT_USER if SessionDev session is active."""
+        # Avoid circular import by importing here
+        # pylint: disable=import-outside-toplevel
+        from .session_dev import SessionDev
+
+        session_dev = SessionDev()
+        if session_dev.check_session():
+            self.schema_data["CURRENT_USER"]["roles"]["role_dev"] = "role_dev"
 
     def _parse_utoken(self) -> None:
         """Parse/update UTOKEN for form submission protection."""

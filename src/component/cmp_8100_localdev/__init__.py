@@ -42,6 +42,11 @@ def init_component(component, component_schema, _schema):
                     "link": route,
                     "icon": "x-icon-dev"
                 },
+                "login": {
+                    "text": "Login",
+                    "link": f"{route}/login",
+                    "icon": "x-icon-sign-in"
+                },
                 "custom": {
                     "text": "Custom json",
                     "link": f"{route}/custom",
@@ -60,6 +65,11 @@ def init_component(component, component_schema, _schema):
                     "text": "Local Admin",
                     "link": route,
                     "icon": "x-icon-dev"
+                },
+                "login": {
+                    "text": "Login",
+                    "link": f"{route}/login",
+                    "icon": "x-icon-sign-in"
                 },
                 "custom": {
                     "text": "Custom json",
