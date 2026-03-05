@@ -2,10 +2,18 @@
 
 import json
 import sqlite3
+import sys
 
 from app import create_app
 from app.config import Config
 from app.config_db import ensure_config_db, get_component_custom_override
+
+
+def _cleanup_component_modules():
+    """Remove component modules to force reload in next test."""
+    for module in list(sys.modules.keys()):
+        if module.startswith("component."):
+            del sys.modules[module]
 
 
 def test_ensure_config_db_creates_file(tmp_path):
@@ -69,11 +77,15 @@ def test_db_override_has_priority_over_custom_json(tmp_path):
         MAIL_METHOD = "dummy"
         CONFIG_DB_PATH = str(db_path)
 
-    app = create_app(_DbConfig, debug=True)
+    try:
+        app = create_app(_DbConfig, debug=True)
 
-    comp = app.components.collection["hellocomp_0yt2sa"]
-    comp_schema = app.components.component_schema["hellocomp_0yt2sa"]
+        comp = app.components.collection["hellocomp_0yt2sa"]
+        comp_schema = app.components.component_schema["hellocomp_0yt2sa"]
 
-    # cmp_7000_hellocomp/custom.json sets /HelloComponent, DB must win.
-    assert comp["manifest"]["route"] == "/hello-db"
-    assert comp_schema["data"]["db-flag"] == "enabled"
+        # cmp_7000_hellocomp/custom.json sets /HelloComponent, DB must win.
+        assert comp["manifest"]["route"] == "/hello-db"
+        assert comp_schema["data"]["db-flag"] == "enabled"
+    finally:
+        # Cleanup component modules to avoid affecting other tests
+        _cleanup_component_modules()
