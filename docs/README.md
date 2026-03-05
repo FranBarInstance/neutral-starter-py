@@ -26,7 +26,7 @@ The following documents provide detailed information about the system:
 - **[model.md](model.md)**: Documentation for the **Data Model layer**. Explains how to define and use SQL queries via JSON files and the central Model executor.
 - **[templates-neutrats.md](templates-neutrats.md)**: Comprehensive syntax reference for the **Neutral Template Engine (NTPL)**, including variables, control flow, snippets, and safety features.
 - **[templates-neutrats-ajax.md](templates-neutrats-ajax.md)**: Comprehensive syntax reference for the **Neutral Template Engine (NTPL)**, AJAX requests and responses.
-- **[dispatcher.md](dispatcher.md)**: Documentation for the **Dispatcher** system.
+- **[dispatcher.md](dispatcher.md)**: Documentation for the **RequestHandler** system.
 - **[ajax-neutral-requests.md](ajax-neutral-requests.md)**: Integration notes for AJAX requests and `Requested-With-Ajax`, including behavior when using Neutral fetch vs custom JavaScript.
 - **[translation-component.md](translation-component.md)**: Translation workflow for components, including `{:trans; ... :}` best practices, locale file strategy, and the `translate-component` skill.
 - **[security-csp.md](security-csp.md)**: Security guide for CSP, security headers, host allow-list validation, and trusted proxy boundaries.

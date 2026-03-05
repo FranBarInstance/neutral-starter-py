@@ -56,7 +56,7 @@ These paths still set the AJAX header through the Neutral runtime.
 
 ## Why It Matters in This Project
 
-The dispatcher checks this header to determine AJAX mode. In AJAX mode:
+The handler checks this header to determine AJAX mode. In AJAX mode:
 
 - UTOKEN is extracted without forced rotation.
 - Cookie refresh logic is skipped.
@@ -66,6 +66,6 @@ Some routes/components also explicitly require this header for AJAX-only endpoin
 
 ## Scope Clarification
 
-This convention is for app routes rendered/handled through the Neutral + Dispatcher flow.
+This convention is for app routes rendered/handled through the Neutral + RequestHandler flow.
 
 It is not a requirement for independent API endpoints you may implement outside that rendering flow.

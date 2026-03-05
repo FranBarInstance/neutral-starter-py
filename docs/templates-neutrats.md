@@ -1088,17 +1088,17 @@ All user input is in CONTEXT and is **auto-escaped**:
 
 ---
 
-### **Integration with Python/Dispatcher**
+### **Integration with Python/RequestHandler**
 
-Templates receive data from `Dispatcher` classes:
+Templates receive data from `RequestHandler` classes:
 
 ```python
-# In dispatcher.py
+# In handler.py
 dispatch.schema_data["user"] = {"name": "John"}      # Immutable: {:;user->name:}
 dispatch.schema_local_data["items"] = ["a", "b"]     # Mutable: {:;local::items:}
 ```
 
-**Dispatcher sets automatically:**
+**RequestHandler sets automatically:**
 - `CURRENT_COMP_ROUTE` - Current route path
 - `CURRENT_COMP_ROUTE_SANITIZED` - Route with : instead of /
 - `CURRENT_NEUTRAL_ROUTE` - Path to neutral/route directory

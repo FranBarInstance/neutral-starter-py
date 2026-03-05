@@ -12,7 +12,7 @@ The application is designed around **modularity, security, and separation of con
 1.  **Everything is a Component**: The feature set is built entirely from components (`src/component/`). Even core features like the template engine or themes are components.
 2.  **Neutral Template Library (NTPL)**: A language-agnostic, secure-by-default logic-less templating engine handles the frontend.
 3.  **Declarative SQL**: Database interactions are defined in JSON files, keeping Python code free of hardcoded SQL strings and allowing for database portability.
-4.  **Dispatcher Pattern**: A central `Dispatcher` class mediates between Flask (HTTP handling) and NTPL (View rendering), ensuring consistent security and context setup.
+4.  **RequestHandler Pattern**: A central `RequestHandler` class mediates between Flask (HTTP handling) and NTPL (View rendering), ensuring consistent security and context setup.
 
 ### The Stack
 *   **Backend**: Python, Flask (Routing/WSGI).
@@ -122,21 +122,23 @@ SQL is defined in JSON files in `src/model/`.
     *   Clean up `schema.json` to remove old component data.
 
 3.  **Backend Implementation**:
-    *   Rename/Edit `route/dispatcher_dashboard.py`:
+    *   Rename/Edit `route/handler_dashboard.py`:
         ```python
-        from core.dispatcher import Dispatcher
-        class DispatcherDashboard(Dispatcher):
+        from core.request_handler import RequestHandler
+        class RequestHandlerDashboard(RequestHandler):
             def _pre_process(self):
                 # Add custom logic here
                 self.view.set_data("dashboard_stats", {"users": 100})
         ```
     *   Update `route/routes.py`:
         ```python
+        from flask import g
+
         @bp.route("/")
         def index():
             # "root" folder in neutral/route/
-            dispatch = DispatcherDashboard(request, "", bp.neutral_route)
-            return dispatch.view.render()
+            handler = RequestHandlerDashboard(g.pr, "", bp.neutral_route)
+            return handler.render_route()
         ```
 
 4.  **Frontend Implementation**:

@@ -113,7 +113,7 @@ An AJAX `content-snippets.ntpl` defines the `current:template:body-main-content`
 
 | Rule | Reason |
 |------|--------|
-| Do **NOT** include `{:data; ... :}` | Data is provided by the dispatcher and schema, not by a data file |
+| Do **NOT** include `{:data; ... :}` | Data is provided by the handler and schema, not by a data file |
 | Do **NOT** add structural HTML (`<html>`, `<head>`, `<body>`) | The AJAX layout (`template-ajax.ntpl`) handles this |
 | Do **NOT** add extra wrapper `<div>` elements | The content snippet already provides its own wrapper |
 | **MUST** end with `{:^;:}` | The render trigger is required for every `content-snippets.ntpl` |
@@ -296,7 +296,7 @@ The `route` parameter value (`"details/ajax"`) maps directly to the template dir
 
 ### **5. AJAX Form Implementation**
 
-Forms in Neutral TS follow a structured pattern that combines the `{:fetch;}` BIF with server-side validation, a coalesce-based lifecycle, and a dispatcher class.
+Forms in Neutral TS follow a structured pattern that combines the `{:fetch;}` BIF with server-side validation, a coalesce-based lifecycle, and a handler class.
 
 #### **5.1 Form Schema (`route/schema.json`)**
 
@@ -348,7 +348,7 @@ Every form needs validation rules defined in the route's `schema.json` under `da
 | `rules.<field>.value` | Exact value match required |
 | `rules.<field>.set` | If `false`, field must NOT be present (honeypot anti-bot) |
 
-> **Note:** `pattern` and `regex` can both be defined for the same field. `pattern` drives the browser's built-in validation; `regex` is checked server-side in the dispatcher.
+> **Note:** `pattern` and `regex` can both be defined for the same field. `pattern` drives the browser's built-in validation; `regex` is checked server-side in the handler.
 
 #### **5.2 Form Template Snippets**
 
@@ -466,50 +466,50 @@ Alternative success actions include `{:snip; util:reload-page-self :}` to trigge
 Each form requires three Flask routes: the full-page GET, the AJAX GET, and the AJAX POST:
 
 ```python
-from flask import request, Response
-from .dispatcher_module import DispatcherFormContact
+from flask import Response, g
+from .handler_module import FormRequestHandlerContact
 from . import bp
 
 # Full page (GET)
 @bp.route("/contact", defaults={"route": "contact"}, methods=["GET"])
 def contact_page(route) -> Response:
-    dispatch = DispatcherFormContact(
-        request, route, bp.neutral_route,
+    handler = FormRequestHandlerContact(
+        g.pr, route, bp.neutral_route,
         None,            # ltoken: None for page routes
         "contact_form"   # form_name: key in schema.json current_forms
     )
-    dispatch.schema_data["dispatch_result"] = True
-    return dispatch.view.render()
+    handler.schema_data["dispatch_result"] = True
+    return handler.render_route()
 
 # AJAX GET (initial form load for modals / fetch)
 @bp.route("/contact/ajax/<ltoken>", defaults={"route": "contact/ajax"}, methods=["GET"])
 def contact_ajax_get(route, ltoken) -> Response:
-    dispatch = DispatcherFormContact(
-        request, route, bp.neutral_route, ltoken, "contact_form"
+    handler = FormRequestHandlerContact(
+        g.pr, route, bp.neutral_route, ltoken, "contact_form"
     )
-    dispatch.schema_data["dispatch_result"] = dispatch.get()
-    return dispatch.view.render()
+    handler.schema_data["dispatch_result"] = handler.get()
+    return handler.render_route()
 
 # AJAX POST (form submission)
 @bp.route("/contact/ajax/<ltoken>", defaults={"route": "contact/ajax"}, methods=["POST"])
 def contact_ajax_post(route, ltoken) -> Response:
-    dispatch = DispatcherFormContact(
-        request, route, bp.neutral_route, ltoken, "contact_form"
+    handler = FormRequestHandlerContact(
+        g.pr, route, bp.neutral_route, ltoken, "contact_form"
     )
-    dispatch.schema_data["dispatch_result"] = dispatch.post()
-    return dispatch.view.render()
+    handler.schema_data["dispatch_result"] = handler.post()
+    return handler.render_route()
 ```
 
-The `route` parameter maps to the template directory under `root/`. The `ltoken` parameter from the URL is passed to the dispatcher for security validation.
+The `route` parameter maps to the template directory under `root/`. The `ltoken` parameter from the URL is passed to the handler for security validation.
 
-#### **5.5 Dispatcher**
+#### **5.5 RequestHandler**
 
-The dispatcher subclasses `DispatcherForm` and implements `get()` and `post()`:
+The handler subclasses `FormRequestHandler` and implements `get()` and `post()`:
 
 ```python
-from core.dispatcher_form import DispatcherForm
+from core.request_handler_form import FormRequestHandler
 
-class DispatcherFormContact(DispatcherForm):
+class FormRequestHandlerContact(FormRequestHandler):
     """Handles contact_form processing."""
 
     def __init__(self, req, comp_route, neutral_route=None, ltoken=None,
@@ -573,13 +573,13 @@ class DispatcherFormContact(DispatcherForm):
 
 **Initial page load (GET):**
 1. User visits `/component-route/contact`
-2. Dispatcher created with `ltoken=None`, `dispatch_result=True`
+2. RequestHandler created with `ltoken=None`, `dispatch_result=True`
 3. Template chain: `data.json` → `content-snippets.ntpl` → content snippet → form-container → form
 4. `{:fetch;}` generates a `<form>` with fields rendered server-side; no errors, empty fields
 
 **Form submission (POST via AJAX):**
 1. User submits → `{:fetch;}` intercepts and POSTs to `/contact/ajax/<ltoken>`
-2. Dispatcher validates: tokens → schema → custom logic
+2. RequestHandler validates: tokens → schema → custom logic
 3. On validation failure: `post()` returns `False`; errors populate `self.error`; template re-renders the form with inline error messages
 4. On general failure: set `form_result = {"status": "fail", ...}`; coalesce shows error alert
 5. On success: set `form_result = {"status": "success"}`; coalesce shows success message
@@ -778,7 +778,7 @@ Define all modals inside one snippet and move them together:
 :}
 ```
 
-**Setting cookies from the dispatcher:**
+**Setting cookies from the handler:**
 
 ```python
 self.view.add_cookie({
@@ -807,7 +807,7 @@ FToken is an optional client-side anti-bot mechanism. When enabled:
 1. Add honeypot and checkbox fields to the schema with `"set": false` and `"value"` rules.
 2. Add `ftoken-field-key`, `ftoken-field-value`, `data-ftokenid`, and related attributes to tracked input fields.
 3. Give the `{:fetch;}` tag explicit `wrapperId` and `id` parameters.
-4. Validate with `ftoken_check()` in the dispatcher after standard validation.
+4. Validate with `ftoken_check()` in the handler after standard validation.
 
 See the `cmp_6000_examplesign` component for a complete working example.
 
@@ -821,7 +821,7 @@ See the `cmp_6000_examplesign` component for a complete working example.
 | Form fields lose values after error | Missing `value="{:;CONTEXT->POST->fieldname:}"` | Add the value attribute referencing POST context |
 | Snippet not found / empty | Snippet defined in a file that isn't included | Ensure `form-snippets.ntpl` is included from `index-snippets.ntpl` |
 | Modal appears behind backdrop | Modal HTML not at end of `<body>` | Use `{:moveto; </body >> ... :}` in `index-snippets.ntpl` |
-| `{:data; ... :}` has no effect in AJAX template | Data files are only loaded for page-level templates | Remove `{:data;}` from AJAX templates; data comes from the dispatcher |
+| `{:data; ... :}` has no effect in AJAX template | Data files are only loaded for page-level templates | Remove `{:data;}` from AJAX templates; data comes from the handler |
 | Route returns 404 | `route` default doesn't match directory structure | Verify `defaults={"route": "..."}` matches `root/<path>/` |
 
 ---
@@ -849,7 +849,7 @@ fetch("/component/route", {
 - This applies to any manual AJAX: `fetch()`, `XMLHttpRequest`, or third-party libraries like Axios
 - Without this header, the server will render the full page layout instead of the AJAX fragment
 
-This convention is specific to routes handled through the Neutral + Dispatcher flow and is not required for independent API endpoints outside that rendering pipeline.
+This convention is specific to routes handled through the Neutral + RequestHandler flow and is not required for independent API endpoints outside that rendering pipeline.
 
 ---
 
