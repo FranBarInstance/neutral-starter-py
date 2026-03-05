@@ -204,7 +204,7 @@ The form snippet defines the actual form HTML wrapped in a `{:fetch;:}` tag:
                     type="text"
                     id="my_form-name"
                     name="name"
-                    value="{:;CONTEXT->POST->name:}"
+                    value="{:;CONTEXT->POST->name:}{:else; {:;varname:} :}"
                     class="form-control {:snip; is-invalid:name :}"
                     placeholder="{:trans; Your name :}"
                     aria-label="{:trans; Your name :}"
@@ -225,7 +225,7 @@ The form snippet defines the actual form HTML wrapped in a `{:fetch;:}` tag:
                     type="text"
                     id="my_form-email"
                     name="email"
-                    value="{:;CONTEXT->POST->email:}"
+                    value="{:;CONTEXT->POST->email:}{:else; {:;varname:} :}"
                     class="form-control {:snip; is-invalid:email :}"
                     placeholder="{:trans; Email address :}"
                     aria-label="{:trans; Email address :}"
@@ -250,7 +250,7 @@ The form snippet defines the actual form HTML wrapped in a `{:fetch;:}` tag:
                     minlength="{:;current_forms->my_form->rules->message->minlength:}"
                     maxlength="{:;current_forms->my_form->rules->message->maxlength:}"
                     {:bool; current_forms->my_form->rules->message->required >> required :}
-                >{:;CONTEXT->POST->message:}</textarea>
+                >{:;CONTEXT->POST->message:}{:else; {:;varname:} :}</textarea>
                 <label for="my_form-message">{:trans; Your message :}</label>
             </div>
         </div>
