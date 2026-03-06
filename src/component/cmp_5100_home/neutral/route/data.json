@@ -5,6 +5,11 @@
                 "title": "Neutral TS Starter Py - Modern PWA Starter Kit",
                 "description": "A modular, opinionated starter kit for building Progressive Web Applications using Python Flask and Neutral TS templating engine.",
                 "h1": "Welcome to Neutral TS Starter Py"
+            },
+            "theme": {
+                "carousel": [
+                    "/img/carousel.jpg"
+                ]
             }
         }
     }

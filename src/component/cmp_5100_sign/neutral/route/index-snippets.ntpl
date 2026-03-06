@@ -6,12 +6,6 @@
 {:!locale; #/locale-{:lang;:}.json :}
 {:!include; {:flg; require :} >> #/snippets.ntpl :}
 
-{:*
-    Disable carousel
-    ----------------
-*:}
-{:snip; current:template:body-carousel >> :}
-
 {:moveto; /body >>
     <script nonce="{:;CSP_NONCE:}">
         document.addEventListener('DOMContentLoaded', function() {

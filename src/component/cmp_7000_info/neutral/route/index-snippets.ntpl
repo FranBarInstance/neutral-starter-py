@@ -13,9 +13,3 @@
 :}
 
 {:include; #/snippets.ntpl :}
-
-{:*
-    Disable carousel in all /info routes
-    -----------------------------------
-*:}
-{:snip; current:template:body-carousel >> :}

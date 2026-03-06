@@ -44,9 +44,7 @@
                     "allow_colors": [
                         "primary"
                     ],
-                    "carousel": [
-                        "/img/carousel.jpg"
-                    ],
+                    "carousel": [],
                     "config": {
                         "zephyr": {
                             "primary": {
