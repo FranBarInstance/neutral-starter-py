@@ -76,3 +76,17 @@
         :}
     :}
 :}
+
+{:moveto; /body >>
+    <script nonce="{:;CSP_NONCE :}">
+        function formsAutoselectOption() {
+            document.querySelectorAll('select[data-forms-autoselect-option]').forEach(select => {
+                const value = select.dataset.autoselect;
+                const option = select.querySelector(`option[value="${value}"]`);
+                if (option) select.value = value;
+            });
+        }
+        window.addEventListener('DOMContentLoaded', formsAutoselectOption);
+        window.addEventListener('neutralFetchCompleted', formsAutoselectOption);
+    </script>
+:}
