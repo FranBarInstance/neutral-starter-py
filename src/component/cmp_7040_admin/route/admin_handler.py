@@ -12,6 +12,7 @@ from constants import (
     SPAM,
     UNCONFIRMED,
     UNVALIDATED,
+    RBAC_DEFAULT_ROLES,
 )
 from core.request_handler import RequestHandler
 from utils.tokens import ltoken_check
@@ -167,7 +168,7 @@ class AdminUserRequestHandler(AdminRequestHandler):
         state["can_moderate"] = can_moderate
         state["is_dev_or_admin"] = can_full
         state["search"] = (request.values.get("search") or "").strip()
-        state["roles_available"] = ["dev", "admin", "moderator", "editor"]
+        state["roles_available"] = [role[1] for role in RBAC_DEFAULT_ROLES]
 
         requested_role_filter = (request.values.get("role_filter") or "").strip().lower()
         state["role_filter"] = requested_role_filter if requested_role_filter in set(state["roles_available"]) else ""
@@ -446,7 +447,7 @@ class AdminProfileRequestHandler(AdminRequestHandler):
         state["can_moderate"] = can_moderate
         state["is_dev_or_admin"] = can_full
         state["search"] = (request.values.get("search") or "").strip()
-        state["roles_available"] = ["dev", "admin", "moderator", "editor"]
+        state["roles_available"] = [role[1] for role in RBAC_DEFAULT_ROLES]
 
         requested_role_filter = (request.values.get("role_filter") or "").strip().lower()
         state["role_filter"] = requested_role_filter if requested_role_filter in set(state["roles_available"]) else ""

@@ -7,7 +7,13 @@ from datetime import datetime, timezone
 import time
 # import json
 import bcrypt
-from constants import USER_EXISTS, UNCONFIRMED, UNVALIDATED, PIN_TARGET_REMINDER
+from constants import (
+    USER_EXISTS,
+    UNCONFIRMED,
+    UNVALIDATED,
+    PIN_TARGET_REMINDER,
+    RBAC_DEFAULT_ROLES,
+)
 from utils.sbase64url import sbase64url_sha256, sbase64url_token
 from app.config import Config
 from .model import Model
@@ -22,12 +28,6 @@ class User:  # pylint: disable=too-many-public-methods
     profile management, role assignment, and administrative functions.
     The high method count reflects the comprehensive nature of user management.
     """
-    RBAC_DEFAULT_ROLES = (
-        ("role_dev", "dev", "Developer", "Development role"),
-        ("role_admin", "admin", "Administrator", "Administrative role"),
-        ("role_moderator", "moderator", "Moderator", "Moderation role"),
-        ("role_editor", "editor", "Editor", "Content editing role"),
-    )
     _RBAC_BOOTSTRAPPED = set()
 
     def __init__(self, db_url=Config.DB_PWA, db_type=Config.DB_PWA_TYPE):
@@ -59,7 +59,7 @@ class User:  # pylint: disable=too-many-public-methods
         if self.model.has_error:
             return
 
-        for role_id, code, name, description in self.RBAC_DEFAULT_ROLES:
+        for role_id, code, name, description in RBAC_DEFAULT_ROLES:
             self.model.exec(
                 "user",
                 "insert-role-if-missing",

@@ -3,14 +3,9 @@
 from __future__ import annotations
 
 from core.model import Model
+from constants import RBAC_DEFAULT_ROLES
 
 
-DEFAULT_ROLES = (
-    ("role_dev", "dev", "Developer", "Development role"),
-    ("role_admin", "admin", "Administrator", "Administrative role"),
-    ("role_moderator", "moderator", "Moderator", "Moderation role"),
-    ("role_editor", "editor", "Editor", "Content editing role"),
-)
 
 
 def _run_operation(model, model_name: str, operation: str, data=None) -> None:
@@ -37,7 +32,7 @@ def bootstrap_databases(
     _run_operation(pwa_model, "user", "setup-base")
     _run_operation(pwa_model, "user", "setup-rbac")
 
-    for role_id, code, name, description in DEFAULT_ROLES:
+    for role_id, code, name, description in RBAC_DEFAULT_ROLES:
         _run_operation(
             pwa_model,
             "user",
