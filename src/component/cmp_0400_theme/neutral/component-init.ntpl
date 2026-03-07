@@ -21,11 +21,23 @@
             var currentMode = html.getAttribute('data-bs-theme');
             var cookie = document.cookie.split('; ').find(r => r.startsWith('dark-mode-on='))?.split('=')[1];
             var newMode;
-            if (cookie === undefined || cookie === '') {newMode = currentMode === 'auto' ? 'dark' : (currentMode === 'dark' ? 'light' : 'auto');
-            } else { newMode = cookie === '1' ? 'light' : 'dark'; }
-            var cookieValue = newMode === 'dark' ? '1' : (newMode === 'light' ? '0' : '');
+
+            if (cookie === undefined || cookie === '') {
+                if (currentMode === 'auto' || currentMode === 'light') {
+                    newMode = 'dark';
+                } else {
+                    newMode = 'light';
+                }
+            } else if (cookie === '1') {
+                newMode = 'light';
+            } else {
+                newMode = 'dark';
+            }
+
+            var cookieValue = newMode === 'dark' ? '1' : '0';
             document.cookie = 'dark-mode-on=' + cookieValue + '; path=/; max-age=2592000';
             html.setAttribute('data-bs-theme', newMode);
+
             var navbar = document.getElementById('main-navbar');
             if (navbar) {
                 if (newMode === 'dark') {
@@ -43,9 +55,8 @@
             var html = document.documentElement;
             var mode = html.getAttribute('data-bs-theme');
             var isDark = mode === 'dark';
-            var isAuto = mode === 'auto';
             document.querySelectorAll('.dark-mode-enabled').forEach(el => el.style.display = isDark ? 'block' : 'none');
-            document.querySelectorAll('.dark-mode-disabled').forEach(el => el.style.display = (isDark || isAuto) ? 'none' : 'block');
+            document.querySelectorAll('.dark-mode-disabled').forEach(el => el.style.display = isDark ? 'none' : 'block');
         }
     </script>
     <script nonce="{:;CSP_NONCE:}">
