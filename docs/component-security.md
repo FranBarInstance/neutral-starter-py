@@ -21,7 +21,7 @@ The component security system controls access to routes through two mandatory po
         },
         "routes_role": {
             "/": ["*"],
-            "/admin": ["admin", "dev"]
+            "/admin": ["admin", "moderator"]
         }
     }
 }
@@ -59,7 +59,7 @@ Controls which roles can access each route.
 | Value | Meaning |
 |-------|---------|
 | `["*"]` | Wildcard - any role is allowed (including no role if auth not required) |
-| `["admin", "dev"]` | Only users with "admin" OR "dev" role |
+| `["admin", "moderator"]` | Only users with "admin" OR "moderator" role |
 | `["moderator"]` | Only users with "moderator" role |
 
 ### Role Matching
@@ -74,8 +74,8 @@ Controls which roles can access each route.
 {
     "routes_role": {
         "/": ["*"],                              // Anyone can access
-        "/user": ["admin", "dev", "moderator"],  // Admin, dev, or moderator
-        "/profile": ["admin", "dev"],            // Only admin or dev
+        "/user": ["admin", "moderator"],         // Admin or moderator
+        "/profile": ["admin"],                   // Only admin
         "/admin": ["admin"]                      // Only admin
     }
 }
@@ -229,7 +229,7 @@ At minimum, the root route `"/"` must be defined in both policies:
             "/": true
         },
         "routes_role": {
-            "/": ["admin", "dev"]
+            "/": ["admin"]
         }
     }
 }
@@ -251,7 +251,7 @@ At minimum, the root route `"/"` must be defined in both policies:
         "routes_role": {
             "/": ["*"],                    // Public
             "/dashboard": ["*"],           // Any authenticated user
-            "/admin": ["admin", "dev"]     // Only admin/dev
+            "/admin": ["admin"]            // Only admin
         }
     }
 }
@@ -281,25 +281,25 @@ At application startup, the framework validates:
 
 ## Special Roles
 
-### The `dev` Role
+### The `localdev` Role
 
-The `dev` role is **special** and behaves differently from other roles:
+The `localdev` role is **special** and behaves differently from other roles:
 
-- **NOT stored in database**: The `dev` role should never be added to the database role tables
-- **Development-only**: Automatically granted when using `SessionDev` (local development login)
-- **Cannot be assigned**: Do not assign `dev` role to users via `create_user.py` or admin panels
-- **Local access only**: Intended strictly for local development and debugging
+- **NOT stored in database**: The `localdev` role should never be added to the database role tables
+- **SessionDev-only**: Automatically granted when using `SessionDev`
+- **Cannot be assigned**: Do not assign `localdev` via `create_user.py` or admin panels
+- **Local access only**: Intended strictly for local-only components such as `cmp_8100_localdev`
 
 ```json
-// Valid use in manifest - allows access during local development
+// Valid use in manifest - allows access only through SessionDev
 {
     "routes_role": {
-        "/": ["admin", "dev"]  // dev is valid here for local testing
+        "/": ["localdev"]
     }
 }
 ```
 
-**Production deployments** should remove `dev` from all `routes_role` entries.
+**Production deployments** should not grant `localdev` access to general administration components.
 
 ### Standard Roles
 

@@ -107,7 +107,7 @@ class TestAdminRequestHandler:
         assert "message" in state
         assert "error" in state
         assert "search" in state
-        assert "role_filter" in state
+        assert "filter_role" in state
         assert "disabled_filter" in state
         assert "order" in state
         assert "users" in state
@@ -151,8 +151,8 @@ class TestAdminSecurity:
 
         assert manifest['security']['routes_auth']['/'] is True
 
-    def test_manifest_allows_admin_dev_moderator_roles(self):
-        """Test that manifest allows admin, dev, and moderator roles."""
+    def test_manifest_allows_admin_and_moderator_roles(self):
+        """Test that manifest allows admin and moderator roles."""
         import json
         import os
 
@@ -164,5 +164,4 @@ class TestAdminSecurity:
 
         allowed_roles = manifest['security']['routes_role']['/']
         assert 'admin' in allowed_roles
-        assert 'dev' in allowed_roles
         assert 'moderator' in allowed_roles

@@ -251,13 +251,14 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             session_data if isinstance(session_data, dict) else {}
         )
 
-        # Session user
-        self.schema_data["CONTEXT"]["SESSION_DATA"]["user"] = self._build_session_user(
+        # Request user (rebuilt from DB per request, not persisted in session)
+        self.schema_data["USER"] = self._build_request_user(
             self.schema_data["CONTEXT"]["SESSION_DATA"]
         )
+        self.schema_data["CONTEXT"]["SESSION_DATA"].pop("user", None)
         self.schema_data["CONTEXT"]["SESSION_DATA"].pop("user_data", None)
-        # Add dev role if SessionDev session is active
-        self._add_dev_role_if_session_dev()
+        # Add localdev role if SessionDev session is active
+        self._add_localdev_role_if_session_dev()
 
         # Session flags
         self.schema_data["HAS_SESSION"] = "true" if session_id else None
@@ -274,140 +275,42 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         if not self.ajax_request:
             self._setup_cookies(session_cookie)
 
-    def _build_session_user(self, session_data: dict) -> dict:
-        """Build normalized SESSION_DATA.user from session data."""
-        session_user = {
-            "auth": False,
-            "id": "",
-            "userId": "",
-            "profile_roles": {},
-            "status": {},
-            "user_disabled": {},
-            "profile_disabled": {},
-            "profile": {
-                "id": "",
-                "userId": "",
-                "alias": "",
-                "locale": "",
-                "region": "",
-                "properties": "{}",
-                "lasttime": "",
-                "created": "",
-                "modified": "",
-            },
-        }
+    def _build_request_user(self, session_data: dict) -> dict:
+        """Build schema_data['USER'] from session identity and current DB state."""
+        user_id = self._extract_session_user_id(session_data)
+        return self.user.get_runtime_user(user_id)
 
+    @staticmethod
+    def _extract_session_user_id(session_data: dict) -> str:
+        """Extract persistent session userId, with fallback for legacy sessions."""
         if not isinstance(session_data, dict):
-            return session_user
+            return ""
 
-        raw_user = session_data.get("user")
-        if not isinstance(raw_user, dict):
-            raw_user = session_data.get("user_data", {})
-        if not isinstance(raw_user, dict):
-            return session_user
+        user_id = str(session_data.get("userId") or "").strip()
+        if user_id:
+            return user_id
 
-        session_user.update(raw_user)
+        legacy_user = session_data.get("user")
+        if not isinstance(legacy_user, dict):
+            legacy_user = session_data.get("user_data", {})
+        if not isinstance(legacy_user, dict):
+            return ""
 
-        user_id = str(raw_user.get("userId") or raw_user.get("id") or "").strip()
-        if not user_id:
-            session_user["profile_roles"] = {}
-            return session_user
+        return str(legacy_user.get("userId") or legacy_user.get("id") or "").strip()
 
-        # Authenticated user
-        session_user["auth"] = True
-        session_user["id"] = user_id
-        session_user["userId"] = user_id
-
-        raw_profile = raw_user.get("profile", {})
-        if not isinstance(raw_profile, dict):
-            raw_profile = {}
-
-        profile_id = str(
-            raw_profile.get("id") or raw_user.get("profileId") or ""
-        ).strip()
-        session_profile_roles = raw_user.get("profile_roles")
-        if not isinstance(session_profile_roles, list):
-            session_profile_roles = raw_user.get("roles", [])
-
-        if isinstance(session_profile_roles, list):
-            roles = session_profile_roles
-        else:
-            roles = []
-
-        role_map = {}
-        for role in roles:
-            role_code = str(role).strip().lower()
-            if role_code:
-                role_map[role_code] = role_code
-        session_user["profile_roles"] = role_map
-
-        # User status flags (from disabled status)
-        user_disabled = raw_user.get("user_disabled", {})
-        if isinstance(user_disabled, dict):
-            session_user["user_disabled"] = user_disabled
-            session_user["status"] = {
-                str(key).strip(): "true"
-                for key, value in user_disabled.items()
-                if str(key).strip() and str(value).strip()
-            }
-        else:
-            session_user["user_disabled"] = {}
-
-        # Profile data
-        session_user["profile"]["id"] = profile_id
-        session_user["profile"]["userId"] = session_user["userId"]
-        session_user["profile"]["alias"] = str(
-            raw_profile.get("alias") or raw_user.get("alias") or ""
-        ).strip()
-        session_user["profile"]["locale"] = str(
-            raw_profile.get("locale") or raw_user.get("locale") or ""
-        ).strip()
-        session_user["profile"]["region"] = str(
-            raw_profile.get("region") or raw_user.get("region") or ""
-        ).strip()
-        session_user["profile"]["properties"] = (
-            raw_profile.get("properties")
-            or raw_user.get("properties")
-            or "{}"
-        )
-        session_user["profile"]["lasttime"] = (
-            raw_profile.get("lasttime")
-            or raw_user.get("profile_lasttime")
-            or ""
-        )
-        session_user["profile"]["created"] = (
-            raw_profile.get("created")
-            or raw_user.get("profile_created")
-            or ""
-        )
-        session_user["profile"]["modified"] = (
-            raw_profile.get("modified")
-            or raw_user.get("profile_modified")
-            or ""
-        )
-
-        profile_disabled = raw_user.get("profile_disabled", {})
-        if isinstance(profile_disabled, dict):
-            session_user["profile_disabled"] = profile_disabled
-        else:
-            session_user["profile_disabled"] = {}
-
-        return session_user
-
-    def _add_dev_role_if_session_dev(self) -> None:
-        """Add 'dev' role to SESSION_DATA.user if SessionDev session is active."""
+    def _add_localdev_role_if_session_dev(self) -> None:
+        """Add 'localdev' role to USER if SessionDev session is active."""
         # Avoid circular import by importing here
         # pylint: disable=import-outside-toplevel
         from .session_dev import SessionDev
 
         session_dev = SessionDev()
         if session_dev.check_session():
-            self._get_session_user()["profile_roles"]["dev"] = "dev"
+            self._get_current_user()["profile_roles"]["localdev"] = "localdev"
 
-    def _get_session_user(self) -> dict:
-        """Return normalized session user data."""
-        session_data = self.schema_data.get("CONTEXT", {}).get("SESSION_DATA", {})
-        user = session_data.get("user", {})
+    def _get_current_user(self) -> dict:
+        """Return normalized request user data."""
+        user = self.schema_data.get("USER", {})
         return user if isinstance(user, dict) else {}
 
     def _parse_utoken(self) -> None:
@@ -564,7 +467,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             return
 
         # Stage 1: Authentication check
-        is_authenticated = bool(self._get_session_user().get("auth"))
+        is_authenticated = bool(self._get_current_user().get("auth"))
         if self.route_require_auth and not is_authenticated:
             self._deny(401, "auth_required")
             return
@@ -582,7 +485,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             return
 
         # Check if user has any of the allowed roles
-        user_role_map = self._get_session_user().get("profile_roles", {})
+        user_role_map = self._get_current_user().get("profile_roles", {})
         user_roles = set(user_role_map.keys())
 
         if not user_roles.intersection(set(self.allowed_roles)):
@@ -596,9 +499,9 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
 
         Returns deny reason string if restricted, None if allowed.
         """
-        session_user = self._get_session_user()
-        user_status = session_user.get("status", {})
-        profile_disabled = session_user.get("profile_disabled", {})
+        current_user = self._get_current_user()
+        user_status = current_user.get("status", {})
+        profile_disabled = current_user.get("profile_disabled", {})
 
         if not isinstance(user_status, dict):
             user_status = {}
@@ -638,7 +541,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
                 "route_path": self.route_path,
                 "deny_reason": reason,
                 "deny_status": status,
-                "user_id": self._get_session_user().get("id"),
+                "user_id": self._get_current_user().get("id"),
                 "has_session": self.schema_data.get("HAS_SESSION") == "true",
             }
         )

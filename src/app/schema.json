@@ -42,6 +42,7 @@
         "SESSION_DEV_DATA": {},
         "mail_data": {},
         "HTTP_ERROR": {},
+        "USER": {},
         "dispatch_result": false,
         "current_forms": {
             "_unused_form": {

@@ -105,7 +105,7 @@ class SignRequestHandler(FormRequestHandler):
             "METHOD": self.schema_data["CONTEXT"]["METHOD"],
             "HEADERS": self.schema_data["CONTEXT"]["HEADERS"],
             "UA": self.schema_data["CONTEXT"]["UA"],
-            "user": user_data,
+            "userId": user_data["userId"],
         }
 
         ua = self.schema_data["CONTEXT"].get("UA", "")

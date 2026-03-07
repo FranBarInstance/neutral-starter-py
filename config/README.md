@@ -121,14 +121,14 @@ Component custom override support (current implementation):
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DEV_ADMIN_USER` | Username used by admin-like components that need local credential-gated access (currently `/dev-admin`). | empty |
-| `DEV_ADMIN_PASSWORD` | Password used by admin-like components that need local credential-gated access (currently `/dev-admin`). | empty |
+| `DEV_ADMIN_USER` | Username used by local-only components that grant the special `localdev` runtime role (currently `cmp_8100_localdev`). | empty |
+| `DEV_ADMIN_PASSWORD` | Password used by local-only components that grant the special `localdev` runtime role (currently `cmp_8100_localdev`). | empty |
 | `DEV_ADMIN_LOCAL_ONLY` | If `true`, admin-like components only allow loopback IPs. | `true` |
 | `DEV_ADMIN_ALLOWED_IPS` | Comma-separated IPs/CIDRs allowed for admin-like components. | `127.0.0.1,::1` |
 
 Notes:
 
-- The `DEV_ADMIN_*` prefix comes from the current `cmp_7050_dev_admin` implementation, but these settings are intended as a reusable baseline for other restricted admin components.
+- The `DEV_ADMIN_*` prefix is kept for backward compatibility, but these settings currently power the special `localdev` runtime access used by `cmp_8100_localdev`.
 - If another admin component is added, it can reuse this same model or define its own dedicated env names depending on isolation requirements.
 
 ### Rate Limiting

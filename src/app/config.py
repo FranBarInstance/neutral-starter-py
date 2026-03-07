@@ -136,7 +136,7 @@ class Config: # pylint: disable=too-few-public-methods
         SPAM: 500
     }
 
-    ROLES = ["dev", "admin", "moderator", "editor", "any"]
+    ROLES = ["localdev", "admin", "moderator", "editor", "any"]
 
     DISABLED_KEY = {str(v): k for k, v in DISABLED.items()}
 

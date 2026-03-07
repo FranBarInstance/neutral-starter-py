@@ -16,7 +16,7 @@ def admin_home() -> Response:
     """Admin home route handler.
 
     Access control (auth and roles) is handled by PreparedRequest
-    in the global before_request. Only users with admin, dev, or
+    in the global before_request. Only users with admin or
     moderator roles can access this route.
     """
     handler = AdminHomeRequestHandler(g.pr, "", bp.neutral_route)
@@ -28,7 +28,7 @@ def admin_user() -> Response:
     """Admin user management route handler.
 
     Provides user listing, search, filtering, and actions like
-    setting disabled status and managing roles.
+    setting disabled status, closing sessions, and deleting users.
     """
     handler = AdminUserRequestHandler(g.pr, "user", bp.neutral_route)
     return handler.render_route()

@@ -14,7 +14,7 @@
 {:snip; current:template:body-lateral-bar >> :}
 
 {:*
-    Locale for all /dev-admin/* routes
+    Locale for all /admin/* routes
     ----------------------------------
 *:}
 {:locale;

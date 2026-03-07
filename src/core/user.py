@@ -49,6 +49,80 @@ class User:  # pylint: disable=too-many-public-methods
         roles = {row.get("profile_role.code") for row in user_rows if row.get("profile_role.code")}
         return sorted(roles)
 
+    @staticmethod
+    def _default_runtime_user() -> dict:
+        return {
+            "auth": False,
+            "id": "",
+            "userId": "",
+            "profile_roles": {},
+            "status": {},
+            "user_disabled": {},
+            "profile_disabled": {},
+            "profile": {
+                "id": "",
+                "userId": "",
+                "alias": "",
+                "locale": "",
+                "region": "",
+                "properties": "{}",
+                "lasttime": "",
+                "created": "",
+                "modified": "",
+            },
+        }
+
+    def _build_runtime_user_data(self, user_rows: list[dict]) -> dict:
+        user_data = self._default_runtime_user()
+        if not user_rows:
+            return user_data
+
+        first_row = user_rows[0]
+        user_id = str(first_row.get("userId") or "").strip()
+        if not user_id:
+            return user_data
+
+        user_data.update(
+            {
+                "auth": True,
+                "id": user_id,
+                "userId": user_id,
+                "created": first_row.get("created") or "",
+                "lasttime": first_row.get("lasttime") or "",
+                "modified": first_row.get("modified") or "",
+                "profile_roles": {
+                    role: role for role in self._extract_roles(user_rows)
+                },
+                "profile": {
+                    "id": first_row.get("user_profile.profileId") or "",
+                    "userId": user_id,
+                    "alias": first_row.get("user_profile.alias") or "",
+                    "locale": first_row.get("user_profile.locale") or "",
+                    "region": first_row.get("user_profile.region") or "",
+                    "properties": first_row.get("user_profile.properties") or "{}",
+                    "lasttime": first_row.get("user_profile.lasttime") or "",
+                    "created": first_row.get("user_profile.created") or "",
+                    "modified": first_row.get("user_profile.modified") or "",
+                },
+            }
+        )
+
+        for row in user_rows:
+            if row.get("user_disabled.reason"):
+                key = str(row["user_disabled.reason"])
+                user_data["user_disabled"][Config.DISABLED_KEY.get(key, key)] = key
+            if row.get("profile_disabled.reason"):
+                key = str(row["profile_disabled.reason"])
+                user_data["profile_disabled"][Config.DISABLED_KEY.get(key, key)] = key
+
+        user_data["status"] = {
+            str(key).strip(): "true"
+            for key, value in user_data["user_disabled"].items()
+            if str(key).strip() and str(value).strip()
+        }
+
+        return user_data
+
     def _setup_rbac(self) -> None:
         """Create RBAC tables but do not insert roles (now managed via constants)."""
         self.model.exec("user", "setup-rbac")
@@ -208,31 +282,11 @@ class User:  # pylint: disable=too-many-public-methods
             return None
 
         unconfirmed = Config.DISABLED[UNCONFIRMED]
-        user_data = {
-            'userId': user_data_list[0]['userId'],
-            'created': user_data_list[0]['created'],
-            'lasttime': user_data_list[0]['lasttime'],
-            'modified': user_data_list[0]['modified'],
-            "user_disabled": {},
-            "profile_disabled": {},
-            "profile_roles": self._extract_roles(user_data_list),
-            "profile": {
-                "id": user_data_list[0].get('user_profile.profileId') or "",
-                "userId": user_data_list[0]['userId'],
-                "alias": user_data_list[0].get('user_profile.alias') or "",
-                "locale": user_data_list[0].get('user_profile.locale') or "",
-                "region": user_data_list[0].get('user_profile.region') or "",
-                "properties": user_data_list[0].get('user_profile.properties') or "{}",
-                "lasttime": user_data_list[0].get('user_profile.lasttime') or "",
-                "created": user_data_list[0].get('user_profile.created') or "",
-                "modified": user_data_list[0].get('user_profile.modified') or "",
-            },
-        }
+        user_data = self._build_runtime_user_data(user_data_list)
 
         for row in user_data_list:
             if row.get('user_disabled.reason'):
                 key = str(row['user_disabled.reason'])
-                user_data['user_disabled'][Config.DISABLED_KEY.get(key, key)] = key
                 if pin and row['user_disabled.reason'] == unconfirmed:
                     target = str(unconfirmed)
                     result_pin = self.model.exec('user', 'get-pin', {
@@ -247,11 +301,29 @@ class User:  # pylint: disable=too-many-public-methods
                         })
                         self.model.exec('user', 'delete-pin', {"target": target, "userId": user_data_list[0]['userId'], "pin": pin})
                         user_data['user_disabled'].pop(Config.DISABLED_KEY.get(key, key))
-            if row.get('profile_disabled.reason'):
-                key = str(row['profile_disabled.reason'])
-                user_data['profile_disabled'][Config.DISABLED_KEY.get(key, key)] = key
+
+        user_data["status"] = {
+            str(key).strip(): "true"
+            for key, value in user_data["user_disabled"].items()
+            if str(key).strip() and str(value).strip()
+        }
 
         return user_data
+
+    def get_runtime_user(self, user_id: str) -> dict:
+        """Load the current authenticated user from DB for request context."""
+        user_id = str(user_id or "").strip()
+        if not user_id:
+            return self._default_runtime_user()
+
+        result = self.model.exec("user", "get-by-userid", {"userId": user_id})
+        if self.model.has_error or not result or not result.get("rows"):
+            self.model.clear_error()
+            return self._default_runtime_user()
+
+        columns = list(dict.fromkeys(result["columns"]))
+        user_rows = [dict(zip(columns, row)) for row in result["rows"]]
+        return self._build_runtime_user_data(user_rows)
 
     def get_user(self, login):
         """Retrieve user data based on login."""
@@ -426,62 +498,8 @@ class User:  # pylint: disable=too-many-public-methods
         return not self.has_role_by_profile(profile_id, code)
 
     def build_session_user_data(self, user_id) -> dict:
-        """Build a minimal session payload with current profile roles."""
-        profile_id = ""
-        profile_data = {
-            "userId": user_id,
-            "profileId": "",
-            "alias": "",
-            "locale": "",
-            "region": "",
-            "properties": "{}",
-            "lasttime": "",
-            "created": "",
-            "modified": "",
-        }
-
-        result = self.model.exec(
-            "user",
-            "admin-get-profiles-by-userid",
-            {"userId": user_id},
-        )
-        if result and result.get("rows"):
-            columns = list(result.get("columns", []))
-            row = result["rows"][0]
-            row_data = dict(zip(columns, row))
-            profile_id = str(row_data.get("profileId") or "")
-            profile_data = {
-                "userId": str(row_data.get("userId") or user_id),
-                "profileId": profile_id,
-                "alias": str(row_data.get("alias") or row_data.get("user_profile.alias") or ""),
-                "locale": str(row_data.get("locale") or row_data.get("user_profile.locale") or ""),
-                "region": str(row_data.get("region") or row_data.get("user_profile.region") or ""),
-                "properties": row_data.get("properties") or row_data.get("user_profile.properties") or "{}",
-                "lasttime": row_data.get("lasttime") or row_data.get("user_profile.lasttime") or "",
-                "created": row_data.get("created") or row_data.get("user_profile.created") or "",
-                "modified": row_data.get("modified") or row_data.get("user_profile.modified") or "",
-            }
-
-        return {
-            "userId": user_id,
-            "created": "",
-            "lasttime": "",
-            "modified": "",
-            "user_disabled": {},
-            "profile_disabled": {},
-            "profile_roles": self.get_roles_by_profile(profile_id),
-            "profile": {
-                "id": profile_id,
-                "userId": profile_data["userId"],
-                "alias": profile_data["alias"],
-                "locale": profile_data["locale"],
-                "region": profile_data["region"],
-                "properties": profile_data["properties"],
-                "lasttime": profile_data["lasttime"],
-                "created": profile_data["created"],
-                "modified": profile_data["modified"],
-            },
-        }
+        """Build the minimal persistent session payload."""
+        return {"userId": str(user_id or "").strip()}
 
     @staticmethod
     def _rows_to_dicts(result) -> list[dict]:

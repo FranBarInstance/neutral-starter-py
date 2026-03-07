@@ -19,8 +19,8 @@
 *:}
 {:snip; current:template:body-main-content >>
     <div class="{:;local::current->theme->class->container:}">
-        {:!bool; dev_admin->auth_ok >>
-            {:snip; dev-admin-form-login :}
+        {:!bool; local_admin->auth_ok >>
+            {:snip; localdev_0yt2sa:login-form-wrapper :}
         :}{:else;
             {:snip; current:list-x-icons :}
         :}

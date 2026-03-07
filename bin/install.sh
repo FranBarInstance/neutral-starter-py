@@ -184,27 +184,27 @@ echo "Local admin route: $LOCAL_ADMIN_ROUTE"
 echo "Bootstrapping databases..."
 python bin/bootstrap_db.py
 
-DEV_NAME="$(prompt_default "DEV user alias" "Dev Admin")"
-DEV_EMAIL="$(prompt_default "DEV user email" "dev@example.com")"
+ADMIN_NAME="$(prompt_default "ADMIN user alias" "Admin")"
+ADMIN_EMAIL="$(prompt_default "ADMIN user email" "admin@example.com")"
 
-DEV_PASSWORD=""
-while [ "${#DEV_PASSWORD}" -lt 9 ]; do
-  DEV_PASSWORD="$(read_password "DEV user password (min 9 chars): ")"
-  if [ "${#DEV_PASSWORD}" -lt 9 ]; then
+ADMIN_PASSWORD=""
+while [ "${#ADMIN_PASSWORD}" -lt 9 ]; do
+  ADMIN_PASSWORD="$(read_password "ADMIN user password (min 9 chars): ")"
+  if [ "${#ADMIN_PASSWORD}" -lt 9 ]; then
     echo "Password must be at least 9 characters."
   fi
 done
 
-DEV_BIRTHDATE="$(prompt_default "DEV user birthdate (YYYY-MM-DD)" "1990-01-01")"
-DEV_LOCALE="$(prompt_default "DEV user locale" "es")"
+ADMIN_BIRTHDATE="$(prompt_default "ADMIN user birthdate (YYYY-MM-DD)" "1990-01-01")"
+ADMIN_LOCALE="$(prompt_default "ADMIN user locale" "es")"
 
-echo "Creating DEV user..."
-python bin/create_user.py "$DEV_NAME" "$DEV_EMAIL" "$DEV_PASSWORD" "$DEV_BIRTHDATE" --locale "$DEV_LOCALE" --role dev
+echo "Creating ADMIN user..."
+python bin/create_user.py "$ADMIN_NAME" "$ADMIN_EMAIL" "$ADMIN_PASSWORD" "$ADMIN_BIRTHDATE" --locale "$ADMIN_LOCALE" --role admin
 
-set_env_value "config/.env" "DEV_ADMIN_USER" "$DEV_EMAIL"
-set_env_value "config/.env" "DEV_ADMIN_PASSWORD" "$DEV_PASSWORD"
+set_env_value "config/.env" "DEV_ADMIN_USER" "$ADMIN_EMAIL"
+set_env_value "config/.env" "DEV_ADMIN_PASSWORD" "$ADMIN_PASSWORD"
 set_env_value "config/.env" "DEV_ADMIN_ALLOWED_IPS" "127.0.0.1,::1"
-echo "DEV_ADMIN_* updated in config/.env"
+echo "DEV_ADMIN_* updated in config/.env for localdev access"
 
 echo "Installation completed."
 echo "Important: first sign-in may require the PIN generated for the user."

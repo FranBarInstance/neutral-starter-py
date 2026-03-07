@@ -100,7 +100,7 @@ Complete management of users, profiles, and authentication.
   - `role`: Catalog of available roles.
   - `user_role`: User-role assignments (many-to-many).
 - **Operations:**
-  - `setup-rbac`: Creates role tables if missing and inserts base roles (`dev`, `admin`, `moderator`, `editor`).
+  - `setup-rbac`: Creates role tables if missing for standard RBAC roles (for example `admin`, `moderator`, `editor`).
   - `assign-role-by-code`, `remove-role-by-code`: Assign/remove role by role code.
   - `has-role`, `get-roles-by-userid`: Role checks and role listing.
   - `admin-list-by-created`, `admin-list-by-modified`: User listings with filter by `userId` or login hash.

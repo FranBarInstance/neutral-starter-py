@@ -27,7 +27,6 @@ PIN_TARGET_REMINDER = "reminder"
 USER_EXISTS = "USER_EXISTS"
 RBAC_DEFAULT_ROLES = (
     ("owner", "Owner", "Full system ownership and billing control"),
-    ("dev", "Developer", "Local admin and developer"),
     ("admin", "Administrator", "General system administration"),
     ("manager", "Manager", "Content and team management"),
     ("moderator", "Moderator", "Content moderation and user status"),

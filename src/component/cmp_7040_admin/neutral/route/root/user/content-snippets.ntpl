@@ -60,12 +60,6 @@
                                 <div class="h-100 p-2 -border rounded">
                                     <div class="mb-2"><strong>{:trans; User ID :}</strong> <code class="text-break ms-1">{:&;user->userId:}</code></div>
                                     {:bool; admin_user->can_full >>
-                                        <div class="mb-2">
-                                            <strong>{:trans; Roles :}</strong><br>
-                                            {:each; user->roles k role >>
-                                                <span class="badge text-bg-secondary me-1 mb-1">{:&;role:}</span>
-                                            :}
-                                        </div>
                                         <div class="mb-0">
                                             <strong>{:trans; Status :}</strong><br>
                                             {:each; user->disabled k item >>
@@ -83,12 +77,6 @@
                                         </div>
                                     :}
                                     {:!bool; admin_user->can_full >>
-                                        <div class="mb-2">
-                                            <strong>{:trans; Roles :}</strong><br>
-                                            {:each; user->roles k role >>
-                                                <span class="badge text-bg-secondary me-1 mb-1">{:&;role:}</span>
-                                            :}
-                                        </div>
                                         <div class="mb-0">
                                             <strong>{:trans; Status :}</strong><br>
                                             {:each; user->disabled k item >>

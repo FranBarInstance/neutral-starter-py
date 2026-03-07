@@ -72,15 +72,15 @@ class AdminRequestHandler(RequestHandler):
     def _resolve_current_roles(self) -> tuple[str | None, set[str]]:
         """Resolve current user roles from PreparedRequest context.
 
-        Roles are already resolved by PreparedRequest and stored in SESSION_DATA.user.
+        Roles are resolved by PreparedRequest and stored in USER.
         This method extracts them from the prepared context without DB queries.
 
         Returns:
             Tuple of (user_id, roles_set)
         """
-        user_data = self.schema_data.get("CONTEXT", {}).get("SESSION_DATA", {}).get("user", {})
+        user_data = self.schema_data.get("USER", {})
         user_id = user_data.get("id") or user_data.get("userId")
-        # Roles come from PreparedRequest's user roles cache
+        # Roles come from PreparedRequest's per-request USER context
         role_map = user_data.get("profile_roles", {})
         roles = set(role_map.keys())
         return user_id, roles
@@ -90,11 +90,11 @@ class AdminRequestHandler(RequestHandler):
 
         Returns:
             Tuple of (can_full, can_moderate)
-            - can_full: True if user has dev or admin role
+            - can_full: True if user has admin role
             - can_moderate: True if user has moderator role
         """
         _, roles = self._resolve_current_roles()
-        can_full = bool({"dev", "admin"}.intersection(roles))
+        can_full = "admin" in roles
         can_moderate = "moderator" in roles
         return can_full, can_moderate
 

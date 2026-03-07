@@ -9,7 +9,7 @@
             "/": false
         },
         "routes_role": {
-            "/": ["dev"],
+            "/": ["localdev"],
             "/login": ["*"]
         }
     }

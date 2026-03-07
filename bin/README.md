@@ -139,7 +139,7 @@ Includes:
   - `src/component/cmp_7040_admin/custom.json` -> `/admin-[random]`
   - `src/component/cmp_8100_localdev/custom.json` -> `/local-dev-[random]`
 - `bootstrap_db.py`
-- required creation of `dev` user (prompts for data) and update of `DEV_ADMIN_*` in `.env`
+- required creation of `admin` user (prompts for data) and update of `DEV_ADMIN_*` in `.env` for `localdev` access
 
 Remote usage:
 

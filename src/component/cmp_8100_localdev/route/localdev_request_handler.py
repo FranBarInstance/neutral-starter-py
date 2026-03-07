@@ -65,7 +65,7 @@ class LocalDevRequestHandler(RequestHandler):
             "csrf_token": "",
             "message": None,
             "error": None,
-            "dev_admin_role": "true" if auth_ok else None,
+            "localdev_role": "true" if auth_ok else None,
             "is_ajax": bool(self.ajax_request),
             "custom_entries": [],
             "custom_edit_uuid": "",
@@ -92,7 +92,7 @@ class LocalDevRequestHandler(RequestHandler):
         # pylint: disable=protected-access
         session_dev = self._get_session_dev()
         if not session_dev:
-            state["error"] = "Session dev not available."
+            state["error"] = "Localdev session is not available."
             return
 
         if session_dev._login_rate_limited(client_ip):
@@ -120,7 +120,7 @@ class LocalDevRequestHandler(RequestHandler):
             self._cookie_updates.append(cookie_data)
 
         state["auth_ok"] = True
-        state["dev_admin_role"] = "true"
+        state["localdev_role"] = "true"
         state["message"] = "Login successful."
 
     def _handle_logout(self, state):
@@ -131,7 +131,7 @@ class LocalDevRequestHandler(RequestHandler):
                 self._cookie_updates.append(cookie_data)
 
         state["auth_ok"] = False
-        state["dev_admin_role"] = None
+        state["localdev_role"] = None
         state["message"] = "Session closed."
 
     def _handle_post(self, state, client_ip, user_agent):
@@ -257,13 +257,13 @@ class LocalDevRequestHandler(RequestHandler):
 
         if not session_dev:
             return self._render_http_error(
-                500, "Internal Server Error", "Session dev not initialized"
+                500, "Internal Server Error", "Localdev session not initialized"
             )
 
         client_ip = get_ip()
         if not session_dev.check_ip_allowed():
             return self._render_http_error(
-                403, "Forbidden", "Access allowed only from local/dev configured IPs."
+                403, "Forbidden", "Access allowed only from configured local IPs."
             )
 
         user_agent = self.req.headers.get("User-Agent", "")
@@ -303,7 +303,7 @@ class LocalDevRequestHandler(RequestHandler):
                 )
 
         self.schema_data["local_admin"] = state
-        self.schema_data["dev_admin_role"] = state["dev_admin_role"]
+        self.schema_data["localdev_role"] = state["localdev_role"]
 
         response = self.view.render(
             headers={

@@ -1,6 +1,6 @@
 # Dev Admin Session Management
 
-The `SessionDev` class (`src/core/session_dev.py`) provides a specialized, lightweight, stateless session manager intended exclusively for developer and local administration tools.
+The `SessionDev` class (`src/core/session_dev.py`) provides a specialized, lightweight, stateless session manager intended exclusively for local administration tools.
 
 Unlike the standard `Session` module, `SessionDev` **does not use a database**. It relies entirely on cryptographically signed tokens (similar to JWTs) and environmental configuration.
 
@@ -9,6 +9,7 @@ Unlike the standard `Session` module, `SessionDev` **does not use a database**. 
 The `SessionDev` module provides isolated authentication that operates parallel to standard user sessions. It features:
 - **Stateless Tokens**: Auth state is maintained through a hashed, authenticated cookie (`DEV_ADMIN_SESSION`) signed with the application's `SECRET_KEY`.
 - **Environment-Based Credentials**: Validates against hardcoded user and password pairs set in the `config/.env` file.
+- **Special Runtime Role**: Grants the special `localdev` runtime role used by `cmp_8100_localdev`, without storing that role in the database.
 - **IP Allowlisting**: Ensures that only requests originating from predefined IP addresses or subnets can authenticate.
 - **Built-in Rate Limiting**: Tracks login attempts in-memory to prevent brute force attacks against the administration panel.
 
@@ -63,4 +64,4 @@ if not is_auth:
 ```
 
 ## Integration with Components
-`SessionDev` is designed to be agnostic to the components that consume it. Components (such as `cmp_8100_localadmin`) instantiate `SessionDev`, check `check_session()`, and use `create_session()` / `delete_session()` to retrieve the necessary cookie dictates which they then apply to the `flask.Response`.
+`SessionDev` is designed to be agnostic to the components that consume it. Components such as `cmp_8100_localdev` instantiate `SessionDev`, check `check_session()`, and use `create_session()` / `delete_session()` to retrieve the necessary cookie updates which they then apply to the `flask.Response`. At request bootstrap time, a valid `SessionDev` session grants the special runtime role `localdev`.

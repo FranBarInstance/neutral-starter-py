@@ -214,34 +214,34 @@ Write-Host "Local admin route: $localAdminRoute"
 Write-Host "Bootstrapping databases..."
 & $venvPython "bin/bootstrap_db.py"
 
-$devName = Read-Value -Prompt "DEV user alias" -Default "Dev Admin"
-$devEmail = Read-Value -Prompt "DEV user email" -Default "dev@example.com"
+$adminName = Read-Value -Prompt "ADMIN user alias" -Default "Admin"
+$adminEmail = Read-Value -Prompt "ADMIN user email" -Default "admin@example.com"
 
-$devPassword = ""
-while ($devPassword.Length -lt 9) {
-    $securePwd = Read-Host "DEV user password (min 9 chars)" -AsSecureString
+$adminPassword = ""
+while ($adminPassword.Length -lt 9) {
+    $securePwd = Read-Host "ADMIN user password (min 9 chars)" -AsSecureString
     $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePwd)
     try {
-        $devPassword = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+        $adminPassword = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
     }
     finally {
         [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr)
     }
-    if ($devPassword.Length -lt 9) {
+    if ($adminPassword.Length -lt 9) {
         Write-Host "Password must be at least 9 characters."
     }
 }
 
-$devBirthdate = Read-Value -Prompt "DEV user birthdate (YYYY-MM-DD)" -Default "1990-01-01"
-$devLocale = Read-Value -Prompt "DEV user locale" -Default "es"
+$adminBirthdate = Read-Value -Prompt "ADMIN user birthdate (YYYY-MM-DD)" -Default "1990-01-01"
+$adminLocale = Read-Value -Prompt "ADMIN user locale" -Default "es"
 
-Write-Host "Creating DEV user..."
-& $venvPython "bin/create_user.py" $devName $devEmail $devPassword $devBirthdate --locale $devLocale --role dev
+Write-Host "Creating ADMIN user..."
+& $venvPython "bin/create_user.py" $adminName $adminEmail $adminPassword $adminBirthdate --locale $adminLocale --role admin
 
-Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_USER" -Value $devEmail
-Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_PASSWORD" -Value $devPassword
+Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_USER" -Value $adminEmail
+Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_PASSWORD" -Value $adminPassword
 Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_ALLOWED_IPS" -Value "127.0.0.1,::1"
-Write-Host "DEV_ADMIN_* updated in config/.env"
+Write-Host "DEV_ADMIN_* updated in config/.env for localdev access"
 
 Write-Host "Installation completed."
 Write-Host "Important: first sign-in may require the PIN generated for the user."

@@ -11,7 +11,7 @@ The system follows a profile-centric model where a single **User** (global accou
 
 ## Access Model
 
-- **`dev` / `admin`** (`can_full = true`)
+- **`admin`** (`can_full = true`)
   - Full visibility and operations across users and profiles.
 - **`moderator`** (`can_moderate = true`, `can_full = false`)
   - Can manage user statuses: `unvalidated` and `moderated`.
@@ -27,7 +27,7 @@ The system follows a profile-centric model where a single **User** (global accou
 Main list of global accounts.
 - Shows associated **Profile IDs** with direct "Edit" links to the profile section.
 - Allows global account searching by `userId`, `login` hash, or any associated profile `Alias`.
-- Management of global **Roles** (consolidated from all profiles) and **User Disabled Status**.
+- Shows user information and management of **User Disabled Status**.
 
 ### Profiles (`/admin/profile`)
 
@@ -40,7 +40,7 @@ Individual identity management.
 
 Both sections support:
 - `search`: IDs or Aliases.
-- `role_filter`: Filter by specific role codes.
+- `filter_role`: Filter by specific role codes.
 - `disabled_filter`: Filter by reason code.
 - `order`:
   - `created`: Record creation date.
@@ -50,13 +50,14 @@ Both sections support:
 
 ## Permissions by Role
 
-### `dev` / `admin`
+### `admin`
 - **Full View**: All IDs, roles, statuses, and metadata.
-- **Roles**: Assign/Remove roles to users (resolved by exact `userId` to first profile) or specific profiles.
+- **Roles**: Assign/Remove roles only on specific profiles.
 - **Statuses**: Set/Remove any disabled reason.
 - **Safety Guards**:
-  - Cannot remove own `dev`/`admin` role.
   - Cannot delete own user account.
+  - Session closure and user deletion require explicit confirmation.
+- **Sessions**: Can close all active sessions for a user in exceptional security cases.
 - **Delete**: Physical user deletion for other users (requires `DELETE` confirmation).
 
 ### `moderator`

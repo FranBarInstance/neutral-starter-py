@@ -10,7 +10,7 @@
         },
         "routes_role": {
             "/": [
-                "admin", "dev", "moderator"
+                "admin", "moderator"
             ]
         }
     }

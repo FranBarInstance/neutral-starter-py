@@ -27,10 +27,10 @@ Automatic installers are provided for:
 - Generates random `SECRET_KEY`.
 - Generates randomized admin routes:
   - `src/component/cmp_7040_admin/custom.json` -> `/admin-[random]`
-  - `src/component/cmp_7050_dev_admin/custom.json` -> `/dev-admin-[random]`
+  - `src/component/cmp_8100_localdev/custom.json` -> `/local-admin-[random]`
 - Runs DB bootstrap (`bin/bootstrap_db.py`).
-- Creates a `dev` role user with `bin/create_user.py`.
-- Writes `DEV_ADMIN_*` values to `config/.env`.
+- Creates an `admin` role user with `bin/create_user.py`.
+- Writes `DEV_ADMIN_*` values to `config/.env` for isolated `localdev` access.
 
 Important:
 - First sign-in may require the PIN shown in `create_user.py` output. Save that PIN.
@@ -93,7 +93,7 @@ Set `SECRET_KEY` to a strong random value before running in non-local environmen
 Create:
 
 - `src/component/cmp_7040_admin/custom.json`
-- `src/component/cmp_7050_dev_admin/custom.json`
+- `src/component/cmp_8100_localdev/custom.json`
 
 Example:
 
@@ -105,7 +105,7 @@ Example:
 }
 ```
 
-For `cmp_7050_dev_admin` use `/dev-admin-[random]`.
+For `cmp_8100_localdev` use `/local-admin-[random]`.
 
 ### 3.6 Bootstrap databases
 
@@ -113,15 +113,15 @@ For `cmp_7050_dev_admin` use `/dev-admin-[random]`.
 python bin/bootstrap_db.py
 ```
 
-### 3.7 Create initial dev/admin user
+### 3.7 Create initial admin user
 
 ```bash
-python bin/create_user.py "Dev Admin" "dev@example.com" "your-password" "1990-01-01" --locale es --role dev
+python bin/create_user.py "Admin" "admin@example.com" "your-password" "1990-01-01" --locale es --role admin
 ```
 
-Then update in `config/.env`:
+Then update in `config/.env` for local-only `cmp_8100_localdev` access:
 
-- `DEV_ADMIN_USER=dev@example.com`
+- `DEV_ADMIN_USER=admin@example.com`
 - `DEV_ADMIN_PASSWORD=your-password`
 - `DEV_ADMIN_LOCAL_ONLY=true`
 - `DEV_ADMIN_ALLOWED_IPS=127.0.0.1,::1`
