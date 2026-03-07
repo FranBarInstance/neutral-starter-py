@@ -12,8 +12,8 @@ This skill guides you through creating a completely new component in the Neutral
 
 If you need additional information for a specific case:
 
-- Use `view_file` on `src/component/cmp_7000_hellocomp` or `src/component/_cmp_7000_hellocomp` as a component example.
 - Use `view_file` on `src/component/_cmp_6000_examplesign` or `src/component/_cmp_7000_hellocomp` as a component forms example.
+- Use `view_file` on `src/component/cmp_7000_hellocomp` or `src/component/_cmp_7000_hellocomp` as a component example.
 - Use `view_file` on `docs/component.md` for component architecture details.
 - Use `view_file` on `docs/dispatcher.md` for request handler patterns and business logic.
 - Use `view_file` on `docs/templates-neutrats.md` for NTPL syntax reference.
