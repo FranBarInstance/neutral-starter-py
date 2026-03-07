@@ -17,22 +17,6 @@
     {:;HTTP_ERROR->param:}
 :}
 
-{:snip; current:template:role:admin >>
-    Administrator
-:}
-
-{:snip; current:template:role:dev >>
-    Developer
-:}
-
-{:snip; current:template:role:moderator >>
-    Moderator
-:}
-
-{:snip; current:template:role:editor >>
-    Editor
-:}
-
 {:snip; current:template:modals >>
     <div class="modal p-1 py-md-4" id="templateHelp" tabindex="-1" role="dialog">
         <div class="modal-dialog shadow">

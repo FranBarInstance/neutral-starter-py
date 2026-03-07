@@ -8,7 +8,7 @@ import woothee
 from flask import current_app
 
 from app.config import Config
-from constants import TMP_DIR
+from constants import TMP_DIR, RBAC_DEFAULT_ROLES
 from utils.utils import get_ip, merge_dict
 from utils.network import normalize_host, is_allowed_host
 from .session_dev import SessionDev
@@ -65,6 +65,13 @@ class Schema:
         self.data['DISABLED'] = Config.DISABLED
         self.data['DISABLED_KEY'] = Config.DISABLED_KEY
         self.data['COMPONENT_DIR'] = Config.COMPONENT_DIR
+        self.data['RBAC_DEFAULT_ROLES'] = {
+            item[0]: {
+                "name": item[1],
+                "description": item[2],
+            }
+            for item in RBAC_DEFAULT_ROLES
+        }
         self.data['dispatch_result'] = False
 
     def _session(self) -> None:
