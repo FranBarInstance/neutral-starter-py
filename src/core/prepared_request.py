@@ -257,10 +257,11 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             session_data if isinstance(session_data, dict) else {}
         )
 
-        # Current user
-        self.schema_data["CURRENT_USER"] = self._build_current_user(
+        # Session user
+        self.schema_data["CONTEXT"]["SESSION_DATA"]["user"] = self._build_session_user(
             self.schema_data["CONTEXT"]["SESSION_DATA"]
         )
+        self.schema_data["CONTEXT"]["SESSION_DATA"].pop("user_data", None)
         # Add dev role if SessionDev session is active
         self._add_dev_role_if_session_dev()
 
@@ -279,13 +280,19 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         if not self.ajax_request:
             self._setup_cookies(session_cookie)
 
-    def _build_current_user(self, session_data: dict) -> dict:
-        """Build CURRENT_USER dict from session data."""
-        current_user = {
+    def _build_session_user(self, session_data: dict) -> dict:
+        """Build normalized SESSION_DATA.user from session data."""
+        session_user = {
             "auth": False,
             "id": "",
+            "userId": "",
             "roles": {},
             "status": {},
+            "user_disabled": {},
+            "profileId": "",
+            "alias": "",
+            "locale": "",
+            "profile_disabled": {},
             "profile": {
                 "id": "",
                 "alias": "",
@@ -295,23 +302,29 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         }
 
         if not isinstance(session_data, dict):
-            return current_user
+            return session_user
 
-        user_data = session_data.get("user_data", {})
-        if not isinstance(user_data, dict):
-            return current_user
+        raw_user = session_data.get("user")
+        if not isinstance(raw_user, dict):
+            raw_user = session_data.get("user_data", {})
+        if not isinstance(raw_user, dict):
+            return session_user
 
-        user_id = str(user_data.get("userId") or "").strip()
+        session_user.update(raw_user)
+
+        user_id = str(raw_user.get("userId") or raw_user.get("id") or "").strip()
         if not user_id:
-            return current_user
+            session_user["roles"] = {}
+            return session_user
 
         # Authenticated user
-        current_user["auth"] = True
-        current_user["id"] = user_id
+        session_user["auth"] = True
+        session_user["id"] = user_id
+        session_user["userId"] = user_id
 
         # Roles: prioritize DB over session with caching
         # DB is authoritative; only fall back to session if DB returns None (not []).
-        session_roles = user_data.get("roles", [])
+        session_roles = raw_user.get("roles", [])
 
         # Check cache first to avoid DB query on every request
         cache_key = (user_id, Config.DB_PWA)
@@ -339,41 +352,56 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             role_code = str(role).strip().lower()
             if role_code:
                 role_map[role_code] = role_code
-        current_user["roles"] = role_map
+        session_user["roles"] = role_map
 
         # User status flags (from disabled status)
-        user_disabled = user_data.get("user_disabled", {})
+        user_disabled = raw_user.get("user_disabled", {})
         if isinstance(user_disabled, dict):
-            current_user["status"] = {
+            session_user["user_disabled"] = user_disabled
+            session_user["status"] = {
                 str(key).strip(): "true"
                 for key, value in user_disabled.items()
                 if str(key).strip() and str(value).strip()
             }
+        else:
+            session_user["user_disabled"] = {}
 
         # Profile data
-        current_user["profile"]["id"] = str(user_data.get("profileId") or "").strip()
-        current_user["profile"]["alias"] = str(user_data.get("alias") or "").strip()
-        current_user["profile"]["locale"] = str(user_data.get("locale") or "").strip()
+        session_user["profileId"] = str(raw_user.get("profileId") or "").strip()
+        session_user["alias"] = str(raw_user.get("alias") or "").strip()
+        session_user["locale"] = str(raw_user.get("locale") or "").strip()
+        session_user["profile"]["id"] = session_user["profileId"]
+        session_user["profile"]["alias"] = session_user["alias"]
+        session_user["profile"]["locale"] = session_user["locale"]
 
-        profile_disabled = user_data.get("profile_disabled", {})
+        profile_disabled = raw_user.get("profile_disabled", {})
         if isinstance(profile_disabled, dict):
-            current_user["profile"]["status"] = {
+            session_user["profile_disabled"] = profile_disabled
+            session_user["profile"]["status"] = {
                 str(key).strip(): "true"
                 for key, value in profile_disabled.items()
                 if str(key).strip() and str(value).strip()
             }
+        else:
+            session_user["profile_disabled"] = {}
 
-        return current_user
+        return session_user
 
     def _add_dev_role_if_session_dev(self) -> None:
-        """Add 'dev' role to CURRENT_USER if SessionDev session is active."""
+        """Add 'dev' role to SESSION_DATA.user if SessionDev session is active."""
         # Avoid circular import by importing here
         # pylint: disable=import-outside-toplevel
         from .session_dev import SessionDev
 
         session_dev = SessionDev()
         if session_dev.check_session():
-            self.schema_data["CURRENT_USER"]["roles"]["dev"] = "dev"
+            self._get_session_user()["roles"]["dev"] = "dev"
+
+    def _get_session_user(self) -> dict:
+        """Return normalized session user data."""
+        session_data = self.schema_data.get("CONTEXT", {}).get("SESSION_DATA", {})
+        user = session_data.get("user", {})
+        return user if isinstance(user, dict) else {}
 
     def _parse_utoken(self) -> None:
         """Parse/update UTOKEN for form submission protection."""
@@ -529,7 +557,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             return
 
         # Stage 1: Authentication check
-        is_authenticated = bool(self.schema_data["CURRENT_USER"].get("auth"))
+        is_authenticated = bool(self._get_session_user().get("auth"))
         if self.route_require_auth and not is_authenticated:
             self._deny(401, "auth_required")
             return
@@ -547,7 +575,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             return
 
         # Check if user has any of the allowed roles
-        user_role_map = self.schema_data["CURRENT_USER"].get("roles", {})
+        user_role_map = self._get_session_user().get("roles", {})
         user_roles = set(user_role_map.keys())
 
         if not user_roles.intersection(set(self.allowed_roles)):
@@ -561,9 +589,9 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
 
         Returns deny reason string if restricted, None if allowed.
         """
-        current_user = self.schema_data.get("CURRENT_USER", {})
-        user_status = current_user.get("status", {})
-        profile_status = current_user.get("profile", {}).get("status", {})
+        session_user = self._get_session_user()
+        user_status = session_user.get("status", {})
+        profile_status = session_user.get("profile", {}).get("status", {})
 
         if not isinstance(user_status, dict):
             user_status = {}
@@ -603,7 +631,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
                 "route_path": self.route_path,
                 "deny_reason": reason,
                 "deny_status": status,
-                "user_id": self.schema_data.get("CURRENT_USER", {}).get("id"),
+                "user_id": self._get_session_user().get("id"),
                 "has_session": self.schema_data.get("HAS_SESSION") == "true",
             }
         )

@@ -12,7 +12,6 @@ from constants import (
     UNCONFIRMED,
     UNVALIDATED,
     PIN_TARGET_REMINDER,
-    RBAC_DEFAULT_ROLES,
 )
 from utils.sbase64url import sbase64url_sha256, sbase64url_token
 from app.config import Config
@@ -28,7 +27,6 @@ class User:  # pylint: disable=too-many-public-methods
     profile management, role assignment, and administrative functions.
     The high method count reflects the comprehensive nature of user management.
     """
-    _RBAC_BOOTSTRAPPED = set()
 
     def __init__(self, db_url=Config.DB_PWA, db_type=Config.DB_PWA_TYPE):
         """Initialize the User class with a database connection."""
@@ -47,36 +45,12 @@ class User:  # pylint: disable=too-many-public-methods
 
     @staticmethod
     def _extract_roles(user_rows: list[dict]) -> list[str]:
-        roles = {row.get("role.code") for row in user_rows if row.get("role.code")}
+        roles = {row.get("profile_role.code") for row in user_rows if row.get("profile_role.code")}
         return sorted(roles)
 
     def _setup_rbac(self) -> None:
-        cache_key = (self._db_url, self._db_type)
-        if not self._is_memory_sqlite() and cache_key in self._RBAC_BOOTSTRAPPED:
-            return
-
+        """Create RBAC tables but do not insert roles (now managed via constants)."""
         self.model.exec("user", "setup-rbac")
-        if self.model.has_error:
-            return
-
-        for code, name, description in RBAC_DEFAULT_ROLES:
-            self.model.exec(
-                "user",
-                "insert-role-if-missing",
-                {
-                    "roleId": code,
-                    "code": code,
-                    "name": name,
-                    "description": description,
-                    "created": self.now,
-                    "modified": self.now,
-                },
-            )
-            if self.model.has_error:
-                return
-
-        if not self._is_memory_sqlite():
-            self._RBAC_BOOTSTRAPPED.add(cache_key)
 
     def _build_user_params(self, user_id, login, data):
         return {
@@ -480,7 +454,7 @@ class User:  # pylint: disable=too-many-public-methods
         self,
         order_by="created",
         search="",
-        role_code="",
+        code="",
         disabled_reason="",
         limit=100,
         offset=0,
@@ -489,7 +463,7 @@ class User:  # pylint: disable=too-many-public-methods
         operation_map = {
             "created": "admin-list-by-created",
             "modified": "admin-list-by-modified",
-            "role_date": "admin-list-by-role-date",
+            "assigned_date": "admin-list-by-assigned-date",
             "disabled_created_date": "admin-list-by-disabled-created-date",
             "disabled_modified_date": "admin-list-by-disabled-modified-date",
             # Backward compatibility with previous single disabled ordering key
@@ -509,7 +483,7 @@ class User:  # pylint: disable=too-many-public-methods
             operation,
             {
                 "search": (search or "").strip(),
-                "role_code": self._normalize_role_code(role_code),
+                "code": self._normalize_role_code(code),
                 "disabled_reason": normalized_disabled_reason,
                 "limit": int(limit),
                 "offset": int(offset),
@@ -687,7 +661,7 @@ class User:  # pylint: disable=too-many-public-methods
         self,
         order_by="created",
         search="",
-        role_code="",
+        code="",
         disabled_reason="",
         limit=100,
         offset=0,
@@ -711,7 +685,7 @@ class User:  # pylint: disable=too-many-public-methods
             operation,
             {
                 "search": (search or "").strip(),
-                "role_code": self._normalize_role_code(role_code),
+                "code": self._normalize_role_code(code),
                 "disabled_reason": normalized_disabled_reason,
                 "limit": int(limit),
                 "offset": int(offset),

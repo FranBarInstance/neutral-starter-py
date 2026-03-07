@@ -26,8 +26,14 @@ SPAM = 'spam'
 PIN_TARGET_REMINDER = "reminder"
 USER_EXISTS = "USER_EXISTS"
 RBAC_DEFAULT_ROLES = (
-    ("dev", "Developer", "Local admin role"),
-    ("admin", "Administrator", "Administrative role"),
-    ("moderator", "Moderator", "Moderation role"),
-    ("editor", "Editor", "Content editing role"),
+    ("owner", "Owner", "Full system ownership and billing control"),
+    ("dev", "Developer", "Local development and system debugging"),
+    ("admin", "Administrator", "General system administration"),
+    ("manager", "Manager", "Content and team management"),
+    ("moderator", "Moderator", "Content moderation and user status"),
+    ("support", "Support", "Customer support and user assistance"),
+    ("editor", "Editor", "Content creation and editing"),
+    ("billing", "Billing", "Financial and subscription management"),
+    ("api", "API Service", "External service integration access"),
+    ("tester", "Tester", "Quality assurance and beta features"),
 )

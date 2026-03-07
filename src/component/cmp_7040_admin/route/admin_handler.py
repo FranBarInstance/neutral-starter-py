@@ -72,14 +72,14 @@ class AdminRequestHandler(RequestHandler):
     def _resolve_current_roles(self) -> tuple[str | None, set[str]]:
         """Resolve current user roles from PreparedRequest context.
 
-        Roles are already resolved by PreparedRequest and stored in CURRENT_USER.
+        Roles are already resolved by PreparedRequest and stored in SESSION_DATA.user.
         This method extracts them from the prepared context without DB queries.
 
         Returns:
             Tuple of (user_id, roles_set)
         """
-        user_data = self.schema_data.get("CURRENT_USER", {})
-        user_id = user_data.get("userId")
+        user_data = self.schema_data.get("CONTEXT", {}).get("SESSION_DATA", {}).get("user", {})
+        user_id = user_data.get("id") or user_data.get("userId")
         # Roles come from PreparedRequest's user roles cache
         role_map = user_data.get("roles", {})
         roles = set(role_map.keys())
@@ -150,7 +150,7 @@ class AdminUserRequestHandler(AdminRequestHandler):
             "message": "",
             "error": "",
             "search": "",
-            "role_filter": "",
+            "filter_role": "",
             "disabled_filter": "",
             "order": "created",
             "users": [],
@@ -168,8 +168,8 @@ class AdminUserRequestHandler(AdminRequestHandler):
         state["search"] = (request.values.get("search") or "").strip()
         state["roles_available"] = [role[0] for role in RBAC_DEFAULT_ROLES]
 
-        requested_role_filter = (request.values.get("role_filter") or "").strip().lower()
-        state["role_filter"] = requested_role_filter if requested_role_filter in set(state["roles_available"]) else ""
+        requested_filter_role = (request.values.get("filter_role") or "").strip().lower()
+        state["filter_role"] = requested_filter_role if requested_filter_role in set(state["roles_available"]) else ""
 
         requested_disabled_filter = (request.values.get("disabled_filter") or "").strip()
         disabled_codes = {str(item["code"]) for item in state["disabled_options"]}
@@ -179,7 +179,7 @@ class AdminUserRequestHandler(AdminRequestHandler):
         allowed_orders = {
             "created",
             "modified",
-            "role_date",
+            "assigned_date",
             "disabled_created_date",
             "disabled_modified_date",
             "disabled_date",
@@ -191,7 +191,7 @@ class AdminUserRequestHandler(AdminRequestHandler):
         state["users"] = self.user.admin_list_users(
             order_by=state["order"],
             search=state["search"],
-            role_code=state["role_filter"],
+            code=state["filter_role"],
             disabled_reason=state["disabled_filter"],
             limit=100,
             offset=0,
@@ -257,7 +257,7 @@ class AdminUserRequestHandler(AdminRequestHandler):
         user_id = (request.form.get("user_id") or "").strip()
         reason_raw = (request.form.get("reason") or "").strip()
         description = (request.form.get("description") or "").strip()
-        role_code = (request.form.get("role_code") or "").strip().lower()
+        code = (request.form.get("code") or "").strip().lower()
         delete_confirm = (request.form.get("delete_confirm") or "").strip()
 
         # Validate ID if provided
@@ -329,13 +329,13 @@ class AdminUserRequestHandler(AdminRequestHandler):
             if not can_full:
                 state["error"] = "Action not allowed for moderator role."
                 return
-            if not role_code:
+            if not code:
                 state["error"] = "Role code is required."
                 return
-            if role_code not in set(state["roles_available"]):
+            if code not in set(state["roles_available"]):
                 state["error"] = "Invalid role code."
                 return
-            if not self.user.assign_role(user_id, role_code):
+            if not self.user.assign_role(user_id, code):
                 state["error"] = "Unable to assign role."
                 return
             state["message"] = "Role assigned."
@@ -346,16 +346,16 @@ class AdminUserRequestHandler(AdminRequestHandler):
             if not can_full:
                 state["error"] = "Action not allowed for moderator role."
                 return
-            if not role_code:
+            if not code:
                 state["error"] = "Role code is required."
                 return
-            if role_code not in set(state["roles_available"]):
+            if code not in set(state["roles_available"]):
                 state["error"] = "Invalid role code."
                 return
-            if current_user_id and user_id == current_user_id and role_code in {"dev", "admin"}:
+            if current_user_id and user_id == current_user_id and code in {"dev", "admin"}:
                 state["error"] = "Removing your own dev/admin role is not allowed."
                 return
-            if not self.user.remove_role(user_id, role_code):
+            if not self.user.remove_role(user_id, code):
                 state["error"] = "Unable to remove role."
                 return
             state["message"] = "Role removed."
@@ -429,7 +429,7 @@ class AdminProfileRequestHandler(AdminRequestHandler):
             "message": "",
             "error": "",
             "search": "",
-            "role_filter": "",
+            "filter_role": "",
             "disabled_filter": "",
             "order": "created",
             "users": [],
@@ -447,8 +447,8 @@ class AdminProfileRequestHandler(AdminRequestHandler):
         state["search"] = (request.values.get("search") or "").strip()
         state["roles_available"] = [role[0] for role in RBAC_DEFAULT_ROLES]
 
-        requested_role_filter = (request.values.get("role_filter") or "").strip().lower()
-        state["role_filter"] = requested_role_filter if requested_role_filter in set(state["roles_available"]) else ""
+        requested_filter_role = (request.values.get("filter_role") or "").strip().lower()
+        state["filter_role"] = requested_filter_role if requested_filter_role in set(state["roles_available"]) else ""
 
         requested_disabled_filter = (request.values.get("disabled_filter") or "").strip()
         disabled_codes = {str(item["code"]) for item in state["disabled_options"]}
@@ -470,7 +470,7 @@ class AdminProfileRequestHandler(AdminRequestHandler):
         state["users"] = self.user.admin_list_profiles(
             order_by=state["order"],
             search=state["search"],
-            role_code=state["role_filter"],
+            code=state["filter_role"],
             disabled_reason=state["disabled_filter"],
             limit=100,
             offset=0,

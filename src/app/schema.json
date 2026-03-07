@@ -37,17 +37,6 @@
         "CURRENT_COMP_ROUTE": "",
         "CURRENT_COMP_UUID": "",
         "CURRENT_COMP_NAME": "",
-        "CURRENT_USER": {
-            "auth": false,
-            "id": "",
-            "roles": {},
-            "status": {},
-            "profile": {
-                "alias": "",
-                "locale": "",
-                "status": {}
-            }
-        },
         "HAS_SESSION_DEV": null,
         "HAS_SESSION_DEV_STR": "false",
         "SESSION_DEV_DATA": {},

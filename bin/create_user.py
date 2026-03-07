@@ -57,18 +57,18 @@ def _build_parser() -> argparse.ArgumentParser:
 
 
 def _parse_roles(args: argparse.Namespace) -> list[str]:
-    role_tokens = list(args.role or [])
+    tokens = list(args.role or [])
     if args.roles:
-        role_tokens.extend(args.roles.split(","))
+        tokens.extend(args.roles.split(","))
 
     seen = set()
     roles = []
-    for token in role_tokens:
-        role_code = str(token).strip().lower()
-        if not role_code or role_code in seen:
+    for token in tokens:
+        code = str(token).strip().lower()
+        if not code or code in seen:
             continue
-        seen.add(role_code)
-        roles.append(role_code)
+        seen.add(code)
+        roles.append(code)
     return roles
 
 
@@ -92,10 +92,10 @@ def _validate_args(args: argparse.Namespace) -> None:
             raise ValueError("properties must be valid JSON text") from exc
 
     role_pattern = re.compile(r"^[a-z0-9_-]{2,32}$")
-    for role_code in _parse_roles(args):
-        if not role_pattern.match(role_code):
+    for code in _parse_roles(args):
+        if not role_pattern.match(code):
             raise ValueError(
-                f"invalid role code '{role_code}'. Use 2-32 chars: a-z, 0-9, _ or -"
+                f"invalid role code '{code}'. Use 2-32 chars: a-z, 0-9, _ or -"
             )
 
 
@@ -131,11 +131,11 @@ def main() -> int:
     roles_requested = _parse_roles(args)
     roles_assigned = []
     roles_failed = []
-    for role_code in roles_requested:
-        if user.assign_role(result.get("userId"), role_code):
-            roles_assigned.append(role_code)
+    for code in roles_requested:
+        if user.assign_role(result.get("userId"), code):
+            roles_assigned.append(code)
         else:
-            roles_failed.append(role_code)
+            roles_failed.append(code)
 
     if roles_requested:
         result["roles_requested"] = roles_requested

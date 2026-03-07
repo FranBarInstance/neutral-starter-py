@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from core.model import Model
-from constants import RBAC_DEFAULT_ROLES
 
 
 
@@ -31,21 +30,6 @@ def bootstrap_databases(
     _run_operation(pwa_model, "app", "setup-base")
     _run_operation(pwa_model, "user", "setup-base")
     _run_operation(pwa_model, "user", "setup-rbac")
-
-    for code, name, description in RBAC_DEFAULT_ROLES:
-        _run_operation(
-            pwa_model,
-            "user",
-            "insert-role-if-missing",
-            {
-                "roleId": code,
-                "code": code,
-                "name": name,
-                "description": description,
-                "created": 0,
-                "modified": 0,
-            },
-        )
 
     _run_operation(safe_model, "session", "setup-base")
 

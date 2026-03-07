@@ -18,10 +18,10 @@
                 </div>
                 <div class="col-12 col-lg-2">
                     <label class="form-label" for="admin-role-filter">{:trans; Role filter :}</label>
-                    <select id="admin-role-filter" class="form-select" name="role_filter">
+                    <select id="admin-role-filter" class="form-select" name="filter_role">
                         <option value="">{:trans; All roles :}</option>
                         {:each; admin_user->roles_available rk rcode >>
-                            <option value="{:&;rcode:}"{:same; /{:;admin_user->role_filter:}/{:&;rcode:}/ >> selected :}>{:&;rcode:}</option>
+                            <option value="{:&;rcode:}"{:same; /{:;admin_user->filter_role:}/{:&;rcode:}/ >> selected :}>{:&;rcode:}</option>
                         :}
                     </select>
                 </div>
@@ -39,7 +39,7 @@
                     <select id="admin-order" class="form-select" name="order">
                         <option value="created"{:same; /{:;admin_user->order:}/created/ >> selected :}>{:trans; Created date :}</option>
                         <option value="modified"{:same; /{:;admin_user->order:}/modified/ >> selected :}>{:trans; Modified date :}</option>
-                        <option value="role_date"{:same; /{:;admin_user->order:}/role_date/ >> selected :}>{:trans; Role date :}</option>
+                        <option value="assigned_date"{:same; /{:;admin_user->order:}/assigned_date/ >> selected :}>{:trans; Assigned date :}</option>
                         <option value="disabled_created_date"{:same; /{:;admin_user->order:}/disabled_created_date/ >> selected :}>{:trans; Disabled created date :}</option>
                         <option value="disabled_modified_date"{:same; /{:;admin_user->order:}/disabled_modified_date/ >> selected :}>{:trans; Disabled modified date :}</option>
                     </select>
@@ -147,14 +147,14 @@
                             <form method="post" class="mb-0">
                                 <input type="hidden" name="ltoken" value="{:&;admin_user->ltoken:}">
                                 <input type="hidden" name="search" value="{:&;admin_user->search:}">
-                                <input type="hidden" name="role_filter" value="{:&;admin_user->role_filter:}">
+                                <input type="hidden" name="filter_role" value="{:&;admin_user->filter_role:}">
                                 <input type="hidden" name="disabled_filter" value="{:&;admin_user->disabled_filter:}">
                                 <input type="hidden" name="order" value="{:&;admin_user->order:}">
                                 <input type="hidden" name="user_id" value="{:&;user->userId:}">
                                 <div class="row g-2">
                                     <div class="col-12 col-xl-4">
                                         <div class="mb-0 p-2 -border rounded">
-                                            <select class="form-select form-select-sm mb-1" name="role_code">
+                                            <select class="form-select form-select-sm mb-1" name="code">
                                                 <option value="">{:trans; Select role :}</option>
                                                 {:each; admin_user->roles_available rk rcode >>
                                                     <option value="{:&;rcode:}">{:&;rcode:}</option>
@@ -197,7 +197,7 @@
                             <form method="post" class="mb-0">
                                 <input type="hidden" name="ltoken" value="{:&;admin_user->ltoken:}">
                                 <input type="hidden" name="search" value="{:&;admin_user->search:}">
-                                <input type="hidden" name="role_filter" value="{:&;admin_user->role_filter:}">
+                                <input type="hidden" name="filter_role" value="{:&;admin_user->filter_role:}">
                                 <input type="hidden" name="disabled_filter" value="{:&;admin_user->disabled_filter:}">
                                 <input type="hidden" name="order" value="{:&;admin_user->order:}">
                                 <input type="hidden" name="user_id" value="{:&;user->userId:}">
