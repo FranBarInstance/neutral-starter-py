@@ -56,7 +56,6 @@ class User:  # pylint: disable=too-many-public-methods
             "id": "",
             "userId": "",
             "profile_roles": {},
-            "status": {},
             "user_disabled": {},
             "profile_disabled": {},
             "profile": {
@@ -114,12 +113,6 @@ class User:  # pylint: disable=too-many-public-methods
             if row.get("profile_disabled.reason"):
                 key = str(row["profile_disabled.reason"])
                 user_data["profile_disabled"][Config.DISABLED_KEY.get(key, key)] = key
-
-        user_data["status"] = {
-            str(key).strip(): "true"
-            for key, value in user_data["user_disabled"].items()
-            if str(key).strip() and str(value).strip()
-        }
 
         return user_data
 
@@ -301,12 +294,6 @@ class User:  # pylint: disable=too-many-public-methods
                         })
                         self.model.exec('user', 'delete-pin', {"target": target, "userId": user_data_list[0]['userId'], "pin": pin})
                         user_data['user_disabled'].pop(Config.DISABLED_KEY.get(key, key))
-
-        user_data["status"] = {
-            str(key).strip(): "true"
-            for key, value in user_data["user_disabled"].items()
-            if str(key).strip() and str(value).strip()
-        }
 
         return user_data
 

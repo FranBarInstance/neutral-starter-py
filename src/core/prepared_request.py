@@ -500,7 +500,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         Returns deny reason string if restricted, None if allowed.
         """
         current_user = self._get_current_user()
-        user_status = current_user.get("status", {})
+        user_disabled = current_user.get("user_disabled", {})
         profile_disabled = current_user.get("profile_disabled", {})
 
         if not isinstance(user_status, dict):
@@ -509,11 +509,11 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             profile_disabled = {}
 
         # Deleted users are always blocked (highest priority)
-        if DELETED in user_status:
+        if DELETED in user_disabled:
             return "user_status_deleted"
 
         # Any other user status flag restricts access
-        if user_status:
+        if user_disabled:
             return "user_status_restricted"
 
         # Profile status restrictions
