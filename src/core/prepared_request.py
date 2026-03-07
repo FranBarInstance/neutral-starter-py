@@ -503,8 +503,8 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         user_disabled = current_user.get("user_disabled", {})
         profile_disabled = current_user.get("profile_disabled", {})
 
-        if not isinstance(user_status, dict):
-            user_status = {}
+        if not isinstance(user_disabled, dict):
+            user_disabled = {}
         if not isinstance(profile_disabled, dict):
             profile_disabled = {}
 
