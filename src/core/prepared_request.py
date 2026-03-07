@@ -221,7 +221,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         try:
             cached_schema = _load_bp_schema_cached(schema_path)
             merge_dict(self.schema.properties, cached_schema)
-        except Exception:
+        except Exception:  # pylint: disable=broad-except
             # Fail closed: schema errors propagate (request will fail)
             # Invalidate cache on error and retry once
             _load_bp_schema_cached.cache_clear()
