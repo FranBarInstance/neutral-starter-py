@@ -17,19 +17,19 @@
     {:;HTTP_ERROR->param:}
 :}
 
-{:snip; current:template:role:role_admin >>
+{:snip; current:template:role:admin >>
     Administrator
 :}
 
-{:snip; current:template:role:role_dev >>
+{:snip; current:template:role:dev >>
     Developer
 :}
 
-{:snip; current:template:role:role_moderator >>
+{:snip; current:template:role:moderator >>
     Moderator
 :}
 
-{:snip; current:template:role:role_editor >>
+{:snip; current:template:role:editor >>
     Editor
 :}
 

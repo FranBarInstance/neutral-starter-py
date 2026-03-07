@@ -26,8 +26,8 @@ SPAM = 'spam'
 PIN_TARGET_REMINDER = "reminder"
 USER_EXISTS = "USER_EXISTS"
 RBAC_DEFAULT_ROLES = (
-    ("role_dev", "dev", "Developer", "Local admin role"),
-    ("role_admin", "admin", "Administrator", "Administrative role"),
-    ("role_moderator", "moderator", "Moderator", "Moderation role"),
-    ("role_editor", "editor", "Editor", "Content editing role"),
+    ("dev", "Developer", "Local admin role"),
+    ("admin", "Administrator", "Administrative role"),
+    ("moderator", "Moderator", "Moderation role"),
+    ("editor", "Editor", "Content editing role"),
 )

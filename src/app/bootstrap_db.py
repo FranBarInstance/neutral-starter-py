@@ -32,13 +32,13 @@ def bootstrap_databases(
     _run_operation(pwa_model, "user", "setup-base")
     _run_operation(pwa_model, "user", "setup-rbac")
 
-    for role_id, code, name, description in RBAC_DEFAULT_ROLES:
+    for code, name, description in RBAC_DEFAULT_ROLES:
         _run_operation(
             pwa_model,
             "user",
             "insert-role-if-missing",
             {
-                "roleId": role_id,
+                "roleId": code,
                 "code": code,
                 "name": name,
                 "description": description,

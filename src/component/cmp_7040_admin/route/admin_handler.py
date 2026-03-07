@@ -81,10 +81,8 @@ class AdminRequestHandler(RequestHandler):
         user_data = self.schema_data.get("CURRENT_USER", {})
         user_id = user_data.get("userId")
         # Roles come from PreparedRequest's user roles cache
-        # Roles are stored as {"role_admin": "role_admin", ...}
         role_map = user_data.get("roles", {})
-        # Extract role names without "role_" prefix
-        roles = {role_key.replace("role_", "", 1) for role_key in role_map.keys()}
+        roles = set(role_map.keys())
         return user_id, roles
 
     def _get_role_permissions(self) -> tuple[bool, bool]:
@@ -168,7 +166,7 @@ class AdminUserRequestHandler(AdminRequestHandler):
         state["can_moderate"] = can_moderate
         state["is_dev_or_admin"] = can_full
         state["search"] = (request.values.get("search") or "").strip()
-        state["roles_available"] = [role[1] for role in RBAC_DEFAULT_ROLES]
+        state["roles_available"] = [role[0] for role in RBAC_DEFAULT_ROLES]
 
         requested_role_filter = (request.values.get("role_filter") or "").strip().lower()
         state["role_filter"] = requested_role_filter if requested_role_filter in set(state["roles_available"]) else ""
@@ -447,7 +445,7 @@ class AdminProfileRequestHandler(AdminRequestHandler):
         state["can_moderate"] = can_moderate
         state["is_dev_or_admin"] = can_full
         state["search"] = (request.values.get("search") or "").strip()
-        state["roles_available"] = [role[1] for role in RBAC_DEFAULT_ROLES]
+        state["roles_available"] = [role[0] for role in RBAC_DEFAULT_ROLES]
 
         requested_role_filter = (request.values.get("role_filter") or "").strip().lower()
         state["role_filter"] = requested_role_filter if requested_role_filter in set(state["roles_available"]) else ""

@@ -338,8 +338,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         for role in roles:
             role_code = str(role).strip().lower()
             if role_code:
-                role_key = f"role_{role_code}"
-                role_map[role_key] = role_key
+                role_map[role_code] = role_code
         current_user["roles"] = role_map
 
         # User status flags (from disabled status)
@@ -374,7 +373,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
 
         session_dev = SessionDev()
         if session_dev.check_session():
-            self.schema_data["CURRENT_USER"]["roles"]["role_dev"] = "role_dev"
+            self.schema_data["CURRENT_USER"]["roles"]["dev"] = "dev"
 
     def _parse_utoken(self) -> None:
         """Parse/update UTOKEN for form submission protection."""
@@ -549,11 +548,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
 
         # Check if user has any of the allowed roles
         user_role_map = self.schema_data["CURRENT_USER"].get("roles", {})
-        user_roles = {
-            key.replace("role_", "", 1)
-            for key in user_role_map.keys()
-            if key.startswith("role_")
-        }
+        user_roles = set(user_role_map.keys())
 
         if not user_roles.intersection(set(self.allowed_roles)):
             self._deny(403, "role_not_allowed")

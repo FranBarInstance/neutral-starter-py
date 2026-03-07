@@ -59,12 +59,12 @@ class User:  # pylint: disable=too-many-public-methods
         if self.model.has_error:
             return
 
-        for role_id, code, name, description in RBAC_DEFAULT_ROLES:
+        for code, name, description in RBAC_DEFAULT_ROLES:
             self.model.exec(
                 "user",
                 "insert-role-if-missing",
                 {
-                    "roleId": role_id,
+                    "roleId": code,
                     "code": code,
                     "name": name,
                     "description": description,
