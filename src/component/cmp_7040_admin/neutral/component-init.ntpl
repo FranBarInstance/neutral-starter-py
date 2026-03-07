@@ -1,8 +1,8 @@
 
 {:+!eval;
-    {:;CONTEXT->SESSION_DATA->user->roles->admin:}
-    {:;CONTEXT->SESSION_DATA->user->roles->dev:}
-    {:;CONTEXT->SESSION_DATA->user->roles->moderator:}
+    {:;CONTEXT->SESSION_DATA->user->profile_roles->admin:}
+    {:;CONTEXT->SESSION_DATA->user->profile_roles->dev:}
+    {:;CONTEXT->SESSION_DATA->user->profile_roles->moderator:}
     >>
     {:!data; {:flg; require :} >> {:;admin_0yt2sa->path:}/access-false.json :}
 :}

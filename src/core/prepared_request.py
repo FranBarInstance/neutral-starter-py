@@ -54,12 +54,6 @@ def _load_bp_schema_cached(schema_path: str) -> dict:
         return json.load(file)
 
 
-# Short-lived cache for user roles to avoid DB queries on every request
-# Key: (user_id, db_url) to handle multi-tenant scenarios
-_user_roles_cache: dict[tuple[str, str], dict] = {}
-_USER_ROLES_CACHE_TTL = 30  # seconds
-
-
 @dataclass
 class PreparedRequest:  # pylint: disable=too-many-instance-attributes
     """Core bootstrap object shared for the current request.
@@ -286,18 +280,20 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             "auth": False,
             "id": "",
             "userId": "",
-            "roles": {},
+            "profile_roles": {},
             "status": {},
             "user_disabled": {},
-            "profileId": "",
-            "alias": "",
-            "locale": "",
             "profile_disabled": {},
             "profile": {
                 "id": "",
+                "userId": "",
                 "alias": "",
                 "locale": "",
-                "status": {},
+                "region": "",
+                "properties": "{}",
+                "lasttime": "",
+                "created": "",
+                "modified": "",
             },
         }
 
@@ -314,7 +310,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
 
         user_id = str(raw_user.get("userId") or raw_user.get("id") or "").strip()
         if not user_id:
-            session_user["roles"] = {}
+            session_user["profile_roles"] = {}
             return session_user
 
         # Authenticated user
@@ -322,28 +318,19 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         session_user["id"] = user_id
         session_user["userId"] = user_id
 
-        # Roles: prioritize DB over session with caching
-        # DB is authoritative; only fall back to session if DB returns None (not []).
-        session_roles = raw_user.get("roles", [])
+        raw_profile = raw_user.get("profile", {})
+        if not isinstance(raw_profile, dict):
+            raw_profile = {}
 
-        # Check cache first to avoid DB query on every request
-        cache_key = (user_id, Config.DB_PWA)
-        cached_roles = _user_roles_cache.get(cache_key)
+        profile_id = str(
+            raw_profile.get("id") or raw_user.get("profileId") or ""
+        ).strip()
+        session_profile_roles = raw_user.get("profile_roles")
+        if not isinstance(session_profile_roles, list):
+            session_profile_roles = raw_user.get("roles", [])
 
-        if cached_roles is not None:
-            db_roles = cached_roles
-        else:
-            db_roles = self.user.get_roles(user_id)
-            # Cache the result (even if empty list)
-            if db_roles is not None:
-                _user_roles_cache[cache_key] = db_roles
-
-        # db_roles is authoritative even if empty ([] means no roles)
-        # Only fall back to session if DB returns None (error/not implemented)
-        if db_roles is not None:
-            roles = db_roles
-        elif isinstance(session_roles, list):
-            roles = session_roles
+        if isinstance(session_profile_roles, list):
+            roles = session_profile_roles
         else:
             roles = []
 
@@ -352,7 +339,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             role_code = str(role).strip().lower()
             if role_code:
                 role_map[role_code] = role_code
-        session_user["roles"] = role_map
+        session_user["profile_roles"] = role_map
 
         # User status flags (from disabled status)
         user_disabled = raw_user.get("user_disabled", {})
@@ -367,21 +354,41 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             session_user["user_disabled"] = {}
 
         # Profile data
-        session_user["profileId"] = str(raw_user.get("profileId") or "").strip()
-        session_user["alias"] = str(raw_user.get("alias") or "").strip()
-        session_user["locale"] = str(raw_user.get("locale") or "").strip()
-        session_user["profile"]["id"] = session_user["profileId"]
-        session_user["profile"]["alias"] = session_user["alias"]
-        session_user["profile"]["locale"] = session_user["locale"]
+        session_user["profile"]["id"] = profile_id
+        session_user["profile"]["userId"] = session_user["userId"]
+        session_user["profile"]["alias"] = str(
+            raw_profile.get("alias") or raw_user.get("alias") or ""
+        ).strip()
+        session_user["profile"]["locale"] = str(
+            raw_profile.get("locale") or raw_user.get("locale") or ""
+        ).strip()
+        session_user["profile"]["region"] = str(
+            raw_profile.get("region") or raw_user.get("region") or ""
+        ).strip()
+        session_user["profile"]["properties"] = (
+            raw_profile.get("properties")
+            or raw_user.get("properties")
+            or "{}"
+        )
+        session_user["profile"]["lasttime"] = (
+            raw_profile.get("lasttime")
+            or raw_user.get("profile_lasttime")
+            or ""
+        )
+        session_user["profile"]["created"] = (
+            raw_profile.get("created")
+            or raw_user.get("profile_created")
+            or ""
+        )
+        session_user["profile"]["modified"] = (
+            raw_profile.get("modified")
+            or raw_user.get("profile_modified")
+            or ""
+        )
 
         profile_disabled = raw_user.get("profile_disabled", {})
         if isinstance(profile_disabled, dict):
             session_user["profile_disabled"] = profile_disabled
-            session_user["profile"]["status"] = {
-                str(key).strip(): "true"
-                for key, value in profile_disabled.items()
-                if str(key).strip() and str(value).strip()
-            }
         else:
             session_user["profile_disabled"] = {}
 
@@ -395,7 +402,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
 
         session_dev = SessionDev()
         if session_dev.check_session():
-            self._get_session_user()["roles"]["dev"] = "dev"
+            self._get_session_user()["profile_roles"]["dev"] = "dev"
 
     def _get_session_user(self) -> dict:
         """Return normalized session user data."""
@@ -575,7 +582,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             return
 
         # Check if user has any of the allowed roles
-        user_role_map = self._get_session_user().get("roles", {})
+        user_role_map = self._get_session_user().get("profile_roles", {})
         user_roles = set(user_role_map.keys())
 
         if not user_roles.intersection(set(self.allowed_roles)):
@@ -591,12 +598,12 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
         """
         session_user = self._get_session_user()
         user_status = session_user.get("status", {})
-        profile_status = session_user.get("profile", {}).get("status", {})
+        profile_disabled = session_user.get("profile_disabled", {})
 
         if not isinstance(user_status, dict):
             user_status = {}
-        if not isinstance(profile_status, dict):
-            profile_status = {}
+        if not isinstance(profile_disabled, dict):
+            profile_disabled = {}
 
         # Deleted users are always blocked (highest priority)
         if DELETED in user_status:
@@ -607,7 +614,7 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
             return "user_status_restricted"
 
         # Profile status restrictions
-        if profile_status:
+        if profile_disabled:
             return "profile_status_restricted"
 
         return None
@@ -719,28 +726,6 @@ class PreparedRequest:  # pylint: disable=too-many-instance-attributes
                 best_value = value
 
         return best_value
-
-
-def invalidate_user_roles_cache(user_id: str | None = None) -> None:
-    """Invalidate user roles cache.
-
-    Args:
-        user_id: Specific user ID to invalidate, or None to clear all cache
-    """
-    global _user_roles_cache
-
-    if user_id is None:
-        _user_roles_cache.clear()
-    else:
-        # Remove all entries for this user across all DB URLs
-        keys_to_remove = [
-            key for key in _user_roles_cache.keys()
-            if key[0] == user_id
-        ]
-        for key in keys_to_remove:
-            del _user_roles_cache[key]
-
-
 def clear_bp_schema_cache() -> None:
     """Clear the blueprint schema cache. Useful for development/hot reloading."""
     _load_bp_schema_cached.cache_clear()

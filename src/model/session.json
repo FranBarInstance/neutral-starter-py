@@ -15,6 +15,9 @@
     "close": {
         "@portable": "UPDATE session SET open = :open, modified = :modified WHERE sessionId = :sessionId"
     },
+    "close-by-userid": {
+        "@portable": "UPDATE session SET open = :open, modified = :modified WHERE userId = :userId AND open = :current_open"
+    },
     "update": {
         "@portable": "UPDATE session SET modified = :modified, expire = :expire WHERE sessionId = :sessionId"
     },

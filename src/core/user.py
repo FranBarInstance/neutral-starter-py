@@ -12,6 +12,7 @@ from constants import (
     UNCONFIRMED,
     UNVALIDATED,
     PIN_TARGET_REMINDER,
+    RBAC_DEFAULT_ROLES,
 )
 from utils.sbase64url import sbase64url_sha256, sbase64url_token
 from app.config import Config
@@ -209,20 +210,23 @@ class User:  # pylint: disable=too-many-public-methods
         unconfirmed = Config.DISABLED[UNCONFIRMED]
         user_data = {
             'userId': user_data_list[0]['userId'],
-            'profileId': user_data_list[0].get('user_profile.profileId') or "",
-            'birthdate': (
-                user_data_list[0]['birthdate'].decode('utf-8')
-                if isinstance(user_data_list[0]['birthdate'], (bytes, bytearray))
-                else user_data_list[0]['birthdate']
-            ),
             'created': user_data_list[0]['created'],
             'lasttime': user_data_list[0]['lasttime'],
             'modified': user_data_list[0]['modified'],
-            'alias': user_data_list[0].get('user_profile.alias') or "",
-            'locale': user_data_list[0].get('user_profile.locale') or "",
             "user_disabled": {},
             "profile_disabled": {},
-            "roles": self._extract_roles(user_data_list),
+            "profile_roles": self._extract_roles(user_data_list),
+            "profile": {
+                "id": user_data_list[0].get('user_profile.profileId') or "",
+                "userId": user_data_list[0]['userId'],
+                "alias": user_data_list[0].get('user_profile.alias') or "",
+                "locale": user_data_list[0].get('user_profile.locale') or "",
+                "region": user_data_list[0].get('user_profile.region') or "",
+                "properties": user_data_list[0].get('user_profile.properties') or "{}",
+                "lasttime": user_data_list[0].get('user_profile.lasttime') or "",
+                "created": user_data_list[0].get('user_profile.created') or "",
+                "modified": user_data_list[0].get('user_profile.modified') or "",
+            },
         }
 
         for row in user_data_list:
@@ -274,12 +278,22 @@ class User:  # pylint: disable=too-many-public-methods
             'error': '',
             'message': '',
             'user_data': {
-                'alias': user_row.get('user_profile.alias', ''),
                 'email': login,
                 'userId': user_row.get('userId'),
-                'profileId': user_row.get('user_profile.profileId', ''),
-                'locale': user_row.get('user_profile.locale', ''),
-                'roles': self.get_roles(user_row.get('userId')),
+                'profile_roles': self.get_roles_by_profile(
+                    user_row.get('user_profile.profileId', '')
+                ),
+                'profile': {
+                    'id': user_row.get('user_profile.profileId', ''),
+                    'userId': user_row.get('userId'),
+                    'alias': user_row.get('user_profile.alias', ''),
+                    'locale': user_row.get('user_profile.locale', ''),
+                    'region': user_row.get('user_profile.region', ''),
+                    'properties': user_row.get('user_profile.properties', '{}'),
+                    'lasttime': user_row.get('user_profile.lasttime', ''),
+                    'created': user_row.get('user_profile.created', ''),
+                    'modified': user_row.get('user_profile.modified', ''),
+                },
             }
         }
 
@@ -352,6 +366,12 @@ class User:  # pylint: disable=too-many-public-methods
         code = self._normalize_role_code(role_code)
         if not profile_id or not code:
             return False
+
+        # Validate that the role exists in RBAC_DEFAULT_ROLES
+        valid_roles = {role[0] for role in RBAC_DEFAULT_ROLES}
+        if code not in valid_roles:
+            return False
+
         result = self.model.exec(
             "user",
             "assign-role-by-code",
@@ -406,11 +426,61 @@ class User:  # pylint: disable=too-many-public-methods
         return not self.has_role_by_profile(profile_id, code)
 
     def build_session_user_data(self, user_id) -> dict:
-        """Build a minimal session payload with current user roles."""
+        """Build a minimal session payload with current profile roles."""
+        profile_id = ""
+        profile_data = {
+            "userId": user_id,
+            "profileId": "",
+            "alias": "",
+            "locale": "",
+            "region": "",
+            "properties": "{}",
+            "lasttime": "",
+            "created": "",
+            "modified": "",
+        }
+
+        result = self.model.exec(
+            "user",
+            "admin-get-profiles-by-userid",
+            {"userId": user_id},
+        )
+        if result and result.get("rows"):
+            columns = list(result.get("columns", []))
+            row = result["rows"][0]
+            row_data = dict(zip(columns, row))
+            profile_id = str(row_data.get("profileId") or "")
+            profile_data = {
+                "userId": str(row_data.get("userId") or user_id),
+                "profileId": profile_id,
+                "alias": str(row_data.get("alias") or row_data.get("user_profile.alias") or ""),
+                "locale": str(row_data.get("locale") or row_data.get("user_profile.locale") or ""),
+                "region": str(row_data.get("region") or row_data.get("user_profile.region") or ""),
+                "properties": row_data.get("properties") or row_data.get("user_profile.properties") or "{}",
+                "lasttime": row_data.get("lasttime") or row_data.get("user_profile.lasttime") or "",
+                "created": row_data.get("created") or row_data.get("user_profile.created") or "",
+                "modified": row_data.get("modified") or row_data.get("user_profile.modified") or "",
+            }
+
         return {
             "userId": user_id,
+            "created": "",
+            "lasttime": "",
+            "modified": "",
             "user_disabled": {},
-            "roles": self.get_roles(user_id),
+            "profile_disabled": {},
+            "profile_roles": self.get_roles_by_profile(profile_id),
+            "profile": {
+                "id": profile_id,
+                "userId": profile_data["userId"],
+                "alias": profile_data["alias"],
+                "locale": profile_data["locale"],
+                "region": profile_data["region"],
+                "properties": profile_data["properties"],
+                "lasttime": profile_data["lasttime"],
+                "created": profile_data["created"],
+                "modified": profile_data["modified"],
+            },
         }
 
     @staticmethod

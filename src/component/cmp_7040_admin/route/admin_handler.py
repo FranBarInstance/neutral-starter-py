@@ -81,7 +81,7 @@ class AdminRequestHandler(RequestHandler):
         user_data = self.schema_data.get("CONTEXT", {}).get("SESSION_DATA", {}).get("user", {})
         user_id = user_data.get("id") or user_data.get("userId")
         # Roles come from PreparedRequest's user roles cache
-        role_map = user_data.get("roles", {})
+        role_map = user_data.get("profile_roles", {})
         roles = set(role_map.keys())
         return user_id, roles
 
@@ -257,8 +257,8 @@ class AdminUserRequestHandler(AdminRequestHandler):
         user_id = (request.form.get("user_id") or "").strip()
         reason_raw = (request.form.get("reason") or "").strip()
         description = (request.form.get("description") or "").strip()
-        code = (request.form.get("code") or "").strip().lower()
         delete_confirm = (request.form.get("delete_confirm") or "").strip()
+        sessions_confirm = (request.form.get("sessions_confirm") or "").strip()
 
         # Validate ID if provided
         if user_id and not self._is_valid_id(user_id):
@@ -325,43 +325,6 @@ class AdminUserRequestHandler(AdminRequestHandler):
             state["search"] = user_id
             return
 
-        if action == "assign-role":
-            if not can_full:
-                state["error"] = "Action not allowed for moderator role."
-                return
-            if not code:
-                state["error"] = "Role code is required."
-                return
-            if code not in set(state["roles_available"]):
-                state["error"] = "Invalid role code."
-                return
-            if not self.user.assign_role(user_id, code):
-                state["error"] = "Unable to assign role."
-                return
-            state["message"] = "Role assigned."
-            state["search"] = user_id
-            return
-
-        if action == "remove-role":
-            if not can_full:
-                state["error"] = "Action not allowed for moderator role."
-                return
-            if not code:
-                state["error"] = "Role code is required."
-                return
-            if code not in set(state["roles_available"]):
-                state["error"] = "Invalid role code."
-                return
-            if current_user_id and user_id == current_user_id and code in {"dev", "admin"}:
-                state["error"] = "Removing your own dev/admin role is not allowed."
-                return
-            if not self.user.remove_role(user_id, code):
-                state["error"] = "Unable to remove role."
-                return
-            state["message"] = "Role removed."
-            state["search"] = user_id
-            return
-
         if action == "delete-user":
             if not can_full:
                 state["error"] = "Action not allowed for moderator role."
@@ -379,6 +342,20 @@ class AdminUserRequestHandler(AdminRequestHandler):
                 return
 
             state["message"] = "User deleted."
+            return
+
+        if action == "close-sessions":
+            if not can_full:
+                state["error"] = "Action not allowed for moderator role."
+                return
+            if sessions_confirm != "CLOSE SESSIONS":
+                state["error"] = "Session closure confirmation failed. Type CLOSE SESSIONS to confirm."
+                return
+            if not self.session.close_user_sessions(user_id):
+                state["error"] = "Unable to close user sessions."
+                return
+            state["message"] = "All active sessions for the user were closed. Use only for extreme security cases."
+            state["search"] = user_id
             return
 
         state["error"] = "Unknown action."

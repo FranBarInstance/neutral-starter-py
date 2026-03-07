@@ -153,20 +153,6 @@
                                 <input type="hidden" name="user_id" value="{:&;user->userId:}">
                                 <div class="row g-2">
                                     <div class="col-12 col-xl-4">
-                                        <div class="mb-0 p-2 -border rounded">
-                                            <select class="form-select form-select-sm mb-1" name="code">
-                                                <option value="">{:trans; Select role :}</option>
-                                                {:each; admin_user->roles_available rk rcode >>
-                                                    <option value="{:&;rcode:}">{:&;rcode:}</option>
-                                                :}
-                                            </select>
-                                            <div class="d-grid gap-1">
-                                                <button class="btn btn-sm btn-outline-primary" type="submit" name="action" value="assign-role">{:trans; Add role :}</button>
-                                                <button class="btn btn-sm btn-outline-danger" type="submit" name="action" value="remove-role">{:trans; Remove role :}</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-xl-4">
                                         <div class="mb-0 p-2 border rounded">
                                             <select class="form-select form-select-sm mb-1" name="reason">
                                                 <option value="">{:trans; Select disabled reason :}</option>
@@ -178,6 +164,15 @@
                                             <div class="d-grid gap-1">
                                                 <button class="btn btn-sm btn-outline-warning" type="submit" name="action" value="set-disabled">{:trans; Set user status :}</button>
                                                 <button class="btn btn-sm btn-outline-success" type="submit" name="action" value="remove-disabled">{:trans; Remove user status :}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-4">
+                                        <div class="mb-0 p-2 -border rounded">
+                                            <div class="small text-warning mb-2">{:trans; Extreme action. Close sessions only in exceptional security cases, for example after removing malicious access. :}</div>
+                                            <input class="form-control form-control-sm mb-1" name="sessions_confirm" placeholder="{:trans; Type CLOSE SESSIONS to confirm :}">
+                                            <div class="d-grid">
+                                                <button class="btn btn-sm btn-outline-warning" type="submit" name="action" value="close-sessions">{:trans; Close all user sessions :}</button>
                                             </div>
                                         </div>
                                     </div>

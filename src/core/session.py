@@ -86,6 +86,19 @@ class Session:
 
         return self.delete_session_cookie()
 
+    def close_user_sessions(self, user_id: str) -> bool:
+        """Close all active sessions for a specific user."""
+        if not user_id:
+            return False
+
+        self.model.exec('session', 'close-by-userid', {
+            "userId": user_id,
+            "current_open": Config.SESSION_OPEN['true'],
+            "open": Config.SESSION_OPEN['false'],
+            "modified": self.now,
+        })
+        return not self.model.has_error
+
     def create(self, user_id, ua, session_data) -> dict:
         """create_session"""
         session_token = secrets.token_urlsafe(Config.SESSION_TOKEN_LENGTH)
