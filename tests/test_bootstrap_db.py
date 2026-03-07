@@ -45,7 +45,6 @@ def test_bootstrap_databases_creates_required_schema(tmp_path):
         "user_email",
         "user_disabled",
         "pin",
-        "role",
         "profile_role",
     ):
         assert required in pwa_tables
@@ -71,12 +70,8 @@ def test_bootstrap_databases_is_idempotent(tmp_path):
 
     with sqlite3.connect(str(pwa_db)) as conn:
         rows = conn.execute(
-            "SELECT code, COUNT(*) FROM role GROUP BY code ORDER BY code"
+            "SELECT code, COUNT(*) FROM profile_role GROUP BY code ORDER BY code"
         ).fetchall()
 
-    assert rows == [
-        ("admin", 1),
-        ("dev", 1),
-        ("editor", 1),
-        ("moderator", 1),
-    ]
+    # profile_role table exists but is empty (roles now managed via constants)
+    assert rows == []
