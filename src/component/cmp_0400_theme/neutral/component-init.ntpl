@@ -1,6 +1,13 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:snip; theme_0yt2sa-head >>
+    <script nonce="{:;CSP_NONCE:}">
+        (function(){
+            var d = document.cookie.split('; ').find(r => r.startsWith('dark-mode-on='))?.split('=')[1];
+            var t = d === '1' ? 'dark' : (d === '0' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+            document.documentElement.setAttribute('data-bs-theme', t);
+        })();
+    </script>
     <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.8/{:;local::current->theme->theme:}/bootstrap.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}css/neutral-custom.min.css" />
     {:snip; current:template:heading-medium :}
@@ -10,38 +17,62 @@
     <script nonce="{:;CSP_NONCE:}" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script nonce="{:;CSP_NONCE:}">
         function handleThemeLightDarkToggle() {
-            const html = document.documentElement;
-            const currentTemeMode = html.getAttribute('data-bs-theme');
-            const newTemeMode = currentTemeMode === 'dark' ? 'light' : 'dark';
-            const mainNavBarEle = document.getElementById('main-navbar');
-            document.cookie = `dark-mode-on=${newTemeMode === 'dark' ? '1' : '0'}; path=/; max-age=2592000`;
-            html.setAttribute('data-bs-theme', newTemeMode);
-            if (newTemeMode === 'dark' ) {
-                mainNavBarEle.classList.add('bg-body-tertiary');
-                mainNavBarEle.setAttribute('data-bs-theme', 'dark');
-            } else {
-                mainNavBarEle.classList.remove('bg-body-tertiary');
-                mainNavBarEle.classList.add('{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->class:}');
-                mainNavBarEle.setAttribute('data-bs-theme', '{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->theme:}');
+            var html = document.documentElement;
+            var currentMode = html.getAttribute('data-bs-theme');
+            var cookie = document.cookie.split('; ').find(r => r.startsWith('dark-mode-on='))?.split('=')[1];
+            var newMode;
+            if (cookie === undefined || cookie === '') {newMode = currentMode === 'auto' ? 'dark' : (currentMode === 'dark' ? 'light' : 'auto');
+            } else { newMode = cookie === '1' ? 'light' : 'dark'; }
+            var cookieValue = newMode === 'dark' ? '1' : (newMode === 'light' ? '0' : '');
+            document.cookie = 'dark-mode-on=' + cookieValue + '; path=/; max-age=2592000';
+            html.setAttribute('data-bs-theme', newMode);
+            var navbar = document.getElementById('main-navbar');
+            if (navbar) {
+                if (newMode === 'dark') {
+                    navbar.classList.add('bg-body-tertiary');
+                    navbar.setAttribute('data-bs-theme', 'dark');
+                } else {
+                    navbar.classList.remove('bg-body-tertiary');
+                    navbar.classList.add('{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->class:}');
+                    navbar.setAttribute('data-bs-theme', '{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->theme:}');
+                }
             }
+            updateDarkModeIndicators();
+        }
+        function updateDarkModeIndicators() {
+            var html = document.documentElement;
+            var mode = html.getAttribute('data-bs-theme');
+            var isDark = mode === 'dark';
+            var isAuto = mode === 'auto';
+            document.querySelectorAll('.dark-mode-enabled').forEach(el => el.style.display = isDark ? 'block' : 'none');
+            document.querySelectorAll('.dark-mode-disabled').forEach(el => el.style.display = (isDark || isAuto) ? 'none' : 'block');
         }
     </script>
     <script nonce="{:;CSP_NONCE:}">
-        const darkModeOn = document.cookie.split('; ').find(row => row.startsWith('dark-mode-on='))?.split('=')[1];
-        if (darkModeOn === '1') {
-            handleThemeLightDarkToggle();
+        var cookie = document.cookie.split('; ').find(r => r.startsWith('dark-mode-on='))?.split('=')[1];
+        var theme = cookie === '1' ? 'dark' : (cookie === '0' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+        var navbar = document.getElementById('main-navbar');
+        if (navbar) {
+            if (theme === 'dark') {
+                navbar.classList.add('bg-body-tertiary');
+                navbar.setAttribute('data-bs-theme', 'dark');
+            } else {
+                navbar.classList.remove('bg-body-tertiary');
+                navbar.classList.add('{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->class:}');
+                navbar.setAttribute('data-bs-theme', '{:;local::current->theme->config->{:;local::current->theme->theme:}->{:;local::current->theme->color:}->theme:}');
+            }
         }
         document.addEventListener('DOMContentLoaded', function() {
-            const toggles = document.querySelectorAll('.theme-light-dark-toggle');
-            toggles.forEach(toggle => {
-                toggle.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    handleThemeLightDarkToggle(this);
+            document.querySelectorAll('.theme-light-dark-toggle').forEach(el => {
+                el.addEventListener('click', function(evt) {
+                    evt.preventDefault();
+                    handleThemeLightDarkToggle();
                 });
             });
+            updateDarkModeIndicators();
         });
     </script>
 :}
 
 {:moveto; /head >> {:snip; theme_0yt2sa-head :} :}
-{:moveto; /body >> {:snip; theme_0yt2sa-body-end :} :}
+{:moveto; theme-script >> {:snip; theme_0yt2sa-body-end :} :}

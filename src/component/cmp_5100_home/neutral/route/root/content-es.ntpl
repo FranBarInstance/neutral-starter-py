@@ -3,11 +3,11 @@
     <div class="row justify-content-center">
         <div class="col-12 col-lg-9 col-xl-8">
             <span class="badge border text-body-secondary text-uppercase px-3 py-2 mb-3"
-                  style="letter-spacing:1px; font-size:.7rem">
+                  >
                 Kit de Inicio de Código Abierto
             </span>
             <h1 class="display-4 fw-bold mb-3">Neutral TS Starter Py</h1>
-            <p class="lead text-body-secondary mb-4 mx-auto" style="max-width:640px">
+            <p class="lead text-body-secondary mb-4 mx-auto">
                 Un kit de inicio modular y opinionado para construir
                 <strong class="text-body">Aplicaciones Web Progresivas</strong> utilizando
                 <strong class="text-body">Python&nbsp;(Flask)</strong> en el backend y
@@ -58,9 +58,9 @@
 {:* ─── Features Header ─── *:}
 <div class="text-center mb-4">
     <p class="text-body-tertiary text-uppercase fw-semibold mb-1"
-       style="letter-spacing:2px; font-size:.75rem">Características</p>
+       >Características</p>
     <h2 class="fw-bold mb-2">Todo lo que Necesitas</h2>
-    <p class="text-body-secondary mx-auto mb-0" style="max-width:540px">
+    <p class="text-body-secondary mx-auto mb-0">
         Bases listas para producción para que puedas concentrarte en construir tu producto, no el código repetitivo.
     </p>
 </div>
@@ -71,8 +71,7 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 border rounded-4">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
-                     style="width:48px;height:48px">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M6 2a.5.5 0 0 1 .47.33L10
@@ -100,8 +99,7 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 border rounded-4">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
-                     style="width:48px;height:48px">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M14 1a1 1 0 0 1 1 1v12a1
@@ -135,8 +133,7 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 border rounded-4">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
-                     style="width:48px;height:48px">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M11.251.068a.5.5 0 0 1
@@ -161,8 +158,7 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 border rounded-4">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
-                     style="width:48px;height:48px">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M5.338 1.59a61.44 61.44
@@ -218,8 +214,7 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 border rounded-4">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
-                     style="width:48px;height:48px">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M4.545 6.714 4.11
@@ -255,8 +250,7 @@
     <div class="col-12 col-md-6 col-lg-4">
         <div class="card h-100 border rounded-4">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3"
-                     style="width:48px;height:48px">
+                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M10.478 1.647a.5.5 0 1
@@ -296,9 +290,9 @@
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
             <p class="text-body-tertiary text-uppercase fw-semibold mb-2"
-               style="letter-spacing:2px; font-size:.75rem">¿Listo para construir?</p>
+               >¿Listo para construir?</p>
             <h2 class="fw-bold mb-3">Comienza Hoy</h2>
-            <p class="text-body-secondary mb-4 mx-auto" style="max-width:520px">
+            <p class="text-body-secondary mb-4 mx-auto">
                 Construye PWAs modernos con una arquitectura limpia — perfecto para desarrolladores
                 que valoran la estructura, seguridad y escalabilidad.
             </p>
@@ -334,7 +328,7 @@
 
 {:* ─── Footer ─── *:}
 <footer class="text-center py-4">
-    <hr class="mx-auto mb-3" style="width:60px">
+    <hr class="mx-auto mb-3">
     <p class="text-body-tertiary mb-0 small">
         Neutral TS Starter Py &copy; 2026 — Construido con Flask & Neutral TS
     </p>

@@ -114,3 +114,40 @@
         });
     });
 })();
+
+(function () {
+    'use strict';
+
+    function convertTimestampToDate() {
+        document.querySelectorAll('.timestamp-to-date').forEach(function(element) {
+            var dateUTC = element.textContent;
+            if (dateUTC) {
+                // Check if it's a numeric timestamp (seconds from Unix epoch)
+                var timestamp = parseInt(dateUTC, 10);
+                if (!isNaN(timestamp) && timestamp > 100000000) {
+                    // Convert seconds to milliseconds
+                    timestamp = timestamp * 1000;
+                }
+                var dateLocal = new Date(timestamp);
+                if (!isNaN(dateLocal.getTime())) {
+                    element.textContent = dateLocal.toLocaleString(undefined, {
+                        year: '2-digit',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false
+                    }).replace(",", "");
+                }
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        convertTimestampToDate();
+    });
+
+    document.addEventListener('neutralFetchCompleted', function() {
+        convertTimestampToDate();
+    });
+})();

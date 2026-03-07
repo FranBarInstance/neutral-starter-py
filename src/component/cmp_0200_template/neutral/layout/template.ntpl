@@ -52,6 +52,8 @@
         </div>
         {:snip; current:template:body-footer :}
         {:snip; current:template:modals :}
+        <theme-script>
+        </theme-script>
         {:snip; neutral.js :}
         <script nonce="{:;CSP_NONCE:}">var lib_config = { cookie_tab: '{:;TAB_CHANGES_KEY:}', reload_msg: '{:trans; ref:tab-changes:reload_msg :}'};</script>
         <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/lib.min.js"></script>
