@@ -79,31 +79,6 @@
     </div>
 :}
 
-{:snip; sign:sign-in-ajax-form >>
-    <div class="container p-0">
-        <div class="row justify-content-center">
-            <div class="col-md-9 col-lg-7 col-12 max-w-550px">
-                <div class="card border-light mb-3 mt-md-4">
-                    <div class="card-body px-md-4 pb-md-4 pt-md-3 p-2">
-                        {:fetch; |{:;sign_0yt2sa->manifest->route:}/in/form/{:;LTOKEN:}|visible| >>
-                            <div class="text-center p-5">{:snip; spin-2x :}</div>
-                        :}
-                    </div>
-                </div>
-                <div class="row g-2">
-                    <div class="col-auto">
-                        <a href="{:;local::menu->session:->user->reminder->link:}" class="btn btn-light btn-sm {:;local::x-icon-sign-reminder:} {:param; disabled-reminder :}"> {:trans; Reminder :}</a>
-                    </div>
-                    <div class="col text-end">
-                        <a href="{:;local::menu->session:->user->login->link:}" class="btn btn-light btn-sm {:;local::x-icon-sign-in:} {:param; disabled-login :}"> {:trans; Sign in :}</a>
-                        <a href="{:;local::menu->session:->user->register->link:}" class="btn btn-light btn-sm {:;local::x-icon-sign-up:} {:param; disabled-register :}"> {:trans; Sign up :}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-:}
-
 
 {:moveto; /body >>
     {:snip; sign:template-modals :}

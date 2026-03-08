@@ -43,24 +43,18 @@
             "drawer": {
                 "menu": {
                     "session:": {
-                        "user": {
+                        "sign": {
                             "name": "User",
-                            "tabs": "user",
+                            "tabs": "sign",
                             "icon": "x-icon-user"
                         }
                     },
-                    "session:true": {
-                        "user": {
-                            "name": "User",
-                            "tabs": "user",
-                            "icon": "x-icon-user"
-                        }
-                    }
+                    "session:true": {}
                 }
             },
             "menu": {
                 "session:": {
-                    "user": {
+                    "sign": {
                         "login": {
                             "text": "Sign in",
                             "link": "[:;data->sign_0yt2sa->manifest->route:]/in",
@@ -78,15 +72,7 @@
                         }
                     }
                 },
-                "session:true": {
-                    "user": {
-                        "logout": {
-                            "text": "Sign out",
-                            "link": "[:;data->sign_0yt2sa->manifest->route:]/out",
-                            "icon": "x-icon-sign-out"
-                        }
-                    }
-                }
+                "session:true": {}
             },
             "navbar": {
                 "menu": {

@@ -38,7 +38,7 @@
 
     // Simulate height navigation bar spacing form main navbar
     function currentMainNavbarHeight() {
-        var eleMainNavbar   = document.getElementById('main-navbar');
+        var eleMainNavbar = document.getElementById('main-navbar');
         var eleNavbarHidden = document.getElementById('main-navbar-hidden');
         if (window.getComputedStyle(eleMainNavbar).getPropertyValue('position').match(/fixed|sticky/i)) {
             var mainNavBarHeight = eleMainNavbar.offsetHeight;
@@ -51,12 +51,12 @@
     }
     currentMainNavbarHeight();
     window.addEventListener('load', (event) => {
-        setTimeout(function(){
+        setTimeout(function () {
             currentMainNavbarHeight();
         }, 50);
     });
     window.addEventListener('resize', (event) => {
-        setTimeout(function(){
+        setTimeout(function () {
             currentMainNavbarHeight();
         }, 50);
     });
@@ -76,7 +76,7 @@
             });
         }, 250);
     });
-    window.addEventListener('pagehide', function() {
+    window.addEventListener('pagehide', function () {
         document.querySelectorAll('.page-is-loading').forEach(element => {
             element.classList.add('d-none');
         });
@@ -85,7 +85,7 @@
         });
     });
     document.querySelectorAll('a').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const thisSite = window.location.origin;
             const href = this.getAttribute('href');
             const target = this.getAttribute('target');
@@ -100,7 +100,7 @@
                         document.querySelectorAll('.page-is-loading').forEach(el => {
                             el.classList.remove('d-none');
                         });
-                        setTimeout(function() {
+                        setTimeout(function () {
                             document.querySelectorAll('.page-is-loading').forEach(el => {
                                 el.classList.add('d-none');
                             });
@@ -119,7 +119,7 @@
     'use strict';
 
     function convertTimestampToDate() {
-        document.querySelectorAll('.timestamp-to-date').forEach(function(element) {
+        document.querySelectorAll('.timestamp-to-date').forEach(function (element) {
             var dateUTC = element.textContent;
             if (dateUTC) {
                 // Check if it's a numeric timestamp (seconds from Unix epoch)
@@ -143,11 +143,68 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         convertTimestampToDate();
     });
 
-    document.addEventListener('neutralFetchCompleted', function() {
+    document.addEventListener('neutralFetchCompleted', function () {
         convertTimestampToDate();
+    });
+})();
+
+(function () {
+    'use strict';
+
+    document.addEventListener("DOMContentLoaded", function () {
+        requestAnimationFrame(function () {
+            const path = window.location.pathname;
+
+            const allLinks = document.querySelectorAll(".tab-pane .list-group-item");
+            let bestMatch = null;
+            let bestLength = 0;
+            let homeLink = null;
+
+            allLinks.forEach((link) => {
+                const href = link.getAttribute("href");
+
+                if (!href || href === "#" || href.startsWith("?") || href.startsWith("#")) return;
+
+                if (href === "/") {
+                    homeLink = link;
+                    return;
+                }
+
+                const isMatch = path === href || path.startsWith(href + "/");
+
+                if (isMatch && href.length > bestLength) {
+                    bestLength = href.length;
+                    bestMatch = link;
+                }
+            });
+
+            if (!bestMatch) {
+                bestMatch = path === "/" ? homeLink : homeLink;
+            }
+
+            if (!bestMatch) return;
+
+            const pane = bestMatch.closest(".tab-pane");
+            if (!pane) return;
+
+            const btn = document.querySelector(`[data-bs-target="#${pane.id}"]`);
+            if (!btn) return;
+
+            if (typeof bootstrap !== "undefined") {
+                bootstrap.Tab.getOrCreateInstance(btn).show();
+            } else {
+                document.querySelectorAll(".drawer-btn.nav-link")
+                    .forEach((b) => b.classList.remove("active"));
+                document.querySelectorAll(".tab-pane")
+                    .forEach((p) => p.classList.remove("show", "active"));
+
+                btn.classList.add("active");
+                pane.classList.add("show", "active");
+            }
+        });
     });
 })();

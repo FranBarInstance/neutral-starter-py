@@ -75,7 +75,7 @@
                     <div class="nav flex-column nav-pills me-2 border-end" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
                         {:each; local::drawer->menu->session:{:;HAS_SESSION:} tabs menu >>
                             {:filled; menu >>
-                                <button title="{:trans; {:;menu->name:} :}" class="drawer-btn nav-link py-1 px-2 m-3 mb-2" id="theme-drawer-tabs-main-btn" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="true">
+                                <button id="theme-drawer-tabs-{:;tabs:}-btn" title="{:trans; {:;menu->name:} :}" class="drawer-btn nav-link py-1 px-2 m-3 mb-2" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="true">
                                     <i class="{:;local::{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
                                 </button>
                             :}
@@ -108,9 +108,6 @@
             </div>
         </div>
     </template-offcanvas>
-    {:!cache;
-        <script nonce="{:;CSP_NONCE:}">window.addEventListener('load', (event) => { document.getElementById("theme-drawer-tabs-main-btn").click(); });</script>
-    :}
 :}
 
 {:*
