@@ -40,7 +40,7 @@
 
 {:snip; sign_in_form-fields-step-1 >>
     <div class="input-group">
-        <span class="input-group-text {:;local::x-icon-sign-up:} {:snip; is-invalid:email :}"></span>
+        <span class="input-group-text {:;local::x-icon-user-login:} {:snip; is-invalid:email :}"></span>
         <div class="form-floating">
             <input
                 type="email"
