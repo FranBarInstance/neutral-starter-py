@@ -20,6 +20,10 @@
     <div class="text-center p-5 util-reload-page-home">{:snip; spin-2x :}</div>
 :}
 
+{:snip; util:redirection >>
+    <div class="text-center p-5 util-redirection" data-url="{:param; url :}">{:snip; spin-2x :}</div>
+:}
+
 {:snip; util:modal-back-button >>
     <span type="button" class="fs-5 mx-0 me-1 ms-auto {:;local::x-icon-back:}" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></span>
 :}
@@ -59,6 +63,11 @@
                 setTimeout(function() { top.location.href = "/"; }, 300);
             }
         }
+        function utilRedirection() {
+            if (document.querySelector('.util-redirection')) {
+                setTimeout(function() { top.location.href = document.querySelector('.util-redirection').dataset.url; }, 300);
+            }
+        }
         function utilRequiresUtoken() {
             if (document.querySelector('.util-requires-utoken')) {
                 {:*
@@ -78,6 +87,7 @@
         function utilDispatchUtilities() {
             utilReloadPageSelf();
             utilReloadPageHome();
+            utilRedirection();
             utilRequiresUtoken();
         }
         window.addEventListener('neutralFetchCompleted', utilDispatchUtilities);
