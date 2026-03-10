@@ -81,6 +81,16 @@ class User:  # pylint: disable=too-many-public-methods
         if not user_id:
             return user_data
 
+        properties_raw = first_row.get("user_profile.properties") or "{}"
+        import json
+        try:
+            if isinstance(properties_raw, dict):
+                properties = properties_raw
+            else:
+                properties = json.loads(properties_raw)
+        except (json.JSONDecodeError, TypeError):
+            properties = {}
+
         user_data.update(
             {
                 "auth": True,
@@ -98,7 +108,7 @@ class User:  # pylint: disable=too-many-public-methods
                     "alias": first_row.get("user_profile.alias") or "",
                     "locale": first_row.get("user_profile.locale") or "",
                     "region": first_row.get("user_profile.region") or "",
-                    "properties": first_row.get("user_profile.properties") or "{}",
+                    "properties": properties,
                     "lasttime": first_row.get("user_profile.lasttime") or "",
                     "created": first_row.get("user_profile.created") or "",
                     "modified": first_row.get("user_profile.modified") or "",
