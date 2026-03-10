@@ -5,7 +5,7 @@
 import random
 from datetime import datetime, timezone
 import time
-# import json
+import json
 import bcrypt
 from constants import (
     USER_EXISTS,
@@ -373,6 +373,15 @@ class User:  # pylint: disable=too-many-public-methods
         if not result or not result.get("rows"):
             return []
         return sorted({str(row[0]) for row in result["rows"] if row and row[0]})
+
+    def get_main_email(self, user_id: str) -> str:
+        """Get the main email for a user."""
+        if not user_id:
+            return ""
+        result = self.model.exec("user", "get-email-by-userid", {"userId": user_id})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            return ""
+        return result["rows"][0][0] or ""
 
     def has_role(self, user_id, role_code: str) -> bool:
         """Check if a user has a role in any of their profiles."""
@@ -799,3 +808,82 @@ class User:  # pylint: disable=too-many-public-methods
                     p_row["modified_human"] = self._format_unix_timestamp(p_row.get("modified"))
 
         return profiles
+
+    def set_login(self, user_id, new_email) -> bool:
+        """Update user login."""
+        login_b64 = self.hash_login(new_email.strip())
+        result = self.model.exec(
+            "user",
+            "set-login",
+            {"userId": user_id, "login": login_b64, "modified": self.now}
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def set_password(self, user_id, raw_password) -> bool:
+        """Update user password."""
+        hashed_pwd = self.hash_password(raw_password)
+        result = self.model.exec(
+            "user",
+            "set-password",
+            {"userId": user_id, "password": hashed_pwd, "modified": self.now}
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def set_birthdate(self, user_id, raw_birthdate) -> bool:
+        """Update user birthdate."""
+        hashed_birthdate = self.hash_birthdate(raw_birthdate)
+        result = self.model.exec(
+            "user",
+            "set-birthdate",
+            {"userId": user_id, "birthdate": hashed_birthdate, "modified": self.now}
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def update_profile(self, profile_id, data: dict) -> bool:
+        """Update user profile combining existing properties with new ones."""
+        result_props = self.model.exec(
+            "user",
+            "get-profile-properties",
+            {"profileId": profile_id}
+        )
+        if self.model.has_error or not result_props or not result_props.get("rows"):
+            return False
+
+        db_properties_str = result_props["rows"][0][0]
+        try:
+            current_properties = json.loads(db_properties_str) if db_properties_str else {}
+        except json.JSONDecodeError:
+            current_properties = {}
+
+        if not isinstance(current_properties, dict):
+            current_properties = {}
+
+        new_properties = data.get("properties")
+        if new_properties and isinstance(new_properties, dict):
+            current_properties.update(new_properties)
+
+        merged_properties = json.dumps(current_properties)
+
+        params = {
+            "profileId": profile_id,
+            "alias": data.get("alias"),
+            "region": data.get("region"),
+            "locale": data.get("locale"),
+            "properties": merged_properties,
+            "modified": self.now
+        }
+
+        result = self.model.exec(
+            "user",
+            "update-profile",
+            params
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))

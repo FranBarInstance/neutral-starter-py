@@ -127,5 +127,23 @@
         "@postgresql": "@portable",
         "@mysql": "INSERT INTO pin (target, userId, pin, token, created, expires)\nVALUES (:target, :userId, :pin, :token, :created, :expires)\nON DUPLICATE KEY UPDATE\n    pin = VALUES(pin),\n    token = VALUES(token),\n    created = VALUES(created),\n    expires = VALUES(expires);\n",
         "@mariadb": "@mysql"
+    },
+    "set-login": {
+        "@portable": "UPDATE user SET login = :login, modified = :modified WHERE userId = :userId"
+    },
+    "set-password": {
+        "@portable": "UPDATE user SET password = :password, modified = :modified WHERE userId = :userId"
+    },
+    "set-birthdate": {
+        "@portable": "UPDATE user SET birthdate = :birthdate, modified = :modified WHERE userId = :userId"
+    },
+    "get-profile-properties": {
+        "@portable": "SELECT properties FROM user_profile WHERE profileId = :profileId"
+    },
+    "update-profile": {
+        "@portable": "UPDATE user_profile SET alias = COALESCE(:alias, alias), region = COALESCE(:region, region), locale = COALESCE(:locale, locale), properties = :properties, modified = :modified WHERE profileId = :profileId"
+    },
+    "get-email-by-userid": {
+        "@portable": "SELECT user_email.email FROM user_email WHERE user_email.userId = :userId AND user_email.main = 1 LIMIT 1"
     }
 }
