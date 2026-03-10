@@ -40,6 +40,16 @@ class RequestHandler:
         self.user = self.pr.user
         self.view = self.pr.view
 
+        # update from user profile
+        if self.schema_data['USER']['profile'].get('properties'):
+            user_prop = self.schema_data['USER']['profile']['properties']
+            if user_prop.get('theme'):
+               self.schema_local_data['current']['theme']['theme'] = user_prop['theme']
+            if user_prop.get('color'):
+                self.schema_local_data['current']['theme']['color'] = user_prop['color']
+        if self.schema_data['USER']['profile'].get('locale'):
+            self.schema.properties['inherit']['locale']['current'] = self.schema_data['USER']['profile']['locale']
+
         # Set CURRENT_COMP_ROUTE with actual component-relative route
         # This is the route value from the route handler (e.g., "users" from "/<path:route>")
         normalized_comp_route = f"{Config.COMP_ROUTE_ROOT}/{comp_route or ''}".strip("/")

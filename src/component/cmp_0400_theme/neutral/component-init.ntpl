@@ -4,7 +4,9 @@
     <script nonce="{:;CSP_NONCE:}">
         (function(){
             var d = document.cookie.split('; ').find(r => r.startsWith('dark-mode-on='))?.split('=')[1];
-            var t = d === '1' ? 'dark' : (d === '0' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+            var p = "{:;USER->profile->properties->dark_mode:}";
+            var u = p === "on" ? "dark" : (p === "off" ? "light" : null);
+            var t = u ? u : (d === '1' ? 'dark' : (d === '0' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')));
             document.documentElement.setAttribute('data-bs-theme', t);
         })();
     </script>
@@ -61,7 +63,9 @@
     </script>
     <script nonce="{:;CSP_NONCE:}">
         var cookie = document.cookie.split('; ').find(r => r.startsWith('dark-mode-on='))?.split('=')[1];
-        var theme = cookie === '1' ? 'dark' : (cookie === '0' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+        var p = "{:;USER->profile->properties->dark_mode:}";
+        var u = p === "on" ? "dark" : (p === "off" ? "light" : null);
+        var theme = u ? u : (cookie === '1' ? 'dark' : (cookie === '0' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')));
         var navbar = document.getElementById('main-navbar');
         if (navbar) {
             if (theme === 'dark') {
