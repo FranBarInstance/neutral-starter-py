@@ -1,0 +1,65 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {}
+        },
+        "data": {}
+    },
+    "data": {
+        "current_forms": {
+            "user_profile": {
+                "check_fields": [
+                    "alias",
+                    "locale"
+                ],
+                "validation": {
+                    "minfields": 1,
+                    "maxfields": 8,
+                    "allow_fields": [
+                        "alias",
+                        "locale",
+                        "region",
+                        "properties",
+                        "theme",
+                        "color",
+                        "dark_mode",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "alias": {
+                        "required": true,
+                        "minlength": 2,
+                        "maxlength": 50
+                    },
+                    "locale": {
+                        "required": false,
+                        "minlength": 0,
+                        "maxlength": 10,
+                        "pattern": "^[a-zA-Z]{2,10}$",
+                        "regex": "^$|^[a-zA-Z]{2,10}$"
+                    },
+                    "region": {
+                        "required": false,
+                        "maxlength": 20
+                    },
+                    "properties": {
+                        "required": false,
+                        "maxlength": 2000
+                    },
+                    "theme": {
+                        "required": false,
+                        "maxlength": 50
+                    },
+                    "color": {
+                        "required": false,
+                        "maxlength": 20
+                    },
+                    "dark_mode": {
+                        "required": false
+                    }
+                }
+            }
+        }
+    }
+}

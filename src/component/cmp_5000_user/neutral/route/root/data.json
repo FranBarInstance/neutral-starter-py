@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "My Profile",
+                "description": "View your user profile information",
+                "h1": ""
+            }
+        }
+    }
+}

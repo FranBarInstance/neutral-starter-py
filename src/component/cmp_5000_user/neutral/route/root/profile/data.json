@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Edit Profile",
+                "description": "Edit your user profile information",
+                "h1": "Edit Profile"
+            }
+        }
+    }
+}

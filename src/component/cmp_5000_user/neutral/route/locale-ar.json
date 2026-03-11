@@ -1,0 +1,28 @@
+{
+    "trans": {
+        "ar": {
+            "My Profile": "ملفي الشخصي",
+            "Edit Profile": "تعديل الملف الشخصي",
+            "Country": "البلد",
+            "Language": "اللغة",
+            "auto": "تلقائي",
+            "Design theme": "موضوع التصميم",
+            "Design color": "لون التصميم",
+            "Dark mode": "الوضع الداكن",
+            "Enabled": "مفعل",
+            "Disabled": "معطل",
+            "User since": "مستخدم منذ",
+            "Display name": "اسم العرض",
+            "Region (optional)": "المنطقة (اختياري)",
+            "Region": "المنطقة",
+            "Theme": "السمة",
+            "Color": "اللون",
+            "Force On": "فرض التشغيل",
+            "Force Off": "فرض الإيقاف",
+            "Reload form": "إعادة تحميل النموذج",
+            "Save Profile": "حفظ الملف الشخصي",
+            "ERROR": "خطأ",
+            "Profile updated successfully": "تم تحديث الملف الشخصي بنجاح"
+        }
+    }
+}

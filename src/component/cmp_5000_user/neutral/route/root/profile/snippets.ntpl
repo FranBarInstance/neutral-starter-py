@@ -1,0 +1,237 @@
+
+{:* --- Required Snippets for Forms --- *:}
+{:!include; {:flg; require :} >> {:;forms_0yt2sa->path:}/neutral/snippets.ntpl :}
+{:!include; {:flg; require :} >> {:;forms_0yt2sa->path:}/neutral/language-snippets.ntpl :}
+{:!include; {:flg; require :} >> {:;forms_0yt2sa->path:}/neutral/country-snippets.ntpl :}
+
+{:*
+    Generate profile form field error snippets:
+    - {:snip; is-invalid:{:;field:} :}
+    - {:snip; error-msg:{:;field:} :}
+ *:}
+{:+each; user_profile->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_profile-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:* --- Profile Form Snippet --- *:}
+{:snip; user_0yt2sa:user_profile-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/profile/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="row">
+            <div class="col-12">
+                {:* --- Field: alias --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;local::x-icon-user:} {:snip; is-invalid:alias :}"></span>
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            id="user_profile-alias"
+                            name="alias"
+                            value="{:;CONTEXT->POST->alias:}{:else; {:;USER->profile->alias:} :}"
+                            class="form-control {:snip; is-invalid:alias :}"
+                            placeholder="{:trans; Display name :}"
+                            aria-label="{:trans; Display name :}"
+                            minlength="{:;current_forms->user_profile->rules->alias->minlength:}"
+                            maxlength="{:;current_forms->user_profile->rules->alias->maxlength:}"
+                            {:bool; current_forms->user_profile->rules->alias->required >> required :}
+                        >
+                        <label for="user_profile-alias">{:trans; Display name :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:alias :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-12 col-md-6">
+                {:* --- Field: locale --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;local::x-icon-locale:} {:snip; is-invalid:locale :}"></span>
+                    <div class="form-floating">
+                        <select
+                            id="user_profile-locale"
+                            name="locale"
+                            class="form-select {:snip; is-invalid:locale :}"
+                            placeholder="{:trans; Language :}"
+                            aria-label="{:trans; Language :}"
+                            data-forms-autoselect-option="{:;CONTEXT->POST->locale:}{:else; {:;USER->profile->locale:} :}"
+                            minlength="{:;current_forms->user_profile->rules->locale->minlength:}"
+                            maxlength="{:;current_forms->user_profile->rules->locale->maxlength:}"
+                            pattern="{:;current_forms->user_profile->rules->locale->pattern:}"
+                            {:bool; current_forms->user_profile->rules->locale->required >> required :}
+                        >
+                            <option value="">{:trans; auto :}</option>
+                            {:snip; forms:language-options-select :}
+                        </select>
+                        <label for="user_profile-locale">{:trans; Language :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:locale :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-12 col-md-6">
+                {:* --- Field: country --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;local::x-icon-map:} {:snip; is-invalid:region :}"></span>
+                    <div class="form-floating">
+                        <select
+                            id="user_profile-region"
+                            name="region"
+                            class="form-select {:snip; is-invalid:region :}"
+                            placeholder="{:trans; Region (optional) :}"
+                            aria-label="{:trans; Region :}"
+                            maxlength="{:;current_forms->user_profile->rules->region->maxlength:}"
+                            data-forms-autoselect-option="{:;CONTEXT->POST->region:}{:else; {:;USER->profile->region:} :}"
+                        >
+                            <option value="">{:trans; auto :}</option>
+                            {:snip; forms:country-options-select :}
+                        </select>
+                        <label for="user_profile-region">{:trans; Country :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:region :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-12 col-md-6">
+                {:* --- Field: theme --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;local::x-icon-theme:} {:snip; is-invalid:theme :}"></span>
+                    <div class="form-floating">
+                        <select
+                            id="user_profile-theme"
+                            name="theme"
+                            class="form-select {:snip; is-invalid:theme :}"
+                            placeholder="{:trans; Theme :}"
+                            aria-label="{:trans; Theme :}"
+                            maxlength="{:;current_forms->user_profile->rules->theme->maxlength:}"
+                            data-forms-autoselect-option="{:;CONTEXT->POST->theme:}{:else; {:;USER->profile->properties->theme:} :}"
+                        >
+                            <option value="">{:trans; auto :}</option>
+                            {:each; local::current->theme->allow_themes k theme >>
+                                <option value="{:;theme:}">{:trans; {:;theme:} :}</option>
+                            :}
+                        </select>
+                        <label for="user_profile-theme">{:trans; Theme :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:theme :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-12 col-md-6">
+                {:* --- Field: color --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;local::x-icon-color:} {:snip; is-invalid:color :}"></span>
+                    <div class="form-floating">
+                        <select
+                            id="user_profile-color"
+                            name="color"
+                            class="form-select {:snip; is-invalid:color :}"
+                            placeholder="{:trans; Color :}"
+                            aria-label="{:trans; Color :}"
+                            maxlength="{:;current_forms->user_profile->rules->color->maxlength:}"
+                            data-forms-autoselect-option="{:;CONTEXT->POST->color:}{:else; {:;USER->profile->properties->color:} :}"
+                        >
+                            <option value="">{:trans; auto :}</option>
+                            {:each; local::current->theme->allow_colors k color >>
+                                <option value="{:;color:}">{:trans; {:;color:} :}</option>
+                            :}
+                        </select>
+                        <label for="user_profile-color">{:trans; Color :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:color :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-12">
+                {:* --- Field: dark_mode --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;local::x-icon-theme-light-dark:} {:snip; is-invalid:dark_mode :}"></span>
+                    <div class="form-floating">
+                        <select
+                            id="user_profile-dark_mode"
+                            name="dark_mode"
+                            class="form-select {:snip; is-invalid:dark_mode :}"
+                            placeholder="{:trans; Dark mode :}"
+                            aria-label="{:trans; Dark mode :}"
+                            data-forms-autoselect-option="{:;CONTEXT->POST->dark_mode:}{:else; {:;USER->profile->properties->dark_mode:} :}"
+                        >
+                            <option value="">{:trans; auto :}</option>
+                            <option value="on">{:trans; Force On :}</option>
+                            <option value="off">{:trans; Force Off :}</option>
+                        </select>
+                        <label for="user_profile-dark_mode">{:trans; Dark mode :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:dark_mode :}
+                <div class="{:;local::current->forms->field-send-spacing:}"></div>
+            </div>
+            <div class="col-12">
+                {:* --- Submit Area --- *:}
+                <div class="row gx-2">
+                    <div class="col-2">
+                        <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light">
+                            <span class="{:;local::x-icon-reload:}"></span>
+                        </button>
+                    </div>
+                    <div class="col">
+                        <button
+                            type="submit"
+                            id="user_profile-button-submit"
+                            name="send"
+                            class="w-100 btn btn-primary"
+                            value="1"
+                        >{:trans; Save Profile :}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    :}
+:}
+
+{:* --- Profile Error Snippet --- *:}
+{:snip; user_0yt2sa:user_profile-error >>
+    <div class="alert alert-danger">
+        <h5><i class="{:;local::x-icon-error:} me-2"></i>{:trans; ERROR :}</h5>
+        <p>{:trans; {:;form_result->message:} :}</p>
+    </div>
+:}
+
+{:* --- Profile Container Snippet --- *:}
+{:snip; user_0yt2sa:user_profile-form-container >>
+    <div id="user_profile-container">
+        {:coalesce;
+            {:* If form result success *:}
+            {:same; /{:;form_result->status:}/success/ >>
+                <div class="alert alert-success">
+                    <p><i class="{:;local::x-icon-check:} me-2"></i>{:trans; Profile updated successfully :}</p>
+                </div>
+                {:code;
+                    {:param; url >> {:;user_0yt2sa->manifest->route:} :}
+                    {:snip; util:redirection :}
+                :}
+            :}
+
+            {:* If form result failed *:}
+            {:same; /{:;form_result->status:}/fail/ >>
+                {:snip; user_0yt2sa:user_profile-error :}
+                {:snip; user_0yt2sa:user_profile-form :}
+            :}
+
+            {:* Else show form *:}
+            {:snip; user_0yt2sa:user_profile-form :}
+        :}
+    </div>
+:}
+
+{:* --- Profile Content Snippet --- *:}
+{:snip; user_0yt2sa:user_profile-content >>
+    <div id="user_profile-content">
+        <div class="card">
+            <div class="card-body">
+                {:snip; user_0yt2sa:user_profile-form-container :}
+            </div>
+        </div>
+    </div>
+:}

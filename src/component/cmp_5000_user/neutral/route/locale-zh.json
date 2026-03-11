@@ -1,0 +1,28 @@
+{
+    "trans": {
+        "zh": {
+            "My Profile": "我的主页",
+            "Edit Profile": "编辑资料",
+            "Country": "国家",
+            "Language": "语言",
+            "auto": "自动",
+            "Design theme": "设计主题",
+            "Design color": "设计颜色",
+            "Dark mode": "夜间模式",
+            "Enabled": "启用",
+            "Disabled": "禁用",
+            "User since": "用户自",
+            "Display name": "显示名称",
+            "Region (optional)": "地区（可选）",
+            "Region": "地区",
+            "Theme": "主题",
+            "Color": "颜色",
+            "Force On": "强制开启",
+            "Force Off": "强制关闭",
+            "Reload form": "重新加载表单",
+            "Save Profile": "保存资料",
+            "ERROR": "错误",
+            "Profile updated successfully": "资料更新成功"
+        }
+    }
+}

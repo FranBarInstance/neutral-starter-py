@@ -1,0 +1,40 @@
+
+{:locale; #/locale-{:lang;:}.json :}
+
+{:snip; user_0yt2sa:user_profile-aside >>
+    <div class="row g-2 g-md-4">
+        <aside class="col-12 col-md-3 order-last order-md-first">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a href="{:;user_0yt2sa->manifest->route:}" class="nav-link px-2 px-md-3 d-flex align-items-center">
+                        <span class="{:;local::x-icon-user:} x-icon-lg"></span>
+                        <span class="ms-2">{:trans; My Profile :}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{:;user_0yt2sa->manifest->route:}/profile" class="nav-link px-2 px-md-3 d-flex align-items-center">
+                        <span class="{:;local::x-icon-profile:} x-icon-lg"></span>
+                        <span class="ms-2">{:trans; Edit Profile :}</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+        <div class="col">
+            {:snip; {:param; content-snip :} :}
+        </div>
+    </div>
+:}
+
+{:moveto; /body >>
+    <script nonce="{:;CSP_NONCE:}">
+        function setActiveNav() {
+            const currentPath = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentPath) { link.classList.add('active'); }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', setActiveNav);
+        window.addEventListener('neutralFetchCompleted', setActiveNav);
+    </script>
+:}

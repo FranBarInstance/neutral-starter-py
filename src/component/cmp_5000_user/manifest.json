@@ -1,0 +1,15 @@
+{
+    "uuid": "user_0yt2sa",
+    "name": "User Profile Management",
+    "description": "User profile viewing and editing component",
+    "version": "1.0.0",
+    "route": "/user",
+    "security": {
+        "routes_auth": {
+            "/": true
+        },
+        "routes_role": {
+            "/": ["*"]
+        }
+    }
+}

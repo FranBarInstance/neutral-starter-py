@@ -1,0 +1,12 @@
+{:data; #/data.json :}
+{:!include; {:flg; require :} >> #/snippets.ntpl :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;local::current->theme->class->container:}">
+        {:code;
+            {:param; content-snip >> user_0yt2sa:user_profile-content :}
+            {:snip; user_0yt2sa:user_profile-aside :}
+        :}
+    </div>
+:}
+{:^;:}

@@ -1,0 +1,28 @@
+{
+    "trans": {
+        "fr": {
+            "My Profile": "Mon Profil",
+            "Edit Profile": "Modifier le Profil",
+            "Country": "Pays",
+            "Language": "Langue",
+            "auto": "Automatique",
+            "Design theme": "Thème de conception",
+            "Design color": "Couleur de conception",
+            "Dark mode": "Mode sombre",
+            "Enabled": "Activé",
+            "Disabled": "Désactivé",
+            "User since": "Utilisateur depuis",
+            "Display name": "Nom d'affichage",
+            "Region (optional)": "Région (facultatif)",
+            "Region": "Région",
+            "Theme": "Thème",
+            "Color": "Couleur",
+            "Force On": "Forcer l'activation",
+            "Force Off": "Forcer la désactivation",
+            "Reload form": "Recharger le formulaire",
+            "Save Profile": "Enregistrer le Profil",
+            "ERROR": "ERREUR",
+            "Profile updated successfully": "Profil mis à jour avec succès"
+        }
+    }
+}

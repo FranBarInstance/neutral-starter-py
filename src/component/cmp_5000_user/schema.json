@@ -1,0 +1,74 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "es": {
+                    "User": "Usuario",
+                    "Profile": "Perfil",
+                    "Edit Profile": "Editar Perfil",
+                    "Sign out": "Cerrar sesión"
+                },
+                "fr": {
+                    "User": "Utilisateur",
+                    "Profile": "Profil",
+                    "Edit Profile": "Modifier le Profil",
+                    "Sign out": "Se déconnecter"
+                },
+                "de": {
+                    "User": "Benutzer",
+                    "Profile": "Profil",
+                    "Edit Profile": "Profil bearbeiten",
+                    "Sign out": "Abmelden"
+                },
+                "ar": {
+                    "User": "مستخدم",
+                    "Profile": "ملفي الشخصي",
+                    "Edit Profile": "تعديل الملف الشخصي",
+                    "Sign out": "تسجيل خروج"
+                },
+                "zh": {
+                    "User": "用户",
+                    "Profile": "主页",
+                    "Edit Profile": "编辑资料",
+                    "Sign out": "登出"
+                }
+            }
+        },
+        "data": {
+            "drawer": {
+                "menu": {
+                    "session:": {},
+                    "session:true": {
+                        "user": {
+                            "name": "User",
+                            "tabs": "user",
+                            "icon": "x-icon-user"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:": {},
+                "session:true": {
+                    "user": {
+                        "profile": {
+                            "text": "Profile",
+                            "link": "[:;data->user_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-user"
+                        },
+                        "edit-profile": {
+                            "text": "Edit Profile",
+                            "link": "[:;data->user_0yt2sa->manifest->route:]/profile",
+                            "icon": "x-icon-profile"
+                        },
+                        "logout": {
+                            "text": "Sign out",
+                            "link": "[:;data->sign_0yt2sa->manifest->route:]/out",
+                            "icon": "x-icon-sign-out"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
