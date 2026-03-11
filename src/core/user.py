@@ -82,7 +82,6 @@ class User:  # pylint: disable=too-many-public-methods
             return user_data
 
         properties_raw = first_row.get("user_profile.properties") or "{}"
-        import json
         try:
             if isinstance(properties_raw, dict):
                 properties = properties_raw
