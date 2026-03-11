@@ -64,7 +64,7 @@ class User:  # pylint: disable=too-many-public-methods
                 "alias": "",
                 "locale": "",
                 "region": "",
-                "properties": "{}",
+                "properties": {},
                 "lasttime": "",
                 "created": "",
                 "modified": "",
