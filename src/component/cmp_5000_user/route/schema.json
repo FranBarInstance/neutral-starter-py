@@ -59,6 +59,237 @@
                         "required": false
                     }
                 }
+            },
+            "user_email_pin": {
+                "check_fields": [
+                    "email"
+                ],
+                "validation": {
+                    "minfields": 1,
+                    "maxfields": 2,
+                    "allow_fields": [
+                        "email",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "minlength": 5,
+                        "maxlength": 256,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "dns": "MX"
+                    }
+                }
+            },
+            "user_email_add": {
+                "check_fields": [
+                    "email",
+                    "pin"
+                ],
+                "validation": {
+                    "minfields": 2,
+                    "maxfields": 3,
+                    "allow_fields": [
+                        "email",
+                        "pin",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "minlength": 5,
+                        "maxlength": 256,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+                    },
+                    "pin": {
+                        "required": true,
+                        "minlength": 6,
+                        "maxlength": 6,
+                        "pattern": "^[0-9]{6}$",
+                        "regex": "^[0-9]{6}$"
+                    }
+                }
+            },
+            "user_email_delete": {
+                "check_fields": [
+                    "email",
+                    "confirm_email"
+                ],
+                "validation": {
+                    "minfields": 1,
+                    "maxfields": 2,
+                    "allow_fields": [
+                        "email",
+                        "confirm_email",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "minlength": 5,
+                        "maxlength": 256,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+                    },
+                    "confirm_email": {
+                        "required": true,
+                        "value": "true"
+                    }
+                }
+            },
+            "user_account_password_pin": {
+                "check_fields": [
+                    "email"
+                ],
+                "validation": {
+                    "minfields": 1,
+                    "maxfields": 2,
+                    "allow_fields": [
+                        "email",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "minlength": 5,
+                        "maxlength": 256,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "dns": "MX"
+                    }
+                }
+            },
+            "user_account_password_change": {
+                "check_fields": [
+                    "pin",
+                    "password",
+                    "rptpassword"
+                ],
+                "validation": {
+                    "minfields": 3,
+                    "maxfields": 4,
+                    "allow_fields": [
+                        "pin",
+                        "password",
+                        "rptpassword",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "pin": {
+                        "required": true,
+                        "minlength": 6,
+                        "maxlength": 6,
+                        "pattern": "^[0-9]{6}$",
+                        "regex": "^[0-9]{6}$"
+                    },
+                    "password": {
+                        "required": true,
+                        "minlength": 8,
+                        "maxlength": 70,
+                        "pattern": "^\\S(?:.*\\S)?$",
+                        "regex": "^\\S(?:.*\\S)?$",
+                        "match": "rptpassword"
+                    },
+                    "rptpassword": {
+                        "required": true,
+                        "minlength": 8,
+                        "maxlength": 70,
+                        "pattern": "^\\S(?:.*\\S)?$",
+                        "regex": "^\\S(?:.*\\S)?$",
+                        "match": "password"
+                    }
+                }
+            },
+            "user_account_birthdate_pin": {
+                "check_fields": [
+                    "email"
+                ],
+                "validation": {
+                    "minfields": 1,
+                    "maxfields": 2,
+                    "allow_fields": [
+                        "email",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "minlength": 5,
+                        "maxlength": 256,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "dns": "MX"
+                    }
+                }
+            },
+            "user_account_birthdate_change": {
+                "check_fields": [
+                    "pin",
+                    "birthdate"
+                ],
+                "validation": {
+                    "minfields": 2,
+                    "maxfields": 3,
+                    "allow_fields": [
+                        "pin",
+                        "birthdate",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "pin": {
+                        "required": true,
+                        "minlength": 6,
+                        "maxlength": 6,
+                        "pattern": "^[0-9]{6}$",
+                        "regex": "^[0-9]{6}$"
+                    },
+                    "birthdate": {
+                        "required": true,
+                        "minage": 13,
+                        "maxage": 100
+                    }
+                }
+            },
+            "user_account_login_change": {
+                "check_fields": [
+                    "email",
+                    "current_password"
+                ],
+                "validation": {
+                    "minfields": 2,
+                    "maxfields": 3,
+                    "allow_fields": [
+                        "email",
+                        "current_password",
+                        "send"
+                    ]
+                },
+                "rules": {
+                    "email": {
+                        "required": true,
+                        "minlength": 5,
+                        "maxlength": 256,
+                        "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+",
+                        "regex": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$",
+                        "dns": "MX"
+                    },
+                    "current_password": {
+                        "required": true,
+                        "minlength": 8,
+                        "maxlength": 70,
+                        "pattern": "^\\S(?:.*\\S)?$",
+                        "regex": "^\\S(?:.*\\S)?$"
+                    }
+                }
             }
         }
     }

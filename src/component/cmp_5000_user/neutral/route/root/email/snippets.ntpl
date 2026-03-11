@@ -1,0 +1,344 @@
+{:* --- Required Snippets for Forms --- *:}
+{:!include; {:flg; require :} >> {:;forms_0yt2sa->path:}/neutral/snippets.ntpl :}
+
+{:*
+    Generate email pin form field error snippets.
+ *:}
+{:+each; user_email_pin->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_email_pin-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:*
+    Generate add email form field error snippets.
+ *:}
+{:+each; user_email_add->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_email_add-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:*
+    Generate delete email form field error snippets.
+ *:}
+{:+each; user_email_delete->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_email_delete-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:* --- Send PIN Result Snippets --- *:}
+{:snip; user_0yt2sa:user_email-pin-result: >>:}
+{:snip; user_0yt2sa:user_email-pin-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_email_pin->is_submit->result->message:} :}</p>
+    </div>
+:}
+{:snip; user_0yt2sa:user_email-pin-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_email_pin->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:* --- Add Email Result Snippets --- *:}
+{:snip; user_0yt2sa:user_email-add-result: >>:}
+{:snip; user_0yt2sa:user_email-add-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_email_add->is_submit->result->message:} :}</p>
+    </div>
+    {:snip; util:reload-page-self :}
+:}
+{:snip; user_0yt2sa:user_email-add-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_email_add->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:* --- Delete Email Result Snippets --- *:}
+{:snip; user_0yt2sa:user_email-delete-result: >>:}
+{:snip; user_0yt2sa:user_email-delete-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_email_delete->is_submit->result->message:} :}</p>
+    </div>
+    {:snip; util:reload-page-self :}
+:}
+{:snip; user_0yt2sa:user_email-delete-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_email_delete->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:* --- Send PIN Form Snippet --- *:}
+{:snip; user_0yt2sa:user_email-pin-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/email/pin/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="email"
+                    id="user_email-pin-email"
+                    name="email"
+                    value="{:;CONTEXT->POST->email:}"
+                    class="form-control {:snip; is-invalid:email :}"
+                    placeholder="{:trans; Email address :}"
+                    aria-label="{:trans; Email address :}"
+                    minlength="{:;current_forms->user_email_pin->rules->email->minlength:}"
+                    maxlength="{:;current_forms->user_email_pin->rules->email->maxlength:}"
+                    pattern="{:;current_forms->user_email_pin->rules->email->pattern:}"
+                    {:bool; current_forms->user_email_pin->rules->email->required >> required :}
+                >
+                <label for="user_email-pin-email">{:trans; Email address :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:email :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <button
+            type="submit"
+            id="user_email-pin-button-submit"
+            name="send"
+            class="btn btn-outline-primary w-100"
+            value="1"
+        >{:trans; Send PIN :}</button>
+    :}
+:}
+
+{:* --- Add Email Form Snippet --- *:}
+{:snip; user_0yt2sa:user_email-add-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/email/add/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="row g-2">
+            <div class="col-12 col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+                    <div class="form-floating">
+                        <input
+                            type="email"
+                            id="user_email-add-email"
+                            name="email"
+                            value="{:;CONTEXT->POST->email:}"
+                            class="form-control {:snip; is-invalid:email :}"
+                            placeholder="{:trans; Email address :}"
+                            aria-label="{:trans; Email address :}"
+                            minlength="{:;current_forms->user_email_add->rules->email->minlength:}"
+                            maxlength="{:;current_forms->user_email_add->rules->email->maxlength:}"
+                            pattern="{:;current_forms->user_email_add->rules->email->pattern:}"
+                            {:bool; current_forms->user_email_add->rules->email->required >> required :}
+                        >
+                        <label for="user_email-add-email">{:trans; Email address :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:email :}
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;local::x-icon-pin:}"></i></span>
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            id="user_email-add-pin"
+                            name="pin"
+                            value="{:;CONTEXT->POST->pin:}"
+                            class="form-control {:snip; is-invalid:pin :}"
+                            placeholder="{:trans; PIN :}"
+                            aria-label="{:trans; PIN :}"
+                            minlength="{:;current_forms->user_email_add->rules->pin->minlength:}"
+                            maxlength="{:;current_forms->user_email_add->rules->pin->maxlength:}"
+                            pattern="{:;current_forms->user_email_add->rules->pin->pattern:}"
+                            {:bool; current_forms->user_email_add->rules->pin->required >> required :}
+                        >
+                        <label for="user_email-add-pin">{:trans; PIN :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:pin :}
+            </div>
+        </div>
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <button
+            type="submit"
+            id="user_email-add-button-submit"
+            name="send"
+            class="btn btn-primary w-100"
+            value="1"
+        >{:trans; Add Email :}</button>
+    :}
+:}
+
+{:* --- Delete Email Form Snippet --- *:}
+{:snip; user_0yt2sa:user_email-delete-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/email/delete/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="row g-2">
+            <div class="col-12 col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-trash:}"></i></span>
+                    <div class="form-floating">
+                        <select
+                            id="user_email-delete-email"
+                            name="email"
+                            class="form-select {:snip; is-invalid:email :}"
+                            aria-label="{:trans; Email address :}"
+                        >
+                            {:each; user_emails k email >>
+                                <option value="{:&;email->email:}">{:&;email->email:}</option>
+                            :}
+                        </select>
+                        <label for="user_email-delete-email">{:trans; Email address :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:email :}
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="input-group py-md-3 mt-1">
+                    <span class="input-group-text {:snip; is-invalid:confirm_email :}">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="user_email-delete-confirm"
+                            name="confirm_email"
+                            value="true"
+                        >
+                    </span>
+                    <label role="button" class="form-check-label form-control" for="user_email-delete-confirm">
+                        {:trans; Confirm delete email :}
+                    </label>
+                </div>
+                {:snip; error-msg:confirm_email :}
+            </div>
+        </div>
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        {:bool; user_email_delete_disabled >>
+            <div class="alert alert-warning">
+                <p class="mb-0">{:trans; At least one email is required. :}</p>
+            </div>
+        :}
+
+        <button
+            type="submit"
+            id="user_email-delete-button-submit"
+            name="send"
+            class="btn btn-outline-danger w-100"
+            value="1"
+            {:bool; user_email_delete_disabled >> disabled :}
+        >{:trans; Delete Email :}</button>
+    :}
+:}
+
+{:* --- Send PIN Container Snippet --- *:}
+{:snip; user_0yt2sa:user_email-pin-container >>
+    <div id="user_email_pin-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_email-pin-result:{:;user_email_pin->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_email_pin->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_email_pin->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_email-pin-form :}
+        :}
+    </div>
+:}
+
+{:* --- Add Email Container Snippet --- *:}
+{:snip; user_0yt2sa:user_email-add-container >>
+    <div id="user_email_add-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_email-add-result:{:;user_email_add->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_email_add->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_email_add->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_email-add-form :}
+        :}
+    </div>
+:}
+
+{:* --- Delete Email Container Snippet --- *:}
+{:snip; user_0yt2sa:user_email-delete-container >>
+    <div id="user_email_delete-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_email-delete-result:{:;user_email_delete->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_email_delete->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_email_delete->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_email-delete-form :}
+        :}
+    </div>
+:}
+
+{:* --- Email List Snippet --- *:}
+{:snip; user_0yt2sa:user_email-list >>
+    {:coalesce;
+        {:!filled; user_emails >>
+            <div class="text-muted">{:trans; No emails found. :}</div>
+        :}
+        <ul class="list-group list-group-flush">
+            {:each; user_emails k email >>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="text-break">{:&;email->email:}</span>
+                </li>
+            :}
+        </ul>
+    :}
+:}
+
+{:* --- Email Content Snippet --- *:}
+{:snip; user_0yt2sa:user_email-content >>
+    <div id="user_email-content">
+        <div class="row g-3">
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">{:trans; Current Emails :}</div>
+                    <div class="card-body">
+                        {:snip; user_0yt2sa:user_email-list :}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="card">
+                    <div class="card-header">{:trans; Send PIN :}</div>
+                    <div class="card-body">
+                        {:snip; user_0yt2sa:user_email-pin-container :}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 -col-lg-6">
+                <div class="card">
+                    <div class="card-header">{:trans; Add Email :}</div>
+                    <div class="card-body">
+                        {:snip; user_0yt2sa:user_email-add-container :}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 -col-lg-6">
+                <div class="card">
+                    <div class="card-header">{:trans; Delete Email :}</div>
+                    <div class="card-body">
+                        {:snip; user_0yt2sa:user_email-delete-container :}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+:}
+
+{:moveto; /body >>
+    <script nonce="{:;CSP_NONCE:}">
+        function bindUserEmailDeleteConfirmReset() {
+            const select = document.getElementById('user_email-delete-email');
+            const checkbox = document.getElementById('user_email-delete-confirm');
+            if (!select || !checkbox) { return; }
+            if (select.dataset.confirmBound === '1') { return; }
+            select.dataset.confirmBound = '1';
+            select.addEventListener('change', () => {
+                checkbox.checked = false;
+            });
+        }
+        document.addEventListener('DOMContentLoaded', bindUserEmailDeleteConfirmReset);
+        window.addEventListener('neutralFetchCompleted', bindUserEmailDeleteConfirmReset);
+    </script>
+:}

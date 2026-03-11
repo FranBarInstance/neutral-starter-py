@@ -169,14 +169,14 @@ class User:  # pylint: disable=too-many-public-methods
             "modified": self.now
         }
 
-    def _build_user_pin_params(self, target, user_id):
+    def _build_user_pin_params(self, target, user_id, expires_seconds=None):
         return {
             "target": target,
             "userId": user_id,
             "pin": random.randint(Config.PIN_MIN, Config.PIN_MAX),
             "token": sbase64url_token(Config.TOKEN_LENGTH),
             "created": self.now,
-            "expires": self.now + Config.PIN_EXPIRES_SECONDS
+            "expires": self.now + int(expires_seconds or Config.PIN_EXPIRES_SECONDS)
         }
 
     def create(self, data) -> dict:
@@ -391,6 +391,208 @@ class User:  # pylint: disable=too-many-public-methods
         if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
             return ""
         return result["rows"][0][0] or ""
+
+    def get_user_emails(self, user_id: str) -> list[dict]:
+        """Get all emails for a user ordered by main then created."""
+        user_id = str(user_id or "").strip()
+        if not user_id:
+            return []
+        result = self.model.exec("user", "get-emails-by-userid", {"userId": user_id})
+        if self.model.has_error or not result or not result.get("rows"):
+            self.model.clear_error()
+            return []
+        emails = []
+        for row in result["rows"]:
+            if not row:
+                continue
+            emails.append(
+                {
+                    "email": row[0] or "",
+                    "main": int(row[1] or 0),
+                    "created": row[2] or "",
+                }
+            )
+        return emails
+
+    def count_user_emails(self, user_id: str) -> int:
+        """Count emails for a user."""
+        user_id = str(user_id or "").strip()
+        if not user_id:
+            return 0
+        result = self.model.exec("user", "count-emails-by-userid", {"userId": user_id})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return 0
+        return int(result["rows"][0][0] or 0)
+
+    def get_userid_by_email(self, email: str) -> str:
+        """Get userId that owns a given email (if any)."""
+        email = (email or "").strip().lower()
+        if not email:
+            return ""
+        result = self.model.exec("user", "get-userid-by-email", {"email": email})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return ""
+        return str(result["rows"][0][0] or "")
+
+    def login_exists(self, login: str) -> bool:
+        """Check whether a login (email) already exists."""
+        login = (login or "").strip()
+        if not login:
+            return False
+        login_b64 = self.hash_login(login)
+        result = self.model.exec("user", "check-exists", {"login": login_b64})
+        if self.model.has_error or not result or not result.get("rows"):
+            self.model.clear_error()
+            return False
+        return bool(result["rows"][0][0])
+
+    def verify_user_password(self, user_id: str, raw_password: str) -> bool:
+        """Validate the current password for a user."""
+        user_id = str(user_id or "").strip()
+        raw_password = raw_password or ""
+        if not user_id or not raw_password:
+            return False
+        result = self.model.exec("user", "get-password-by-userid", {"userId": user_id})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return False
+        stored_hash = result["rows"][0][0]
+        if not stored_hash:
+            return False
+        return bcrypt.checkpw(raw_password.encode("utf-8"), stored_hash)
+
+    def verify_login_email(self, user_id: str, email: str) -> bool:
+        """Validate that a provided email matches the login for user."""
+        user_id = str(user_id or "").strip()
+        email = (email or "").strip()
+        if not user_id or not email:
+            return False
+        result = self.model.exec("user", "get-login-by-userid", {"userId": user_id})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return False
+        login_hash = result["rows"][0][0]
+        if not login_hash:
+            return False
+        return login_hash == self.hash_login(email)
+
+    def add_user_email(self, user_id: str, email: str, main: bool = False) -> bool:
+        """Add an email to a user."""
+        user_id = str(user_id or "").strip()
+        email = (email or "").strip().lower()
+        if not user_id or not email:
+            return False
+        params = {
+            "email": email,
+            "userId": user_id,
+            "main": Config.MAIN_EMAIL["true"] if main else Config.MAIN_EMAIL["false"],
+            "created": self.now,
+        }
+        result = self.model.exec("user", "insert-user-email", params)
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def delete_user_email(self, user_id: str, email: str) -> bool:
+        """Delete a user email."""
+        user_id = str(user_id or "").strip()
+        email = (email or "").strip().lower()
+        if not user_id or not email:
+            return False
+        result = self.model.exec("user", "delete-user-email", {"userId": user_id, "email": email})
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def set_user_email_main(self, user_id: str, email: str, main: bool = True) -> bool:
+        """Set or unset an email as main for a user."""
+        user_id = str(user_id or "").strip()
+        email = (email or "").strip().lower()
+        if not user_id or not email:
+            return False
+        result = self.model.exec(
+            "user",
+            "set-user-email-main",
+            {
+                "userId": user_id,
+                "email": email,
+                "main": Config.MAIN_EMAIL["true"] if main else Config.MAIN_EMAIL["false"],
+            },
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def create_email_pin(self, email: str, user_id: str) -> dict | None:
+        """Create or update a PIN for a specific email target."""
+        email = (email or "").strip().lower()
+        user_id = str(user_id or "").strip()
+        if not email or not user_id:
+            return None
+        pin_params = self._build_user_pin_params(
+            email,
+            user_id,
+            Config.PIN_ACCOUNT_EXPIRES_SECONDS,
+        )
+        result = self.model.exec("user", "insert-pin", pin_params)
+        if self.model.has_error:
+            return None
+        if not result or not all(r.get("success", True) for r in (result if isinstance(result, list) else [result])):
+            return None
+        return pin_params
+
+    def create_account_pin(self, target: str, user_id: str) -> dict | None:
+        """Create or update a PIN for account actions."""
+        target = (target or "").strip()
+        user_id = str(user_id or "").strip()
+        if not target or not user_id:
+            return None
+        pin_params = self._build_user_pin_params(
+            target,
+            user_id,
+            Config.PIN_ACCOUNT_EXPIRES_SECONDS,
+        )
+        result = self.model.exec("user", "insert-pin", pin_params)
+        if self.model.has_error:
+            return None
+        if not result or not all(r.get("success", True) for r in (result if isinstance(result, list) else [result])):
+            return None
+        return pin_params
+
+    def verify_user_pin(self, target: str, user_id: str, pin: str) -> bool:
+        """Validate a PIN for a target and user."""
+        target = (target or "").strip()
+        user_id = str(user_id or "").strip()
+        pin = str(pin or "").strip()
+        if not target or not user_id or not pin:
+            return False
+        result = self.model.exec(
+            "user",
+            "get-pin",
+            {"target": target, "userId": user_id, "pin": pin, "now": int(time.time())},
+        )
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return False
+        return bool(result["rows"][0][0])
+
+    def delete_user_pin(self, target: str, user_id: str, pin: str) -> bool:
+        """Delete a PIN for a target and user."""
+        target = (target or "").strip()
+        user_id = str(user_id or "").strip()
+        pin = str(pin or "").strip()
+        if not target or not user_id or not pin:
+            return False
+        result = self.model.exec(
+            "user",
+            "delete-pin",
+            {"target": target, "userId": user_id, "pin": pin},
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
 
     def has_role(self, user_id, role_code: str) -> bool:
         """Check if a user has a role in any of their profiles."""

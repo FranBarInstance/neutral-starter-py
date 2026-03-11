@@ -6,30 +6,40 @@
                     "User": "Usuario",
                     "Profile": "Perfil",
                     "Edit Profile": "Editar Perfil",
+                    "Edit Email": "Editar correo",
+                    "Edit Account": "Editar cuenta",
                     "Sign out": "Cerrar sesión"
                 },
                 "fr": {
                     "User": "Utilisateur",
                     "Profile": "Profil",
                     "Edit Profile": "Modifier le Profil",
+                    "Edit Email": "Modifier l’e-mail",
+                    "Edit Account": "Modifier le compte",
                     "Sign out": "Se déconnecter"
                 },
                 "de": {
                     "User": "Benutzer",
                     "Profile": "Profil",
                     "Edit Profile": "Profil bearbeiten",
+                    "Edit Email": "E-Mail bearbeiten",
+                    "Edit Account": "Konto bearbeiten",
                     "Sign out": "Abmelden"
                 },
                 "ar": {
                     "User": "مستخدم",
                     "Profile": "ملفي الشخصي",
                     "Edit Profile": "تعديل الملف الشخصي",
+                    "Edit Email": "تعديل البريد الإلكتروني",
+                    "Edit Account": "تعديل الحساب",
                     "Sign out": "تسجيل خروج"
                 },
                 "zh": {
                     "User": "用户",
                     "Profile": "主页",
                     "Edit Profile": "编辑资料",
+                    "Edit Email": "编辑邮箱",
+                    "Edit Account": "编辑账户",
                     "Sign out": "登出"
                 }
             }
@@ -60,6 +70,16 @@
                             "text": "Edit Profile",
                             "link": "[:;data->user_0yt2sa->manifest->route:]/profile",
                             "icon": "x-icon-profile"
+                        },
+                        "edit-email": {
+                            "text": "Edit Email",
+                            "link": "[:;data->user_0yt2sa->manifest->route:]/email",
+                            "icon": "x-icon-email"
+                        },
+                        "edit-account": {
+                            "text": "Edit Account",
+                            "link": "[:;data->user_0yt2sa->manifest->route:]/account",
+                            "icon": "x-icon-lock"
                         },
                         "logout": {
                             "text": "Sign out",

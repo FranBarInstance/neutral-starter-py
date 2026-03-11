@@ -1,0 +1,489 @@
+{:* --- Required Snippets for Forms --- *:}
+{:!include; {:flg; require :} >> {:;forms_0yt2sa->path:}/neutral/snippets.ntpl :}
+
+{:*
+    Generate password PIN form field error snippets.
+ *:}
+{:+each; user_account_password_pin->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_account_password_pin-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:*
+    Generate password change form field error snippets.
+ *:}
+{:+each; user_account_password_change->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_account_password_change-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:*
+    Generate birthdate PIN form field error snippets.
+ *:}
+{:+each; user_account_birthdate_pin->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_account_birthdate_pin-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:*
+    Generate birthdate change form field error snippets.
+ *:}
+{:+each; user_account_birthdate_change->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_account_birthdate_change-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:*
+    Generate login change form field error snippets.
+ *:}
+{:+each; user_account_login_change->error->field field msg >>
+    {:+code;
+        {:param; field >> {:;field:} :}
+        {:param; msg >> {:;msg:} :}
+        {:param; help-item-url >> {:;user_0yt2sa->manifest->route:}/help/user_account_login_change-{:;field:} :}
+        {:snip; forms:set-form-field-error :}
+    :}
+:}
+
+{:* --- Result Snippets --- *:}
+{:snip; user_0yt2sa:user_account-password-pin-result: >>:}
+{:snip; user_0yt2sa:user_account-password-pin-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_account_password_pin->is_submit->result->message:} :}</p>
+    </div>
+:}
+{:snip; user_0yt2sa:user_account-password-pin-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_account_password_pin->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-password-change-result: >>:}
+{:snip; user_0yt2sa:user_account-password-change-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_account_password_change->is_submit->result->message:} :}</p>
+    </div>
+:}
+{:snip; user_0yt2sa:user_account-password-change-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_account_password_change->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-birthdate-pin-result: >>:}
+{:snip; user_0yt2sa:user_account-birthdate-pin-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_account_birthdate_pin->is_submit->result->message:} :}</p>
+    </div>
+:}
+{:snip; user_0yt2sa:user_account-birthdate-pin-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_account_birthdate_pin->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-birthdate-change-result: >>:}
+{:snip; user_0yt2sa:user_account-birthdate-change-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_account_birthdate_change->is_submit->result->message:} :}</p>
+    </div>
+:}
+{:snip; user_0yt2sa:user_account-birthdate-change-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_account_birthdate_change->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-login-change-result: >>:}
+{:snip; user_0yt2sa:user_account-login-change-result:true >>
+    <div class="alert alert-success">
+        <p class="mb-0">{:trans; {:;user_account_login_change->is_submit->result->message:} :}</p>
+    </div>
+:}
+{:snip; user_0yt2sa:user_account-login-change-result:false >>
+    <div class="alert alert-danger">
+        <p class="mb-0">{:trans; {:;user_account_login_change->is_submit->result->message:} :}</p>
+    </div>
+:}
+
+{:* --- Password PIN Form Snippet --- *:}
+{:snip; user_0yt2sa:user_account-password-pin-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/account/password/pin/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="email"
+                    id="user_account-password-pin-email"
+                    name="email"
+                    value="{:;CONTEXT->POST->email:}"
+                    class="form-control {:snip; is-invalid:email :}"
+                    placeholder="{:trans; Login email :}"
+                    aria-label="{:trans; Login email :}"
+                    minlength="{:;current_forms->user_account_password_pin->rules->email->minlength:}"
+                    maxlength="{:;current_forms->user_account_password_pin->rules->email->maxlength:}"
+                    pattern="{:;current_forms->user_account_password_pin->rules->email->pattern:}"
+                    {:bool; current_forms->user_account_password_pin->rules->email->required >> required :}
+                >
+                <label for="user_account-password-pin-email">{:trans; Login email :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:email :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+        <button
+            type="submit"
+            id="user_account-password-pin-button-submit"
+            name="send"
+            class="btn btn-outline-primary w-100"
+            value="1"
+        >{:trans; Send PIN :}</button>
+    :}
+:}
+
+{:* --- Password Change Form Snippet --- *:}
+{:snip; user_0yt2sa:user_account-password-change-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/account/password/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;local::x-icon-pin:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="text"
+                    id="user_account-password-pin"
+                    name="pin"
+                    value="{:;CONTEXT->POST->pin:}"
+                    class="form-control {:snip; is-invalid:pin :}"
+                    placeholder="{:trans; PIN :}"
+                    aria-label="{:trans; PIN :}"
+                    minlength="{:;current_forms->user_account_password_change->rules->pin->minlength:}"
+                    maxlength="{:;current_forms->user_account_password_change->rules->pin->maxlength:}"
+                    pattern="{:;current_forms->user_account_password_change->rules->pin->pattern:}"
+                    {:bool; current_forms->user_account_password_change->rules->pin->required >> required :}
+                >
+                <label for="user_account-password-pin">{:trans; PIN :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:pin :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:password :}"><i class="{:;local::x-icon-user-password:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="password"
+                    id="user_account-password"
+                    name="password"
+                    value="{:;CONTEXT->POST->password:}"
+                    class="form-control {:snip; is-invalid:password :}"
+                    placeholder="{:trans; New password :}"
+                    aria-label="{:trans; New password :}"
+                    minlength="{:;current_forms->user_account_password_change->rules->password->minlength:}"
+                    maxlength="{:;current_forms->user_account_password_change->rules->password->maxlength:}"
+                    pattern="{:;current_forms->user_account_password_change->rules->password->pattern:}"
+                    {:bool; current_forms->user_account_password_change->rules->password->required >> required :}
+                >
+                <label for="user_account-password">{:trans; New password :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:password :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:rptpassword :}"><i class="{:;local::x-icon-user-password:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="password"
+                    id="user_account-rptpassword"
+                    name="rptpassword"
+                    value="{:;CONTEXT->POST->rptpassword:}"
+                    class="form-control {:snip; is-invalid:rptpassword :}"
+                    placeholder="{:trans; Repeat password :}"
+                    aria-label="{:trans; Repeat password :}"
+                    minlength="{:;current_forms->user_account_password_change->rules->rptpassword->minlength:}"
+                    maxlength="{:;current_forms->user_account_password_change->rules->rptpassword->maxlength:}"
+                    pattern="{:;current_forms->user_account_password_change->rules->rptpassword->pattern:}"
+                    {:bool; current_forms->user_account_password_change->rules->rptpassword->required >> required :}
+                >
+                <label for="user_account-rptpassword">{:trans; Repeat password :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:rptpassword :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <button
+            type="submit"
+            id="user_account-password-button-submit"
+            name="send"
+            class="btn btn-primary w-100"
+            value="1"
+        >{:trans; Change password :}</button>
+    :}
+:}
+
+{:* --- Birthdate PIN Form Snippet --- *:}
+{:snip; user_0yt2sa:user_account-birthdate-pin-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/account/birthdate/pin/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="email"
+                    id="user_account-birthdate-pin-email"
+                    name="email"
+                    value="{:;CONTEXT->POST->email:}"
+                    class="form-control {:snip; is-invalid:email :}"
+                    placeholder="{:trans; Login email :}"
+                    aria-label="{:trans; Login email :}"
+                    minlength="{:;current_forms->user_account_birthdate_pin->rules->email->minlength:}"
+                    maxlength="{:;current_forms->user_account_birthdate_pin->rules->email->maxlength:}"
+                    pattern="{:;current_forms->user_account_birthdate_pin->rules->email->pattern:}"
+                    {:bool; current_forms->user_account_birthdate_pin->rules->email->required >> required :}
+                >
+                <label for="user_account-birthdate-pin-email">{:trans; Login email :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:email :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+        <button
+            type="submit"
+            id="user_account-birthdate-pin-button-submit"
+            name="send"
+            class="btn btn-outline-primary w-100"
+            value="1"
+        >{:trans; Send PIN :}</button>
+    :}
+:}
+
+{:* --- Birthdate Change Form Snippet --- *:}
+{:snip; user_0yt2sa:user_account-birthdate-change-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/account/birthdate/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;local::x-icon-pin:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="text"
+                    id="user_account-birthdate-pin"
+                    name="pin"
+                    value="{:;CONTEXT->POST->pin:}"
+                    class="form-control {:snip; is-invalid:pin :}"
+                    placeholder="{:trans; PIN :}"
+                    aria-label="{:trans; PIN :}"
+                    minlength="{:;current_forms->user_account_birthdate_change->rules->pin->minlength:}"
+                    maxlength="{:;current_forms->user_account_birthdate_change->rules->pin->maxlength:}"
+                    pattern="{:;current_forms->user_account_birthdate_change->rules->pin->pattern:}"
+                    {:bool; current_forms->user_account_birthdate_change->rules->pin->required >> required :}
+                >
+                <label for="user_account-birthdate-pin">{:trans; PIN :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:pin :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:birthdate :}"><i class="{:;local::x-icon-birthdate:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="date"
+                    id="user_account-birthdate"
+                    name="birthdate"
+                    value="{:;CONTEXT->POST->birthdate:}"
+                    class="form-control {:snip; is-invalid:birthdate :}"
+                    placeholder="{:trans; Birthdate :}"
+                    aria-label="{:trans; Birthdate :}"
+                    {:bool; current_forms->user_account_birthdate_change->rules->birthdate->required >> required :}
+                >
+                <label for="user_account-birthdate">{:trans; Birthdate :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:birthdate :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <button
+            type="submit"
+            id="user_account-birthdate-button-submit"
+            name="send"
+            class="btn btn-primary w-100"
+            value="1"
+        >{:trans; Change birthdate :}</button>
+    :}
+:}
+
+{:* --- Login Change Form Snippet --- *:}
+{:snip; user_0yt2sa:user_account-login-change-form >>
+    {:fetch; |{:;user_0yt2sa->manifest->route:}/account/login/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <div class="form-floating">
+                <select
+                    id="user_account-login-email"
+                    name="email"
+                    class="form-select {:snip; is-invalid:email :}"
+                    aria-label="{:trans; New login email :}"
+                    data-forms-autoselect-option="{:;CONTEXT->POST->email:}"
+                    {:bool; current_forms->user_account_login_change->rules->email->required >> required :}
+                >
+                    <option value="">{:trans; Select an email :}</option>
+                    {:each; user_emails k email >>
+                        <option value="{:&;email->email:}">{:&;email->email:}</option>
+                    :}
+                </select>
+                <label for="user_account-login-email">{:trans; New login email :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:email :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <div class="input-group">
+            <span class="input-group-text {:snip; is-invalid:current_password :}"><i class="{:;local::x-icon-user-password:}"></i></span>
+            <div class="form-floating">
+                <input
+                    type="password"
+                    id="user_account-login-current-password"
+                    name="current_password"
+                    value="{:;CONTEXT->POST->current_password:}"
+                    class="form-control {:snip; is-invalid:current_password :}"
+                    placeholder="{:trans; Current password :}"
+                    aria-label="{:trans; Current password :}"
+                    minlength="{:;current_forms->user_account_login_change->rules->current_password->minlength:}"
+                    maxlength="{:;current_forms->user_account_login_change->rules->current_password->maxlength:}"
+                    pattern="{:;current_forms->user_account_login_change->rules->current_password->pattern:}"
+                    {:bool; current_forms->user_account_login_change->rules->current_password->required >> required :}
+                >
+                <label for="user_account-login-current-password">{:trans; Current password :}</label>
+            </div>
+        </div>
+        {:snip; error-msg:current_password :}
+        <div class="{:;local::current->forms->field-spacing:}"></div>
+
+        <button
+            type="submit"
+            id="user_account-login-button-submit"
+            name="send"
+            class="btn btn-primary w-100"
+            value="1"
+        >{:trans; Change login :}</button>
+    :}
+:}
+
+{:* --- Containers --- *:}
+{:snip; user_0yt2sa:user_account-password-pin-container >>
+    <div id="user_account_password_pin-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_account-password-pin-result:{:;user_account_password_pin->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_account_password_pin->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_account_password_pin->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_account-password-pin-form :}
+        :}
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-password-change-container >>
+    <div id="user_account_password_change-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_account-password-change-result:{:;user_account_password_change->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_account_password_change->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_account_password_change->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_account-password-change-form :}
+        :}
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-birthdate-pin-container >>
+    <div id="user_account_birthdate_pin-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_account-birthdate-pin-result:{:;user_account_birthdate_pin->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_account_birthdate_pin->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_account_birthdate_pin->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_account-birthdate-pin-form :}
+        :}
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-birthdate-change-container >>
+    <div id="user_account_birthdate_change-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_account-birthdate-change-result:{:;user_account_birthdate_change->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_account_birthdate_change->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_account_birthdate_change->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_account-birthdate-change-form :}
+        :}
+    </div>
+:}
+
+{:snip; user_0yt2sa:user_account-login-change-container >>
+    <div id="user_account_login_change-container">
+        {:coalesce;
+            {:snip; user_0yt2sa:user_account-login-change-result:{:;user_account_login_change->is_submit->result->success:} :}
+            {:snip; forms:error-ltoken:{:;user_account_login_change->error->form->ltoken:} :}
+            {:snip; forms:error-validation:{:;user_account_login_change->error->form->validation:} :}
+            {:snip; user_0yt2sa:user_account-login-change-form :}
+        :}
+    </div>
+:}
+
+{:* --- Account Content Snippet --- *:}
+{:snip; user_0yt2sa:user_account-content >>
+    <div id="user_account-content">
+        <div class="row g-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">{:trans; Change password :}</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                {:snip; user_0yt2sa:user_account-password-pin-container :}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                {:snip; user_0yt2sa:user_account-password-change-container :}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">{:trans; Change birthdate :}</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                {:snip; user_0yt2sa:user_account-birthdate-pin-container :}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                {:snip; user_0yt2sa:user_account-birthdate-change-container :}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">{:trans; Change login :}</div>
+                    <div class="card-body">
+                        <div class="alert alert-secondary">
+                            <p class="mb-0">
+                                {:trans; Add your email here: :}
+                                <a href="{:;user_0yt2sa->manifest->route:}/email" class="ms-1 alert-link">{:trans; Emails :}</a>
+                            </p>
+                        </div>
+                        {:snip; user_0yt2sa:user_account-login-change-container :}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+:}

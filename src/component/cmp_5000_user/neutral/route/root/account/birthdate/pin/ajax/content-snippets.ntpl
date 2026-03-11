@@ -1,0 +1,7 @@
+{:!include; {:flg; require :} >> #/../../../snippets.ntpl :}
+
+{:snip; current:template:body-main-content >>
+    {:snip; user_0yt2sa:user_account-birthdate-pin-container :}
+:}
+
+{:^;:}

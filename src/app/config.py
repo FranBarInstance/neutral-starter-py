@@ -97,6 +97,7 @@ class Config: # pylint: disable=too-few-public-methods
 
     VALIDATE_SIGNUP = _env_bool(config.get('VALIDATE_SIGNUP'), False)
     AUTO_BOOTSTRAP_DB = _env_bool(config.get('AUTO_BOOTSTRAP_DB'), False)
+    REQUIRES_USER_EMAIL = _env_bool(config.get('REQUIRES_USER_EMAIL'), True)
 
     LANG_KEY = "lang"
     THEME_KEY = "theme"
@@ -110,6 +111,7 @@ class Config: # pylint: disable=too-few-public-methods
     UTOKEN_IDLE_EXPIRES_SECONDS = int(config.get('UTOKEN_IDLE_EXPIRES_SECONDS', 14400))
     FTOKEN_EXPIRES_SECONDS = int(config.get('FTOKEN_EXPIRES_SECONDS', 240))
     PIN_EXPIRES_SECONDS = int(config.get('PIN_EXPIRES_SECONDS', 86400))
+    PIN_ACCOUNT_EXPIRES_SECONDS = int(config.get('PIN_ACCOUNT_EXPIRES_SECONDS', 900))
     TOKEN_LENGTH = int(config.get('TOKEN_LENGTH', 32))
     PIN_MIN = int(config.get('PIN_MIN', 100000))
     PIN_MAX = int(config.get('PIN_MAX', 999999))

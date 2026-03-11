@@ -145,5 +145,29 @@
     },
     "get-email-by-userid": {
         "@portable": "SELECT user_email.email FROM user_email WHERE user_email.userId = :userId AND user_email.main = 1 LIMIT 1"
+    },
+    "get-login-by-userid": {
+        "@portable": "SELECT user.login FROM user WHERE user.userId = :userId LIMIT 1"
+    },
+    "get-password-by-userid": {
+        "@portable": "SELECT user.password FROM user WHERE user.userId = :userId LIMIT 1"
+    },
+    "get-emails-by-userid": {
+        "@portable": "SELECT user_email.email, user_email.main, user_email.created FROM user_email WHERE user_email.userId = :userId ORDER BY user_email.main DESC, user_email.created ASC"
+    },
+    "count-emails-by-userid": {
+        "@portable": "SELECT COUNT(*) FROM user_email WHERE user_email.userId = :userId"
+    },
+    "get-userid-by-email": {
+        "@portable": "SELECT user_email.userId FROM user_email WHERE user_email.email = :email LIMIT 1"
+    },
+    "insert-user-email": {
+        "@portable": "INSERT INTO user_email (email, userId, main, created) VALUES (:email, :userId, :main, :created)"
+    },
+    "delete-user-email": {
+        "@portable": "DELETE FROM user_email WHERE user_email.userId = :userId AND user_email.email = :email"
+    },
+    "set-user-email-main": {
+        "@portable": "UPDATE user_email SET main = :main WHERE user_email.userId = :userId AND user_email.email = :email"
     }
 }
