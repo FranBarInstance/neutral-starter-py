@@ -1,0 +1,19 @@
+@import "../colors/volcano.css";
+@import "../fonts/syne.css";
+@import "../styles/borders-none.css";
+@import "../styles/rounding-normal.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-small.css";
+@import "../styles/gradients-on.css";
+@import "../styles/accent-bottom.css";
+
+:root {
+  --preset-colors: "volcano";
+  --preset-fonts: "syne";
+  --preset-borders: "none";
+  --preset-rounding: "normal";
+  --preset-shadows: "extra";
+  --preset-spacing: "small";
+  --preset-gradients: "on";
+  --preset-accent: "bottom";
+}

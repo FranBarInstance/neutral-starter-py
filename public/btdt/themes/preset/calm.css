@@ -1,0 +1,19 @@
+@import "../colors/arctic.css";
+@import "../fonts/inter.css";
+@import "../styles/borders-none.css";
+@import "../styles/rounding-extra.css";
+@import "../styles/shadows-normal.css";
+@import "../styles/spacing-large.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-none.css";
+
+:root {
+  --preset-colors: "arctic";
+  --preset-fonts: "inter";
+  --preset-borders: "none";
+  --preset-rounding: "extra";
+  --preset-shadows: "normal";
+  --preset-spacing: "large";
+  --preset-gradients: "off";
+  --preset-accent: "none";
+}

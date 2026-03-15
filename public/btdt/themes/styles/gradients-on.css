@@ -1,0 +1,147 @@
+/* themes/styles/gradients-on.css */
+
+/* Buttons with gradient */
+.btn-primary {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(0,0,0,0) 100%
+  ), var(--bs-btn-bg, #0d6efd);
+}
+
+.btn-secondary {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(0,0,0,0) 100%
+  ), var(--bs-btn-bg, #6c757d);
+}
+
+.btn-success {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(0,0,0,0) 100%
+  ), var(--bs-btn-bg, #198754);
+}
+
+.btn-danger {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(0,0,0,0) 100%
+  ), var(--bs-btn-bg, #dc3545);
+}
+
+.btn-warning {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(0,0,0,0) 100%
+  ), var(--bs-btn-bg, #ffc107);
+}
+
+.btn-info {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(0,0,0,0) 100%
+  ), var(--bs-btn-bg, #0dcaf0);
+}
+
+/* Backgrounds with gradient */
+.bg-primary {
+  background: linear-gradient(
+    135deg,
+    var(--bs-primary, #0d6efd),
+    color-mix(in srgb, var(--bs-primary, #0d6efd), black 20%)
+  ) !important;
+}
+
+.bg-secondary {
+  background: linear-gradient(
+    135deg,
+    var(--bs-secondary, #6c757d),
+    color-mix(in srgb, var(--bs-secondary, #6c757d), black 20%)
+  ) !important;
+}
+
+.bg-success {
+  background: linear-gradient(
+    135deg,
+    var(--bs-success, #198754),
+    color-mix(in srgb, var(--bs-success, #198754), black 20%)
+  ) !important;
+}
+
+.bg-danger {
+  background: linear-gradient(
+    135deg,
+    var(--bs-danger, #dc3545),
+    color-mix(in srgb, var(--bs-danger, #dc3545), black 20%)
+  ) !important;
+}
+
+/* Gradient navbar */
+.navbar.bg-primary,
+.navbar.bg-dark {
+  background: linear-gradient(
+    135deg,
+    var(--bs-primary, #0d6efd),
+    color-mix(in srgb, var(--bs-primary, #0d6efd), black 25%)
+  ) !important;
+}
+
+/* Progress bar */
+.progress-bar {
+  background: linear-gradient(
+    90deg,
+    var(--bs-primary, #0d6efd),
+    color-mix(in srgb, var(--bs-primary, #0d6efd), white 20%)
+  );
+}
+
+/* Alert headers with subtle gradient */
+.alert {
+  background: linear-gradient(
+    135deg,
+    var(--bs-alert-bg),
+    rgba(255,255,255,0.5)
+  );
+}
+
+/* Card headers */
+.card-header.bg-primary {
+  background: linear-gradient(
+    135deg,
+    var(--bs-primary, #0d6efd),
+    color-mix(in srgb, var(--bs-primary, #0d6efd), black 15%)
+  ) !important;
+}
+
+/* Badges */
+.badge.bg-primary {
+  background: linear-gradient(
+    135deg,
+    var(--bs-primary, #0d6efd),
+    color-mix(in srgb, var(--bs-primary, #0d6efd), black 20%)
+  ) !important;
+}
+
+/* Active list items */
+.list-group-item.active {
+  background: linear-gradient(
+    135deg,
+    var(--bs-primary, #0d6efd),
+    color-mix(in srgb, var(--bs-primary, #0d6efd), black 20%)
+  );
+}
+
+/* Active pagination */
+.page-item.active .page-link {
+  background: linear-gradient(
+    135deg,
+    var(--bs-primary, #0d6efd),
+    color-mix(in srgb, var(--bs-primary, #0d6efd), black 20%)
+  );
+}

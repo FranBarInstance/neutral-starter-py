@@ -1,0 +1,21 @@
+/* themes/preset/emerald-palace.css */
+@import "../colors/emerald.css";
+@import "../fonts/cinzel.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-normal.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-normal.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-top.css";
+
+/* Metadata for the Editor (MUST BE PRESENT) */
+:root {
+  --preset-colors: "emerald";
+  --preset-fonts: "cinzel";
+  --preset-borders: "normal";
+  --preset-rounding: "normal";
+  --preset-shadows: "extra";
+  --preset-spacing: "normal";
+  --preset-gradients: "off";
+  --preset-accent: "top";
+}

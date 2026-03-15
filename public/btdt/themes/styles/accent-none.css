@@ -1,0 +1,15 @@
+/* themes/styles/accent-none.css
+ * Sin línea de acento — resetea cualquier acento previo.
+ * --------------------------------------------------------- */
+.card,
+.list-group-item,
+.accordion-item,
+.alert,
+.nav-tabs,
+.navbar {
+  --accent-width: 0px;
+  border-left-width:   var(--bs-border-width, 1px);
+  border-right-width:  var(--bs-border-width, 1px);
+  border-top-width:    var(--bs-border-width, 1px);
+  border-bottom-width: var(--bs-border-width, 1px);
+}

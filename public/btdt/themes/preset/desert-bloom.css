@@ -1,0 +1,19 @@
+@import "../colors/desert.css";
+@import "../fonts/libre-baskerville.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-normal.css";
+@import "../styles/shadows-normal.css";
+@import "../styles/spacing-large.css";
+@import "../styles/gradients-on.css";
+@import "../styles/accent-bottom.css";
+
+:root {
+  --preset-colors: "desert";
+  --preset-fonts: "libre-baskerville";
+  --preset-borders: "normal";
+  --preset-rounding: "normal";
+  --preset-shadows: "normal";
+  --preset-spacing: "large";
+  --preset-gradients: "on";
+  --preset-accent: "bottom";
+}

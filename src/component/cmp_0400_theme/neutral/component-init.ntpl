@@ -10,7 +10,8 @@
             document.documentElement.setAttribute('data-bs-theme', t);
         })();
     </script>
-    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.3.8/{:;local::current->theme->theme:}/bootstrap.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}btdt/css/bootstrap.min.css">
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}btdt/themes/preset/{:;local::current->theme->theme:}.css">
     <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}css/neutral-custom.min.css" />
     {:snip; current:template:heading-medium :}
 :}

@@ -1,0 +1,19 @@
+@import "../colors/tropical.css";
+@import "../fonts/nunito.css";
+@import "../styles/borders-extra.css";
+@import "../styles/rounding-extra.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-normal.css";
+@import "../styles/gradients-on.css";
+@import "../styles/accent-right.css";
+
+:root {
+  --preset-colors: "tropical";
+  --preset-fonts: "nunito";
+  --preset-borders: "extra";
+  --preset-rounding: "extra";
+  --preset-shadows: "extra";
+  --preset-spacing: "normal";
+  --preset-gradients: "on";
+  --preset-accent: "right";
+}

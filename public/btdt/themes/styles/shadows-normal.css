@@ -1,0 +1,18 @@
+/* themes/styles/shadows-normal.css */
+:root {
+  --bs-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --bs-box-shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --bs-box-shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.card {
+  box-shadow: var(--bs-box-shadow-sm);
+}
+
+.dropdown-menu {
+  box-shadow: var(--bs-box-shadow);
+}
+
+.modal-content {
+  box-shadow: var(--bs-box-shadow-lg);
+}

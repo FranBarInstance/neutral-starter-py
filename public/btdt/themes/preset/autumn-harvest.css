@@ -1,0 +1,21 @@
+/* themes/preset/autumn-harvest.css */
+@import "../colors/autumn.css";
+@import "../fonts/lora.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-normal.css";
+@import "../styles/shadows-normal.css";
+@import "../styles/spacing-normal.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-none.css";
+
+/* Metadata for the Editor (MUST BE PRESENT) */
+:root {
+  --preset-colors: "autumn";
+  --preset-fonts: "lora";
+  --preset-borders: "normal";
+  --preset-rounding: "normal";
+  --preset-shadows: "normal";
+  --preset-spacing: "normal";
+  --preset-gradients: "off";
+  --preset-accent: "none";
+}

@@ -1,0 +1,19 @@
+@import "../colors/gold.css";
+@import "../fonts/righteous.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-none.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-small.css";
+@import "../styles/gradients-on.css";
+@import "../styles/accent-top.css";
+
+:root {
+  --preset-colors: "gold";
+  --preset-fonts: "righteous";
+  --preset-borders: "normal";
+  --preset-rounding: "none";
+  --preset-shadows: "extra";
+  --preset-spacing: "small";
+  --preset-gradients: "on";
+  --preset-accent: "top";
+}

@@ -1,0 +1,19 @@
+@import "../colors/candy.css";
+@import "../fonts/quicksand.css";
+@import "../styles/borders-none.css";
+@import "../styles/rounding-extra.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-normal.css";
+@import "../styles/gradients-on.css";
+@import "../styles/accent-top.css";
+
+:root {
+  --preset-colors: "candy";
+  --preset-fonts: "quicksand";
+  --preset-borders: "none";
+  --preset-rounding: "extra";
+  --preset-shadows: "extra";
+  --preset-spacing: "normal";
+  --preset-gradients: "on";
+  --preset-accent: "top";
+}

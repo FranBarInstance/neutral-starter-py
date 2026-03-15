@@ -1,0 +1,21 @@
+/* themes/preset/nordic-elegance.css */
+@import "../colors/nordic-frost.css";
+@import "../fonts/montserrat.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-extra.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-normal.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-top.css";
+
+/* Metadata for the Editor (MUST BE PRESENT) */
+:root {
+  --preset-colors: "nordic-frost";
+  --preset-fonts: "montserrat";
+  --preset-borders: "normal";
+  --preset-rounding: "extra";
+  --preset-shadows: "extra";
+  --preset-spacing: "normal";
+  --preset-gradients: "off";
+  --preset-accent: "top";
+}

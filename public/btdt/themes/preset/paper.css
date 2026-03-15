@@ -1,0 +1,19 @@
+@import "../colors/white.css";
+@import "../fonts/merriweather.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-none.css";
+@import "../styles/shadows-none.css";
+@import "../styles/spacing-large.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-bottom.css";
+
+:root {
+  --preset-colors: "white";
+  --preset-fonts: "merriweather";
+  --preset-borders: "normal";
+  --preset-rounding: "none";
+  --preset-shadows: "none";
+  --preset-spacing: "large";
+  --preset-gradients: "off";
+  --preset-accent: "bottom";
+}

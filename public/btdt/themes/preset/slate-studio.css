@@ -1,0 +1,19 @@
+@import "../colors/slate.css";
+@import "../fonts/manrope.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-none.css";
+@import "../styles/shadows-normal.css";
+@import "../styles/spacing-small.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-left.css";
+
+:root {
+  --preset-colors: "slate";
+  --preset-fonts: "manrope";
+  --preset-borders: "normal";
+  --preset-rounding: "none";
+  --preset-shadows: "normal";
+  --preset-spacing: "small";
+  --preset-gradients: "off";
+  --preset-accent: "left";
+}

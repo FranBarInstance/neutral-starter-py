@@ -1,0 +1,19 @@
+@import "../colors/nord.css";
+@import "../fonts/jetbrains-mono.css";
+@import "../styles/borders-none.css";
+@import "../styles/rounding-none.css";
+@import "../styles/shadows-normal.css";
+@import "../styles/spacing-small.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-left.css";
+
+:root {
+  --preset-colors: "nord";
+  --preset-fonts: "jetbrains-mono";
+  --preset-borders: "none";
+  --preset-rounding: "none";
+  --preset-shadows: "normal";
+  --preset-spacing: "small";
+  --preset-gradients: "off";
+  --preset-accent: "left";
+}

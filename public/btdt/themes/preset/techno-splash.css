@@ -1,0 +1,21 @@
+/* themes/preset/techno-splash.css */
+@import "../colors/vibrant-splash.css";
+@import "../fonts/syne.css";
+@import "../styles/borders-normal.css";
+@import "../styles/rounding-extra.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-normal.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-none.css";
+
+/* Metadata for the Editor (MUST BE PRESENT) */
+:root {
+  --preset-colors: "vibrant-splash";
+  --preset-fonts: "syne";
+  --preset-borders: "normal";
+  --preset-rounding: "extra";
+  --preset-shadows: "extra";
+  --preset-spacing: "normal";
+  --preset-gradients: "off";
+  --preset-accent: "none";
+}

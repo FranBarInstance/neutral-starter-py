@@ -1,0 +1,49 @@
+/* themes/fonts/fira-sans.css */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bs-body-font-family: 'Fira Sans', 'Segoe UI', sans-serif;
+  --bs-body-font-weight: 400;
+  --bs-body-line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.display-1, .display-2, .display-3,
+.display-4, .display-5, .display-6 {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 300;
+}
+
+.btn {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.navbar-brand {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 700;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.lead {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+blockquote {
+  font-family: 'Fira Sans', sans-serif;
+  font-style: normal;
+}

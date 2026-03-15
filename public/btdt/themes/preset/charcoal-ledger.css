@@ -1,0 +1,19 @@
+@import "../colors/black.css";
+@import "../fonts/eb-garamond.css";
+@import "../styles/borders-extra.css";
+@import "../styles/rounding-none.css";
+@import "../styles/shadows-extra.css";
+@import "../styles/spacing-small.css";
+@import "../styles/gradients-off.css";
+@import "../styles/accent-right.css";
+
+:root {
+  --preset-colors: "black";
+  --preset-fonts: "eb-garamond";
+  --preset-borders: "extra";
+  --preset-rounding: "none";
+  --preset-shadows: "extra";
+  --preset-spacing: "small";
+  --preset-gradients: "off";
+  --preset-accent: "right";
+}

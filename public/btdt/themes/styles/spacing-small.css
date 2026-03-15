@@ -1,0 +1,103 @@
+/* themes/styles/spacing-small.css */
+:root {
+  --bs-gutter-x: 1rem;
+}
+
+/* Cards */
+.card .card-body {
+  padding: 0.75rem;
+}
+
+.card .card-header,
+.card .card-footer {
+  padding: 0.5rem 0.75rem;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.btn-sm {
+  padding: 0.15rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.btn-lg {
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+}
+
+/* Form controls */
+.form-control,
+.form-select {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+/* Alerts */
+.alert {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+/* Modal */
+.modal-body {
+  padding: 1rem;
+}
+
+.modal-header,
+.modal-footer {
+  padding: 0.75rem 1rem;
+}
+
+/* Badges */
+.badge {
+  padding: 0.25em 0.5em;
+  font-size: 0.7em;
+}
+
+/* List group */
+.list-group-item {
+  padding: 0.4rem 0.75rem;
+}
+
+/* Navbar */
+.navbar {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.nav-link {
+  padding: 0.35rem 0.75rem;
+}
+
+/* Dropdown */
+.dropdown-item {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+}
+
+.dropdown-menu {
+  padding: 0.25rem 0;
+}
+
+/* Table */
+.table > :not(caption) > * > * {
+  padding: 0.4rem 0.6rem;
+}
+
+/* Toast */
+.toast-body {
+  padding: 0.5rem;
+}
+
+/* Accordion */
+.accordion-body {
+  padding: 0.75rem 1rem;
+}
+
+.accordion-button {
+  padding: 0.6rem 1rem;
+}
