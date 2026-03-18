@@ -23,6 +23,7 @@ window.BTDT_PRESETS = {
   'emerald-palace': { title: 'Emerald Palace', color: 'emerald' },
   'forest': { title: 'Forest', color: 'forest' },
   'gilded-graphite': { title: 'Gilded Graphite', color: 'gold' },
+  'gray': { title: 'Gray', color: 'white' },
   'industrial-steel': { title: 'Industrial Steel', color: 'industrial' },
   'lavender-luxe': { title: 'Lavender Luxe', color: 'lavender' },
   'lollipop-fun': { title: 'Lollipop Fun', color: 'lollipop' },

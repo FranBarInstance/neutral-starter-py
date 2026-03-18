@@ -23,12 +23,20 @@ class ThemeManager {
       fonts: Object.keys(fonts).length ? Object.keys(fonts) : [
         'inter', 'merriweather', 'nunito', 'jetbrains-mono'
       ],
-      borders: Object.keys(ui.borders || {}).length ? Object.keys(ui.borders) : ['normal', 'extra', 'none'],
+      background: Object.keys(ui.background || {}).length ? Object.keys(ui.background) : [
+        'none',
+        'primary-low', 'primary-medium', 'primary-high',
+        'secondary-low', 'secondary-medium', 'secondary-high',
+        'gray-low', 'gray-medium', 'gray-high'
+      ],
+      borders: Object.keys(ui.borders || {}).length ? Object.keys(ui.borders) : ['normal', 'minimal', 'extra', 'none'],
       rounding: Object.keys(ui.rounding || {}).length ? Object.keys(ui.rounding) : ['normal', 'extra', 'none'],
       shadows: Object.keys(ui.shadows || {}).length ? Object.keys(ui.shadows) : ['normal', 'extra', 'none'],
       spacing: Object.keys(ui.spacing || {}).length ? Object.keys(ui.spacing) : ['normal', 'large', 'small'],
       gradients: Object.keys(ui.gradients || {}).length ? Object.keys(ui.gradients) : ['on', 'off'],
-      accent: Object.keys(ui.accent || {}).length ? Object.keys(ui.accent) : ['none', 'left', 'right', 'top', 'bottom']
+      accent: Object.keys(ui.accent || {}).length ? Object.keys(ui.accent) : ['none', 'left', 'right', 'top', 'bottom'],
+      accentSize: Object.keys(ui.accentSize || {}).length ? Object.keys(ui.accentSize) : ['1', '2', '3', '4', '5'],
+      accentColor: Object.keys(ui.accentColor || {}).length ? Object.keys(ui.accentColor) : ['primary', 'secondary', 'gray']
     };
 
     // Available modes
@@ -39,8 +47,8 @@ class ThemeManager {
 
     // Current active theme
     this.activeTheme = {
-      colors: null, fonts: null, borders: null, rounding: null,
-      shadows: null, spacing: null, gradients: null, accent: null
+      colors: null, fonts: null, background: null, borders: null, rounding: null,
+      shadows: null, spacing: null, gradients: null, accent: null, accentSize: null, accentColor: null
     };
 
     // Predefined presets
@@ -59,6 +67,23 @@ class ThemeManager {
     if (!path) return path;
     const sep = path.includes('?') ? '&' : '?';
     return `${path}${sep}v=${this._cacheBust}`;
+  }
+
+  _getCascadeOrder() {
+    return ['colors', 'fonts', 'background', 'borders', 'rounding', 'shadows', 'spacing', 'gradients', 'accent', 'accentSize', 'accentColor'];
+  }
+
+  _reorderThemeLinks() {
+    this._getCascadeOrder().forEach((category) => {
+      const link = document.getElementById(`theme-${category}`);
+      if (link) {
+        this.container.appendChild(link);
+      }
+    });
+
+    if (this._modeLink) {
+      document.head.appendChild(this._modeLink);
+    }
   }
 
   // Creates a container for theme CSS
@@ -99,12 +124,15 @@ class ThemeManager {
     const pathMap = {
       colors:   `themes/colors/${value}.css`,
       fonts:    `themes/fonts/${value}.css`,
+      background:`themes/styles/background-${value}.css`,
       borders:  `themes/styles/borders-${value}.css`,
       rounding: `themes/styles/rounding-${value}.css`,
       shadows:  `themes/styles/shadows-${value}.css`,
       spacing:  `themes/styles/spacing-${value}.css`,
       gradients:`themes/styles/gradients-${value}.css`,
-      accent:   `themes/styles/accent-${value}.css`
+      accent:   `themes/styles/accent-${value}.css`,
+      accentSize:`themes/styles/accent-${value}.css`,
+      accentColor:`themes/styles/accent-${value}.css`
     };
 
     return pathMap[category] ? this._resolvePath(pathMap[category]) : null;
@@ -134,11 +162,8 @@ class ThemeManager {
     link.setAttribute('data-theme-value', value);
 
     this.container.appendChild(link);
-    // Keep mode CSS last so it can override any theme CSS.
-    if (this._modeLink) {
-      document.head.appendChild(this._modeLink);
-    }
     this.activeTheme[category] = value;
+    this._reorderThemeLinks();
   }
 
   // ===== MODE API =====
@@ -156,9 +181,11 @@ class ThemeManager {
 
     if (mode === 'dark') {
       document.documentElement.setAttribute('data-mode', 'dark');
+      document.documentElement.setAttribute('data-bs-theme', 'dark');
       this._modeLink.disabled = false;
     } else {
       document.documentElement.removeAttribute('data-mode');
+      document.documentElement.setAttribute('data-bs-theme', 'light');
       this._modeLink.disabled = true;
     }
     // Ensure mode CSS stays last in the cascade.
@@ -282,28 +309,42 @@ class ThemeManager {
     this.activeTheme._preset = presetName;
     
     return new Promise((resolve) => {
-      const handleLoad = () => {
+      let settled = false;
+
+      const finalizeSuccess = () => {
+        if (settled) return;
+        settled = true;
         // Double check: give the browser a tiny moment to parse the root variables
         setTimeout(() => {
           this._syncFromComputedStyles();
           this._saveToStorage();
           this._dispatchEvent('preset', presetName);
           if (this._modeLink) document.head.appendChild(this._modeLink);
+          link.onload = null;
+          link.onerror = null;
           resolve(this);
         }, 50);
       };
 
-      link.onload = handleLoad;
-      link.onerror = () => {
+      const finalizeError = () => {
+        if (settled) return;
+        settled = true;
         console.error(`Failed to load preset: ${presetName}`);
+        this.activeTheme._preset = null;
+        this._saveToStorage();
+        link.onload = null;
+        link.onerror = null;
         resolve(this);
       };
+
+      link.onload = finalizeSuccess;
+      link.onerror = finalizeError;
       
       link.href = this._withCacheBust(path);
 
       // Security fallback for very slow connections or cached files where onload might be tricky
       setTimeout(() => {
-        if (!this.activeTheme.colors) handleLoad();
+        if (!settled && !this.activeTheme.colors) finalizeSuccess();
       }, 1500);
     });
   }
@@ -378,6 +419,7 @@ class ThemeManager {
       let path = "";
       if (cat === 'colors') path = `../colors/${val}.css`;
       else if (cat === 'fonts') path = `../fonts/${val}.css`;
+      else if (cat === 'accentSize' || cat === 'accentColor') path = `../styles/accent-${val}.css`;
       else path = `../styles/${cat}-${val}.css`;
       
       css += `@import "${path}";\n`;

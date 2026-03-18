@@ -1,94 +1,132 @@
 /**
- * BTDT (Bootstrap Dynamic Themes) - Smart Loader
- * Provides an easy entry point for production integration.
+ * BTDT production loader.
+ * Only handles preset CSS loading and light/dark mode.
  */
 (function() {
-    // Prevent double execution
     if (window.btdt && window.btdt._initialized) return;
 
     const script = document.currentScript;
     if (!script) return;
 
-    // 1. Config & Path detection
-    const initialPreset = script.getAttribute('data-preset');
-    const autoInit = script.getAttribute('data-auto-init') !== 'false';
     const detectedBase = script.src.split('/').slice(0, -2).join('/') + '/';
-    const basePath = script.getAttribute('data-base-path') || detectedBase;
+    const basePath = (script.getAttribute('data-base-path') || detectedBase).replace(/\/?$/, '/');
+    const autoInit = script.getAttribute('data-auto-init') !== 'false';
+    const initialPreset = script.getAttribute('data-preset');
+    const initialMode = script.getAttribute('data-mode');
+    const defaultMinified = script.getAttribute('data-minified') === 'true';
 
-    // 2. CSS Injection or Detection
-    const linkId = 'theme-preset';
-    let existingLink = document.getElementById(linkId);
-
-    // If no ID exists, try to find a link that looks like a BTDT preset
-    if (!existingLink) {
-        existingLink = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
-            .find(link => link.href.includes('themes/preset/'));
-        if (existingLink) existingLink.id = linkId; // Link it to the API
+    function withCacheBust(path) {
+        const sep = path.includes('?') ? '&' : '?';
+        return `${path}${sep}v=${Date.now()}`;
     }
 
-    if (initialPreset && !existingLink) {
-        const link = document.createElement('link');
-        link.id = linkId;
-        link.rel = 'stylesheet';
-        link.href = initialPreset.endsWith('.css')
-            ? initialPreset
-            : `${basePath}themes/preset/${initialPreset}.css`;
-        document.head.appendChild(link);
+    function getOrCreateLink(id, href, disabled) {
+        let link = document.getElementById(id);
+        if (!link) {
+            link = document.createElement('link');
+            link.id = id;
+            link.rel = 'stylesheet';
+            document.head.appendChild(link);
+        }
+        if (typeof disabled === 'boolean') {
+            link.disabled = disabled;
+        }
+        if (href) {
+            link.href = withCacheBust(href);
+        }
+        return link;
     }
 
-    // 3. Global API Object
+    function findPresetLink() {
+        return document.getElementById('theme-preset') ||
+            Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+                .find((link) => link.href.includes('/themes/preset/') || link.href.includes('themes/preset/')) ||
+            null;
+    }
+
+    function resolvePresetHref(name, options) {
+        const useMinified = Boolean(options && options.minified);
+        if (!name) return null;
+        if (name.endsWith('.css') || name.includes('/')) return name;
+        return `${basePath}themes/preset/${name}${useMinified ? '.min' : ''}.css`;
+    }
+
+    function ensurePresetLink() {
+        const existing = findPresetLink();
+        if (existing) {
+            existing.id = 'theme-preset';
+            return existing;
+        }
+        return getOrCreateLink('theme-preset');
+    }
+
+    function ensureModeLink() {
+        return getOrCreateLink('theme-mode', `${basePath}themes/modes/dark.css`, true);
+    }
+
+    function applyMode(mode) {
+        const normalized = mode === 'dark' ? 'dark' : 'light';
+        const modeLink = ensureModeLink();
+
+        document.documentElement.setAttribute('data-bs-theme', normalized);
+        if (normalized === 'dark') {
+            document.documentElement.setAttribute('data-mode', 'dark');
+            modeLink.disabled = false;
+        } else {
+            document.documentElement.removeAttribute('data-mode');
+            modeLink.disabled = true;
+        }
+
+        document.head.appendChild(modeLink);
+        return normalized;
+    }
+
     window.btdt = {
         _initialized: true,
-        _manager: null,
-        _loading: null,
+        _mode: document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'dark' : 'light',
 
-        /**
-         * Returns the full ThemeManager instance. Low-level access.
-         */
-        getManager: function() {
-            if (this._manager) return Promise.resolve(this._manager);
-            if (this._loading) return this._loading;
+        load: function(name, options) {
+            const normalizedOptions = {
+                minified: defaultMinified,
+                ...(options || {})
+            };
+            const href = resolvePresetHref(name, normalizedOptions);
+            if (!href) return this;
 
-            this._loading = new Promise((resolve) => {
-                const s = document.createElement('script');
-                s.src = `${basePath}js/theme-manager.js`;
-                s.onload = () => {
-                    this._manager = new ThemeManager({ basePath });
-                    resolve(this._manager);
-                };
-                document.head.appendChild(s);
-            });
-            return this._loading;
+            const link = ensurePresetLink();
+            link.href = withCacheBust(href);
+            document.head.appendChild(link);
+            return this;
         },
 
-        /**
-         * Loads a preset by name.
-         * @param {string} name - Preset name (e.g., 'studio', 'aurora')
-         */
-        load: async function(name) {
-            const m = await this.getManager();
-            return m.applyPreset(name);
+        setMode: function(mode) {
+            this._mode = applyMode(mode);
+            return this;
         },
 
-        /**
-         * Toggles between light and dark mode.
-         */
-        toggleMode: async function() {
-            const m = await this.getManager();
-            return m.toggleMode();
+        toggleMode: function() {
+            return this.setMode(this._mode === 'dark' ? 'light' : 'dark');
         },
 
-        /**
-         * Set specific mode ('light' or 'dark').
-         */
-        setMode: async function(mode) {
-            const m = await this.getManager();
-            return m.setMode(mode);
+        getMode: function() {
+            return this._mode;
         }
     };
 
-    // 4. Background initialization
     if (autoInit) {
-        window.btdt.getManager();
+        ensureModeLink();
+
+        if (initialPreset) {
+            window.btdt.load(initialPreset);
+        } else {
+            const existingPreset = findPresetLink();
+            if (existingPreset) existingPreset.id = 'theme-preset';
+        }
+
+        if (initialMode === 'dark' || initialMode === 'light') {
+            window.btdt.setMode(initialMode);
+        } else {
+            window.btdt.setMode(window.btdt._mode);
+        }
     }
 })();

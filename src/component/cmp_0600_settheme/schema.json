@@ -54,7 +54,9 @@
                     "allow_themes": [
                         "studio",
                         "aurora",
+                        "cobalt-pro",
                         "paper",
+                        "gray",
                         "retro",
                         "noir",
                         "citrus",

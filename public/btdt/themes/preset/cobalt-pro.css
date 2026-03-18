@@ -1,25 +1,25 @@
-@import "../colors/peach.css";
-@import "../fonts/comfortaa.css";
-@import "../styles/background-primary-low.css";
+@import "../colors/cobalt-power.css";
+@import "../fonts/montserrat.css";
+@import "../styles/background-gray-low.css";
 @import "../styles/borders-minimal.css";
-@import "../styles/rounding-extra.css";
+@import "../styles/rounding-none.css";
 @import "../styles/shadows-normal.css";
 @import "../styles/spacing-normal.css";
-@import "../styles/gradients-off.css";
+@import "../styles/gradients-on.css";
 @import "../styles/accent-none.css";
 @import "../styles/accent-1.css";
 @import "../styles/accent-primary.css";
 
 /* Metadata for the editor */
 :root {
-  --preset-colors: "peach";
-  --preset-fonts: "comfortaa";
-  --preset-background: "primary-low";
+  --preset-colors: "cobalt-power";
+  --preset-fonts: "montserrat";
+  --preset-background: "gray-low";
   --preset-borders: "minimal";
-  --preset-rounding: "extra";
+  --preset-rounding: "none";
   --preset-shadows: "normal";
   --preset-spacing: "normal";
-  --preset-gradients: "off";
+  --preset-gradients: "on";
   --preset-accent: "none";
   --preset-accentSize: "1";
   --preset-accentColor: "primary";

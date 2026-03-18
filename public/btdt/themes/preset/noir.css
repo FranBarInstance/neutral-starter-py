@@ -1,20 +1,26 @@
 @import "../colors/ink.css";
 @import "../fonts/ubuntu.css";
+@import "../styles/background-none.css";
 @import "../styles/borders-normal.css";
 @import "../styles/rounding-none.css";
 @import "../styles/shadows-none.css";
 @import "../styles/spacing-small.css";
 @import "../styles/gradients-off.css";
 @import "../styles/accent-left.css";
+@import "../styles/accent-1.css";
+@import "../styles/accent-gray.css";
 
 /* Metadata for the editor */
 :root {
   --preset-colors: "ink";
   --preset-fonts: "ubuntu";
+  --preset-background: "none";
   --preset-borders: "normal";
   --preset-rounding: "none";
   --preset-shadows: "none";
   --preset-spacing: "small";
   --preset-gradients: "off";
   --preset-accent: "left";
+  --preset-accentSize: "1";
+  --preset-accentColor: "gray";
 }

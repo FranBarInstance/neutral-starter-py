@@ -1,19 +1,26 @@
 @import "../colors/arctic.css";
 @import "../fonts/inter.css";
+@import "../styles/background-gray-low.css";
 @import "../styles/borders-none.css";
 @import "../styles/rounding-extra.css";
 @import "../styles/shadows-normal.css";
 @import "../styles/spacing-large.css";
 @import "../styles/gradients-off.css";
 @import "../styles/accent-none.css";
+@import "../styles/accent-1.css";
+@import "../styles/accent-primary.css";
 
+/* Metadata for the editor */
 :root {
   --preset-colors: "arctic";
   --preset-fonts: "inter";
+  --preset-background: "gray-low";
   --preset-borders: "none";
   --preset-rounding: "extra";
   --preset-shadows: "normal";
   --preset-spacing: "large";
   --preset-gradients: "off";
   --preset-accent: "none";
+  --preset-accentSize: "1";
+  --preset-accentColor: "primary";
 }

@@ -28,7 +28,7 @@
             "current": {
                 "theme": {
                     "theme": "studio",
-                    "color": "primary",
+                    "color": "",
                     "class": {
                         "container": "container p-0 p-md-2",
                         "body_main": "",

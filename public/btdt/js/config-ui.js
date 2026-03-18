@@ -1,9 +1,23 @@
 // btdt/js/config-ui.js
 window.BTDT_UI = {
-  borders: { normal: 'Normal', extra: 'Thick', none: 'None' },
+  background: {
+    none: 'None',
+    'primary-low': 'Primary · Low',
+    'primary-medium': 'Primary · Medium',
+    'primary-high': 'Primary · High',
+    'secondary-low': 'Secondary · Low',
+    'secondary-medium': 'Secondary · Medium',
+    'secondary-high': 'Secondary · High',
+    'gray-low': 'Gray · Low',
+    'gray-medium': 'Gray · Medium',
+    'gray-high': 'Gray · High'
+  },
+  borders: { normal: 'Normal', minimal: 'Minimal', extra: 'Thick', none: 'None' },
   rounding: { normal: 'Normal', extra: 'Extra', none: 'Sharp' },
   shadows: { normal: 'Normal', extra: 'Extra', none: 'None' },
   spacing: { normal: 'Normal', large: 'Large', small: 'Compact' },
   gradients: { on: 'Yes', off: 'No' },
-  accent: { none: 'None', left: 'Left', right: 'Right', top: 'Top', bottom: 'Bottom' }
+  accent: { none: 'None', left: 'Left', right: 'Right', top: 'Top', bottom: 'Bottom' },
+  accentSize: { 1: '1 px', 2: '2 px', 3: '3 px', 4: '4 px', 5: '5 px' },
+  accentColor: { primary: 'Primary', secondary: 'Secondary', gray: 'Gray' }
 };

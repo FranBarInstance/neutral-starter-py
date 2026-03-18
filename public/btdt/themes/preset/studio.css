@@ -1,20 +1,26 @@
 @import "../colors/corporate.css";
 @import "../fonts/ubuntu.css";
-@import "../styles/borders-normal.css";
+@import "../styles/background-none.css";
+@import "../styles/borders-minimal.css";
 @import "../styles/rounding-normal.css";
 @import "../styles/shadows-normal.css";
 @import "../styles/spacing-normal.css";
 @import "../styles/gradients-off.css";
 @import "../styles/accent-bottom.css";
+@import "../styles/accent-2.css";
+@import "../styles/accent-secondary.css";
 
 /* Metadata for the editor */
 :root {
   --preset-colors: "corporate";
   --preset-fonts: "ubuntu";
-  --preset-borders: "normal";
+  --preset-background: "none";
+  --preset-borders: "minimal";
   --preset-rounding: "normal";
   --preset-shadows: "normal";
   --preset-spacing: "normal";
   --preset-gradients: "off";
   --preset-accent: "bottom";
+  --preset-accentSize: "2";
+  --preset-accentColor: "secondary";
 }

@@ -1,19 +1,26 @@
 @import "../colors/candy.css";
 @import "../fonts/quicksand.css";
+@import "../styles/background-none.css";
 @import "../styles/borders-none.css";
 @import "../styles/rounding-extra.css";
 @import "../styles/shadows-extra.css";
 @import "../styles/spacing-normal.css";
 @import "../styles/gradients-on.css";
-@import "../styles/accent-top.css";
+@import "../styles/accent-bottom.css";
+@import "../styles/accent-3.css";
+@import "../styles/accent-primary.css";
 
+/* Metadata for the editor */
 :root {
   --preset-colors: "candy";
   --preset-fonts: "quicksand";
+  --preset-background: "none";
   --preset-borders: "none";
   --preset-rounding: "extra";
   --preset-shadows: "extra";
   --preset-spacing: "normal";
   --preset-gradients: "on";
-  --preset-accent: "top";
+  --preset-accent: "bottom";
+  --preset-accentSize: "3";
+  --preset-accentColor: "primary";
 }

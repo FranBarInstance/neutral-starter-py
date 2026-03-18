@@ -5,3 +5,4 @@
 - Do not use global/system Python tools when `.venv` is available.
 - For linting, prefer:
   `source .venv/bin/activate && python -m pylint <paths>`
+- Check the `.agent/skills/` directory for available skills.

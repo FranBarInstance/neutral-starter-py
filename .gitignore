@@ -63,6 +63,6 @@ coverage.xml
 docs/_build/
 .idea/
 
-/prepare-request-refactor.md
 bin/create_test_users.py
 src/component/cmp_0250_forms/neutral/plugins
+.codex
