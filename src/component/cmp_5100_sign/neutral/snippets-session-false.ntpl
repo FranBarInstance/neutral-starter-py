@@ -6,9 +6,9 @@
 *:}
 
 {:snip; sign:modal-buttons >>
-    <button type="button" class="mx-0 btn btn-light btn-sm {:;local::x-icon-sign-reminder:}" data-bs-toggle="modal" data-bs-target="#reminderModal" {:param; disabled-reminder :}> {:trans; Reminder :}</button>
-    <button type="button" class="mx-0 me-1 btn btn-light btn-sm {:;local::x-icon-sign-in:} ms-auto" data-bs-toggle="modal" data-bs-target="#loginModal" {:param; disabled-login :}> {:trans; Sign in :}</button>
-    <button type="button" class="mx-0 btn btn-light btn-sm {:;local::x-icon-sign-up:}" data-bs-toggle="modal" data-bs-target="#registerModal" {:param; disabled-register :}> {:trans; Sign up :}</button>
+    <button type="button" class="mx-0 btn btn-light btn-sm {:;local::x-icon-sign-reminder:}" data-bs-toggle="modal" data-bs-target="#reminderModal" {:param; disabled-reminder :}> <span class="d-none d-md-inline">{:trans; Reminder :}</span></button>
+    <button type="button" class="mx-0 me-2 btn btn-light btn-sm {:;local::x-icon-sign-in:} ms-auto" data-bs-toggle="modal" data-bs-target="#loginModal" {:param; disabled-login :}> <span class="">{:trans; Sign in :}</span></button>
+    <button type="button" class="mx-0 btn btn-light btn-sm {:;local::x-icon-sign-up:}" data-bs-toggle="modal" data-bs-target="#registerModal" {:param; disabled-register :}> <span class="">{:trans; Sign up :}</span></button>
 :}
 
 {:snip; sign:template-modals >>
