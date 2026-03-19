@@ -13,7 +13,7 @@
         data-cookie-expire="0"
         data-dark-value="{:;USER->profile->properties->dark_mode:}"
         data-dark-system="true"
-        src="{:;current->site->static:}btdt/js/btdt.min.js?v=1.0.0>
+        src="{:;current->site->static:}btdt/js/btdt.min.js?v=1.0.0">
     </script>
 :}
 
