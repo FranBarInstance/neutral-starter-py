@@ -166,6 +166,13 @@
         <div class="mb-4">
             <h6 class="text-uppercase text-muted small fw-bold mb-2">Projects</h6>
             <div class="vstack gap-2">
+                <a href="https://github.com/FranBarInstance/bootstrap-dynamic-themes" target="_blank" class="list-group-item list-group-item-action border-0 px-2 py-2 rounded">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="small">Bootstrap Dynamic Themes</strong>
+                        <small class="text-muted">↗</small>
+                    </div>
+                    <div class="small text-muted">Dynamic themes for Bootstrap 5</div>
+                </a>
                 <a href="https://github.com/FranBarInstance/neutralts" target="_blank" class="list-group-item list-group-item-action border-0 px-2 py-2 rounded">
                     <div class="d-flex w-100 align-items-center justify-content-between">
                         <strong class="small">Neutral TS</strong>
