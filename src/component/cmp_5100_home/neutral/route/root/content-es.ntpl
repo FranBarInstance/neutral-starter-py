@@ -1,5 +1,5 @@
 {:* ─── Hero Section ─── *:}
-<div class="border rounded-4 p-4 p-md-5 mb-5 text-center bg-body-tertiary">
+<div class="card p-4 p-md-5 mb-5 text-center bg-light shadow-sm">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10">
             <span class="badge border text-body-secondary text-uppercase px-3 py-2 mb-3"
@@ -8,14 +8,14 @@
             </span>
             <h1 class="display-4 fw-bold mb-3">Neutral TS Starter Py</h1>
             <p class="lead text-body-secondary mb-4 mx-auto">
-                Un kit de inicio modular y opinionado para construir
-                <strong class="text-body">Aplicaciones Web Progresivas</strong> utilizando
+                Un kit de inicio modular y opinado para construir
+                <strong class="text-body">Aplicaciones Web Progresivas</strong> usando
                 <strong class="text-body">Python&nbsp;(Flask)</strong> en el backend y
                 <strong class="text-body">Neutral&nbsp;TS</strong> como motor de plantillas universal.
             </p>
             <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🐍 Flask</span>
-                <span class="badge border rounded-pill text-body-secondary px-3 py-2">📱 PWA Ready</span>
+                <span class="badge border rounded-pill text-body-secondary px-3 py-2">📱 PWA Listo</span>
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🧩 Neutral TS</span>
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🔒 Seguridad</span>
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🌐 i18n</span>
@@ -61,7 +61,7 @@
        >Características</p>
     <h2 class="fw-bold mb-2">Todo lo que Necesitas</h2>
     <p class="text-body-secondary mx-auto mb-0">
-        Bases listas para producción para que puedas concentrarte en construir tu producto, no el código repetitivo.
+        Fundaciones listas para producción para que puedas enfocarte en construir tu producto, no en código base.
     </p>
 </div>
 
@@ -69,9 +69,9 @@
 <div class="row g-4 mb-5">
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M6 2a.5.5 0 0 1 .47.33L10
@@ -97,9 +97,9 @@
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M14 1a1 1 0 0 1 1 1v12a1
@@ -123,17 +123,17 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">Plantillas NTPL</h3>
                 <p class="text-body-secondary mb-0">
-                    Composición poderosa de fragmentos con datos impulsados por esquemas. Construye interfaces
-                    dinámicas con código de plantillas limpio y mantenible.
+                    Potente composición de fragmentos con datos impulsados por esquema. Construye interfaces dinámicas
+                    con código de plantilla limpio y mantenible.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M11.251.068a.5.5 0 0 1
@@ -148,17 +148,17 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">Soporte PWA</h3>
                 <p class="text-body-secondary mb-0">
-                    Service worker integrado, página sin conexión y manifest web.
-                    Instala tu aplicación en cualquier dispositivo con una experiencia similar a nativa.
+                    Service worker integrado, página sin conexión y manifiesto web.
+                    Instala tu aplicación en cualquier dispositivo con una experiencia similar a la nativa.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M5.338 1.59a61.44 61.44
@@ -177,9 +177,9 @@
                             7.042 0c.069.058.138.112.207.163a.519.519
                             0 0 1-.052.838
                             6.42 6.42 0 0
-                            1-448.517.517
+                            1-1.027.448.517.517
                             0 0 0-.28.677c.213.431.444.837.692
-                            11.027..216a.478.478 0 0
+                            1.216a.478.478 0 0
                             0 .472.221c.844-.098
                             1.72-.248
                             2.616-.462a.479.479
@@ -204,17 +204,17 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">Seguridad Primero</h3>
                 <p class="text-body-secondary mb-0">
-                    CSP, lista de hosts permitidos, protección de cabeceras de proxy confiables,
-                    cabeceras de seguridad, flujos de tokens de formulario/sesión y limitación de velocidad incluidos.
+                    CSP, lista de permitidos de host, guardia de encabezado de proxy confiable, encabezados de seguridad,
+                    flujos de tokens de formulario/sesión y limitación de velocidad incluidos.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M4.545 6.714 4.11
@@ -240,7 +240,7 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">Internacionalización</h3>
                 <p class="text-body-secondary mb-0">
-                    Soporte completo de i18n a través de archivos de locale de componentes. Traduce fácilmente tu
+                    Soporte completo de i18n a través de archivos de configuración regional de componentes. Traduce fácilmente tu
                     aplicación a múltiples idiomas sin fricción.
                 </p>
             </div>
@@ -248,9 +248,9 @@
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M10.478 1.647a.5.5 0 1
@@ -275,7 +275,7 @@
                             0 0 0-.708 0z"/>
                     </svg>
                 </div>
-                <h3 class="h5 fw-bold mb-2">Desarrollado con Flask</h3>
+                <h3 class="h5 fw-bold mb-2">Impulsado por Flask</h3>
                 <p class="text-body-secondary mb-0">
                     Fábrica de aplicaciones con enrutamiento impulsado por componentes y registro de blueprints.
                     Python 3.10 – 3.14 con pruebas integradas.
@@ -286,15 +286,15 @@
 </div>
 
 {:* ─── Call to Action ─── *:}
-<div class="border rounded-4 bg-body-secondary p-4 p-md-5 text-center mb-5">
+<div class="card p-4 p-md-5 text-center mb-5 bg-light shadow-sm">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
             <p class="text-body-tertiary text-uppercase fw-semibold mb-2"
                >¿Listo para construir?</p>
             <h2 class="fw-bold mb-3">Comienza Hoy</h2>
             <p class="text-body-secondary mb-4 mx-auto">
-                Construye PWAs modernos con una arquitectura limpia — perfecto para desarrolladores
-                que valoran la estructura, seguridad y escalabilidad.
+                Construye PWAs modernas con una arquitectura limpia — perfecto para desarrolladores
+                que valoran la estructura, la seguridad y la escalabilidad.
             </p>
             <div class="d-flex flex-wrap justify-content-center gap-3">
                 <a href="https://github.com/FranBarInstance/neutral-starter-py"

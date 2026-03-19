@@ -1,21 +1,21 @@
 {:* ─── Hero Section ─── *:}
-<div class="border rounded-4 p-4 p-md-5 mb-5 text-center bg-body-tertiary">
+<div class="card p-4 p-md-5 mb-5 text-center bg-light shadow-sm" dir="rtl" lang="ar">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10">
             <span class="badge border text-body-secondary text-uppercase px-3 py-2 mb-3"
                   >
-                مجموعة بدء مفتوحة المصدر
+                مجموعة بداية مفتوحة المصدر
             </span>
             <h1 class="display-4 fw-bold mb-3">Neutral TS Starter Py</h1>
             <p class="lead text-body-secondary mb-4 mx-auto">
-                مجموعة بدء معيارية ومتخصصة لبناء
-                <strong class="text-body">تطبيقات الويب التقدومية</strong> باستخدام
-                <strong class="text-body">Python&nbsp;(Flask)</strong> في الخلفية و
+                مجموعة بداية معيارية ومنظمة لبناء
+                <strong class="text-body">تطبيقات الويب التقدمية</strong> باستخدام
+                <strong class="text-body">Python&nbsp;(Flask)</strong> في الواجهة الخلفية و
                 <strong class="text-body">Neutral&nbsp;TS</strong> كمحرك قوالب عالمي.
             </p>
             <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🐍 Flask</span>
-                <span class="badge border rounded-pill text-body-secondary px-3 py-2">📱 PWA Ready</span>
+                <span class="badge border rounded-pill text-body-secondary px-3 py-2">📱 PWA جاهز</span>
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🧩 Neutral TS</span>
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🔒 الأمان</span>
                 <span class="badge border rounded-pill text-body-secondary px-3 py-2">🌐 i18n</span>
@@ -48,7 +48,7 @@
                 <a href="https://franbarinstance.github.io/neutral-starter-py/"
                    target="_blank"
                    class="btn btn-outline-secondary btn-lg px-4">
-                    التوثيق →
+                    التوثيق ←
                 </a>
             </div>
         </div>
@@ -56,22 +56,22 @@
 </div>
 
 {:* ─── Features Header ─── *:}
-<div class="text-center mb-4">
+<div class="text-center mb-4" dir="rtl" lang="ar">
     <p class="text-body-tertiary text-uppercase fw-semibold mb-1"
        >الميزات</p>
     <h2 class="fw-bold mb-2">كل ما تحتاجه</h2>
     <p class="text-body-secondary mx-auto mb-0">
-        أسس جاهزة للإنتاج حتى تتمكن من التركيز على بناء منتجك، وليس الكود القياسي.
+        أساسيات جاهزة للإنتاج حتى تتمكن من التركيز على بناء منتجك، وليس على الكود الأساسي.
     </p>
 </div>
 
 {:* ─── Features Grid ─── *:}
-<div class="row g-4 mb-5">
+<div class="row g-4 mb-5" dir="rtl" lang="ar">
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M6 2a.5.5 0 0 1 .47.33L10
@@ -87,19 +87,19 @@
                             0 0 1 6 2z"/>
                     </svg>
                 </div>
-                <h3 class="h5 fw-bold mb-2">البنية المعيارية</h3>
+                <h3 class="h5 fw-bold mb-2">بنية معيارية</h3>
                 <p class="text-body-secondary mb-0">
-                    نظام مكونات قابل للتوصيل والتشغيل. تمتد من النماذج الأولية السريعة إلى
-                    التطبيقات المعقدة مع الحفاظ على هيكل نظيف ومنفصل.
+                    نظام مكونات قابل للتوسيع والتشغيل الفوري. قم بالتوسع من النماذج الأولية السريعة إلى
+                    التطبيقات المعقدة مع الحفاظ على بنية نظيفة ومنفصلة.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M14 1a1 1 0 0 1 1 1v12a1
@@ -123,17 +123,17 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">قوالب NTPL</h3>
                 <p class="text-body-secondary mb-0">
-                    تكوين مقتطفات قوي مع بيانات موجهة بالمخطط. قم ببناء واجهات مستخدم ديناميكية
-                    باستخدام كود قوالب نظيف وقابل للصيانة.
+                    تكوين قطع قوية مع بيانات مدعومة بالمخطط. قم ببناء واجهات مستخدم ديناميكية
+                    مع كود قوالب نظيف وقابل للصيانة.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M11.251.068a.5.5 0 0 1
@@ -148,17 +148,17 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">دعم PWA</h3>
                 <p class="text-body-secondary mb-0">
-                   service worker مدمج وصفحة غير متصلة و manifest الويب.
-                    قم بتثبيت تطبيقك على أي جهاز مع تجربة شبيهة بالتطبيق الأصلي.
+                    خدمة عامل مدمجة، صفحة بدون اتصال، وويب مانيفست.
+                    قم بتثبيت تطبيقك على أي جهاز مع تجربة مشابهة للتطبيق الأصلي.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M5.338 1.59a61.44 61.44
@@ -204,17 +204,17 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">الأمان أولاً</h3>
                 <p class="text-body-secondary mb-0">
-                    CSP وقائمة السماح للمضيفين وحماية رؤوس البروksi الموثوقة ورؤوس الأمان
-                    وتدفقات رموز النموذج/الجلسة وتقييد المعدل مضمنة.
+                    CSP، قائمة السماح للمضيفين، حارس رأس الوكيل الموثوق، رؤوس الأمان，
+                    تدفقات رموز النماذج/الجلسات، وتحديد معدل مدرج.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M4.545 6.714 4.11
@@ -240,17 +240,17 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">التدويل</h3>
                 <p class="text-body-secondary mb-0">
-                    دعم كامل لـ i18n من خلال ملفات لغة المكونات. ترجم تطبيقك بسهولة
-                    إلى لغات متعددة بدون احتكاك.
+                    دعم i18n كامل من خلال ملفات locale للمكونات. قم بترجمة تطبيقك بسهولة
+                    إلى لغات متعددة بدون تعقيد.
                 </p>
             </div>
         </div>
     </div>
 
     <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100 border rounded-4">
+        <div class="card h-100 bg-white">
             <div class="card-body p-4">
-                <div class="d-inline-flex align-items-center justify-content-center border rounded-3 mb-3">
+                <div class="d-inline-flex align-items-center justify-content-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                          fill="currentColor" class="text-body-secondary" viewBox="0 0 16 16">
                         <path d="M10.478 1.647a.5.5 0 1
@@ -277,7 +277,7 @@
                 </div>
                 <h3 class="h5 fw-bold mb-2">مدعوم بـ Flask</h3>
                 <p class="text-body-secondary mb-0">
-                    مصنع تطبيقات مع توجيه يعتمد على المكونات وتسجيل blueprints.
+                    مصنع التطبيقات مع التوجيه المدعوم بالمكونات وتسجيل المخططات.
                     Python 3.10 – 3.14 مع اختبارات مدمجة.
                 </p>
             </div>
@@ -286,14 +286,14 @@
 </div>
 
 {:* ─── Call to Action ─── *:}
-<div class="border rounded-4 bg-body-secondary p-4 p-md-5 text-center mb-5">
+<div class="card p-4 p-md-5 text-center mb-5 bg-light shadow-sm" dir="rtl" lang="ar">
     <div class="row justify-content-center">
         <div class="col-12 col-lg-8">
             <p class="text-body-tertiary text-uppercase fw-semibold mb-2"
-               >مستعد للبناء؟</p>
+               >هل أنت مستعد للبناء؟</p>
             <h2 class="fw-bold mb-3">ابدأ اليوم</h2>
             <p class="text-body-secondary mb-4 mx-auto">
-                قم ببناء PWAs الحديثة بهندسة نظيفة — مثالي للمطورين
+                قم ببناء تطبيقات ويب تقدمية حديثة مع بنية نظيفة — مثالية للمطورين
                 الذين يقدرون الهيكل والأمان وقابلية التوسع.
             </p>
             <div class="d-flex flex-wrap justify-content-center gap-3">
@@ -327,9 +327,9 @@
 </div>
 
 {:* ─── Footer ─── *:}
-<footer class="text-center py-4">
+<footer class="text-center py-4" dir="rtl" lang="ar">
     <hr class="mx-auto mb-3">
     <p class="text-body-tertiary mb-0 small">
-        Neutral TS Starter Py &copy; 2026 — مبني بـ Flask & Neutral TS
+        Neutral TS Starter Py &copy; 2026 — تم البناء بـ Flask & Neutral TS
     </p>
 </footer>
