@@ -48,23 +48,23 @@
 
 {:snip; rrss:urls-buttons >>
     {:snip; rrss:btn-text-muted:{:;local::rrss_name:} >>
-        text-muted border-dark
+        bg-light
     :}
     <div class="text-center text-md-start">
         {:each; local::rrss_urls name url >>
-            <a href="{:;rrss_0yt2sa->manifest->route:}/rss/{:;name:}" class="btn btn-sm btn-light my-1 me-1 me-md-2 click-load-spin {:;local::x-icon-rss:} {:snip; rrss:btn-text-muted:{:;name:} :}"> {:;name:}</a>
+            <a href="{:;rrss_0yt2sa->manifest->route:}/rss/{:;name:}" class="btn btn-sm btn-primary my-1 me-1 me-md-2 click-load-spin {:;local::x-icon-rss:} {:snip; rrss:btn-text-muted:{:;name:} :}"> {:;name:}</a>
         :}
     </div>
 :}
 
 {:snip; rrss:urls-buttons-next >>
     {:snip; rrss:btn-text-muted:{:;local::rrss_name:} >>
-        text-muted border-dark
+        bg-light
     :}
     <div class="text-center text-md-start">
     {:each; local::rrss_urls name url >>
         <button
-            class="btn btn-sm btn-light neutral-fetch-click click-load-spin my-1 me-1 me-md-2 {:snip; rrss:btn-text-muted:{:;name:} :}"
+            class="btn btn-sm btn-primary neutral-fetch-click click-load-spin my-1 me-1 me-md-2 {:snip; rrss:btn-text-muted:{:;name:} :}"
             data-url="{:;rrss_0yt2sa->manifest->route:}/ajax/{:;name:}"
             data-wrap="rrss-wrapper-next"
         ><span class="{:;local::x-icon-rss:}"></span> {:;name:}</button>
@@ -76,7 +76,7 @@
     <div class="row g-3 mt-1 mb-3">
     {:each; local::rrss_feed_entries key entry >>
         <div class="col-md-6 col-12">
-            <div class="card h-100">
+            <div class="card h-100 bg-white">
                 <div class="card-body h-100">
                     <h4 class="card-title">
                         {:;entry->title:}
