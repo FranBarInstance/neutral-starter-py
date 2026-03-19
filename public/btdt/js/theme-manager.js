@@ -412,16 +412,34 @@ class ThemeManager {
   generatePresetCSS() {
     const config = this.getConfig();
     let css = "/* Theme Preset - Save as themes/preset/custom.css */\n";
-    
-    Object.entries(config).forEach(([cat, val]) => {
-      if (!val || cat === '_preset') return;
-      
+
+    // IMPORTANT: @import order is intentional.
+    // Keep all imports at the top and emit fonts before colors to avoid
+    // ordering issues in downstream preset bundling/minification pipelines.
+    const exportOrder = [
+      'fonts',
+      'colors',
+      'background',
+      'borders',
+      'rounding',
+      'shadows',
+      'spacing',
+      'gradients',
+      'accent',
+      'accentSize',
+      'accentColor',
+    ];
+
+    exportOrder.forEach((cat) => {
+      const val = config[cat];
+      if (!val) return;
+
       let path = "";
       if (cat === 'colors') path = `../colors/${val}.css`;
       else if (cat === 'fonts') path = `../fonts/${val}.css`;
       else if (cat === 'accentSize' || cat === 'accentColor') path = `../styles/accent-${val}.css`;
       else path = `../styles/${cat}-${val}.css`;
-      
+
       css += `@import "${path}";\n`;
     });
 

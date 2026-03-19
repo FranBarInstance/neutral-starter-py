@@ -1,133 +1,24 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:snip; theme_0yt2sa-head >>
-    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}btdt/css/bootstrap.min.css">
-    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" id="theme-preset" href="{:;current->site->static:}btdt/themes/preset/{:;local::current->theme->theme:}.min.css">
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" id="theme-preset-bootstrap" href="{:;current->site->static:}btdt/css/bootstrap.min.css">
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" id="theme-preset" href="{:;current->site->static:}btdt/themes/preset/{:;local::current->theme->theme:}.min.css?v=1.0.0">
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" id="theme-preset-dark" href="{:;current->site->static:}btdt/themes/modes/dark.min.css?v=1.0.0" media="not all">
     <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}css/neutral-custom.min.css" />
-    {:snip; current:template:heading-medium :}
-    <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}btdt/js/btdt.min.js"></script>
-    <script nonce="{:;CSP_NONCE:}">
-        (function() {
-            const systemDarkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-            const prefersDark = systemDarkQuery.matches;
-            if (prefersDark) {
-                window.btdt.setMode('dark');
-            };
-        })();
+    <script
+        nonce="{:;CSP_NONCE:}"
+        data-minified="true"
+        data-preset="{:;local::current->theme->theme:}"
+        data-dark-cookie="dark-mode-on"
+        data-cookie-expire="0"
+        data-dark-value="{:;USER->profile->properties->dark_mode:}"
+        data-dark-system="true"
+        src="{:;current->site->static:}btdt/js/btdt.min.js?v=1.0.0>
     </script>
 :}
 
 {:snip; theme_0yt2sa-body-end >>
     <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}btdt/js/bootstrap.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script nonce="{:;CSP_NONCE:}">
-        (function() {
-            const cookieName = 'dark-mode-on';
-            const profileMode = "{:;USER->profile->properties->dark_mode:}".toLowerCase().trim();
-            const systemDarkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-
-            const getCookie = (name) => {
-                const parts = document.cookie.split(';').map((c) => c.trim());
-                const item = parts.find((c) => c.startsWith(name + '='));
-                return item ? decodeURIComponent(item.split('=').slice(1).join('=')) : '';
-            };
-
-            const setDarkCookie = () => {
-                document.cookie = `${cookieName}=on; path=/`;
-            };
-
-            const clearDarkCookie = () => {
-                document.cookie = `${cookieName}=; path=/; max-age=0`;
-            };
-
-            const getSystemMode = () => {
-                return systemDarkQuery && systemDarkQuery.matches ? 'dark' : 'light';
-            };
-
-            const prefersSystemMode = () => {
-                return profileMode === '' || profileMode === 'auto' || profileMode === 'system';
-            };
-
-            const updateUi = (mode, persistCookie = true) => {
-                const isDark = mode === 'dark';
-                document.querySelectorAll('.dark-mode-enabled').forEach((el) => {
-                    el.classList.toggle('display-none', !isDark);
-                });
-                document.querySelectorAll('.dark-mode-disabled').forEach((el) => {
-                    el.classList.toggle('display-none', isDark);
-                });
-                if (persistCookie) {
-                    if (isDark) {
-                        setDarkCookie();
-                    } else {
-                        clearDarkCookie();
-                    }
-                }
-            };
-
-            const applyModePreference = () => {
-                if (!window.btdt) return;
-
-                if (profileMode === 'on') {
-                    window.btdt.setMode('dark');
-                    updateUi('dark');
-                    return;
-                }
-                if (profileMode === 'off') {
-                    window.btdt.setMode('light');
-                    updateUi('light');
-                    return;
-                }
-                const cookieMode = getCookie(cookieName);
-                if (cookieMode === 'on') {
-                    window.btdt.setMode('dark');
-                    updateUi('dark');
-                    return;
-                }
-                if (prefersSystemMode()) {
-                    const systemMode = getSystemMode();
-                    window.btdt.setMode(systemMode);
-                    clearDarkCookie();
-                    updateUi(systemMode, false);
-                    return;
-                }
-                updateUi(window.btdt.getMode());
-            };
-
-            document.addEventListener('DOMContentLoaded', () => {
-                if (!window.btdt) return;
-                applyModePreference();
-
-                document.querySelectorAll('.theme-light-dark-toggle').forEach((btn) => {
-                    btn.addEventListener('click', (ev) => {
-                        ev.preventDefault();
-                        const manager = window.btdt.toggleMode();
-                        updateUi(manager.getMode());
-                    });
-                });
-            });
-
-            if (systemDarkQuery) {
-                const syncSystemMode = () => {
-                    if (!prefersSystemMode()) return;
-                    if (getCookie(cookieName) === 'on') return;
-                    if (!window.btdt) return;
-
-                    const systemMode = getSystemMode();
-                    window.btdt.setMode(systemMode);
-                    clearDarkCookie();
-                    updateUi(systemMode, false);
-                };
-
-                if (typeof systemDarkQuery.addEventListener === 'function') {
-                    systemDarkQuery.addEventListener('change', syncSystemMode);
-                } else if (typeof systemDarkQuery.addListener === 'function') {
-                    systemDarkQuery.addListener(syncSystemMode);
-                }
-            }
-
-        })();
-    </script>
 :}
 
 {:moveto; /head >> {:snip; theme_0yt2sa-head :} :}
