@@ -89,7 +89,7 @@
                     <div class="tab-content text-truncate me-2 mt-3 w-100 min-vh-75 drawer-tabs-content-min-height" id="theme-drawer-tabs-content">
                         {:each; local::menu->session:{:;HAS_SESSION:} tabs menu >>
                             <div class="tab-pane fade" id="theme-drawer-tabs-{:;tabs:}" role="tabpanel" aria-labelledby="theme-drawer-{:;tabs:}">
-                                <div class="list-group">
+                                <div class="list-group border-0">
                                     {:each; menu key opt >>
                                         {:array; opt >>
                                             <a href="{:;opt->link:}" class="list-group-item list-group-item-action mb-1 {:;opt->class:}"{:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
