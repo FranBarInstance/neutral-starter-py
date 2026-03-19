@@ -125,7 +125,7 @@
             <span class="fs-5 fw-bold">Neutral TS</span>
         </a>
         <a href="https://github.com/FranBarInstance/" class="">
-            <img src="{:;current->site->static:}img/neutral.jpg" width="100%" alt="Neutral TS logo">
+            <img src="{:;current->site->static:}img/neutral.png" width="100%" alt="Neutral TS logo">
         </a>
         <div class="mb-4 mt-4">
             <h6 class="text-uppercase text-muted small fw-bold mb-2">About</h6>
