@@ -1,16 +1,8 @@
-.main-navbar .nav-link {
-    margin-right: 4px;
-    margin-left: 6px;
-    font-size: 16px;
-    padding-right: .6rem !important;
-    padding-left: .6rem !important;
-    padding-top: .5rem !important;
-    padding-bottom: .5rem !important;
-}
-
-.main-navbar .nav-item {
-    margin-right: 0 !important;
-    margin-left: 0 !important;
+.border-clean {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
 }
 
 .theme-drawer-close {

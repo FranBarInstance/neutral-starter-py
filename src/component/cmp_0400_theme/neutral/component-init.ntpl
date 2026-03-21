@@ -7,7 +7,6 @@
     <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}css/neutral-custom.min.css" />
     <script
         nonce="{:;CSP_NONCE:}"
-        data-minified="true"
         data-preset="{:;local::current->theme->theme:}"
         data-dark-cookie="dark-mode-on"
         data-cookie-expire="0"

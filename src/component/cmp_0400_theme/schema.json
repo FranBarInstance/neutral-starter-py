@@ -34,8 +34,9 @@
                         "body_main": "",
                         "body_lateral_bar": "",
                         "body": "",
-                        "body_navbar": "navbar-expand fixed-top border-top-0",
-                        "body_navbar_size": "py-2 py-md-3"
+                        "body_navbar_bg": "bg-primary",
+                        "body_navbar_size": "py-2 py-md-3",
+                        "body_navbar_class": "navbar-expand fixed-top border-clean"
                     },
                     "spin": "current:template:spin-set-spin4",
                     "allow_themes": [

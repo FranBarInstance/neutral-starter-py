@@ -35,7 +35,7 @@
     Main navbar
 *:}
 {:snip; current:template:main-navbar >>
-    <nav id="main-navbar" class="navbar main-navbar main-navbar-visible rounded-0 d-block bg-primary {:;local::current->theme->class->body_navbar :} {:;local::current->theme->class->body_navbar_size :}">
+    <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block {:;local::current->theme->class->body_navbar_bg :} {:;local::current->theme->class->body_navbar_class :} {:;local::current->theme->class->body_navbar_size :}">
         <div class="container">
             <button class="btn border-0 shadow-none p-0 px-1 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#theme-drawer" aria-controls="theme-drawer">
                 <span title="{:trans; Menu :}" class="navbar-toggler-icon"></span>
@@ -62,11 +62,6 @@
     Main drawer
 *:}
 {:snip; current:template:main-drawer >>
-    <style nonce="{:;CSP_NONCE:}">
-        #theme-drawer-tabs {
-            border-right: 1px solid #e5e5e5ff !important;
-        }
-    </style>
     <template-offcanvas>
         <div class="offcanvas offcanvas-start shadow theme-drawer theme-drawer-size" tabindex="-1" id="theme-drawer" aria-labelledby="theme-drawer-label">
             <div class="offcanvas-header px-1 bg-body-tertiary {:;local::current->theme->class->body_navbar_size :}" data-bs-dismiss="offcanvas">
