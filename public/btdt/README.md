@@ -148,7 +148,7 @@ The simplest way. One single line in the `<head>` handles both CSS injection and
 ```html
 <head>
     <link rel="stylesheet" href="btdt/css/bootstrap.min.css">
-    <script data-preset="studio" data-minified="true" src="btdt/js/btdt.min.js"></script>
+    <script data-preset="studio" src="btdt/js/btdt.min.js"></script>
 </head>
 ```
 
@@ -208,7 +208,7 @@ Loads a preset stylesheet dynamically. You can pass a preset name such as `studi
 ```javascript
 btdt.load('studio');
 btdt.load('aurora');
-btdt.load('aurora', { minified: true });
+btdt.load('aurora', { minified: false });
 btdt.load('/assets/themes/custom-theme.css');
 btdt.load('/assets/themes/custom-theme.min.css');
 ```
