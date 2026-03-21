@@ -38,6 +38,19 @@ This project is organized as a standalone module (`btdt/`) that can be easily dr
 3.  **Export**: Click **"Copy CSS Preset"** to get your `@import` code.
 4.  **Save & Link**: Save your design in `btdt/themes/preset/my-theme.css` and link it in your HTML.
 
+### Editor Bundled Export
+
+The visual editor also includes a browser-side helper at [`btdt/js/minify.js`](btdt/js/minify.js) for generating a **single bundled and minified preset CSS** from the current configuration.
+
+It is designed to mirror the preset flow from [`btdt/scripts/minify/minify.py`](btdt/scripts/minify/minify.py):
+
+- Resolves local `@import` rules recursively
+- Leaves external or media-qualified `@import` rules untouched
+- Hoists remaining `@import` rules to the top
+- Minifies the final combined stylesheet
+
+This feature is only available when the editor is served over `http://` or `https://`, because it relies on `fetch()` to read the imported CSS files. When the editor is opened via `file://`, the bundled export UI is disabled and shows a "not available on file://" message.
+
 ## BTDT vs. Bootswatch
 
 While **Bootswatch** is an industry standard for static themes, **BTDT** takes it to the next level by being a dynamic engine:
@@ -56,6 +69,20 @@ The application uses a **Modular CSS Injection** strategy managed by the `ThemeM
 1.  **Namespaced Engine**: Everything lives inside the `btdt/` folder to avoid filename collisions (like `js/` or `css/`) in your project.
 2.  **Base Path Awareness**: The `ThemeManager` supports a `basePath` configuration, allowing it to find its theme modules regardless of where your HTML file is located.
 3.  **Zero-CORS Metadata**: Presets include invisible CSS variables that the engine reads via computed styles, enabling full editor sync even in local environments (`file://`).
+
+### Theme Personalities
+
+BTDT can also apply **theme personalities**: final finish layers that add a distinctive character to a theme without fundamentally changing its identity.
+
+In practice, a personality is not a new palette or a new typography system. It is a surface treatment applied on top of the current theme, usually through contour, shadow, texture, glow, filter, or other finish effects.
+
+Current examples include:
+
+- `none`: no additional finish layer
+- `sketch`: irregular contours and rough-draft energy
+- `asymmetric`: a more off-balance contour treatment that gives components a distinctive silhouette
+
+The idea is simple: the theme defines what the interface is, and the personality defines how that same interface feels at the final visual layer.
 
 ## Pure CSS - No Compilation
 
@@ -97,12 +124,13 @@ Best for static sites where speed is the only priority. Zero JS dependency for i
 <head>
     <link rel="stylesheet" href="btdt/css/bootstrap.min.css">
     <link id="theme-preset" rel="stylesheet" href="btdt/themes/preset/studio.css">
+    <link id="theme-preset-dark" rel="stylesheet" href="btdt/themes/modes/dark.min.css" media="not all">
 </head>
 
 <body>
     ...
     <!-- API access -->
-    <script src="btdt/js/btdt.min.js"></script>
+    <script src="btdt/js/btdt.min.js?v=x.x.x"></script>
 </body>
 ```
 
@@ -127,6 +155,10 @@ The simplest way. One single line in the `<head>` handles both CSS injection and
 > [!NOTE]
 > Using the JS loader (**Option B**) may cause a slight flash of unstyled content (FOUC) during page load as the CSS is injected via JavaScript. For a perfectly smooth experience, use **Option A**.
 
+For production, prefer `btdt.min.js`. Adding a version to the script URL, for example `btdt/js/btdt.min.js?v=x.x.x`, is a simple way to invalidate browser cache after publishing changes.
+
+The BTDT loader (`btdt.js` / `btdt.min.js`) is **CSP compliant**: it does not require inline styles, `eval`, or a nonce.
+
 ### About `theme-preset`
 
 When using the JS loader, BTDT manages the active preset through a standard stylesheet tag:
@@ -137,12 +169,14 @@ When using the JS loader, BTDT manages the active preset through a standard styl
 
 This `id` is the fixed hook used by `btdt.js` to detect, reuse, or replace the current preset stylesheet. If it already exists, `btdt.load('aurora')` updates that same `<link>` instead of creating duplicates. If it does not exist, `btdt.js` creates it automatically.
 
+For dark mode, the loader also manages a separate `<link id="theme-preset-dark">` pointing to `btdt/themes/modes/dark.min.css`, enabling it through the `media` attribute when needed.
+
 Supported forms:
 
 ```html
 <link id="theme-preset" rel="stylesheet" href="btdt/themes/preset/studio.css">
 <link id="theme-preset" rel="stylesheet" href="btdt/themes/preset/studio.min.css">
-<link id="theme-preset" rel="stylesheet" href="btdt/themes/preset/studio.min.css?v=0.0.4">
+<link id="theme-preset" rel="stylesheet" href="btdt/themes/preset/studio.min.css?v=x.x.x">
 ```
 
 If you want full manual control, you can disable automatic initialization and keep the initial preset entirely in HTML:
@@ -251,6 +285,7 @@ Notes:
 - `btdt.js` is a production loader. It only handles preset loading and dark/light mode.
 - It does not depend on the editor or on `theme-manager.js`.
 - It does not need to know which presets exist in advance. It simply updates the active preset stylesheet.
+- Full loader documentation, attributes, dark-mode behavior and detailed examples: [btdt/docs/btdt.md](btdt/docs/btdt.md).
 
 ## Dynamic Contrast & Theming
 
