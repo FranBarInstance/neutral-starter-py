@@ -26,6 +26,7 @@
             {:snip; current:template:main-drawer :}
         :}
         {:snip; current:template:body-carousel :}
+        {:snip; current:template:body-hero :}
         {:snip; current:template:page-h1 :}
         <div class="container mt-4 template-main-container">
             {:snip; current-route-page-title :}

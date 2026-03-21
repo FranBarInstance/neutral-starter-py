@@ -73,6 +73,12 @@
 :}
 
 {:*
+    Hero
+    ----
+*:}
+{:snip; current:template:body-hero >> :}
+
+{:*
     Carousel
     --------
 *:}
