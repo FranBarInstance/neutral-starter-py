@@ -5,7 +5,7 @@ description: Create or modify components translations. Extract and translate web
 
 # Translate Component Skill
 
-This skill allows the agent to automatically find, extract, and translate strings within Neutral TS template files (`*.ntpl`) and update the corresponding localization files (`locale-xx.json`).
+This skill allows the agent to automatically find, extract, and translate strings within Neutral TS template files (`*.ntpl`) and route data files (`data.json`), and update the corresponding localization files (`locale-xx.json` or `locale.json`).
 
 - Use `view_file` on `docs/translation-component.md` for more advanced options.
 - Use `view_file` on `src/component/cmp_7000_hellocomp` as a component example.
@@ -14,7 +14,7 @@ This skill allows the agent to automatically find, extract, and translate string
 
 ## Context
 
-In Neutral TS projects, web templates use the format `{:trans; Text to translate :}` or `{:trans; ref:reference_key :}`. These translations are stored in JSON files located in the component's `route` directory, named `locale-xx.json` (where `xx` is the language code).
+In Neutral TS projects, web templates use the format `{:trans; Text to translate :}` or `{:trans; ref:reference_key :}`. In addition, route metadata can contain human-readable texts inside `data.current.route.*` in `data.json` files, and those texts must also be translated. These translations are stored in JSON files located in the component's `route` directory, named `locale-xx.json` (where `xx` is the language code), or in a shared `locale.json`.
 
 ## Languages to translate
 
@@ -172,22 +172,32 @@ In the following example, since the texts are already in English, it is not nece
         - Any other human-readable text fields that should be translated
     - Add these texts to the translations in `schema.json` under `inherit.locale.trans`.
 
-3.  **Scan for Template Files**:
+3. **Identify Route Data Translations**:
+    - Review every `data.json` under the component routes.
+    - Translate human-readable texts inside `data.current.route.*`.
+    - This commonly includes fields such as:
+        - `data.current.route.title`
+        - `data.current.route.description`
+        - `data.current.route.h1`
+        - Any other visible route text presented to the user
+    - Add each source string to the corresponding route locale file (`locale-xx.json` or `locale.json`) in the same route scope.
+
+4.  **Scan for Template Files**:
     Find all `*.ntpl` files recursively within that directory.
 
-4.  **Extract Strings**:
+5.  **Extract Strings**:
     Identify all strings marked for translation using the pattern `{:trans; (.*?) :}`.
     -   **References**: Strings starting with `ref:` (e.g., `ref:error_required`). These need translation in **all** languages, including English.
     -   **Default Text**: Plain text strings (e.g., `Login`). These are typically in English and only need translation in non-English locale files.
 
-5.  **Manage Locale Files**:
+6.  **Manage Locale Files**:
     Locate or create the following files in the `neutral/route/` subdirectory:
     -   `locale-en.json`
     -   `locale-es.json`
     -   `locale-fr.json`
     -   `locale-de.json`
 
-6.  **Update JSON Content**:
+7.  **Update JSON Content**:
     Each file must strictly follow this structure:
     ```json
     {
@@ -200,7 +210,7 @@ In the following example, since the texts are already in English, it is not nece
     ```
     *Note: Replace `xx` with the language code (es, fr, de, etc.).*
 
-7.  **Preservation**:
+8.  **Preservation**:
     When updating existing files, do not remove current translations. Add new strings and update existing ones if necessary.
 
 ## Translation Source-Language Rule (Important)
@@ -225,6 +235,13 @@ If translations use reference keys, for example `{:trans; ref:text:greeting :}`,
 - Reference key:
   - `{:trans; ref:text:greeting :}`
   - Must exist in all locales: `en`, `es`, `fr`, `de`, etc.
+
+- Route data text:
+  - In `src/component/cmp_7000_hellocomp/neutral/route/root/data.json`, these fields are translatable:
+  - `data.current.route.title = "Hello Component"`
+  - `data.current.route.description = "Visual showcase component with snippets, AJAX and modals"`
+  - `data.current.route.h1 = "Hello Component"`
+  - These source strings must be added to the corresponding route locale file so they can be translated in the target languages.
 
 ## Helper Commands
 
