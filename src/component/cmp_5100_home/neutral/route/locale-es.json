@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "es": {
+            "Neutral TS Starter Py": "Neutral TS Starter Py",
+            "A modular, opinionated starter kit for building Progressive Web Applications using Python (Flask) on the backend and Neutral TS as a universal templating engine.": "Kit de inicio modular y opinionado para construir Aplicaciones Web Progresivas usando Python (Flask) en el backend y Neutral TS como motor de plantillas universal.",
+            "Features": "Características",
+            "Everything You Need": "Todo lo que Necesitas",
+            "Production-ready foundations so you can focus on building your product, not boilerplate.": "Bases listas para producción para que te enfoques en construir tu producto, no en código repetitivo.",
+            "Modular Architecture": "Arquitectura Modular",
+            "Extensible plug-and-play component system. Scale from quick prototypes to complex applications while keeping a clean, decoupled structure.": "Sistema de componentes extensible plug-and-play. Escala desde prototipos rápidos hasta aplicaciones complejas manteniendo una estructura limpia y desacoplada.",
+            "NTPL Templating": "Plantillas NTPL",
+            "Powerful snippet composition with schema-driven data. Build dynamic UIs with clean, maintainable template code.": "Potente composición de snippets con datos basados en esquemas. Construye interfaces dinámicas con código limpio y mantenible.",
+            "PWA Support": "Soporte PWA",
+            "Built-in service worker, offline page and web manifest. Install your app on any device with a native-like experience.": "Service worker integrado, página offline y manifiesto web. Instala tu aplicación en cualquier dispositivo con una experiencia similar a nativa.",
+            "Security First": "Seguridad Primero",
+            "CSP, host allow-list, trusted proxy header guard, security headers, form / session token flows and rate limiting included.": "Incluye CSP, lista de hosts permitidos, protección de headers de proxy, headers de seguridad, flujos de tokens de formulario/sesión y limitación de tasa.",
+            "Internationalization": "Internacionalización",
+            "Full i18n support through component locale files. Easily translate your application into multiple languages with zero friction.": "Soporte completo de i18n mediante archivos de locale por componente. Traduce fácilmente tu aplicación a múltiples idiomas sin fricción.",
+            "Flask Powered": "Impulsado por Flask",
+            "Application factory with component-driven routing and blueprint registration. Python 3.10 – 3.14 with built-in testing.": "Fábrica de aplicaciones con enrutamiento basado en componentes y registro de blueprints. Python 3.10 – 3.14 con pruebas integradas.",
+            "Ready to build?": "¿Listo para construir?",
+            "Build modern PWAs with a clean architecture — perfect for developers who value structure, security and scalability.": "Construye PWAs modernas con una arquitectura limpia — perfecto para desarrolladores que valoran estructura, seguridad y escalabilidad.",
+            "View on GitHub": "Ver en GitHub",
+            "Neutral TS Starter Py - Modern PWA Starter Kit": "Neutral TS Starter Py - Kit de Inicio PWA Moderno",
+            "A modular, opinionated starter kit for building Progressive Web Applications using Python Flask and Neutral TS templating engine.": "Kit de inicio modular y opinionado para construir Aplicaciones Web Progresivas usando Python Flask y el motor de plantillas Neutral TS.",
+            "Welcome to Neutral TS Starter Py": "Bienvenido a Neutral TS Starter Py"
+        }
+    }
+}

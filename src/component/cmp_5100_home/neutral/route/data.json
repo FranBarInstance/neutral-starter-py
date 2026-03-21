@@ -7,7 +7,7 @@
                 "h1": "Welcome to Neutral TS Starter Py"
             },
             "theme": {
-                "carousel": [
+                "_carousel": [
                     "/img/carousel.jpg"
                 ]
             }

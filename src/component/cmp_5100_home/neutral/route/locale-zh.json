@@ -1,0 +1,29 @@
+{
+    "trans": {
+        "zh": {
+            "Neutral TS Starter Py": "Neutral TS Starter Py",
+            "A modular, opinionated starter kit for building Progressive Web Applications using Python (Flask) on the backend and Neutral TS as a universal templating engine.": "一个模块化的、有主见的入门套件，用于使用 Python (Flask) 作为后端和 Neutral TS 作为通用模板引擎构建渐进式 Web 应用程序。",
+            "Features": "功能",
+            "Everything You Need": "您需要的一切",
+            "Production-ready foundations so you can focus on building your product, not boilerplate.": "生产就绪的基础，让您可以专注于构建产品，而不是样板代码。",
+            "Modular Architecture": "模块化架构",
+            "Extensible plug-and-play component system. Scale from quick prototypes to complex applications while keeping a clean, decoupled structure.": "可扩展的即插即用组件系统。从快速原型扩展到复杂应用程序，同时保持干净、解耦的结构。",
+            "NTPL Templating": "NTPL 模板",
+            "Powerful snippet composition with schema-driven data. Build dynamic UIs with clean, maintainable template code.": "基于模式驱动的数据的强大片段组合。使用干净、可维护的模板代码构建动态界面。",
+            "PWA Support": "PWA 支持",
+            "Built-in service worker, offline page and web manifest. Install your app on any device with a native-like experience.": "内置服务工作者、离线页面和 Web 清单。在任何设备上安装您的应用程序，获得类似原生的体验。",
+            "Security First": "安全优先",
+            "CSP, host allow-list, trusted proxy header guard, security headers, form / session token flows and rate limiting included.": "包括 CSP、主机允许列表、可信代理标头保护、安全标头、表单/会话令牌流和速率限制。",
+            "Internationalization": "国际化",
+            "Full i18n support through component locale files. Easily translate your application into multiple languages with zero friction.": "通过组件区域设置文件提供完整的 i18n 支持。轻松将您的应用程序翻译成多种语言，毫无障碍。",
+            "Flask Powered": "由 Flask 驱动",
+            "Application factory with component-driven routing and blueprint registration. Python 3.10 – 3.14 with built-in testing.": "具有组件驱动路由和蓝图注册的应用程序工厂。Python 3.10 – 3.14 内置测试。",
+            "Ready to build?": "准备好构建了吗？",
+            "Build modern PWAs with a clean architecture — perfect for developers who value structure, security and scalability.": "使用简洁的架构构建现代 PWA — 非常适合重视结构、安全性和可扩展性的开发人员。",
+            "View on GitHub": "在 GitHub 上查看",
+            "Neutral TS Starter Py - Modern PWA Starter Kit": "Neutral TS Starter Py - 现代 PWA 入门套件",
+            "A modular, opinionated starter kit for building Progressive Web Applications using Python Flask and Neutral TS templating engine.": "模块化的、有主见的入门套件，用于使用 Python Flask 和 Neutral 模板引擎构建渐进式 Web 应用程序。",
+            "Welcome to Neutral TS Starter Py": "欢迎使用 Neutral TS Starter Py"
+        }
+    }
+}
