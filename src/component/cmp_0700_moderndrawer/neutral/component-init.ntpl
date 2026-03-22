@@ -1,5 +1,18 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
+{:snip; moderndrawer_0yt2sa:state:theme-drawer-state-full >>
+    theme-drawer-state-full
+:}
+{:snip; moderndrawer_0yt2sa:state:theme-drawer-state-icons >>
+    theme-drawer-state-icons
+:}
+{:snip; moderndrawer_0yt2sa:state:theme-drawer-state-hidden >>
+    theme-drawer-state-hidden
+:}
+
+{:snip; moderndrawer_0yt2sa:state >>
+    {:snip; moderndrawer_0yt2sa:state:{:;CONTEXT->COOKIES->theme-drawer-state:} :}
+:}
 
 {:snip; current:template:main-drawer-button >>
     <button id="theme-drawer-toggle" class="btn border-0 shadow-none p-0 px-1 me-2" type="button" aria-controls="theme-drawer" aria-expanded="true" aria-label="{:trans; Toggle menu :}">
@@ -14,7 +27,7 @@
 *:}
 {:snip; current:template:main-drawer >>
     <div id="theme-drawer-overlay" class="bg-dark bg-opacity-50"></div>
-    <nav id="theme-drawer" class="shadow bg-body theme-drawer theme-drawer-state-hidden" aria-labelledby="theme-drawer-label">
+    <nav id="theme-drawer" class="shadow bg-body theme-drawer theme-drawer-preload  {:snip; moderndrawer_0yt2sa:state :}{:else; theme-drawer-state-hidden :}" aria-labelledby="theme-drawer-label">
         <div class="p-0" id="theme-drawer-body-content">
             <div class="nav flex-column nav-pills align-items-center py-3 px-2 bg-light border-end" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
                 <button class="btn p-2 pt-1 mb-3 ms-1" id="theme-drawer-tabs-toggle-btn" title="{:trans; Toggle menu :}" data-title="{:trans; Toggle menu :}" type="button" aria-controls="theme-drawer" aria-expanded="false" aria-label="{:trans; Toggle menu :}">
@@ -29,11 +42,17 @@
                 :}
             </div>
             <div class="tab-content text-truncate w-100 drawer-tabs-content-min-height bg-body" id="theme-drawer-tabs-content">
+                <div class="theme-drawer-content-header border-bottom px-3 py-3">
+                    <div class="d-flex align-items-center justify-content-between gap-3">
+                        <div class="fw-semibold">{:trans; {:;local::drawer->name:} :}</div>
+                        <label class="theme-drawer-pin-switch" for="theme-drawer-pin">
+                            <input id="theme-drawer-pin" class="theme-drawer-pin-input" type="checkbox" aria-label="{:trans; Pin full menu :}"{:bool; CONTEXT->COOKIES->theme-drawer-pin-full >> checked :} />
+                            <span class="theme-drawer-pin-slider" aria-hidden="true"></span>
+                        </label>
+                    </div>
+                </div>
                 {:each; local::menu->session:{:;HAS_SESSION:} tabs menu >>
                     <div class="tab-pane fade px-3 py-3" id="theme-drawer-tabs-{:;tabs:}" role="tabpanel" aria-labelledby="theme-drawer-tabs-{:;tabs:}-btn">
-                        <div class="theme-drawer-panel-header border-bottom pb-3 mb-3">
-                            <div class="fw-semibold">{:trans; {:;local::drawer->name:} :}</div>
-                        </div>
                         <div class="list-group list-group-flush border-0">
                             {:each; menu key opt >>
                                 {:array; opt >>

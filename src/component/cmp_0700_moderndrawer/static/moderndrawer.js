@@ -1,8 +1,10 @@
 (() => {
     const STORAGE_KEY = 'theme-drawer-state';
+    const PIN_KEY = 'theme-drawer-pin-full';
     const drawer = document.getElementById('theme-drawer');
     const toggle = document.getElementById('theme-drawer-toggle');
     const tabsToggle = document.getElementById('theme-drawer-tabs-toggle-btn');
+    const pinToggle = document.getElementById('theme-drawer-pin');
     const closeBtn = document.getElementById('theme-drawer-close');
     const overlay = document.getElementById('theme-drawer-overlay');
     const navbar = document.getElementById('main-navbar');
@@ -10,10 +12,14 @@
     const closableLinks = drawer ? drawer.querySelectorAll('.theme-drawer-link-close') : [];
     const states = ['theme-drawer-state-full', 'theme-drawer-state-icons', 'theme-drawer-state-hidden'];
     let refreshToken = 0;
+    let hasHydrated = false;
 
     if (!drawer || !toggle || !tabsToggle || !overlay || !navbar) {
         return;
     }
+
+    document.body.classList.add('theme-drawer-preload');
+    overlay.classList.add('theme-drawer-preload');
 
     const isMobile = () => window.innerWidth < 768;
 
@@ -35,7 +41,26 @@
         document.documentElement.style.setProperty('--theme-navbar-h', `${navbar.offsetHeight || 56}px`);
     }
 
+    function enableLayoutTransitions() {
+        document.body.classList.remove('theme-drawer-preload');
+    }
+
+    function isPinned() {
+        return !isMobile() && getCookie(PIN_KEY) === '1';
+    }
+
+    function syncPinToggle() {
+        if (!pinToggle) {
+            return;
+        }
+        pinToggle.checked = isPinned();
+        pinToggle.disabled = isMobile();
+    }
+
     function normalizeState(state) {
+        if (isPinned()) {
+            return 'theme-drawer-state-full';
+        }
         if (isMobile()) {
             return state === 'theme-drawer-state-full' ? state : 'theme-drawer-state-hidden';
         }
@@ -91,6 +116,14 @@
         tabsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
         overlay.classList.toggle('show', isMobile() && expanded);
         setCookie(STORAGE_KEY, isMobile() ? 'theme-drawer-state-hidden' : state);
+
+        if (!hasHydrated) {
+            hasHydrated = true;
+            requestAnimationFrame(() => {
+                drawer.classList.remove('theme-drawer-preload');
+                overlay.classList.remove('theme-drawer-preload');
+            });
+        }
     }
 
     function nextState() {
@@ -112,6 +145,7 @@
 
     function refreshLayout(useStoredState = false) {
         syncNavbarHeight();
+        syncPinToggle();
         ensureActiveTab();
         const state = useStoredState
             ? recoverState(getCookie(STORAGE_KEY) || 'theme-drawer-state-hidden')
@@ -138,23 +172,41 @@
     }
 
     toggle.addEventListener('click', () => {
+        enableLayoutTransitions();
         ensureActiveTab();
         applyState(nextState());
     });
 
     tabsToggle.addEventListener('click', () => {
+        enableLayoutTransitions();
         ensureActiveTab();
         applyState(nextState());
     });
 
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => applyState('theme-drawer-state-hidden'));
+    if (pinToggle) {
+        pinToggle.addEventListener('change', () => {
+            enableLayoutTransitions();
+            setCookie(PIN_KEY, pinToggle.checked ? '1' : '0');
+            syncPinToggle();
+            applyState(pinToggle.checked ? 'theme-drawer-state-full' : 'theme-drawer-state-icons');
+        });
     }
 
-    overlay.addEventListener('click', () => applyState('theme-drawer-state-hidden'));
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            enableLayoutTransitions();
+            applyState('theme-drawer-state-hidden');
+        });
+    }
+
+    overlay.addEventListener('click', () => {
+        enableLayoutTransitions();
+        applyState('theme-drawer-state-hidden');
+    });
 
     tabButtons.forEach((button) => {
         button.addEventListener('click', () => {
+            enableLayoutTransitions();
             if (!isMobile() && drawer.classList.contains('theme-drawer-state-icons')) {
                 applyState('theme-drawer-state-full');
             }
@@ -163,6 +215,7 @@
 
     closableLinks.forEach((link) => {
         link.addEventListener('click', () => {
+            enableLayoutTransitions();
             if (isMobile()) {
                 applyState('theme-drawer-state-hidden');
             }
