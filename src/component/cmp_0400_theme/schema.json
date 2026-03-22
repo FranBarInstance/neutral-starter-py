@@ -27,7 +27,7 @@
         "data": {
             "current": {
                 "theme": {
-                    "theme": "studio",
+                    "theme": "studio-asymmetric",
                     "color": "",
                     "class": {
                         "container": "container p-0 p-md-2",
