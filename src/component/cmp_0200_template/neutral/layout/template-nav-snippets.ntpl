@@ -37,6 +37,34 @@
     </button>
 :}
 
+{:snip; current:template:main-drawer-items-icons >>
+    {:each; local::drawer->menu->session:{:;HAS_SESSION:} tabs menu >>
+        {:filled; menu >>
+            <button id="theme-drawer-tabs-{:;tabs:}-btn" title="{:trans; {:;menu->name:} :}" class="drawer-btn nav-link" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="true">
+                <i class="{:;local::{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
+            </button>
+        :}
+    :}
+:}
+
+{:snip; current:template:main-drawer-items-menu >>
+    {:each; local::menu->session:{:;HAS_SESSION:} tabs menu >>
+        <div class="tab-pane fade" id="theme-drawer-tabs-{:;tabs:}" role="tabpanel" aria-labelledby="theme-drawer-{:;tabs:}">
+            <div class="list-group border-0">
+                {:each; menu key opt >>
+                    {:array; opt >>
+                        <a href="{:;opt->link:}" class="list-group-item list-group-item-action bg-body {:;opt->class:}"{:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
+                            <i class="{:;local::{:;opt->icon:}:} me-2" aria-hidden="true"></i> <span>{:trans; {:;opt->text:} :}</span>
+                        </a>
+                    :}{:else;
+                        {:snip; {:;opt:} :}
+                    :}
+                :}
+            </div>
+        </div>
+    :}
+:}
+
 {:*
     Main drawer
 *:}
@@ -53,32 +81,12 @@
                 <i class="{:;local::x-icon-back:} theme-drawer-close btn btn-link me-2 ms-auto" data-bs-dismiss="offcanvas" aria-hidden="true"></i>
             </div>
             <div class="offcanvas-body p-0">
-                <div class="d-flex align-items-start mt-2" id="theme-drawer-body-content">
-                    <div class="nav flex-column nav-pills me-2" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
-                        {:each; local::drawer->menu->session:{:;HAS_SESSION:} tabs menu >>
-                            {:filled; menu >>
-                                <button id="theme-drawer-tabs-{:;tabs:}-btn" title="{:trans; {:;menu->name:} :}" class="drawer-btn nav-link py-1 px-2 m-3 mb-2" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="true">
-                                    <i class="{:;local::{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
-                                </button>
-                            :}
-                        :}
+                <div class="d-flex align-items-start" id="theme-drawer-body-content">
+                    <div class="nav flex-column nav-pills me-2 border-end" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
+                        {:snip; current:template:main-drawer-items-icons :}
                     </div>
-                    <div class="tab-content text-truncate me-2 mt-3 w-100 min-vh-75 drawer-tabs-content-min-height" id="theme-drawer-tabs-content">
-                        {:each; local::menu->session:{:;HAS_SESSION:} tabs menu >>
-                            <div class="tab-pane fade" id="theme-drawer-tabs-{:;tabs:}" role="tabpanel" aria-labelledby="theme-drawer-{:;tabs:}">
-                                <div class="list-group border-0">
-                                    {:each; menu key opt >>
-                                        {:array; opt >>
-                                            <a href="{:;opt->link:}" class="list-group-item list-group-item-action mb-1 {:;opt->class:}"{:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
-                                                <i class="{:;local::{:;opt->icon:}:}" aria-hidden="true"></i> <span>{:trans; {:;opt->text:} :}</span>
-                                            </a>
-                                        :}{:else;
-                                            {:snip; {:;opt:} :}
-                                        :}
-                                    :}
-                                </div>
-                            </div>
-                        :}
+                    <div class="tab-content text-truncate me-2 mt-3 w-100 min-vh-75 drawer-tabs-content-min-height bg-white" id="theme-drawer-tabs-content">
+                        {:snip; current:template:main-drawer-items-menu :}
                     </div>
                 </div>
             </div>
