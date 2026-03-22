@@ -36,30 +36,33 @@
 (function () {
     'use strict';
 
-    // Simulate height navigation bar spacing form main navbar
-    function currentMainNavbarHeight() {
-        var eleMainNavbar = document.getElementById('main-navbar');
-        var eleNavbarHidden = document.getElementById('main-navbar-hidden');
-        if (window.getComputedStyle(eleMainNavbar).getPropertyValue('position').match(/fixed|sticky/i)) {
-            var mainNavBarHeight = eleMainNavbar.offsetHeight;
-            eleNavbarHidden.style.height = mainNavBarHeight + 'px';
-            eleNavbarHidden.classList.remove('d-none');
+    // Generate padding for fixed navbar
+    var navbar  = document.getElementById('main-navbar');
+    var spacer  = document.getElementById('main-navbar-hidden');
+    if (!navbar || !spacer) return;
+
+    function syncHeight() {
+        var position = window.getComputedStyle(navbar).position;
+        var isFixed  = /fixed|sticky/i.test(position);
+
+        if (isFixed) {
+            var height = navbar.getBoundingClientRect().height;
+            spacer.style.height  = height + 'px';
+            spacer.style.display = '';
         } else {
-            eleNavbarHidden.style.height = '0px';
-            eleNavbarHidden.classList.add('d-none');
+            spacer.style.height  = '0px';
+            spacer.style.display = 'none';
         }
     }
-    currentMainNavbarHeight();
-    window.addEventListener('load', (event) => {
-        setTimeout(function () {
-            currentMainNavbarHeight();
-        }, 50);
-    });
-    window.addEventListener('resize', (event) => {
-        setTimeout(function () {
-            currentMainNavbarHeight();
-        }, 50);
-    });
+
+    if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(syncHeight).observe(navbar);
+    }
+
+    window.addEventListener('load',   syncHeight);
+    window.addEventListener('resize', syncHeight);
+
+    syncHeight();
 })();
 
 (function () {

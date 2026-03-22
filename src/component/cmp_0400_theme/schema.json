@@ -36,7 +36,8 @@
                         "body": "",
                         "body_navbar_bg": "bg-primary",
                         "body_navbar_size": "py-2 py-md-3",
-                        "body_navbar_class": "navbar-expand fixed-top border-clean"
+                        "body_navbar_class": "navbar-expand _border-clean",
+                        "body_navbar_fixed": "fixed-top"
                     },
                     "spin": "current:template:spin-set-spin4",
                     "allow_themes": [

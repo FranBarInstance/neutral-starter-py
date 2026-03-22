@@ -4,16 +4,6 @@
     "description": "Provides back to top button and hide navbar",
     "version": "0.0.0",
     "route": "",
-    "required": {
-        "component": {
-            "materialicons_0yt2sa": "0.0.x"
-        },
-        "schema": {
-            "inherit": {
-                "data": "x-icon-up"
-            }
-        }
-    },
     "security": {
         "routes_auth": {
             "/": false

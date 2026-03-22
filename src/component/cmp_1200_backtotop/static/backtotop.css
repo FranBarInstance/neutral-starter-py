@@ -1,24 +1,90 @@
+/**
+ * Redesigned BackToTop & Navbar Styles for Neutral TS
+ */
 
-.back-to-top {
-    z-index: 1999;
+:root {
+    --back-to-top-size: 48px;
+    --back-to-top-bottom: 25px;
+    --back-to-top-right: 25px;
+    --back-to-top-bg: var(--bs-primary, #0d6efd);
+    --back-to-top-color: #fff;
+    --navbar-scrolled-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* Back-To-Top Button */
+#back-to-top {
+    z-index: 1040;
     cursor: pointer;
     position: fixed;
-    padding-top: 0px;
-    bottom: 10px;
-    right: 10px;
-    right: 10px;
+    bottom: var(--back-to-top-bottom);
+    right: var(--back-to-top-right);
+    width: var(--back-to-top-size);
+    height: var(--back-to-top-size);
     border-radius: 50%;
-    opacity: 0.7;
-    background: darkgray;
-    color: white;
-    border: white;
-    font-size: 24px;
-    width: 44px;
-    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: var(--back-to-top-bg);
+    color: var(--back-to-top-color);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    font-size: 20px;
     text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(20px);
+    opacity: 0;
+    background-image: none !important;
 }
+
+#back-to-top:hover {
+    filter: brightness(1.1);
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    color: var(--back-to-top-color);
+}
+
+#back-to-top:active {
+    transform: scale(0.95) !important;
+}
+
+/* Navbar Utility Classes */
+.navbar {
+    will-change: transform, opacity;
+}
+
+/*
+ * Scrolled state styling
+ * We respect the original theme color (bg-primary, etc) but add shadow for depth.
+ */
+.navbar--scrolled {
+    box-shadow: var(--navbar-scrolled-shadow);
+}
+
+/* Hidden state */
+.navbar--hidden {
+    cursor: pointer;
+}
+
+/* Legacy support */
 .reduce-nav {
-    height: 3px !important;
-    overflow: hidden !important;
-    padding: 0px !important;
+    transform: translateY(-100%);
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Fixed-top utility */
+.navbar.fixed-top {
+    z-index: 1030;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+    :root {
+        --back-to-top-size: 40px;
+        --back-to-top-bottom: 15px;
+        --back-to-top-right: 15px;
+    }
 }
