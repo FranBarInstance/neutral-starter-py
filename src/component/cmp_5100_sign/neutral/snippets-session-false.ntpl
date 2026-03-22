@@ -24,7 +24,7 @@
                         <div class="text-center p-5">{:snip; spin-2x :}</div>
                     :}
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer p-2">
                     {:code;
                         {:param; disabled-login >> disabled :}
                         {:snip; sign:modal-buttons :}
@@ -46,7 +46,7 @@
                         <div class="text-center p-5">{:snip; spin-2x :}</div>
                     :}
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer p-2">
                     {:code;
                         {:param; disabled-register >> disabled :}
                         {:snip; sign:modal-buttons :}
@@ -68,7 +68,7 @@
                         <div class="text-center p-5">{:snip; spin-2x :}</div>
                     :}
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer p-2">
                     {:code;
                         {:param; disabled-reminder >> disabled :}
                         {:snip; sign:modal-buttons :}
