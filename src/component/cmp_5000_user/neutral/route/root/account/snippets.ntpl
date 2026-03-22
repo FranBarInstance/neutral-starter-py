@@ -474,13 +474,13 @@
                 <div class="card">
                     <div class="card-header">{:trans; Change login :}</div>
                     <div class="card-body">
-                        <div class="alert alert-secondary">
+                        {:snip; user_0yt2sa:user_account-login-change-container :}
+                        <div class="alert alert-secondary mt-3">
                             <p class="mb-0">
                                 {:trans; Add your email here: :}
                                 <a href="{:;user_0yt2sa->manifest->route:}/email" class="ms-1 alert-link">{:trans; Emails :}</a>
                             </p>
                         </div>
-                        {:snip; user_0yt2sa:user_account-login-change-container :}
                     </div>
                 </div>
             </div>
