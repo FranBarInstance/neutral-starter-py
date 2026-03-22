@@ -17,8 +17,8 @@
                 backToTopSelector: '#back-to-top',
 
                 // Sensitivity & Thresholds
-                hideThreshold: 50,
-                scrollUpThreshold: 80,   // Higher threshold to avoid immediate showing
+                hideThreshold: 200,
+                scrollUpThreshold: 200,   // Higher threshold to avoid immediate showing
                 peekHeight: 5,
 
                 // Feature Toggles
