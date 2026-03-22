@@ -3,12 +3,12 @@
 {:snip; locale_0yt2sa-menu-language >>
     {:filled; current->site->languages->1 >>
         {:bool; locale_0yt2sa->manifest->config->menu-drawer-enable >>
-            <a title="{:trans; Language :}" class="list-group-item list-group-item-action item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-language-collapse">
+            <button title="{:trans; Language :}" class="list-group-item list-group-item-action mb-1 item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-language-collapse">
                 <i class="{:;local::x-icon-locale:}" aria-hidden="true"></i> {:trans; Language :}
-            </a>
+            </button>
             <div class="collapse menu-collapse ms-3" id="menu-drawer-language-collapse">
             {:each; current->site->languages key lang >>
-                <a href="?{:;LANG_KEY:}={:;lang:}" class="list-group-item list-group-item-action">
+                <a href="?{:;LANG_KEY:}={:;lang:}" class="list-group-item list-group-item-action my-1 border-0">
                     <span class="{:;local::x-icon-bullet:}"></span><span class="ms-2">{:trans; ref:locale:{:;lang:} :}</span>
                 </a>
             :}

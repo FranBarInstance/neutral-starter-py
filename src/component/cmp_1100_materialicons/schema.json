@@ -19,6 +19,7 @@
             "x-icon-success": "x-icon mdi mdi-check",
             "x-icon-home": "x-icon mdi mdi-home-variant-outline",
             "x-icon-menu": "x-icon mdi mdi-menu",
+            "x-icon-menu-open": "x-icon mdi mdi-menu-open",
             "x-icon-site-config": "x-icon mdi mdi-application-cog-outline",
             "x-icon-setting": "x-icon mdi mdi-cog-outline",
             "x-icon-invite-code": "x-icon mdi mdi-door-closed-lock",

@@ -35,14 +35,14 @@
                         "main": {
                             "name": "Main",
                             "tabs": "main",
-                            "icon": "x-icon-menu"
+                            "icon": "x-icon-home"
                         }
                     },
                     "session:true": {
                         "main": {
                             "name": "Main",
                             "tabs": "main",
-                            "icon": "x-icon-menu"
+                            "icon": "x-icon-home"
                         }
                     }
                 }

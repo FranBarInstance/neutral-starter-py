@@ -3,12 +3,12 @@
 {:snip; settheme_0yt2sa-menu-theme >>
     {:bool; settheme_0yt2sa->manifest->config->menu-drawer-enable >>
         {:filled; local::current->theme->allow_themes->1 >>
-            <a title="{:trans; Theme :}" class="list-group-item list-group-item-action item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-themes-theme-collapse">
+            <button title="{:trans; Theme :}" class="list-group-item list-group-item-action mb-1 item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-themes-theme-collapse">
                 <i class="{:;local::x-icon-theme:}" aria-hidden="true"></i> {:trans; Theme :}
-            </a>
+            </button>
             <div class="collapse menu-collapse ms-3" id="menu-drawer-themes-theme-collapse">
                 {:each; local::current->theme->allow_themes key theme >>
-                    <a href="?{:;THEME_KEY:}={:;theme:}" class="list-group-item list-group-item-action">
+                    <a href="?{:;THEME_KEY:}={:;theme:}" class="list-group-item list-group-item-action my-1 border-0">
                         <span class="{:;local::x-icon-bullet:}"></span><span class="ms-2">{:trans; {:;theme:} :}</span>
                     </a>
                 :}
@@ -20,12 +20,12 @@
 {:snip; settheme_0yt2sa-menu-theme-colors >>
     {:bool; settheme_0yt2sa->manifest->config->menu-drawer-enable >>
         {:filled; local::current->theme->allow_colors->1 >>
-            <a title="{:trans; Colors :}" class="list-group-item list-group-item-action item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-themes-color-collapse">
+            <a title="{:trans; Colors :}" class="list-group-item list-group-item-action mb-1 item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-themes-color-collapse">
                 <i class="{:;local::x-icon-color:}" aria-hidden="true"></i> {:trans; Color :}
             </a>
             <div class="collapse menu-collapse ms-3" id="menu-drawer-themes-color-collapse">
                 {:each; local::current->theme->allow_colors key color >>
-                    <a href="?{:;THEME_COLOR_KEY:}={:;color:}" class="list-group-item list-group-item-action">
+                    <a href="?{:;THEME_COLOR_KEY:}={:;color:}" class="list-group-item list-group-item-action my-1 border-0">
                         <span class="{:;local::x-icon-bullet:}"></span><span class="ms-2">{:trans; {:;color:} :}</span>
                     </a>
                 :}

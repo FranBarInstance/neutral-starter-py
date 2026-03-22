@@ -1,0 +1,79 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+
+{:snip; current:template:main-drawer-button >>
+    <button id="theme-drawer-toggle" class="btn border-0 shadow-none p-0 px-1 me-2" type="button" aria-controls="theme-drawer" aria-expanded="true" aria-label="{:trans; Toggle menu :}">
+        <span title="{:trans; Menu :}" class="navbar-toggler-icon"></span>
+    </button>
+:}
+
+
+{:*
+    Modern drawer
+    -------------
+*:}
+{:snip; current:template:main-drawer >>
+    <div id="theme-drawer-overlay" class="bg-dark bg-opacity-50"></div>
+    <nav id="theme-drawer" class="shadow bg-body theme-drawer theme-drawer-state-hidden" aria-labelledby="theme-drawer-label">
+        <div class="p-0" id="theme-drawer-body-content">
+            <div class="nav flex-column nav-pills align-items-center py-3 px-2 bg-light border-end" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
+                <button class="btn p-2 pt-1 mb-3 ms-1" id="theme-drawer-tabs-toggle-btn" title="{:trans; Toggle menu :}" data-title="{:trans; Toggle menu :}" type="button" aria-controls="theme-drawer" aria-expanded="false" aria-label="{:trans; Toggle menu :}">
+                    <i title="{:trans; Menu :}" class="{:;local::x-icon-menu-open:}" aria-hidden="true"></i>
+                </button>
+                {:each; local::drawer->menu->session:{:;HAS_SESSION:} tabs menu >>
+                    {:filled; menu >>
+                        <button class="drawer-btn nav-link" id="theme-drawer-tabs-{:;tabs:}-btn" title="{:trans; {:;menu->name:} :}" data-title="{:trans; {:;menu->name:} :}" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="false">
+                            <i class="{:;local::{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
+                        </button>
+                    :}
+                :}
+            </div>
+            <div class="tab-content text-truncate w-100 drawer-tabs-content-min-height bg-body" id="theme-drawer-tabs-content">
+                {:each; local::menu->session:{:;HAS_SESSION:} tabs menu >>
+                    <div class="tab-pane fade px-3 py-3" id="theme-drawer-tabs-{:;tabs:}" role="tabpanel" aria-labelledby="theme-drawer-tabs-{:;tabs:}-btn">
+                        <div class="theme-drawer-panel-header border-bottom pb-3 mb-3">
+                            <div class="fw-semibold">{:trans; {:;local::drawer->name:} :}</div>
+                        </div>
+                        <div class="list-group list-group-flush border-0">
+                            {:each; menu key opt >>
+                                {:array; opt >>
+                                    <a href="{:;opt->link:}" class="theme-drawer-link theme-drawer-link-close list-group-item list-group-item-action mb-1 {:;opt->class:}"{:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
+                                        <i class="{:;local::{:;opt->icon:}:}" aria-hidden="true"></i>
+                                        <span class="theme-drawer-link-text">{:trans; {:;opt->text:} :}</span>
+                                    </a>
+                                :}{:else;
+                                    {:snip; {:;opt:} :}
+                                :}
+                            :}
+                        </div>
+                    </div>
+                :}
+            </div>
+        </div>
+        {:*  <div class="border-top bg-body-tertiary px-3 py-3">
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center justify-content-center flex-shrink-0 theme-drawer-footer-icon">
+                    <i class="{:;local::x-icon-webapp:} fs-4" aria-hidden="true"></i>
+                </div>
+                <div class="theme-drawer-footer-copy text-truncate">
+                    <div class="fw-semibold small">{:trans; {:;local::drawer->name:} :}</div>
+                    <div class="text-body-secondary small">{:trans; Navigation :}</div>
+                </div>
+            </div>
+        </div>  *:}
+    </nav>
+:}
+
+{:snip; moderndrawer_0yt2sa-head >>
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}css/moderndrawer.min.css" />
+:}
+
+{:snip; moderndrawer_0yt2sa-body-end >>
+    <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/moderndrawer.min.js"></script>
+:}
+
+{:moveto; /head >> {:snip; moderndrawer_0yt2sa-head :} :}
+{:moveto; /body >> {:snip; moderndrawer_0yt2sa-body-end :} :}
+
+
+{:^;:}

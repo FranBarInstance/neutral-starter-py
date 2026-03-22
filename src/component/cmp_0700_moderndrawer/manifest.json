@@ -1,0 +1,18 @@
+{
+    "uuid": "moderndrawer_0yt2sa",
+    "name": "Modern Drawer",
+    "description": "Selects the drawer implementation used by the template",
+    "version": "0.0.0",
+    "route": "",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
+    "config": {}
+}

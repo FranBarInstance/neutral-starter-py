@@ -1,0 +1,8 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {}
+        }
+    },
+    "data": {}
+}

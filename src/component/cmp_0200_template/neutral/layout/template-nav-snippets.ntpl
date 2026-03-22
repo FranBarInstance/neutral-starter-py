@@ -31,42 +31,19 @@
     </ul>
 :}
 
-{:*
-    Main navbar
-*:}
-{:snip; current:template:main-navbar >>
-    <div class="{:;local::current->theme->class->body_navbar_bg :}">
-        <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block {:;local::current->theme->class->body_navbar_bg :} {:;local::current->theme->class->body_navbar_class :} {:;local::current->theme->class->body_navbar_size :} {:;local::current->theme->class->body_navbar_fixed:}">
-            <div class="container">
-                <button class="btn border-0 shadow-none p-0 px-1 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#theme-drawer" aria-controls="theme-drawer">
-                    <span title="{:trans; Menu :}" class="navbar-toggler-icon"></span>
-                </button>
-                <a href="{:;local::menu->session:{:;HAS_SESSION:}->main->home->link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
-                    <span class="page-is-loading small page-loader-spin">{:snip; spin-1x :}</span>
-                    <span class="page-has-loaded nav-brand-text me-md-2 d-none">{:trans; {:;current->site->name:} :}</span>
-                </a>
-                <ul class="template-main-navbar-right-content navbar-nav ms-auto">
-                    {:snip; current:template:main-navbar-right-content :}
-                </ul>
-            </div>
-            <div class="container template-main-navbar-bottom-content navbar-nav">
-                {:snip; current:template:main-navbar-bottom-content :}
-            </div>
-            <div class="container template-main-navbar-notices-content navbar-nav">
-                {:snip; current:template:main-navbar-notices-content :}
-            </div>
-        </nav>
-        {:* Padding for fixed navbar *:}
-        <div id="main-navbar-hidden" class="v-hidden {:;local::current->theme->class->body_navbar_bg :} {:;local::current->theme->class->body_navbar_class :} {:;local::current->theme->class->body_navbar_size :}">
-            &nbsp;
-        </div>
-    </div>
+{:snip; current:template:main-drawer-button >>
+    <button class="btn border-0 shadow-none p-0 px-1 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#theme-drawer" aria-controls="theme-drawer">
+        <span title="{:trans; Menu :}" class="navbar-toggler-icon"></span>
+    </button>
 :}
 
 {:*
     Main drawer
 *:}
 {:snip; current:template:main-drawer >>
+    {:moveto; /head >>
+        <link rel="stylesheet" href="/css/default-drawer.css">
+    :}
     <template-offcanvas>
         <div class="offcanvas offcanvas-start shadow theme-drawer theme-drawer-size" tabindex="-1" id="theme-drawer" aria-labelledby="theme-drawer-label">
             <div class="offcanvas-header px-1 bg-body-tertiary {:;local::current->theme->class->body_navbar_size :}" data-bs-dismiss="offcanvas">
@@ -113,6 +90,36 @@
             </div>
         </div>
     </template-offcanvas>
+:}
+
+{:*
+    Main navbar
+*:}
+{:snip; current:template:main-navbar >>
+    <div class="{:;local::current->theme->class->body_navbar_bg :}">
+        <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block {:;local::current->theme->class->body_navbar_bg :} {:;local::current->theme->class->body_navbar_class :} {:;local::current->theme->class->body_navbar_size :} {:;local::current->theme->class->body_navbar_fixed:}">
+            <div class="container">
+                {:snip; current:template:main-drawer-button :}
+                <a href="{:;local::menu->session:{:;HAS_SESSION:}->main->home->link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
+                    <span class="page-is-loading small page-loader-spin">{:snip; spin-1x :}</span>
+                    <span class="page-has-loaded nav-brand-text me-md-2 d-none">{:trans; {:;current->site->name:} :}</span>
+                </a>
+                <ul class="template-main-navbar-right-content navbar-nav ms-auto">
+                    {:snip; current:template:main-navbar-right-content :}
+                </ul>
+            </div>
+            <div class="container template-main-navbar-bottom-content navbar-nav">
+                {:snip; current:template:main-navbar-bottom-content :}
+            </div>
+            <div class="container template-main-navbar-notices-content navbar-nav">
+                {:snip; current:template:main-navbar-notices-content :}
+            </div>
+        </nav>
+        {:* Padding for fixed navbar *:}
+        <div id="main-navbar-hidden" class="v-hidden {:;local::current->theme->class->body_navbar_bg :} {:;local::current->theme->class->body_navbar_class :} {:;local::current->theme->class->body_navbar_size :}">
+            &nbsp;
+        </div>
+    </div>
 :}
 
 {:*
