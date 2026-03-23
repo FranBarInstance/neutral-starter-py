@@ -47,15 +47,30 @@
     :}
 :}
 
+{:snip; current:template:main-drawer-opt >>
+    <a href="{:;opt->link:}" class="list-group-item list-group-item-action bg-body {:;opt->class:}" {:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
+        <i class="{:;local::{:;opt->icon:}:} me-2" aria-hidden="true"></i> <span>{:trans; {:;opt->text:} :}</span>
+    </a>
+:}
+
 {:snip; current:template:main-drawer-items-menu >>
     {:each; local::menu->session:{:;HAS_SESSION:} tabs menu >>
         <div class="tab-pane fade" id="theme-drawer-tabs-{:;tabs:}" role="tabpanel" aria-labelledby="theme-drawer-{:;tabs:}">
             <div class="list-group border-0">
                 {:each; menu key opt >>
                     {:array; opt >>
-                        <a href="{:;opt->link:}" class="list-group-item list-group-item-action bg-body {:;opt->class:}"{:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
-                            <i class="{:;local::{:;opt->icon:}:} me-2" aria-hidden="true"></i> <span>{:trans; {:;opt->text:} :}</span>
-                        </a>
+                        {:filled; opt->dropdown >>
+                            <button title="{:trans; {:;opt->name:} :}" class="list-group-item list-group-item-action bg-body item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-{:;key:}-collapse">
+                                <i class="{:;local::{:;opt->icon:}:} me-2" aria-hidden="true"></i> {:trans; {:;opt->name:} :}
+                            </button>
+                            <div class="collapse menu-collapse ms-3" id="menu-drawer-{:;key:}-collapse">
+                            {:each; opt->dropdown key opt >>
+                                {:snip; current:template:main-drawer-opt :}
+                            :}
+                            </div>
+                        :}{:else;
+                            {:snip; current:template:main-drawer-opt :}
+                        :}
                     :}{:else;
                         {:snip; {:;opt:} :}
                     :}

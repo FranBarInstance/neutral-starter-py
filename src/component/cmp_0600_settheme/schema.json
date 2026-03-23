@@ -37,21 +37,47 @@
         "data": {
             "menu": {
                 "session:": {
-                    "setting": {
-                        "settheme": "settheme_0yt2sa-menu-theme",
-                        "setcolor": "settheme_0yt2sa-menu-theme-colors"
-                    }
+                    "setting": {}
                 },
                 "session:true": {
-                    "setting": {
-                        "settheme": "settheme_0yt2sa-menu-theme",
-                        "setcolor": "settheme_0yt2sa-menu-theme-colors"
+                    "setting": {}
+                }
+            },
+            "navbar": {
+                "menu": {
+                    "session:": {
+                        "theme": {}
+                    },
+                    "session:true": {
+                        "theme": {}
                     }
                 }
             },
             "current": {
                 "theme": {
                     "allow_themes": [
+                        "aurora",
+                        "autumn-harvest",
+                        "calm",
+                        "candy",
+                        "cobalt-pro",
+                        "gray",
+                        "mint-atelier",
+                        "paper",
+                        "retro",
+                        "rose-sonata",
+                        "royal-heritage",
+                        "sky-forge",
+                        "studio",
+                        "studio-asymmetric",
+                        "studio-coupon",
+                        "studio-fold",
+                        "studio-notch",
+                        "studio-pill",
+                        "studio-sketch",
+                        "techno-splash"
+                    ],
+                    "allow_themes_all": [
                         "amber-roar",
                         "aurora",
                         "autumn-harvest",

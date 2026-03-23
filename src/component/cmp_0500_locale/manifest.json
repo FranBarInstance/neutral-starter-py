@@ -15,6 +15,9 @@
         }
     },
     "config": {
+        "menu-drawer-tab": "setting",
+        "menu-drawer-tab-name": "Setting",
+        "menu-drawer-tab-icon": "x-icon-setting",
         "menu-drawer-enable": true,
         "menu-navbar-enable": true
     }

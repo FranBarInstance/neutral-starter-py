@@ -13,7 +13,7 @@
             "PWA Support": "PWA-Unterstützung",
             "Built-in service worker, offline page and web manifest. Install your app on any device with a native-like experience.": "Integrierter Service Worker, Offline-Seite und Web-Manifest. Installieren Sie Ihre App auf jedem Gerät mit einer nativen Erfahrung.",
             "Security First": "Sicherheit Zuerst",
-            "CSP, host allow-list, trusted proxy header guard, security headers, form / session token flows and rate limiting included.": "CSP, Host-Allow-List, Trusted-Proxy-Header-Schutz, Sicherheits-Header, Formular-/Session-Token-Flüsse und Ratenbegrenzung inklusive.",
+            "CSP, host allow-list, trusted proxy header guard, security headers, form - session token flows and rate limiting included.": "CSP, Host-Allow-List, Trusted-Proxy-Header-Schutz, Sicherheits-Header, Formular-/Session-Token-Flüsse und Ratenbegrenzung inklusive.",
             "Internationalization": "Internationalisierung",
             "Full i18n support through component locale files. Easily translate your application into multiple languages with zero friction.": "Vollständige i18n-Unterstützung durch Komponenten-Locale-Dateien. Übersetzen Sie Ihre Anwendung einfach in mehrere Sprachen ohne Reibung.",
             "Flask Powered": "Flask Powered",

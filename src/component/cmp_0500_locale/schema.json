@@ -83,32 +83,24 @@
             "drawer": {
                 "menu": {
                     "session:": {
-                        "setting": {
-                            "name": "Setting",
-                            "tabs": "setting",
-                            "icon": "x-icon-setting"
+                        "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]": {
+                            "name": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-name:]",
+                            "tabs": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]",
+                            "icon": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-icon:]"
                         }
                     },
                     "session:true": {
-                        "setting": {
-                            "name": "Setting",
-                            "tabs": "setting",
-                            "icon": "x-icon-setting"
+                        "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]": {
+                            "name": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-name:]",
+                            "tabs": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]",
+                            "icon": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-icon:]"
                         }
                     }
                 }
             },
             "menu": {
-                "session:": {
-                    "setting": {
-                        "language": "locale_0yt2sa-menu-language"
-                    }
-                },
-                "session:true": {
-                    "setting": {
-                        "language": "locale_0yt2sa-menu-language"
-                    }
-                }
+                "session:": {},
+                "session:true": {}
             },
             "navbar": {
                 "menu": {

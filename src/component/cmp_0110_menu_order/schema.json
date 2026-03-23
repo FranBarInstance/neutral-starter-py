@@ -26,10 +26,12 @@
                     "session:": {
                         "signin": {},
                         "signup": {},
+                        "theme": {},
                         "language": {}
                     },
                     "session:true": {
                         "signout": {},
+                        "theme": {},
                         "language": {}
                     }
                 }

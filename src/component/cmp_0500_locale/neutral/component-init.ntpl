@@ -1,22 +1,5 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-{:snip; locale_0yt2sa-menu-language >>
-    {:filled; current->site->languages->1 >>
-        {:bool; locale_0yt2sa->manifest->config->menu-drawer-enable >>
-            <button title="{:trans; Language :}" class="list-group-item list-group-item-action bg-body item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-language-collapse">
-                <i class="{:;local::x-icon-locale:} me-2" aria-hidden="true"></i> {:trans; Language :}
-            </button>
-            <div class="collapse menu-collapse ms-3" id="menu-drawer-language-collapse">
-            {:each; current->site->languages key lang >>
-                <a href="?{:;LANG_KEY:}={:;lang:}" class="list-group-item list-group-item-action bg-body border-0">
-                    <i class="{:;local::x-icon-bullet:}" aria-hidden="true"></i> <span class="ms-2">{:trans; ref:locale:{:;lang:} :}</span>
-                </a>
-            :}
-            </div>
-        :}
-    :}
-:}
-
 {:snip; locale_0yt2sa-body-end >>
     {:filled; current->site->languages->1 >>
         {:bool; locale_0yt2sa->manifest->config->menu-drawer-enable >>
@@ -24,7 +7,7 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const icons = document.querySelectorAll(`a[href="?{:;LANG_KEY:}={:lang;:}"] .x-icon`);
                     icons.forEach(icon => {
-                        icon.className = '{:;local::x-icon-check:}';
+                        icon.className = '{:;local::x-icon-check:} me-2';
                     });
                 });
             </script>

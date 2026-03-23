@@ -62,8 +62,7 @@
                         </div>
                         <h3 class="h5 fw-bold mb-2">{:trans; Modular Architecture :}</h3>
                         <p class="text-body-secondary mb-0">
-                            {:trans; Extensible plug-and-play component system. Scale from quick prototypes to
-                            complex applications while keeping a clean, decoupled structure. :}</p>
+                            {:trans; Extensible plug-and-play component system. Scale from quick prototypes to complex applications while keeping a clean, decoupled structure. :}</p>
                     </div>
                 </div>
             </div>
@@ -94,8 +93,7 @@
                         </div>
                         <h3 class="h5 fw-bold mb-2">{:trans; NTPL Templating :}</h3>
                         <p class="text-body-secondary mb-0">
-                            {:trans; Powerful snippet composition with schema-driven data. Build dynamic UIs
-                            with clean, maintainable template code. :}</p>
+                            {:trans; Powerful snippet composition with schema-driven data. Build dynamic UIs with clean, maintainable template code. :}</p>
                     </div>
                 </div>
             </div>
@@ -117,8 +115,7 @@
                         </div>
                         <h3 class="h5 fw-bold mb-2">{:trans; PWA Support :}</h3>
                         <p class="text-body-secondary mb-0">
-                            {:trans; Built-in service worker, offline page and web manifest.
-                            Install your app on any device with a native-like experience. :}</p>
+                            {:trans; Built-in service worker, offline page and web manifest. Install your app on any device with a native-like experience. :}</p>
                     </div>
                 </div>
             </div>
@@ -171,8 +168,8 @@
                         </div>
                         <h3 class="h5 fw-bold mb-2">{:trans; Security First :}</h3>
                         <p class="text-body-secondary mb-0">
-                            {:trans; CSP, host allow-list, trusted proxy header guard, security headers,
-                            form / session token flows and rate limiting included. :}</p>
+                            {:trans; CSP, host allow-list, trusted proxy header guard, security headers, form - session token flows and rate limiting included. :}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -205,8 +202,7 @@
                         </div>
                         <h3 class="h5 fw-bold mb-2">{:trans; Internationalization :}</h3>
                         <p class="text-body-secondary mb-0">
-                            {:trans; Full i18n support through component locale files. Easily translate your
-                            application into multiple languages with zero friction. :}</p>
+                            {:trans; Full i18n support through component locale files. Easily translate your application into multiple languages with zero friction. :}</p>
                     </div>
                 </div>
             </div>
@@ -240,8 +236,7 @@
                         </div>
                         <h3 class="h5 fw-bold mb-2">{:trans; Flask Powered :}</h3>
                         <p class="text-body-secondary mb-0">
-                            {:trans; Application factory with component-driven routing and blueprint
-                            registration. Python 3.10 – 3.14 with built-in testing. :}</p>
+                            {:trans; Application factory with component-driven routing and blueprint registration. Python 3.10 – 3.14 with built-in testing. :}</p>
                     </div>
                 </div>
             </div>
