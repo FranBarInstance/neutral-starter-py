@@ -10,6 +10,15 @@
             <path d="m18 15-6-6-6 6"/>
         </svg>
     </button>
+    <script nonce="{:;CSP_NONCE:}">
+        window.backToTopConfig = {
+            hideThreshold: 50,
+            scrollUpThreshold: 50,
+            backToTopThreshold: 250,
+            peekHeight: 8,
+            scrollToBehavior: 'smooth'
+        };
+    </script>
     <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/backtotop.min.js"></script>
 :}
 

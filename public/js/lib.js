@@ -36,34 +36,52 @@
 (function () {
     'use strict';
 
-    // Generate padding for fixed navbar
-    var navbar  = document.getElementById('main-navbar');
-    var spacer  = document.getElementById('main-navbar-hidden');
-    if (!navbar || !spacer) return;
+    var resizeObserver = null;
+    var observedNavbar = null;
 
     function syncHeight() {
+        var navbar = document.getElementById('main-navbar');
+        var spacer = document.getElementById('main-navbar-hidden');
+        if (!navbar || !spacer) return;
+
         var position = window.getComputedStyle(navbar).position;
-        var isFixed  = /fixed|sticky/i.test(position);
+        var isFixed = /fixed|sticky/i.test(position);
 
         if (isFixed) {
-            var height = navbar.getBoundingClientRect().height;
-            spacer.style.height  = height + 'px';
+            spacer.style.height = navbar.getBoundingClientRect().height + 'px';
             spacer.style.display = '';
         } else {
-            spacer.style.height  = '0px';
+            spacer.style.height = '0px';
             spacer.style.display = 'none';
         }
     }
 
-    if (typeof ResizeObserver !== 'undefined') {
-        new ResizeObserver(syncHeight).observe(navbar);
+    function initNavbarSpacer() {
+        var navbar = document.getElementById('main-navbar');
+        var spacer = document.getElementById('main-navbar-hidden');
+        if (!navbar || !spacer) return;
+
+        if (resizeObserver && observedNavbar !== navbar) {
+            resizeObserver.disconnect();
+            observedNavbar = null;
+        }
+
+        if (typeof ResizeObserver !== 'undefined' && !observedNavbar) {
+            resizeObserver = new ResizeObserver(syncHeight);
+            resizeObserver.observe(navbar);
+            observedNavbar = navbar;
+        }
+
+        syncHeight();
     }
 
-    window.addEventListener('load',   syncHeight);
+    window.addEventListener('load', initNavbarSpacer);
     window.addEventListener('resize', syncHeight);
+    window.addEventListener('neutralFetchCompleted', initNavbarSpacer);
 
-    syncHeight();
+    initNavbarSpacer();
 })();
+
 
 (function () {
     'use strict';
@@ -158,11 +176,18 @@
 (function () {
     'use strict';
 
-    document.addEventListener("DOMContentLoaded", function () {
+    function activeTab(retries = 10) {
         requestAnimationFrame(function () {
             const path = window.location.pathname;
 
             const allLinks = document.querySelectorAll(".tab-pane .list-group-item");
+            if (!allLinks.length) {
+                if (retries > 0) {
+                    setTimeout(() => activeTab(retries - 1), 25);
+                }
+                return;
+            }
+
             let bestMatch = null;
             let bestLength = 0;
             let homeLink = null;
@@ -192,10 +217,16 @@
             if (!bestMatch) return;
 
             const pane = bestMatch.closest(".tab-pane");
-            if (!pane) return;
+            if (!pane) {
+                if (retries > 0) activeTab(retries - 1);
+                return;
+            }
 
             const btn = document.querySelector(`[data-bs-target="#${pane.id}"]`);
-            if (!btn) return;
+            if (!btn) {
+                if (retries > 0) activeTab(retries - 1);
+                return;
+            }
 
             if (typeof bootstrap !== "undefined") {
                 bootstrap.Tab.getOrCreateInstance(btn).show();
@@ -209,5 +240,14 @@
                 pane.classList.add("show", "active");
             }
         });
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        activeTab();
+    });
+
+    document.addEventListener('neutralFetchCompleted', function () {
+        activeTab();
     });
 })();

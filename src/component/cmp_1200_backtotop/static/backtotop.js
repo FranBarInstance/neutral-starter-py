@@ -9,17 +9,25 @@
 (function() {
     'use strict';
 
+    function getGlobalConfig() {
+        const config = window.backToTopConfig;
+        return config && typeof config === 'object' ? config : {};
+    }
+
     class ScrollUtility {
         constructor() {
-            this.config = {
+            const globalConfig = getGlobalConfig();
+            const defaultConfig = {
                 navbarSelector: '#main-navbar',
                 navbarHiddenSelector: '#main-navbar-hidden', // Spacer element
                 backToTopSelector: '#back-to-top',
 
                 // Sensitivity & Thresholds
-                hideThreshold: 200,
-                scrollUpThreshold: 200,   // Higher threshold to avoid immediate showing
+                hideThreshold: 50,
+                scrollUpThreshold: 50,   // Higher threshold to avoid immediate showing
+                backToTopThreshold: 250,
                 peekHeight: 5,
+                scrollToBehavior: 'smooth',
 
                 // Feature Toggles
                 hideDown: true,
@@ -38,6 +46,18 @@
                 transitions: {
                     navbar: 'transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.2s ease, background-color 0.25s ease',
                     backToTop: 'opacity 0.2s ease, transform 0.2s ease'
+                }
+            };
+            this.config = {
+                ...defaultConfig,
+                ...globalConfig,
+                classes: {
+                    ...defaultConfig.classes,
+                    ...(globalConfig.classes || {})
+                },
+                transitions: {
+                    ...defaultConfig.transitions,
+                    ...(globalConfig.transitions || {})
                 }
             };
 
@@ -66,7 +86,7 @@
             if (this.backToTop) {
                 this.backToTop.addEventListener('click', (e) => {
                     e.preventDefault();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo({ top: 0, behavior: this.config.scrollToBehavior });
                 });
             }
 
@@ -93,6 +113,7 @@
             if (ds.hideThreshold) this.config.hideThreshold = parseInt(ds.hideThreshold);
             if (ds.scrollUpThreshold) this.config.scrollUpThreshold = parseInt(ds.scrollUpThreshold);
             if (ds.peekHeight) this.config.peekHeight = parseInt(ds.peekHeight);
+            if (ds.backToTopThreshold) this.config.backToTopThreshold = parseInt(ds.backToTopThreshold);
         }
 
         setupInitialStyles() {
@@ -144,7 +165,7 @@
 
         updateBackToTop(scrollTop) {
             if (!this.backToTop) return;
-            if (scrollTop > 300) {
+            if (scrollTop > this.config.backToTopThreshold) {
                 this.backToTop.style.opacity = '1';
                 this.backToTop.style.pointerEvents = 'auto';
                 this.backToTop.style.transform = 'translateY(0)';
@@ -246,5 +267,7 @@
     } else {
         initUtility();
     }
+
+    window.addEventListener('neutralFetchCompleted', initUtility);
 
 })();

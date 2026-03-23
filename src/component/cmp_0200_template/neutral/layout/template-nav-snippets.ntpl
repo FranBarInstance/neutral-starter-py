@@ -116,6 +116,18 @@
 :}
 
 {:*
+    Main drawer ajax
+*:}
+{:snip; current:template:main-drawer-ajax >>
+    {:moveto; /head >>
+        <link rel="stylesheet" href="/css/default-drawer.css">
+    :}
+    {:fetch; |{:;ajax_0yt2sa->manifest->route:}/drawer| >>
+        {:*  loading...  *:}
+    :}
+:}
+
+{:*
     Main navbar
 *:}
 {:snip; current:template:main-navbar >>
@@ -143,6 +155,15 @@
             &nbsp;
         </div>
     </div>
+:}
+
+{:*
+    Main navbar ajax
+*:}
+{:snip; current:template:main-navbar-ajax >>
+    {:fetch; |{:;ajax_0yt2sa->manifest->route:}/navbar| >>
+        {:*  loading...  *:}
+    :}
 :}
 
 {:*
@@ -224,7 +245,7 @@
                     </div>
                     <div class="small text-muted">Flask PWA scaffold</div>
                 </a>
-                <a href="https://github.com/FranBarInstance/neutralts-docs" target="_blank"class="list-group-item list-group-item-action border-0 px-2 py-2 rounded">
+                <a href="https://github.com/FranBarInstance/neutralts-docs" target="_blank" class="list-group-item list-group-item-action border-0 px-2 py-2 rounded">
                     <div class="d-flex w-100 align-items-center justify-content-between">
                         <strong class="small">Documentation</strong>
                         <small class="text-muted">↗</small>
