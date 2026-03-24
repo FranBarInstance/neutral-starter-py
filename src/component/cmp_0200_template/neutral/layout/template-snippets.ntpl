@@ -1,15 +1,15 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:snip; current:template:cache-key >>
-    {:;local::current->theme->theme:}
-    {:;local::current->theme->color:}
+    {:;current->theme->theme:}
+    {:;current->theme->color:}
     {:;HAS_SESSION:}
     {:;CONTEXT->HEADERS->Requested-With-Ajax:}
 :}
 
 {:snip; current:template:error-cache-key >>
-    {:;local::current->theme->theme:}
-    {:;local::current->theme->color:}
+    {:;current->theme->theme:}
+    {:;current->theme->color:}
     {:;HAS_SESSION:}
     {:;CONTEXT->HEADERS->Requested-With-Ajax:}
     {:;HTTP_ERROR->code:}
@@ -86,16 +86,16 @@
     {:snip; carousel-active-0 >>
         active
     :}
-    {:filled; local::current->theme->carousel >>
+    {:filled; current->theme->carousel >>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                {:each; local::current->theme->carousel key image >> {:;:}
+                {:each; current->theme->carousel key image >> {:;:}
                     <div class="carousel-item {:snip; carousel-active-{:;key:} :}" data-bs-interval="8000">
                         <img src="{:;image:}" class="d-block w-100">
                     </div>
                 :}
             </div>
-            {:filled; local::current->theme->carousel->1 >>
+            {:filled; current->theme->carousel->1 >>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">{:trans; Previous :}</span>

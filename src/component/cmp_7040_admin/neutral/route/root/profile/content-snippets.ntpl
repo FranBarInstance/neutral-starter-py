@@ -1,7 +1,7 @@
 {:data; #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:} mb-3">
+    <div class="{:;current->theme->class->container:} mb-3">
         {:filled; admin_profile->error >>
             <div class="alert alert-danger">{:&;admin_profile->error:}</div>
         :}

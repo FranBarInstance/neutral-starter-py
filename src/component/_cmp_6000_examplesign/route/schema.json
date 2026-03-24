@@ -1,10 +1,4 @@
 {
-    "inherit": {
-        "locale": {
-            "trans": {}
-        },
-        "data": {}
-    },
     "data": {
         "current_forms": {
             "fake_login": {

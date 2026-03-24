@@ -78,40 +78,6 @@
                     "Back": "返回"
                 }
             }
-        },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]": {
-                            "name": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-name:]",
-                            "tabs": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]",
-                            "icon": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-icon:]"
-                        }
-                    },
-                    "session:true": {
-                        "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]": {
-                            "name": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-name:]",
-                            "tabs": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]",
-                            "icon": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-icon:]"
-                        }
-                    }
-                }
-            },
-            "menu": {
-                "session:": {},
-                "session:true": {}
-            },
-            "navbar": {
-                "menu": {
-                    "session:": {
-                        "language": {}
-                    },
-                    "session:true": {
-                        "language": {}
-                    }
-                }
-            }
         }
     },
     "data": {
@@ -132,6 +98,38 @@
                     "fr": "ltr",
                     "ar": "rtl",
                     "zh": "ltr"
+                }
+            },
+            "menu": {
+                "session:": {},
+                "session:true": {}
+            },
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]": {
+                            "name": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-name:]",
+                            "tabs": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]",
+                            "icon": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-icon:]"
+                        }
+                    },
+                    "session:true": {
+                        "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]": {
+                            "name": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-name:]",
+                            "tabs": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab:]",
+                            "icon": "[:;data->locale_0yt2sa->manifest->config->menu-drawer-tab-icon:]"
+                        }
+                    }
+                }
+            }
+        },
+        "navbar": {
+            "menu": {
+                "session:": {
+                    "language": {}
+                },
+                "session:true": {
+                    "language": {}
                 }
             }
         }

@@ -18,7 +18,7 @@
     ------------
 *:}
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
+    <div class="{:;current->theme->class->container:}">
         {:!bool; local_admin->auth_ok >>
             {:snip; localdev_0yt2sa:login-form-wrapper :}
         :}{:else;

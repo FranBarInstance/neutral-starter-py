@@ -4,7 +4,7 @@
 {:locale; {:flg; require :} >> #/locale.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:} py-4">
+    <div class="{:;current->theme->class->container:} py-4">
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <h3 class="mb-2">{:trans; Test Two :}</h3>

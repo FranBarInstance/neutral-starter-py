@@ -2,10 +2,10 @@
 
 {:snip; settheme_0yt2sa-body-end >>
     {:bool; settheme_0yt2sa->manifest->config->menu-drawer-enable >>
-        {:filled; local::current->theme->allow_themes->1 >>
+        {:filled; current->theme->allow_themes->1 >>
             <script nonce="{:;CSP_NONCE:}">
                 document.addEventListener('DOMContentLoaded', () => {
-                    const icons = document.querySelectorAll(`a[href="?{:;THEME_KEY:}={:;local::current->theme->theme:}"] i`);
+                    const icons = document.querySelectorAll(`a[href="?{:;THEME_KEY:}={:;current->theme->theme:}"] i`);
                     icons.forEach(icon => {
                         icon.className = '{:;local::x-icon-check:} me-1';
                     });

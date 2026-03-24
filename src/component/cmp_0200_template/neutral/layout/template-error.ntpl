@@ -13,9 +13,9 @@
         {:each; local::current->route->meta name content >>
             <meta name="{:;name:}" content="{:;content:}" />
         :}
-        {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
+        {:snip; current:template:theme-workaround-css:{:;current->theme->theme:} :}
     </head>
-    <body class="{:;local::current->theme->class->body:}">
+    <body class="{:;current->theme->class->body:}">
         {:snip; current:template:main-navbar :}
         {:snip; current:template:main-drawer :}
         {:snip; current:template:page-h1 :}

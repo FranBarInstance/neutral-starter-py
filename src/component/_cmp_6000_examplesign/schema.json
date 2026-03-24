@@ -1,27 +1,6 @@
 {
-    "inherit": {
-        "locale": {
-            "trans": {}
-        },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "examplesign-tab": {
-                            "name": "Example Sign",
-                            "tabs": "examplesign-tab",
-                            "icon": "x-icon-sign"
-                        }
-                    },
-                    "session:true": {
-                        "examplesign-tab": {
-                            "name": "Example Sign",
-                            "tabs": "examplesign-tab",
-                            "icon": "x-icon-sign"
-                        }
-                    }
-                }
-            },
+    "data": {
+        "current": {
             "menu": {
                 "session:": {
                     "examplesign-tab": {
@@ -41,10 +20,25 @@
                         }
                     }
                 }
+            },
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "examplesign-tab": {
+                            "name": "Example Sign",
+                            "tabs": "examplesign-tab",
+                            "icon": "x-icon-sign"
+                        }
+                    },
+                    "session:true": {
+                        "examplesign-tab": {
+                            "name": "Example Sign",
+                            "tabs": "examplesign-tab",
+                            "icon": "x-icon-sign"
+                        }
+                    }
+                }
             }
         }
-    },
-    "data": {
-        "_core": {}
     }
 }

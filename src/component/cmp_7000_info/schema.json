@@ -38,26 +38,10 @@
                     "Legal": "法律信息"
                 }
             }
-        },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "info": {
-                            "name": "Information",
-                            "tabs": "info",
-                            "icon": "x-icon-help"
-                        }
-                    },
-                    "session:true": {
-                        "info": {
-                            "name": "Information",
-                            "tabs": "info",
-                            "icon": "x-icon-help"
-                        }
-                    }
-                }
-            },
+        }
+    },
+    "data": {
+        "current": {
             "menu": {
                 "session:": {
                     "info": {
@@ -107,8 +91,25 @@
                         }
                     }
                 }
+            },
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "info": {
+                            "name": "Information",
+                            "tabs": "info",
+                            "icon": "x-icon-help"
+                        }
+                    },
+                    "session:true": {
+                        "info": {
+                            "name": "Information",
+                            "tabs": "info",
+                            "icon": "x-icon-help"
+                        }
+                    }
+                }
             }
         }
-    },
-    "data": {}
+    }
 }

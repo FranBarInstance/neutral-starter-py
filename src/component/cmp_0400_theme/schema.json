@@ -25,45 +25,30 @@
             }
         },
         "data": {
-            "current": {
-                "theme": {
-                    "theme": "studio-asymmetric",
-                    "color": "",
-                    "class": {
-                        "container": "container p-0 p-md-2",
-                        "body_main": "",
-                        "body_lateral_bar": "",
-                        "body": "",
-                        "body_navbar_bg": "bg-primary",
-                        "body_navbar_size": "py-2 py-md-3",
-                        "body_navbar_class": "navbar-expand _border-clean",
-                        "body_navbar_fixed": "fixed-top"
-                    },
-                    "spin": "current:template:spin-set-spin4",
-                    "allow_themes": [
-                        "studio"
-                    ],
-                    "allow_colors": [],
-                    "carousel": []
-                }
-            },
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "setting": {
-                            "name": "Setting",
-                            "tabs": "setting",
-                            "icon": "x-icon-setting"
-                        }
-                    },
-                    "session:true": {
-                        "setting": {
-                            "name": "Setting",
-                            "tabs": "setting",
-                            "icon": "x-icon-setting"
-                        }
-                    }
-                }
+            "current": {}
+        }
+    },
+    "data": {
+        "current": {
+            "theme": {
+                "theme": "studio-asymmetric",
+                "color": "",
+                "class": {
+                    "container": "container p-0 p-md-2",
+                    "body_main": "",
+                    "body_lateral_bar": "",
+                    "body": "",
+                    "body_navbar_bg": "bg-primary",
+                    "body_navbar_size": "py-2 py-md-3",
+                    "body_navbar_class": "navbar-expand _border-clean",
+                    "body_navbar_fixed": "fixed-top"
+                },
+                "spin": "current:template:spin-set-spin4",
+                "allow_themes": [
+                    "studio"
+                ],
+                "allow_colors": [],
+                "carousel": []
             },
             "menu": {
                 "session:": {
@@ -86,8 +71,25 @@
                         }
                     }
                 }
+            },
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "setting": {
+                            "name": "Setting",
+                            "tabs": "setting",
+                            "icon": "x-icon-setting"
+                        }
+                    },
+                    "session:true": {
+                        "setting": {
+                            "name": "Setting",
+                            "tabs": "setting",
+                            "icon": "x-icon-setting"
+                        }
+                    }
+                }
             }
         }
-    },
-    "data": {}
+    }
 }

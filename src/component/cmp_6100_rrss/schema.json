@@ -23,24 +23,14 @@
             }
         },
         "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "rrss": {
-                            "name": "RRSS",
-                            "tabs": "rrss",
-                            "icon": "x-icon-rss"
-                        }
-                    },
-                    "session:true": {
-                        "rrss": {
-                            "name": "RRSS",
-                            "tabs": "rrss",
-                            "icon": "x-icon-rss"
-                        }
-                    }
-                }
-            },
+            "rrss_default": "",
+            "rrss_urls": {},
+            "rrss_valid_names": ""
+        }
+    },
+    "data": {
+        "rrss_name": "",
+        "current": {
             "menu": {
                 "session:": {
                     "rrss": {
@@ -61,12 +51,24 @@
                     }
                 }
             },
-            "rrss_default": "",
-            "rrss_urls": {},
-            "rrss_valid_names": ""
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "rrss": {
+                            "name": "RRSS",
+                            "tabs": "rrss",
+                            "icon": "x-icon-rss"
+                        }
+                    },
+                    "session:true": {
+                        "rrss": {
+                            "name": "RRSS",
+                            "tabs": "rrss",
+                            "icon": "x-icon-rss"
+                        }
+                    }
+                }
+            }
         }
-    },
-    "data": {
-        "rrss_name": ""
     }
 }

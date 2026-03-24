@@ -18,9 +18,9 @@
         {:each; local::current->route->meta name content >>
             <meta name="{:;name:}" content="{:;content:}" />
         :}
-        {:snip; current:template:theme-workaround-css:{:;local::current->theme->theme:} :}
+        {:snip; current:template:theme-workaround-css:{:;current->theme->theme:} :}
     </head>
-    <body class="{:;local::current->theme->class->body:}">
+    <body class="{:;current->theme->class->body:}">
         {:cache; /{:;current->template->nav_cache_seconds:}/ >>
             {:snip; current:template:main-navbar :}
             {:snip; current:template:main-drawer :}
@@ -33,18 +33,18 @@
             {:eval; {:snip; current:template:body-lateral-bar :} >>
                 <div class="row">
                     <div class="col-lg break-long-words">
-                        <main class="{:;local::current->theme->class->body_main:}">
+                        <main class="{:;current->theme->class->body_main:}">
                             {:snip; current:template:body-main-content :}
                         </main>
                     </div>
-                    <div class="col-auto fixed-col break-long-words {:;local::current->theme->class->body_lateral_bar:}">
+                    <div class="col-auto fixed-col break-long-words {:;current->theme->class->body_lateral_bar:}">
                         {:;__eval__:}
                     </div>
                 </div>
             :}{:else;
                 <div class="row">
                     <div class="col-12 break-long-words">
-                        <main class="{:;local::current->theme->class->body_main:}">
+                        <main class="{:;current->theme->class->body_main:}">
                             {:snip; current:template:body-main-content :}
                         </main>
                     </div>

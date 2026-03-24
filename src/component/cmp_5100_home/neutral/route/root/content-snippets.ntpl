@@ -282,7 +282,7 @@
 :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
+    <div class="{:;current->theme->class->container:}">
         {:snip; body-main-content :}
     </div>
 :}

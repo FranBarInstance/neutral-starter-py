@@ -5,7 +5,7 @@
 {:!include; {:flg; require :} >> #/form/snippets.ntpl :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:} mb-5">
+    <div class="{:;current->theme->class->container:} mb-5">
         {:code;
             {:param; form >> sign_pin_form :}
             {:param; disabled-login >> disabled :}

@@ -43,20 +43,10 @@
                     "Sign out": "登出"
                 }
             }
-        },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {},
-                    "session:true": {
-                        "user": {
-                            "name": "User",
-                            "tabs": "user",
-                            "icon": "x-icon-user"
-                        }
-                    }
-                }
-            },
+        }
+    },
+    "data": {
+        "current": {
             "menu": {
                 "session:": {},
                 "session:true": {
@@ -85,6 +75,18 @@
                             "text": "Sign out",
                             "link": "[:;data->sign_0yt2sa->manifest->route:]/out",
                             "icon": "x-icon-sign-out"
+                        }
+                    }
+                }
+            },
+            "drawer": {
+                "menu": {
+                    "session:": {},
+                    "session:true": {
+                        "user": {
+                            "name": "User",
+                            "tabs": "user",
+                            "icon": "x-icon-user"
                         }
                     }
                 }

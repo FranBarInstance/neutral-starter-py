@@ -9,7 +9,7 @@
 {:data; {:flg; require :} >> #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:} py-4">
+    <div class="{:;current->theme->class->container:} py-4">
         {:include; #/content-{:lang;:}.ntpl :}
         {:else; {:include; #/content-en.ntpl :} :}
     </div>

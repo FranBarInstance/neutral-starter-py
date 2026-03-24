@@ -868,7 +868,7 @@ src/component/cmp_XXXX_name/
 
 {:* 6. Define main content (REQUIRED) *:}
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
+    <div class="{:;current->theme->class->container:}">
         <h3>{:trans; Page Title :}</h3>
         <p>Content here...</p>
     </div>

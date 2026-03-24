@@ -38,7 +38,7 @@
             <div class="tab-content text-truncate w-100 drawer-tabs-content-min-height bg-body" id="theme-drawer-tabs-content">
                 <div class="theme-drawer-content-header border-bottom px-3 py-3">
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                        <div class="fw-semibold">{:trans; {:;local::drawer->name:} :}</div>
+                        <div class="fw-semibold">{:trans; {:;current->drawer->name:} :}</div>
                         <label class="theme-drawer-pin-switch" for="theme-drawer-pin">
                             <input id="theme-drawer-pin" class="theme-drawer-pin-input" type="checkbox" aria-label="{:trans; Pin full menu :}"{:bool; CONTEXT->COOKIES->theme-drawer-pin-full >> checked :} />
                             <span class="theme-drawer-pin-slider" aria-hidden="true"></span>
@@ -54,7 +54,7 @@
                     <i class="{:;local::x-icon-webapp:} fs-4" aria-hidden="true"></i>
                 </div>
                 <div class="theme-drawer-footer-copy text-truncate">
-                    <div class="fw-semibold small">{:trans; {:;local::drawer->name:} :}</div>
+                    <div class="fw-semibold small">{:trans; {:;current->drawer->name:} :}</div>
                     <div class="text-body-secondary small">{:trans; Navigation :}</div>
                 </div>
             </div>

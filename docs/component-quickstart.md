@@ -61,7 +61,7 @@ Minimal `manifest.json` example:
 }
 ```
 
-By default, define menu entries in `schema.json` (`inherit.data.drawer` and `inherit.data.menu`) so the component is reachable from navigation.
+By default, define menu entries in `schema.json` (`data.current.drawer` and `data.current.menu`) so the component is reachable from navigation.
 
 ## 4. Register Blueprint and Routes
 

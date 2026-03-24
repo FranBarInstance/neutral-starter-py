@@ -1,6 +1,21 @@
 {
-    "inherit": {
-        "data": {
+    "data": {
+        "navbar": {
+            "menu": {
+                "session:": {
+                    "signin": {},
+                    "signup": {},
+                    "theme": {},
+                    "language": {}
+                },
+                "session:true": {
+                    "signout": {},
+                    "theme": {},
+                    "language": {}
+                }
+            }
+        },
+        "current": {
             "drawer": {
                 "menu": {
                     "session:": {
@@ -18,21 +33,6 @@
                         "rrss": {},
                         "setting": {},
                         "info": {}
-                    }
-                }
-            },
-            "navbar": {
-                "menu": {
-                    "session:": {
-                        "signin": {},
-                        "signup": {},
-                        "theme": {},
-                        "language": {}
-                    },
-                    "session:true": {
-                        "signout": {},
-                        "theme": {},
-                        "language": {}
                     }
                 }
             }

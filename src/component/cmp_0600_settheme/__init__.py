@@ -11,11 +11,11 @@ def init_component(component, component_schema, _schema):
 
 def menu_drawer(component, component_schema):
     """Component - Menu Drawer"""
-    themes = component_schema['inherit']['data']['current']['theme']['allow_themes']
+    themes = component_schema['data']['current']['theme']['allow_themes']
 
     if len(themes) < 2 or not component['manifest']['config']['menu-drawer-enable']:
-        component_schema['inherit']['data']['menu']['session:']['setting']['theme'] = None
-        component_schema['inherit']['data']['menu']['session:true']['setting']['theme'] = None
+        component_schema['data']['current']['menu']['session:']['setting']['theme'] = None
+        component_schema['data']['current']['menu']['session:true']['setting']['theme'] = None
         return
 
     # Language drawer menu for dropdown
@@ -37,17 +37,17 @@ def menu_drawer(component, component_schema):
         }
 
     # set menu in local data
-    component_schema['inherit']['data']['menu']['session:']['setting']['theme'] = menu
-    component_schema['inherit']['data']['menu']['session:true']['setting']['theme'] = menu
+    component_schema['data']['current']['menu']['session:']['setting']['theme'] = menu
+    component_schema['data']['current']['menu']['session:true']['setting']['theme'] = menu
 
 
 def menu_navbar(component, component_schema):
     """Component - Menu Navbar"""
-    themes = component_schema['inherit']['data']['current']['theme']['allow_themes']
+    themes = component_schema['data']['current']['theme']['allow_themes']
 
     if len(themes) < 2 or not component['manifest']['config']['menu-navbar-enable']:
-        component_schema['inherit']['data']['navbar']['menu']['session:']['theme'] = None
-        component_schema['inherit']['data']['navbar']['menu']['session:true']['theme'] = None
+        component_schema['data']['navbar']['menu']['session:']['theme'] = None
+        component_schema['data']['navbar']['menu']['session:true']['theme'] = None
         return
 
     # Language navbar menu for dropdown
@@ -69,5 +69,5 @@ def menu_navbar(component, component_schema):
         }
 
     # set menu in local data
-    component_schema['inherit']['data']['navbar']['menu']['session:']['theme'] = menu
-    component_schema['inherit']['data']['navbar']['menu']['session:true']['theme'] = menu
+    component_schema['data']['navbar']['menu']['session:']['theme'] = menu
+    component_schema['data']['navbar']['menu']['session:true']['theme'] = menu

@@ -1,7 +1,7 @@
 {:data; {:flg; require :} >> #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
+    <div class="{:;current->theme->class->container:}">
         {:!bool; local_admin->auth_ok >>
             <div class="card border-0 shadow-sm">
                 <div class="card-body">

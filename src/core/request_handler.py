@@ -44,9 +44,9 @@ class RequestHandler:
         if self.schema_data['USER']['profile'].get('properties'):
             user_prop = self.schema_data['USER']['profile']['properties']
             if user_prop.get('theme'):
-               self.schema_local_data['current']['theme']['theme'] = user_prop['theme']
+               self.schema_data['current']['theme']['theme'] = user_prop['theme']
             if user_prop.get('color'):
-                self.schema_local_data['current']['theme']['color'] = user_prop['color']
+                self.schema_data['current']['theme']['color'] = user_prop['color']
         if self.schema_data['USER']['profile'].get('locale'):
             self.schema.properties['inherit']['locale']['current'] = self.schema_data['USER']['profile']['locale']
 

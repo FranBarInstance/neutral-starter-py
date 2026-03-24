@@ -33,18 +33,6 @@
                     "Neutral TS Skeleton for PWA in Python !": "Neutral TS 骨架 PWA Python"
                 }
             }
-        },
-        "data": {
-            "navbar": {
-                "menu": {
-                    "session:": {
-                        "language": {}
-                    },
-                    "session:true": {
-                        "language": {}
-                    }
-                }
-            }
         }
     },
     "data": {
@@ -56,6 +44,16 @@
                 "cover": "/img/cover.jpg",
                 "logo": "/img/logo.jpg",
                 "static": "/"
+            }
+        },
+        "navbar": {
+            "menu": {
+                "session:": {
+                    "language": {}
+                },
+                "session:true": {
+                    "language": {}
+                }
             }
         }
     }

@@ -28,19 +28,10 @@
                     "Posts": "帖子"
                 }
             }
-        },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:true": {
-                        "admin": {
-                            "name": "Admin",
-                            "tabs": "admin",
-                            "icon": "x-icon-admin"
-                        }
-                    }
-                }
-            },
+        }
+    },
+    "data": {
+        "current": {
             "menu": {
                 "session:true": {
                     "admin": {
@@ -61,8 +52,18 @@
                         }
                     }
                 }
+            },
+            "drawer": {
+                "menu": {
+                    "session:true": {
+                        "admin": {
+                            "name": "Admin",
+                            "tabs": "admin",
+                            "icon": "x-icon-admin"
+                        }
+                    }
+                }
             }
         }
-    },
-    "data": {}
+    }
 }

@@ -27,26 +27,10 @@
                     "Main": "主要"
                 }
             }
-        },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "main": {
-                            "name": "Main",
-                            "tabs": "main",
-                            "icon": "x-icon-home"
-                        }
-                    },
-                    "session:true": {
-                        "main": {
-                            "name": "Main",
-                            "tabs": "main",
-                            "icon": "x-icon-home"
-                        }
-                    }
-                }
-            },
+        }
+    },
+    "data": {
+        "current": {
             "menu": {
                 "session:": {
                     "main": {
@@ -66,8 +50,25 @@
                         }
                     }
                 }
+            },
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "main": {
+                            "name": "Main",
+                            "tabs": "main",
+                            "icon": "x-icon-home"
+                        }
+                    },
+                    "session:true": {
+                        "main": {
+                            "name": "Main",
+                            "tabs": "main",
+                            "icon": "x-icon-home"
+                        }
+                    }
+                }
             }
         }
-    },
-    "data": {}
+    }
 }

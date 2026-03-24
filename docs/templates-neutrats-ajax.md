@@ -127,7 +127,7 @@ The key architectural pattern is that both the full-page template and the AJAX t
 {:data; #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:}">
+    <div class="{:;current->theme->class->container:}">
         {:snip; cmp_uuid:my-content-snippet :}
     </div>
 :}

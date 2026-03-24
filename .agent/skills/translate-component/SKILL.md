@@ -45,8 +45,10 @@ In the following example, since the texts are already in English, it is not nece
                     "Sign out": "Cerrar sesión"
                 }
             }
-        },
-        "data": {
+        }
+    },
+    "data": {
+        "current": {
             "drawer": {
                 "menu": {
                     "session:": {
@@ -84,29 +86,29 @@ In the following example, since the texts are already in English, it is not nece
                         }
                     }
                 }
-            },
-            "navbar": {
-                "menu": {
-                    "session:": {
-                        "signin": {
-                            "name": "Sign in",
-                            "link": "#loginModal",
-                            "icon": "x-icon-sign-in",
-                            "prop": {
-                                "data-bs-toggle": "modal",
-                                "data-bs-target": "#loginModal"
-                            }
+            }
+        },
+        "navbar": {
+            "menu": {
+                "session:": {
+                    "signin": {
+                        "name": "Sign in",
+                        "link": "#loginModal",
+                        "icon": "x-icon-sign-in",
+                        "prop": {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#loginModal"
                         }
-                    },
-                    "session:true": {
-                        "signout": {
-                            "name": "Sign out",
-                            "link": "#logoutModal",
-                            "icon": "x-icon-sign-out",
-                            "prop": {
-                                "data-bs-toggle": "modal",
-                                "data-bs-target": "#logoutModal"
-                            }
+                    }
+                },
+                "session:true": {
+                    "signout": {
+                        "name": "Sign out",
+                        "link": "#logoutModal",
+                        "icon": "x-icon-sign-out",
+                        "prop": {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#logoutModal"
                         }
                     }
                 }
@@ -162,12 +164,12 @@ In the following example, since the texts are already in English, it is not nece
     Determine the base directory of the component (e.g., `src/component/cmp_XXXX_componentname/`).
 
 2. **Identify Global Translations**:
-    - Look for menu texts in `schema`: `data.drawer.menu.session.rrss.name` and `menu.session.xxxx.xxxx.text`.
+    - Look for menu texts in `schema`: `data.current.drawer.menu.session.rrss.name` and `menu.session.xxxx.xxxx.text`.
     - Look for texts with the pattern `{:trans; ... :}` in the file `src/component/cmp_XXXX_componentname/neutral/component-init.ntpl` and put them in `schema.json`.
     - **schema.json Translation**: Scan `schema.json` for any text strings in:
-        - `data.drawer.menu.*.name`
-        - `data.drawer.menu.*.tabs`
-        - `data.menu.*.*.text`
+        - `data.current.drawer.menu.*.name`
+        - `data.current.drawer.menu.*.tabs`
+        - `data.current.menu.*.*.text`
         - `data.navbar.menu.*.name`
         - Any other human-readable text fields that should be translated
     - Add these texts to the translations in `schema.json` under `inherit.locale.trans`.

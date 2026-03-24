@@ -14,14 +14,14 @@ def menu_drawer(component, component_schema):
     languages = component_schema['data']['current']['site']['languages']
     tab = component['manifest']['config']['menu-drawer-tab']
 
-    if tab not in component_schema['inherit']['data']['menu']['session:']:
-        component_schema['inherit']['data']['menu']['session:'][tab] = {}
-    if tab not in component_schema['inherit']['data']['menu']['session:true']:
-        component_schema['inherit']['data']['menu']['session:true'][tab] = {}
+    if tab not in component_schema['data']['current']['menu']['session:']:
+        component_schema['data']['current']['menu']['session:'][tab] = {}
+    if tab not in component_schema['data']['current']['menu']['session:true']:
+        component_schema['data']['current']['menu']['session:true'][tab] = {}
 
     if len(languages) < 2 or not component['manifest']['config']['menu-drawer-enable']:
-        component_schema['inherit']['data']['menu']['session:'][tab]['language'] = None
-        component_schema['inherit']['data']['menu']['session:true'][tab]['language'] = None
+        component_schema['data']['current']['menu']['session:'][tab]['language'] = None
+        component_schema['data']['current']['menu']['session:true'][tab]['language'] = None
         return
 
     # Language drawer menu for dropdown
@@ -43,8 +43,8 @@ def menu_drawer(component, component_schema):
         }
 
     # set menu in local data
-    component_schema['inherit']['data']['menu']['session:'][tab]['language'] = menu
-    component_schema['inherit']['data']['menu']['session:true'][tab]['language'] = menu
+    component_schema['data']['current']['menu']['session:'][tab]['language'] = menu
+    component_schema['data']['current']['menu']['session:true'][tab]['language'] = menu
 
 
 def menu_navbar(component, component_schema):
@@ -52,8 +52,8 @@ def menu_navbar(component, component_schema):
     languages = component_schema['data']['current']['site']['languages']
 
     if len(languages) < 2 or not component['manifest']['config']['menu-navbar-enable']:
-        component_schema['inherit']['data']['navbar']['menu']['session:']['language'] = None
-        component_schema['inherit']['data']['navbar']['menu']['session:true']['language'] = None
+        component_schema['data']['navbar']['menu']['session:']['language'] = None
+        component_schema['data']['navbar']['menu']['session:true']['language'] = None
         return
 
     # Language navbar menu for dropdown
@@ -75,5 +75,5 @@ def menu_navbar(component, component_schema):
         }
 
     # set menu in local data
-    component_schema['inherit']['data']['navbar']['menu']['session:']['language'] = menu
-    component_schema['inherit']['data']['navbar']['menu']['session:true']['language'] = menu
+    component_schema['data']['navbar']['menu']['session:']['language'] = menu
+    component_schema['data']['navbar']['menu']['session:true']['language'] = menu

@@ -39,8 +39,10 @@
                     "No connection": "无连接"
                 }
             }
-        },
-        "data": {
+        }
+    },
+    "data": {
+        "current": {
             "menu": {
                 "session:": {
                     "main": {
@@ -64,6 +66,5 @@
                 }
             }
         }
-    },
-    "data": {}
+    }
 }

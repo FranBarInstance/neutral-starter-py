@@ -33,8 +33,94 @@
                     "Colors": "颜色"
                 }
             }
-        },
-        "data": {
+        }
+    },
+    "data": {
+        "current": {
+            "theme": {
+                "allow_themes": [
+                    "aurora",
+                    "autumn-harvest",
+                    "calm",
+                    "candy",
+                    "cobalt-pro",
+                    "gray",
+                    "mint-atelier",
+                    "paper",
+                    "retro",
+                    "rose-sonata",
+                    "royal-heritage",
+                    "sky-forge",
+                    "studio",
+                    "studio-asymmetric",
+                    "studio-coupon",
+                    "studio-fold",
+                    "studio-notch",
+                    "studio-pill",
+                    "studio-sketch",
+                    "techno-splash"
+                ],
+                "allow_themes_all": [
+                    "amber-roar",
+                    "aurora",
+                    "autumn-harvest",
+                    "berry-smoothie",
+                    "boutique-chic",
+                    "calm",
+                    "candy",
+                    "carbon-matrix",
+                    "charcoal-ledger",
+                    "citrus",
+                    "clean-enterprise",
+                    "cobalt-pro",
+                    "cyber-neon",
+                    "deep-sea-echo",
+                    "deep-space",
+                    "desert-bloom",
+                    "desert-mirage",
+                    "earth-explorer",
+                    "ember-forge",
+                    "emerald-palace",
+                    "forest",
+                    "gilded-graphite",
+                    "gray",
+                    "industrial-steel",
+                    "lavender-luxe",
+                    "lollipop-fun",
+                    "midnight-orchid",
+                    "mint-atelier",
+                    "neon",
+                    "noir",
+                    "nordic-circuit",
+                    "nordic-elegance",
+                    "olive-press",
+                    "opal-signal",
+                    "organic-life",
+                    "paper",
+                    "plum-atelier",
+                    "power-grid",
+                    "retro",
+                    "rose-sonata",
+                    "royal-heritage",
+                    "sakura-garden",
+                    "serene-zen",
+                    "sky-forge",
+                    "slate-studio",
+                    "steel-horizon",
+                    "studio",
+                    "studio-asymmetric",
+                    "studio-coupon",
+                    "studio-fold",
+                    "studio-notch",
+                    "studio-pill",
+                    "studio-sketch",
+                    "sunset",
+                    "techno-splash",
+                    "vintage-journal",
+                    "wild"
+                ],
+                "allow_colors": []
+            },
             "menu": {
                 "session:": {
                     "setting": {}
@@ -42,104 +128,17 @@
                 "session:true": {
                     "setting": {}
                 }
-            },
-            "navbar": {
-                "menu": {
-                    "session:": {
-                        "theme": {}
-                    },
-                    "session:true": {
-                        "theme": {}
-                    }
-                }
-            },
-            "current": {
-                "theme": {
-                    "allow_themes": [
-                        "aurora",
-                        "autumn-harvest",
-                        "calm",
-                        "candy",
-                        "cobalt-pro",
-                        "gray",
-                        "mint-atelier",
-                        "paper",
-                        "retro",
-                        "rose-sonata",
-                        "royal-heritage",
-                        "sky-forge",
-                        "studio",
-                        "studio-asymmetric",
-                        "studio-coupon",
-                        "studio-fold",
-                        "studio-notch",
-                        "studio-pill",
-                        "studio-sketch",
-                        "techno-splash"
-                    ],
-                    "allow_themes_all": [
-                        "amber-roar",
-                        "aurora",
-                        "autumn-harvest",
-                        "berry-smoothie",
-                        "boutique-chic",
-                        "calm",
-                        "candy",
-                        "carbon-matrix",
-                        "charcoal-ledger",
-                        "citrus",
-                        "clean-enterprise",
-                        "cobalt-pro",
-                        "cyber-neon",
-                        "deep-sea-echo",
-                        "deep-space",
-                        "desert-bloom",
-                        "desert-mirage",
-                        "earth-explorer",
-                        "ember-forge",
-                        "emerald-palace",
-                        "forest",
-                        "gilded-graphite",
-                        "gray",
-                        "industrial-steel",
-                        "lavender-luxe",
-                        "lollipop-fun",
-                        "midnight-orchid",
-                        "mint-atelier",
-                        "neon",
-                        "noir",
-                        "nordic-circuit",
-                        "nordic-elegance",
-                        "olive-press",
-                        "opal-signal",
-                        "organic-life",
-                        "paper",
-                        "plum-atelier",
-                        "power-grid",
-                        "retro",
-                        "rose-sonata",
-                        "royal-heritage",
-                        "sakura-garden",
-                        "serene-zen",
-                        "sky-forge",
-                        "slate-studio",
-                        "steel-horizon",
-                        "studio",
-                        "studio-asymmetric",
-                        "studio-coupon",
-                        "studio-fold",
-                        "studio-notch",
-                        "studio-pill",
-                        "studio-sketch",
-                        "sunset",
-                        "techno-splash",
-                        "vintage-journal",
-                        "wild"
-                    ],
-                    "allow_colors": []
+            }
+        },
+        "navbar": {
+            "menu": {
+                "session:": {
+                    "theme": {}
+                },
+                "session:true": {
+                    "theme": {}
                 }
             }
         }
-    },
-    "data": {}
+    }
 }

@@ -1,7 +1,7 @@
 {:data; {:flg; require :} >> #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:} py-4">
+    <div class="{:;current->theme->class->container:} py-4">
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <p class="mb-3">{:trans; This route is reserved for future development tools. :}</p>

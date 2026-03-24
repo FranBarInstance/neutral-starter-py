@@ -38,18 +38,17 @@
                     "Confirm logout": "确认注销"
                 }
             }
-        },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "sign": {
-                            "name": "User",
-                            "tabs": "sign",
-                            "icon": "x-icon-user"
-                        }
-                    },
-                    "session:true": {}
+        }
+    },
+    "data": {
+        "current": {
+            "site": {
+                "sign_links": {
+                    "in": "[:;data->sign_0yt2sa->manifest->route:]/in",
+                    "up": "[:;data->sign_0yt2sa->manifest->route:]/up",
+                    "reminder": "[:;data->sign_0yt2sa->manifest->route:]/reminder",
+                    "out": "[:;data->sign_0yt2sa->manifest->route:]/out",
+                    "pin": "[:;data->sign_0yt2sa->manifest->route:]/pin"
                 }
             },
             "menu": {
@@ -74,52 +73,51 @@
                 },
                 "session:true": {}
             },
-            "navbar": {
+            "drawer": {
                 "menu": {
                     "session:": {
-                        "signin": {
-                            "name": "Sign in",
-                            "link": "#loginModal",
-                            "icon": "x-icon-sign-in",
-                            "prop": {
-                                "data-bs-toggle": "modal",
-                                "data-bs-target": "#loginModal"
-                            }
-                        },
-                        "signup": {
-                            "name": "Sign up",
-                            "link": "#registerModal",
-                            "icon": "x-icon-sign-up",
-                            "prop": {
-                                "data-bs-toggle": "modal",
-                                "data-bs-target": "#registerModal"
-                            }
+                        "sign": {
+                            "name": "User",
+                            "tabs": "sign",
+                            "icon": "x-icon-user"
                         }
                     },
-                    "session:true": {
-                        "signout": {
-                            "name": "Sign out",
-                            "link": "#logoutModal",
-                            "icon": "x-icon-sign-out",
-                            "prop": {
-                                "data-bs-toggle": "modal",
-                                "data-bs-target": "#logoutModal"
-                            }
-                        }
-                    }
+                    "session:true": {}
                 }
             }
-        }
-    },
-    "data": {
-        "current": {
-            "site": {
-                "sign_links": {
-                    "in": "[:;data->sign_0yt2sa->manifest->route:]/in",
-                    "up": "[:;data->sign_0yt2sa->manifest->route:]/up",
-                    "reminder": "[:;data->sign_0yt2sa->manifest->route:]/reminder",
-                    "out": "[:;data->sign_0yt2sa->manifest->route:]/out",
-                    "pin": "[:;data->sign_0yt2sa->manifest->route:]/pin"
+        },
+        "navbar": {
+            "menu": {
+                "session:": {
+                    "signin": {
+                        "name": "Sign in",
+                        "link": "#loginModal",
+                        "icon": "x-icon-sign-in",
+                        "prop": {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#loginModal"
+                        }
+                    },
+                    "signup": {
+                        "name": "Sign up",
+                        "link": "#registerModal",
+                        "icon": "x-icon-sign-up",
+                        "prop": {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#registerModal"
+                        }
+                    }
+                },
+                "session:true": {
+                    "signout": {
+                        "name": "Sign out",
+                        "link": "#logoutModal",
+                        "icon": "x-icon-sign-out",
+                        "prop": {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#logoutModal"
+                        }
+                    }
                 }
             }
         }

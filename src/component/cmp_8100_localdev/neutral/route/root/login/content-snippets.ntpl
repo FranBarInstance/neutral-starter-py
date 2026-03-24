@@ -1,7 +1,7 @@
 {:data; {:flg; require :} >> #/data.json :}
 
 {:snip; current:template:body-main-content >>
-    <div class="{:;local::current->theme->class->container:} py-4">
+    <div class="{:;current->theme->class->container:} py-4">
         {:snip; localdev_0yt2sa:alerts :}
 
         {:!bool; HAS_SESSION_DEV >>

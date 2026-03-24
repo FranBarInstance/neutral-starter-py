@@ -4,7 +4,6 @@
     "inherit": {
         "locale": {
             "trans": {
-                "en": {},
                 "es": {
                     "Hello": "Hola",
                     "Hello Component": "Componente Hola",
@@ -66,26 +65,13 @@
                     "Redirect": "重定向"
                 }
             }
+        }
+    },
+    "data": {
+        "hellocomp": {
+            "hello": "Hello Component"
         },
-        "data": {
-            "drawer": {
-                "menu": {
-                    "session:": {
-                        "hello-tab": {
-                            "name": "Hello",
-                            "tabs": "hello-tab",
-                            "icon": "x-icon-greeting"
-                        }
-                    },
-                    "session:true": {
-                        "hello-tab": {
-                            "name": "Hello",
-                            "tabs": "hello-tab",
-                            "icon": "x-icon-greeting"
-                        }
-                    }
-                }
-            },
+        "current": {
             "menu": {
                 "session:": {
                     "hello-tab": {
@@ -165,12 +151,25 @@
                         }
                     }
                 }
+            },
+            "drawer": {
+                "menu": {
+                    "session:": {
+                        "hello-tab": {
+                            "name": "Hello",
+                            "tabs": "hello-tab",
+                            "icon": "x-icon-greeting"
+                        }
+                    },
+                    "session:true": {
+                        "hello-tab": {
+                            "name": "Hello",
+                            "tabs": "hello-tab",
+                            "icon": "x-icon-greeting"
+                        }
+                    }
+                }
             }
-        }
-    },
-    "data": {
-        "hellocomp": {
-            "hello": "Hello Component"
         }
     }
 }

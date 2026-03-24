@@ -32,7 +32,7 @@ def init_component(component, component_schema, _schema):
         }
     }
 
-    component_schema['inherit']['data']['drawer'] = drawer
+    component_schema['data']['current']['drawer'] = drawer
 
     menu = {
         "session:": {
@@ -85,4 +85,4 @@ def init_component(component, component_schema, _schema):
         }
     }
 
-    component_schema['inherit']['data']['menu'] = menu
+    component_schema['data']['current']['menu'] = menu

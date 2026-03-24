@@ -109,7 +109,7 @@
                             data-forms-autoselect-option="{:;CONTEXT->POST->theme:}{:else; {:;USER->profile->properties->theme:} :}"
                         >
                             <option value="">{:trans; auto :}</option>
-                            {:each; local::current->theme->allow_themes k theme >>
+                            {:each; current->theme->allow_themes k theme >>
                                 <option value="{:;theme:}">{:trans; {:;theme:} :}</option>
                             :}
                         </select>
@@ -134,7 +134,7 @@
                             data-forms-autoselect-option="{:;CONTEXT->POST->color:}{:else; {:;USER->profile->properties->color:} :}"
                         >
                             <option value="">{:trans; auto :}</option>
-                            {:each; local::current->theme->allow_colors k color >>
+                            {:each; current->theme->allow_colors k color >>
                                 <option value="{:;color:}">{:trans; {:;color:} :}</option>
                             :}
                         </select>

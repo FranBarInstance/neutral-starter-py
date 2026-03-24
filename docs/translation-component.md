@@ -51,8 +51,10 @@ Example:
                     "Sign out": "Cerrar sesión"
                 }
             }
-        },
-        "data": {
+        }
+    },
+    "data": {
+        "current": {
             "drawer": {
                 "menu": {
                     "session:": {
@@ -90,29 +92,29 @@ Example:
                         }
                     }
                 }
-            },
-            "navbar": {
-                "menu": {
-                    "session:": {
-                        "signin": {
-                            "name": "Sign in",
-                            "link": "#loginModal",
-                            "icon": "x-icon-sign-in",
-                            "prop": {
-                                "data-bs-toggle": "modal",
-                                "data-bs-target": "#loginModal"
-                            }
+            }
+        },
+        "navbar": {
+            "menu": {
+                "session:": {
+                    "signin": {
+                        "name": "Sign in",
+                        "link": "#loginModal",
+                        "icon": "x-icon-sign-in",
+                        "prop": {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#loginModal"
                         }
-                    },
-                    "session:true": {
-                        "signout": {
-                            "name": "Sign out",
-                            "link": "#logoutModal",
-                            "icon": "x-icon-sign-out",
-                            "prop": {
-                                "data-bs-toggle": "modal",
-                                "data-bs-target": "#logoutModal"
-                            }
+                    }
+                },
+                "session:true": {
+                    "signout": {
+                        "name": "Sign out",
+                        "link": "#logoutModal",
+                        "icon": "x-icon-sign-out",
+                        "prop": {
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#logoutModal"
                         }
                     }
                 }

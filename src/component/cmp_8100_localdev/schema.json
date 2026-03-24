@@ -1,6 +1,7 @@
 {
-    "inherit": {
-        "data": {}
-    },
-    "data": {}
+    "data": {
+        "current": {
+            "menu": {}
+        }
+    }
 }
