@@ -261,7 +261,7 @@ The form snippet defines the actual form HTML wrapped in a `{:fetch;:}` tag:
         <div class="row gx-2">
             <div class="col-2">
                 <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light">
-                    <span class="{:;local::x-icon-reload:}"></span>
+                    <span class="{:;x-icons->x-icon-reload:}"></span>
                 </button>
             </div>
             <div class="col">
@@ -301,7 +301,7 @@ A snippet for showing general form errors (not field-specific):
 {:* --- Error Snippet --- *:}
 {:snip; cmp_uuid:my_form-error >>
     <div class="alert alert-danger">
-        <h5><i class="{:;local::x-icon-error:} me-2"></i>{:trans; ERROR :}</h5>
+        <h5><i class="{:;x-icons->x-icon-error:} me-2"></i>{:trans; ERROR :}</h5>
         <p>{:;form_result->message:}</p>
     </div>
 :}
@@ -388,7 +388,7 @@ Define modals that load the form via AJAX when opened:
                     :}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="mx-0 btn btn-light btn-sm ms-auto {:;local::x-icon-close:}" data-bs-dismiss="modal">{:trans; Close :}</button>
+                    <button type="button" class="mx-0 btn btn-light btn-sm ms-auto {:;x-icons->x-icon-close:}" data-bs-dismiss="modal">{:trans; Close :}</button>
                 </div>
             </div>
         </div>

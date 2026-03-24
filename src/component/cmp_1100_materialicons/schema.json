@@ -1,6 +1,6 @@
 {
-    "inherit": {
-        "data": {
+    "data": {
+        "x-icons": {
             "x-icon-help": "x-icon mdi mdi-help-circle-outline",
             "x-icon-bullet": "x-icon mdi mdi-circle-small",
             "x-icon-theme-edit": "x-icon mdi mdi-monitor-edit",

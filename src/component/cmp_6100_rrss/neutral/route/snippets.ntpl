@@ -52,7 +52,7 @@
     :}
     <div class="text-center text-md-start">
         {:each; local::rrss_urls name url >>
-            <a href="{:;rrss_0yt2sa->manifest->route:}/rss/{:;name:}" class="btn btn-sm btn-light my-1 me-1 me-md-2 click-load-spin {:;local::x-icon-rss:} {:snip; rrss:btn-text-muted:{:;name:} :}"> {:;name:}</a>
+            <a href="{:;rrss_0yt2sa->manifest->route:}/rss/{:;name:}" class="btn btn-sm btn-light my-1 me-1 me-md-2 click-load-spin {:;x-icons->x-icon-rss:} {:snip; rrss:btn-text-muted:{:;name:} :}"> {:;name:}</a>
         :}
     </div>
 :}
@@ -67,7 +67,7 @@
             class="btn btn-sm btn-light neutral-fetch-click click-load-spin my-1 me-1 me-md-2 {:snip; rrss:btn-text-muted:{:;name:} :}"
             data-url="{:;rrss_0yt2sa->manifest->route:}/ajax/{:;name:}"
             data-wrap="rrss-wrapper-next"
-        ><span class="{:;local::x-icon-rss:}"></span> {:;name:}</button>
+        ><span class="{:;x-icons->x-icon-rss:}"></span> {:;name:}</button>
     :}
     </div>
 :}
@@ -81,7 +81,7 @@
                     <h4 class="card-title">
                         {:;entry->title:}
                         <span class="ms-1">
-                            <a href="https://duckduckgo.com/?ia=web&q={:replace; /"/ / >> {:;entry->title:} :}" title="{:trans; Alternate sources :}" target="_blank" rel="noopener noreferrer" class="card-link text-decoration-none"><span class="{:;local::x-icon-open-in-new:}"></span></a>
+                            <a href="https://duckduckgo.com/?ia=web&q={:replace; /"/ / >> {:;entry->title:} :}" title="{:trans; Alternate sources :}" target="_blank" rel="noopener noreferrer" class="card-link text-decoration-none"><span class="{:;x-icons->x-icon-open-in-new:}"></span></a>
                         </span>
                     </h4>
                     {:filled; entry->tags->0->term >>
@@ -92,7 +92,7 @@
                 <div class="card-body border-top">
                     <div class="row">
                         <div class="col">
-                            <a href="{:;entry->link:}" target="_blank" rel="noopener noreferrer" class="badge -rounded-pill bg-light text-muted text-decoration-none {:;local::x-icon-open-in-new:}">{:trans; Source :}</a>
+                            <a href="{:;entry->link:}" target="_blank" rel="noopener noreferrer" class="badge -rounded-pill bg-light text-muted text-decoration-none {:;x-icons->x-icon-open-in-new:}">{:trans; Source :}</a>
                         </div>
                         <div class="col text-end">
                             <span class="badge -rounded-pill bg-light text-muted published-date">{:;entry->published:}</span>
@@ -103,7 +103,7 @@
         </div>
     :}{:else;
         <div class="form-text text-center alert alert-dismissible alert-light py-3 mt-3">
-            <span class="{:;local::x-icon-error:}"></span> {:trans; No publications :}
+            <span class="{:;x-icons->x-icon-error:}"></span> {:trans; No publications :}
         </div>
     :}
     </div>
@@ -125,7 +125,7 @@
             <h1 class="">RSS Error</h1>
             {:snip; rrss:urls-buttons :}
             <div class="form-text alert alert-dismissible alert-danger" >
-                <span class="{:;local::x-icon-error:}"></span> {:trans; ERROR: :} {:trans; {:;local::rrss_feed_error:} :}
+                <span class="{:;x-icons->x-icon-error:}"></span> {:trans; ERROR: :} {:trans; {:;local::rrss_feed_error:} :}
             </div>
         </div>
     :}

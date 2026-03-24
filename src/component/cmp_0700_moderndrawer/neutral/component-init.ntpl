@@ -31,7 +31,7 @@
         <div class="p-0" id="theme-drawer-body-content">
             <div class="nav flex-column nav-pills align-items-center py-3 px-2 bg-light border-end" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
                 <button class="btn p-2 pt-1 mb-3 ms-1" id="theme-drawer-tabs-toggle-btn" title="{:trans; Toggle menu :}" data-title="{:trans; Toggle menu :}" type="button" aria-controls="theme-drawer" aria-expanded="false" aria-label="{:trans; Toggle menu :}">
-                    <i title="{:trans; Menu :}" class="{:;local::x-icon-menu-open:}" aria-hidden="true"></i>
+                    <i title="{:trans; Menu :}" class="{:;x-icons->x-icon-menu-open:}" aria-hidden="true"></i>
                 </button>
                 {:snip; current:template:main-drawer-items-icons :}
             </div>
@@ -51,7 +51,7 @@
         {:*  <div class="border-top bg-body-tertiary px-3 py-3">
             <div class="d-flex align-items-center gap-3">
                 <div class="d-flex align-items-center justify-content-center flex-shrink-0 theme-drawer-footer-icon">
-                    <i class="{:;local::x-icon-webapp:} fs-4" aria-hidden="true"></i>
+                    <i class="{:;x-icons->x-icon-webapp:} fs-4" aria-hidden="true"></i>
                 </div>
                 <div class="theme-drawer-footer-copy text-truncate">
                     <div class="fw-semibold small">{:trans; {:;current->drawer->name:} :}</div>

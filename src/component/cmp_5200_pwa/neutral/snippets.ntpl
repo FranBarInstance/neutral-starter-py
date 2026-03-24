@@ -61,7 +61,7 @@
 :}
 
 {:snip; pwa_0yt2sa-main-navbar-bottom-install >>
-    <button class="nav-link text-reset mx-auto pwa_0yt2sa-install-show pwa_0yt2sa-install-click d-none {:;local::x-icon-webapp:}"> {:trans; Install APP :}</button>
+    <button class="nav-link text-reset mx-auto pwa_0yt2sa-install-show pwa_0yt2sa-install-click d-none {:;x-icons->x-icon-webapp:}"> {:trans; Install APP :}</button>
 :}
 
 {:bool; pwa_0yt2sa->manifest->config->navbar_times >>

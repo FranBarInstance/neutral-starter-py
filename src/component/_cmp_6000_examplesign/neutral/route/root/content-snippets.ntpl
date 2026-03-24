@@ -11,39 +11,39 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header bg-primary text-white py-3">
-                        <h2 class="card-title h4 mb-0"><i class="{:;local::x-icon-info:} me-2"></i>{:trans; {:;local::current->route->h1:} :}</h2>
+                        <h2 class="card-title h4 mb-0"><i class="{:;x-icons->x-icon-info:} me-2"></i>{:trans; {:;local::current->route->h1:} :}</h2>
                     </div>
                     <div class="card-body p-4">
                         <div class="alert alert-info border-info-subtle">
-                            <i class="{:;local::x-icon-alert:} me-2"></i>
+                            <i class="{:;x-icons->x-icon-alert:} me-2"></i>
                             <strong>{:trans; Important Notice: :}</strong>
                             {:trans; This is a <u>fake</u> login system. :}
                         </div>
                         <div class="my-4 text-center">
                             {:bool; FAKE_SESSION >>
                                 <div class="bg-success-subtle p-3 rounded-3 mb-4">
-                                    <h4 class="text-success"><i class="{:;local::x-icon-check:} me-2"></i>{:trans; Status: Logged In (Fake) :}</h4>
+                                    <h4 class="text-success"><i class="{:;x-icons->x-icon-check:} me-2"></i>{:trans; Status: Logged In (Fake) :}</h4>
                                     <p class="mb-0">{:trans; You have the 'fake-login-session' cookie set to true. :}</p>
                                 </div>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                                     <a href="{:;examplesign_0yt2sa->manifest->route:}/logout" class="btn btn-outline-danger btn-lg px-4 gap-3">
-                                        <i class="{:;local::x-icon-sign-out:} me-2"></i>{:trans; Go to Logout Page :}
+                                        <i class="{:;x-icons->x-icon-sign-out:} me-2"></i>{:trans; Go to Logout Page :}
                                     </a>
                                     <button type="button" class="btn btn-danger btn-lg px-4" data-bs-toggle="modal" data-bs-target="#modalLogout">
-                                        <i class="{:;local::x-icon-sign-out:} me-2"></i>{:trans; Open Logout Modal :}
+                                        <i class="{:;x-icons->x-icon-sign-out:} me-2"></i>{:trans; Open Logout Modal :}
                                     </button>
                                 </div>
                             :}{:else;
                                 <div class="bg-light p-3 rounded-3 mb-4">
-                                    <h4 class="text-secondary"><i class="{:;local::x-icon-user:} me-2"></i>{:trans; Status: Not Logged In :}</h4>
+                                    <h4 class="text-secondary"><i class="{:;x-icons->x-icon-user:} me-2"></i>{:trans; Status: Not Logged In :}</h4>
                                     <p class="mb-0">{:trans; No active fake session found. :}</p>
                                 </div>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                                     <a href="{:;examplesign_0yt2sa->manifest->route:}/login" class="btn btn-primary btn-lg px-4 gap-3">
-                                        <i class="{:;local::x-icon-sign-in:} me-2"></i>{:trans; Go to Login Page :}
+                                        <i class="{:;x-icons->x-icon-sign-in:} me-2"></i>{:trans; Go to Login Page :}
                                     </a>
                                     <button type="button" class="btn btn-outline-primary btn-lg px-4" data-bs-toggle="modal" data-bs-target="#modalLogin">
-                                        <i class="{:;local::x-icon-sign-in:} me-2"></i>{:trans; Open Login Modal :}
+                                        <i class="{:;x-icons->x-icon-sign-in:} me-2"></i>{:trans; Open Login Modal :}
                                     </button>
                                 </div>
                             :}

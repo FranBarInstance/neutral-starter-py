@@ -40,7 +40,7 @@
 
 {:snip; sign_in_form-fields-step-1 >>
     <div class="input-group">
-        <span class="input-group-text {:;local::x-icon-user-login:} {:snip; is-invalid:email :}"></span>
+        <span class="input-group-text {:;x-icons->x-icon-user-login:} {:snip; is-invalid:email :}"></span>
         <div class="form-floating">
             <input
                 type="email"
@@ -61,7 +61,7 @@
         </div>
         <span
             type="button"
-            class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+            class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
             href="#help-item"
             data-template="#templateHelp"
             data-title="{:trans; Help email :}"
@@ -74,7 +74,7 @@
     <div class="{:;local::current->forms->field-spacing:}"></div>
 
     <div class="input-group">
-        <span class="input-group-text {:;local::x-icon-user-password:} {:snip; is-invalid:password :}"></span>
+        <span class="input-group-text {:;x-icons->x-icon-user-password:} {:snip; is-invalid:password :}"></span>
         <div class="form-floating">
             <input
                 type="password"
@@ -93,7 +93,7 @@
         </div>
         <span
             type="button"
-            class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+            class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
             href="#help-item"
             data-template="#templateHelp"
             data-title="{:trans; Help password :}"
@@ -120,7 +120,7 @@
         <label role="button" class="form-check-label form-control" for="sign_in_form-remember">{:trans; Remember device :}</label>
         <span
             type="button"
-            class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+            class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
             class="btn btn-primary modal-dynamic"
             href="#help-item"
             data-template="#templateHelp"
@@ -136,7 +136,7 @@
 
 {:snip; sign_in_form-fields-step-2 >>
     <div class="input-group">
-        <span class="input-group-text {:;local::x-icon-pin:} text-danger"></span>
+        <span class="input-group-text {:;x-icons->x-icon-pin:} text-danger"></span>
         <div class="form-floating">
             <input
                 type="text"
@@ -153,7 +153,7 @@
         </div>
         <span
             type="button"
-            class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+            class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
             href="#help-item"
             data-template="#templateHelp"
             data-title="{:trans; Help PIN :}"
@@ -220,7 +220,7 @@
             <label role="button" class="form-check-label form-control" for="sign_in_form-notrobot">{:trans; I am not a robot :}</label>
             <span
                 type="button"
-                class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+                class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
                 href="#help-item"
                 data-template="#templateHelp"
                 data-title="{:trans; Help not a robot :}"
@@ -242,7 +242,7 @@
         <div class="row gx-2">
             <div class="col-2">
                 <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light me-2">
-                    <span class="{:;local::x-icon-reload:}"></span>
+                    <span class="{:;x-icons->x-icon-reload:}"></span>
                 </button>
             </div>
             <div class="col">
@@ -250,7 +250,7 @@
                     type="submit"
                     id="sign_in_form-button-submit"
                     name="form_login_send"
-                    class="w-100 btn btn-primary {:;local::x-icon-sign-in:}"
+                    class="w-100 btn btn-primary {:;x-icons->x-icon-sign-in:}"
                     value="1"
                 > {:trans; Sign in :}</button>
             </div>

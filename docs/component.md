@@ -1000,7 +1000,7 @@ Add JavaScript to body end
 
   {:* Name field *:}
   <div class="input-group">
-    <span class="input-group-text {:;local::x-icon-user:}"></span>
+    <span class="input-group-text {:;x-icons->x-icon-user:}"></span>
     <div class="form-floating">
       <input
         type="text"
@@ -1020,7 +1020,7 @@ Add JavaScript to body end
 
   {:* Email field *:}
   <div class="input-group">
-    <span class="input-group-text {:;local::x-icon-email:}"></span>
+    <span class="input-group-text {:;x-icons->x-icon-email:}"></span>
     <div class="form-floating">
       <input
         type="email"

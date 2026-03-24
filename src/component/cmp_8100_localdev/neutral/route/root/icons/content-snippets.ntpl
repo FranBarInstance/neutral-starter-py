@@ -1,6 +1,8 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 
+{:include; {:;materialicons_0yt2sa->path:}/neutral/icons-snippets.ntpl :}
+
 {:*
     Disable carousel
     ----------------

@@ -25,7 +25,7 @@
 :}
 
 {:snip; util:modal-back-button >>
-    <span type="button" class="fs-5 mx-0 me-1 ms-auto {:;local::x-icon-back:}" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></span>
+    <span type="button" class="fs-5 mx-0 me-1 ms-auto {:;x-icons->x-icon-back:}" data-bs-dismiss="modal" aria-label="{:trans; Close :}"></span>
 :}
 
 {:snip; util:error-utoken >>

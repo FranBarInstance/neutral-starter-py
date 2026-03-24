@@ -126,7 +126,7 @@
 {:snip; user_0yt2sa:user_account-password-pin-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/account/password/pin/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;x-icons->x-icon-email:}"></i></span>
             <div class="form-floating">
                 <input
                     type="email"
@@ -160,7 +160,7 @@
 {:snip; user_0yt2sa:user_account-password-change-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/account/password/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;local::x-icon-pin:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;x-icons->x-icon-pin:}"></i></span>
             <div class="form-floating">
                 <input
                     type="text"
@@ -182,7 +182,7 @@
         <div class="{:;local::current->forms->field-spacing:}"></div>
 
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:password :}"><i class="{:;local::x-icon-user-password:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:password :}"><i class="{:;x-icons->x-icon-user-password:}"></i></span>
             <div class="form-floating">
                 <input
                     type="password"
@@ -204,7 +204,7 @@
         <div class="{:;local::current->forms->field-spacing:}"></div>
 
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:rptpassword :}"><i class="{:;local::x-icon-user-password:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:rptpassword :}"><i class="{:;x-icons->x-icon-user-password:}"></i></span>
             <div class="form-floating">
                 <input
                     type="password"
@@ -239,7 +239,7 @@
 {:snip; user_0yt2sa:user_account-birthdate-pin-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/account/birthdate/pin/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;x-icons->x-icon-email:}"></i></span>
             <div class="form-floating">
                 <input
                     type="email"
@@ -273,7 +273,7 @@
 {:snip; user_0yt2sa:user_account-birthdate-change-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/account/birthdate/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;local::x-icon-pin:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;x-icons->x-icon-pin:}"></i></span>
             <div class="form-floating">
                 <input
                     type="text"
@@ -295,7 +295,7 @@
         <div class="{:;local::current->forms->field-spacing:}"></div>
 
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:birthdate :}"><i class="{:;local::x-icon-birthdate:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:birthdate :}"><i class="{:;x-icons->x-icon-birthdate:}"></i></span>
             <div class="form-floating">
                 <input
                     type="date"
@@ -327,7 +327,7 @@
 {:snip; user_0yt2sa:user_account-login-change-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/account/login/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;x-icons->x-icon-email:}"></i></span>
             <div class="form-floating">
                 <select
                     id="user_account-login-email"
@@ -349,7 +349,7 @@
         <div class="{:;local::current->forms->field-spacing:}"></div>
 
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:current_password :}"><i class="{:;local::x-icon-user-password:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:current_password :}"><i class="{:;x-icons->x-icon-user-password:}"></i></span>
             <div class="form-floating">
                 <input
                     type="password"

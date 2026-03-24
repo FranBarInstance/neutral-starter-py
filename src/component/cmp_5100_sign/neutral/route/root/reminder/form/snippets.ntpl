@@ -50,7 +50,7 @@
 {:snip; sign_reminder_form-form >>
     {:fetch; |{:;sign_0yt2sa->manifest->route:}/reminder/form/{:;LTOKEN:}|form|form-wrapper-reminder|{:;local::current->forms->class:}|reminder-form| >>
         <div class="input-group">
-            <span class="input-group-text {:;local::x-icon-sign-reminder:} {:snip; is-invalid:email :}"></span>
+            <span class="input-group-text {:;x-icons->x-icon-sign-reminder:} {:snip; is-invalid:email :}"></span>
             <div class="form-floating">
                 <input
                     type="email"
@@ -71,7 +71,7 @@
             </div>
             <span
                 type="button"
-                class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+                class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
                 href="#help-item"
                 data-template="#templateHelp"
                 data-title="{:trans; Help email :}"
@@ -103,7 +103,7 @@
             <label role="button" class="form-check-label form-control" for="reminder-form-notrobot">{:trans; I am not a robot :}</label>
             <span
                 type="button"
-                class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+                class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
                 href="#help-item"
                 data-template="#templateHelp"
                 data-title="{:trans; Help not a robot :}"
@@ -125,7 +125,7 @@
         <div class="row gx-2">
             <div class="col-2">
                 <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light me-2">
-                    <span class="{:;local::x-icon-reload:}"></span>
+                    <span class="{:;x-icons->x-icon-reload:}"></span>
                 </button>
             </div>
             <div class="col">
@@ -133,7 +133,7 @@
                     type="submit"
                     id="reminder-form-button-submit"
                     name="form_reminder_send"
-                    class="w-100 btn btn-primary {:;local::x-icon-sign-reminder:}"
+                    class="w-100 btn btn-primary {:;x-icons->x-icon-sign-reminder:}"
                     value="1"
                 > {:trans; Reminder :}</button>
             </div>

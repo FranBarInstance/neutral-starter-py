@@ -33,7 +33,7 @@
                 <div class="container">
                     <div class="row text-center">
                         <div class="error-code-lg">{:;HTTP_ERROR->code:}</div>
-                        <a class="fs-5 text text-decoration-none" href="/"><i class="{:;local::x-icon-home:}" aria-hidden="true"></i>  {:trans; Go home :}</a>
+                        <a class="fs-5 text text-decoration-none" href="/"><i class="{:;x-icons->x-icon-home:}" aria-hidden="true"></i>  {:trans; Go home :}</a>
                     </div>
                 </div>
             </main>

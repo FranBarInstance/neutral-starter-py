@@ -16,7 +16,7 @@
                 <div class="modal-body mx-md-5 mb-3 mx-auto text-center">
                     <div class="mt-4 px-5">
                         {:fetch; |{:;sign_0yt2sa->manifest->route:}/out/form/{:;LTOKEN:}|click| >>
-                            <button type="button" class="btn btn-primary w-100 {:;local::x-icon-sign-out:}"> {:trans; Confirm logout :}</button>
+                            <button type="button" class="btn btn-primary w-100 {:;x-icons->x-icon-sign-out:}"> {:trans; Confirm logout :}</button>
                         :}
                     </div>
                 </div>

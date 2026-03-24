@@ -9,11 +9,11 @@
         {:each; navbar->menu->session:{:;HAS_SESSION:} none menu >>
             {:filled; menu->dropdown >>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="language"><i class="{:;local::{:;menu->icon:}:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; {:;menu->name:} :}</span></a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="language"><i class="{:;x-icons->{:;menu->icon:}:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; {:;menu->name:} :}</span></a>
                     <div class="dropdown-menu dropdown-menu-end">
                         {:each; menu->dropdown none menu >>
                             <a href="{:;menu->link:}" class="dropdown-item {:;menu->class:}" {:^each; menu->prop name value >>{:;:} {:;name:}="{:;value:}" :}>
-                                <i class="{:;local::{:;menu->icon:}:}" aria-hidden="true"></i> <span class="">{:trans; {:;menu->name:} :}</span>
+                                <i class="{:;x-icons->{:;menu->icon:}:}" aria-hidden="true"></i> <span class="">{:trans; {:;menu->name:} :}</span>
                             </a>
                         :}
                     </div>
@@ -22,7 +22,7 @@
                 {:filled; menu >>
                     <li class="nav-item">
                         <a href="{:;menu->link:}" class="nav-link {:;menu->class:}" {:^each; menu->prop name value >>{:;:} {:;name:}="{:;value:}" :}>
-                            <i class="{:;local::{:;menu->icon:}:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; {:;menu->name:} :}</span>
+                            <i class="{:;x-icons->{:;menu->icon:}:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; {:;menu->name:} :}</span>
                         </a>
                     </li>
                 :}
@@ -41,7 +41,7 @@
     {:each; current->drawer->menu->session:{:;HAS_SESSION:} tabs menu >>
         {:filled; menu >>
             <button id="theme-drawer-tabs-{:;tabs:}-btn" title="{:trans; {:;menu->name:} :}" class="drawer-btn nav-link" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="true">
-                <i class="{:;local::{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
+                <i class="{:;x-icons->{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
             </button>
         :}
     :}
@@ -49,7 +49,7 @@
 
 {:snip; current:template:main-drawer-opt >>
     <a href="{:;opt->link:}" class="list-group-item list-group-item-action bg-body {:;opt->class:}" {:each; opt->prop attr value >>{:;:} {:;attr:}="{:;value:}" :}>
-        <i class="{:;local::{:;opt->icon:}:} me-2" aria-hidden="true"></i> <span>{:trans; {:;opt->text:} :}</span>
+        <i class="{:;x-icons->{:;opt->icon:}:} me-2" aria-hidden="true"></i> <span>{:trans; {:;opt->text:} :}</span>
     </a>
 :}
 
@@ -61,7 +61,7 @@
                     {:array; opt >>
                         {:filled; opt->dropdown >>
                             <button title="{:trans; {:;opt->name:} :}" class="list-group-item list-group-item-action bg-body item-toggle" data-bs-toggle="collapse" data-bs-target="#menu-drawer-{:;key:}-collapse">
-                                <i class="{:;local::{:;opt->icon:}:} me-2" aria-hidden="true"></i> {:trans; {:;opt->name:} :}
+                                <i class="{:;x-icons->{:;opt->icon:}:} me-2" aria-hidden="true"></i> {:trans; {:;opt->name:} :}
                             </button>
                             <div class="collapse menu-collapse ms-3" id="menu-drawer-{:;key:}-collapse">
                             {:each; opt->dropdown key opt >>
@@ -93,7 +93,7 @@
                 <div class="navbar-brand d-flex align-items-center ms-2">
                     <span class="mx-2 nav-brand-text">{:trans; {:;current->drawer->name:} :}</span>
                 </div>
-                <i class="{:;local::x-icon-back:} theme-drawer-close btn btn-link me-2 ms-auto" data-bs-dismiss="offcanvas" aria-hidden="true"></i>
+                <i class="{:;x-icons->x-icon-back:} theme-drawer-close btn btn-link me-2 ms-auto" data-bs-dismiss="offcanvas" aria-hidden="true"></i>
             </div>
             <div class="offcanvas-body p-0">
                 <div class="d-flex align-items-start" id="theme-drawer-body-content">
@@ -172,7 +172,7 @@
 {:snip; current:template:body-lateral-bar >>
     <div class="p-3">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none border-bottom pb-3">
-            <span class="fs-4 {:;local::x-icon-webapp:} me-2 text-primary"></span>
+            <span class="fs-4 {:;x-icons->x-icon-webapp:} me-2 text-primary"></span>
             <span class="fs-5 fw-bold">Neutral TS</span>
         </a>
         <a href="https://github.com/FranBarInstance/" class="">
@@ -195,19 +195,19 @@
             <ul class="list-unstyled mb-0">
                 <li class="mb-2">
                     <a href="https://github.com/FranBarInstance/neutral-starter-py" target="_blank" class="d-flex align-items-center text-decoration-none">
-                        <span class="{:;local::x-icon-link-blank:} me-2"></span>
+                        <span class="{:;x-icons->x-icon-link-blank:} me-2"></span>
                         <span class="small">Repository</span>
                     </a>
                 </li>
                 <li class="mb-2">
                     <a href="https://franbarinstance.github.io/neutral-starter-py/" target="_blank" class="d-flex align-items-center text-decoration-none">
-                        <span class="{:;local::x-icon-link-blank:} me-2"></span>
+                        <span class="{:;x-icons->x-icon-link-blank:} me-2"></span>
                         <span class="small">Documentation</span>
                     </a>
                 </li>
                 <li class="mb-2">
                     <a href="https://github.com/FranBarInstance/neutralts" target="_blank" class="d-flex align-items-center text-decoration-none">
-                        <span class="{:;local::x-icon-link-blank:} me-2"></span>
+                        <span class="{:;x-icons->x-icon-link-blank:} me-2"></span>
                         <span class="small">Neutral TS</span>
                     </a>
                 </li>

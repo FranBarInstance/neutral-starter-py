@@ -7,7 +7,7 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const icons = document.querySelectorAll(`a[href="?{:;LANG_KEY:}={:lang;:}"] .x-icon`);
                     icons.forEach(icon => {
-                        icon.className = '{:;local::x-icon-check:} me-2';
+                        icon.className = '{:;x-icons->x-icon-check:} me-2';
                     });
                 });
             </script>

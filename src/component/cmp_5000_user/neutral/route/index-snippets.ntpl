@@ -7,25 +7,25 @@
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a href="{:;user_0yt2sa->manifest->route:}" class="nav-link px-2 px-md-3 d-flex align-items-center">
-                        <span class="{:;local::x-icon-user:} x-icon-lg"></span>
+                        <span class="{:;x-icons->x-icon-user:} x-icon-lg"></span>
                         <span class="ms-2">{:trans; My Profile :}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{:;user_0yt2sa->manifest->route:}/profile" class="nav-link px-2 px-md-3 d-flex align-items-center">
-                        <span class="{:;local::x-icon-profile:} x-icon-lg"></span>
+                        <span class="{:;x-icons->x-icon-profile:} x-icon-lg"></span>
                         <span class="ms-2">{:trans; Edit Profile :}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{:;user_0yt2sa->manifest->route:}/email" class="nav-link px-2 px-md-3 d-flex align-items-center">
-                        <span class="{:;local::x-icon-email:} x-icon-lg"></span>
+                        <span class="{:;x-icons->x-icon-email:} x-icon-lg"></span>
                         <span class="ms-2">{:trans; Edit Email :}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{:;user_0yt2sa->manifest->route:}/account" class="nav-link px-2 px-md-3 d-flex align-items-center">
-                        <span class="{:;local::x-icon-lock:} x-icon-lg"></span>
+                        <span class="{:;x-icons->x-icon-lock:} x-icon-lg"></span>
                         <span class="ms-2">{:trans; Edit Account :}</span>
                     </a>
                 </li>

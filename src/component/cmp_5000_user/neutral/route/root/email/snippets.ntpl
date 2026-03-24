@@ -82,7 +82,7 @@
 {:snip; user_0yt2sa:user_email-pin-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/email/pin/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
         <div class="input-group">
-            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+            <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;x-icons->x-icon-email:}"></i></span>
             <div class="form-floating">
                 <input
                     type="email"
@@ -119,7 +119,7 @@
         <div class="row g-2">
             <div class="col-12 col-lg-6">
                 <div class="input-group">
-                    <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-email:}"></i></span>
+                    <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;x-icons->x-icon-email:}"></i></span>
                     <div class="form-floating">
                         <input
                             type="email"
@@ -141,7 +141,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <div class="input-group">
-                    <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;local::x-icon-pin:}"></i></span>
+                    <span class="input-group-text {:snip; is-invalid:pin :}"><i class="{:;x-icons->x-icon-pin:}"></i></span>
                     <div class="form-floating">
                         <input
                             type="text"
@@ -180,7 +180,7 @@
         <div class="row g-2">
             <div class="col-12 col-lg-6">
                 <div class="input-group">
-                    <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;local::x-icon-trash:}"></i></span>
+                    <span class="input-group-text {:snip; is-invalid:email :}"><i class="{:;x-icons->x-icon-trash:}"></i></span>
                     <div class="form-floating">
                         <select
                             id="user_email-delete-email"

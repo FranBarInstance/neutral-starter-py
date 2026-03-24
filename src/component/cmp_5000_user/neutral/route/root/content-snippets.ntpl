@@ -7,11 +7,11 @@
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                     <div class="row">
                         <div class="col-12 mb-2">
-                            <div class="text-muted"><i class="{:;local::x-icon-map:}"></i> {:trans; Country :}</div>
+                            <div class="text-muted"><i class="{:;x-icons->x-icon-map:}"></i> {:trans; Country :}</div>
                             <div class="">{:trans; {:;USER->profile->region:}{:else; auto :} :}</div>
                         </div>
                         <div class="col-12">
-                            <div class="text-muted"><i class="{:;local::x-icon-locale:}"></i> {:trans; Language :}</div>
+                            <div class="text-muted"><i class="{:;x-icons->x-icon-locale:}"></i> {:trans; Language :}</div>
                             <div class="">{:eval; {:;USER->profile->locale:} >>
                                 {:trans; ref:locale:{:;USER->profile->locale:} :}
                             :}{:else;
@@ -23,11 +23,11 @@
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                     <div class="row">
                         <div class="col-12 mb-2">
-                            <div class="text-muted"><i class="{:;local::x-icon-theme:}"></i> {:trans; Design theme :}</div>
+                            <div class="text-muted"><i class="{:;x-icons->x-icon-theme:}"></i> {:trans; Design theme :}</div>
                             <div class="">{:trans; {:;USER->profile->properties->theme:}{:else; auto :} :}</div>
                         </div>
                         <div class="col-12">
-                            <div class="text-muted"><i class="{:;local::x-icon-color:}"></i> {:trans; Design color :}</div>
+                            <div class="text-muted"><i class="{:;x-icons->x-icon-color:}"></i> {:trans; Design color :}</div>
                             <div class="">{:trans; {:;USER->profile->properties->color:}{:else; auto :} :}</div>
                         </div>
                     </div>
@@ -35,14 +35,14 @@
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                     <div class="row">
                         <div class="col-12 mb-2">
-                            <div class="text-muted"><i class="{:;local::x-icon-theme-light-dark:}"></i> {:trans; Dark mode :}</div>
+                            <div class="text-muted"><i class="{:;x-icons->x-icon-theme-light-dark:}"></i> {:trans; Dark mode :}</div>
                             <a href="#" class="theme-light-dark-toggle text-decoration-none">
                                 <div class=" dark-mode-enabled">{:trans; Enabled :}</div>
                                 <div class=" dark-mode-disabled display-none">{:trans; Disabled :}</div>
                             </a>
                         </div>
                         <div class="col-12">
-                            <div class="text-muted"><i class="{:;local::x-icon-user:}"></i> {:trans; User since :}</div>
+                            <div class="text-muted"><i class="{:;x-icons->x-icon-user:}"></i> {:trans; User since :}</div>
                             <div class=" timestamp-to-date">{:;USER->created:}</div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         :}
                     </div>
                     {:*  <div class="ms-auto mt-3 border-0">
-                        <a href="{:;user_0yt2sa->manifest->route:}/profile" class="btn btn-outline-secondary"><i class="{:;local::x-icon-edit:}"></i></a>
+                        <a href="{:;user_0yt2sa->manifest->route:}/profile" class="btn btn-outline-secondary"><i class="{:;x-icons->x-icon-edit:}"></i></a>
                     </div>  *:}
                 </div>
             </div>

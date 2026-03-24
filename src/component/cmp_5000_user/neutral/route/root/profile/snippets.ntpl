@@ -25,7 +25,7 @@
             <div class="col-12">
                 {:* --- Field: alias --- *:}
                 <div class="input-group">
-                    <span class="input-group-text {:;local::x-icon-user:} {:snip; is-invalid:alias :}"></span>
+                    <span class="input-group-text {:;x-icons->x-icon-user:} {:snip; is-invalid:alias :}"></span>
                     <div class="form-floating">
                         <input
                             type="text"
@@ -48,7 +48,7 @@
             <div class="col-12 col-md-6">
                 {:* --- Field: locale --- *:}
                 <div class="input-group">
-                    <span class="input-group-text {:;local::x-icon-locale:} {:snip; is-invalid:locale :}"></span>
+                    <span class="input-group-text {:;x-icons->x-icon-locale:} {:snip; is-invalid:locale :}"></span>
                     <div class="form-floating">
                         <select
                             id="user_profile-locale"
@@ -74,7 +74,7 @@
             <div class="col-12 col-md-6">
                 {:* --- Field: country --- *:}
                 <div class="input-group">
-                    <span class="input-group-text {:;local::x-icon-map:} {:snip; is-invalid:region :}"></span>
+                    <span class="input-group-text {:;x-icons->x-icon-map:} {:snip; is-invalid:region :}"></span>
                     <div class="form-floating">
                         <select
                             id="user_profile-region"
@@ -97,7 +97,7 @@
             <div class="col-12 col-md-6">
                 {:* --- Field: theme --- *:}
                 <div class="input-group">
-                    <span class="input-group-text {:;local::x-icon-theme:} {:snip; is-invalid:theme :}"></span>
+                    <span class="input-group-text {:;x-icons->x-icon-theme:} {:snip; is-invalid:theme :}"></span>
                     <div class="form-floating">
                         <select
                             id="user_profile-theme"
@@ -122,7 +122,7 @@
             <div class="col-12 col-md-6">
                 {:* --- Field: color --- *:}
                 <div class="input-group">
-                    <span class="input-group-text {:;local::x-icon-color:} {:snip; is-invalid:color :}"></span>
+                    <span class="input-group-text {:;x-icons->x-icon-color:} {:snip; is-invalid:color :}"></span>
                     <div class="form-floating">
                         <select
                             id="user_profile-color"
@@ -147,7 +147,7 @@
             <div class="col-12">
                 {:* --- Field: dark_mode --- *:}
                 <div class="input-group">
-                    <span class="input-group-text {:;local::x-icon-theme-light-dark:} {:snip; is-invalid:dark_mode :}"></span>
+                    <span class="input-group-text {:;x-icons->x-icon-theme-light-dark:} {:snip; is-invalid:dark_mode :}"></span>
                     <div class="form-floating">
                         <select
                             id="user_profile-dark_mode"
@@ -172,7 +172,7 @@
                 <div class="row gx-2">
                     <div class="col-2">
                         <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light">
-                            <span class="{:;local::x-icon-reload:}"></span>
+                            <span class="{:;x-icons->x-icon-reload:}"></span>
                         </button>
                     </div>
                     <div class="col">
@@ -193,7 +193,7 @@
 {:* --- Profile Error Snippet --- *:}
 {:snip; user_0yt2sa:user_profile-error >>
     <div class="alert alert-danger">
-        <h5><i class="{:;local::x-icon-error:} me-2"></i>{:trans; ERROR :}</h5>
+        <h5><i class="{:;x-icons->x-icon-error:} me-2"></i>{:trans; ERROR :}</h5>
         <p>{:trans; {:;form_result->message:} :}</p>
     </div>
 :}
@@ -205,7 +205,7 @@
             {:* If form result success *:}
             {:same; /{:;form_result->status:}/success/ >>
                 <div class="alert alert-success">
-                    <p><i class="{:;local::x-icon-check:} me-2"></i>{:trans; Profile updated successfully :}</p>
+                    <p><i class="{:;x-icons->x-icon-check:} me-2"></i>{:trans; Profile updated successfully :}</p>
                 </div>
                 {:code;
                     {:param; url >> {:;user_0yt2sa->manifest->route:} :}

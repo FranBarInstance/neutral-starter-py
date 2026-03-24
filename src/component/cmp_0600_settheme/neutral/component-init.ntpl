@@ -7,7 +7,7 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const icons = document.querySelectorAll(`a[href="?{:;THEME_KEY:}={:;current->theme->theme:}"] i`);
                     icons.forEach(icon => {
-                        icon.className = '{:;local::x-icon-check:} me-1';
+                        icon.className = '{:;x-icons->x-icon-check:} me-1';
                     });
                 });
             </script>

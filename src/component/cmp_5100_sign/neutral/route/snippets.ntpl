@@ -11,11 +11,11 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-auto">
-                        <a href="{:;current->site->sign_links->reminder:}" class="btn btn-light btn-sm {:;local::x-icon-sign-reminder:} {:param; disabled-reminder :}"> {:trans; Reminder :}</a>
+                        <a href="{:;current->site->sign_links->reminder:}" class="btn btn-light btn-sm {:;x-icons->x-icon-sign-reminder:} {:param; disabled-reminder :}"> {:trans; Reminder :}</a>
                     </div>
                     <div class="col text-end">
-                        <a href="{:;current->site->sign_links->in:}" class="btn btn-light btn-sm {:;local::x-icon-sign-in:} {:param; disabled-login :}"> {:trans; Sign in :}</a>
-                        <a href="{:;current->site->sign_links->up:}" class="btn btn-light btn-sm {:;local::x-icon-sign-up:} {:param; disabled-register :}"> {:trans; Sign up :}</a>
+                        <a href="{:;current->site->sign_links->in:}" class="btn btn-light btn-sm {:;x-icons->x-icon-sign-in:} {:param; disabled-login :}"> {:trans; Sign in :}</a>
+                        <a href="{:;current->site->sign_links->up:}" class="btn btn-light btn-sm {:;x-icons->x-icon-sign-up:} {:param; disabled-register :}"> {:trans; Sign up :}</a>
                     </div>
                 </div>
             </div>

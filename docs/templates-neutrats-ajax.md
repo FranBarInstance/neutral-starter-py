@@ -755,7 +755,7 @@ Add a button with the class `fetch-form-button-reset`. Neutral JS automatically 
 ```ntpl
 <button type="button" title="{:trans; Reload form :}"
         class="fetch-form-button-reset btn btn-light">
-    <span class="{:;local::x-icon-reload:}"></span>
+    <span class="{:;x-icons->x-icon-reload:}"></span>
 </button>
 ```
 

@@ -29,7 +29,7 @@
 {:snip; sign_pin_form-form >>
     {:fetch; |{:;sign_0yt2sa->manifest->route:}/pin/form/{:;sign_pin_token:}/{:;LTOKEN:}|form|form-wrapper-pin|{:;local::current->forms->class:}|sign_pin_form| >>
         <div class="input-group">
-            <span class="input-group-text {:;local::x-icon-pin:} {:snip; is-invalid:pin :}"></span>
+            <span class="input-group-text {:;x-icons->x-icon-pin:} {:snip; is-invalid:pin :}"></span>
             <div class="form-floating">
                 <input
                     type="text"
@@ -72,7 +72,7 @@
             <label role="button" class="form-check-label form-control" for="sign_pin_form-notrobot">{:trans; I am not a robot :}</label>
             <span
                 type="button"
-                class="modal-dynamic input-group-text {:;local::x-icon-help:}"
+                class="modal-dynamic input-group-text {:;x-icons->x-icon-help:}"
                 href="#help-item"
                 data-template="#templateHelp"
                 data-title="{:trans; Help not a robot :}"
@@ -94,7 +94,7 @@
         <div class="row gx-2">
             <div class="col-2">
                 <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light me-2">
-                    <span class="{:;local::x-icon-reload:}"></span>
+                    <span class="{:;x-icons->x-icon-reload:}"></span>
                 </button>
             </div>
             <div class="col">
@@ -102,7 +102,7 @@
                     type="submit"
                     id="sign_pin_form-button-submit"
                     name="form_pin_send"
-                    class="w-100 btn btn-primary {:;local::x-icon-sign-in:}"
+                    class="w-100 btn btn-primary {:;x-icons->x-icon-sign-in:}"
                     value="1"
                 > {:trans; Verify PIN :}</button>
             </div>
