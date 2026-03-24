@@ -1,11 +1,10 @@
 """Fill the schema with default values"""
 
 import os
-from http.cookies import SimpleCookie
+from functools import lru_cache
 
 import orjson
 import woothee
-from functools import lru_cache
 from flask import current_app
 
 from app.config import Config
@@ -96,7 +95,7 @@ class Schema:
         self.data['CONTEXT']['METHOD'] = self.req.method
         self.data['CONTEXT']['REMOTE_ADDR'] = get_ip()
         self.data['CONTEXT']['PATH'] = self.req.path
-        
+
         ua_string = self.req.headers.get('User-Agent', '')
         self.data['CONTEXT']['UA'] = _parse_ua_cached(ua_string)
 
