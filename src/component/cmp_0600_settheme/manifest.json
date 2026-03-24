@@ -15,7 +15,7 @@
         }
     },
     "config": {
-        "menu-drawer-enable": true,
+        "menu-drawer-enable": false,
         "menu-navbar-enable": true
     }
 }

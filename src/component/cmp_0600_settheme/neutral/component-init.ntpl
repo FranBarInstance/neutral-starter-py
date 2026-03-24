@@ -1,7 +1,10 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:snip; settheme_0yt2sa-body-end >>
-    {:bool; settheme_0yt2sa->manifest->config->menu-drawer-enable >>
+    {:eval;
+        {:;settheme_0yt2sa->manifest->config->menu-drawer-enable:}
+        {:;settheme_0yt2sa->manifest->config->menu-navbar-enable:}
+        >>
         {:filled; current->theme->allow_themes->1 >>
             <script nonce="{:;CSP_NONCE:}">
                 document.addEventListener('DOMContentLoaded', () => {
