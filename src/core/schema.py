@@ -1,10 +1,11 @@
 """Fill the schema with default values"""
 
 import os
-import copy
 from http.cookies import SimpleCookie
 
+import orjson
 import woothee
+from functools import lru_cache
 from flask import current_app
 
 from app.config import Config
@@ -12,6 +13,12 @@ from constants import TMP_DIR, RBAC_DEFAULT_ROLES
 from utils.utils import get_ip, merge_dict
 from utils.network import normalize_host, is_allowed_host
 from .session_dev import SessionDev
+
+
+@lru_cache(maxsize=128)
+def _parse_ua_cached(ua_string: str) -> dict:
+    """Cache woothee UA parsing results."""
+    return woothee.parse(ua_string)
 
 
 class Schema:
@@ -33,7 +40,7 @@ class Schema:
         self.set_theme()
 
     def _default(self) -> None:
-        self.properties = copy.deepcopy(current_app.components.schema)
+        self.properties = orjson.loads(current_app.schema_json)  # pylint: disable=no-member
         self.data = self.properties['data']
         self.local_data = self.properties['inherit']['data']
         self.properties['config']['cache_disable'] = Config.NEUTRAL_CACHE_DISABLE
@@ -89,22 +96,19 @@ class Schema:
         self.data['CONTEXT']['METHOD'] = self.req.method
         self.data['CONTEXT']['REMOTE_ADDR'] = get_ip()
         self.data['CONTEXT']['PATH'] = self.req.path
-        self.data['CONTEXT']['UA'] = woothee.parse(self.req.headers.get('User-Agent'))
+        
+        ua_string = self.req.headers.get('User-Agent', '')
+        self.data['CONTEXT']['UA'] = _parse_ua_cached(ua_string)
 
-        for key, value in self.req.args.items():
-            self.data['CONTEXT']['GET'][key] = value
+        self.data['CONTEXT']['GET'].update(self.req.args)
 
         if self.req.method == "POST":
-            for key, value in self.req.form.items():
-                self.data['CONTEXT']['POST'][key] = value
+            self.data['CONTEXT']['POST'].update(self.req.form)
 
-        for key, value in self.req.headers.items():
-            self.data['CONTEXT']['HEADERS'][key] = value
+        self.data['CONTEXT']['HEADERS'].update(self.req.headers)
 
-        if self.req.headers.get('Cookie'):
-            cookie = SimpleCookie(self.req.headers.get('Cookie'))
-            for key, morsel in cookie.items():
-                self.data['CONTEXT']['COOKIES'][key] = morsel.value
+        # Use Flask's pre-parsed cookies instead of redundant SimpleCookie
+        self.data['CONTEXT']['COOKIES'].update(self.req.cookies)
 
         raw_host = (self.req.host or self.req.headers.get('Host') or '').strip().lower()
         normalized_host = normalize_host(raw_host)

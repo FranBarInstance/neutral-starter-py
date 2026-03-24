@@ -1,9 +1,8 @@
 """Initialize Flask application and register blueprints."""
 
 import ipaddress
-import json
+import orjson
 import os
-import fnmatch
 from importlib import import_module
 from http import HTTPStatus
 
@@ -11,16 +10,15 @@ from flask import Flask, request, abort, g
 from werkzeug.middleware.proxy_fix import ProxyFix
 from werkzeug.routing import PathConverter
 
-from utils.utils import merge_dict
+from core.prepared_request import PreparedRequest
 from utils.network import normalize_host, is_allowed_host
-
 
 from .config import Config
 from .bootstrap_db import bootstrap_databases
 from .components import Components
 from .debug_guard import is_debug_enabled, is_wsgi_debug_enabled
 from .extensions import cache, limiter
-from core.prepared_request import PreparedRequest
+
 
 
 def _verify_before_request_order(app):
@@ -284,5 +282,8 @@ def create_app(config_class=Config, debug=None):
 
     app.url_map.converters["anyext"] = AnyExtensionConverter
     app.components = Components(app)
+
+    # Pre-serialize schema for performance copy
+    app.schema_json = orjson.dumps(app.components.schema)  # pylint: disable=no-member
 
     return app

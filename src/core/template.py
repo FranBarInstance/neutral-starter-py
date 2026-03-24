@@ -41,9 +41,8 @@ class Template:
         else:
             template = NeutralTemplate(tpl, schema_obj=self.schema.properties)
 
-        self.contents = template.render()
+        self.contents = template.render().lstrip('\n\r\t ')
 
-        self.contents = self.contents.lstrip('\n\r\t ')
         if Config.TEMPLATE_HTML_MINIFY:
             self.contents = re.sub(
                 r"^\s+<(?!pre\b|code\b|samp\b|kbd\b|var\b|textarea\b|xmp\b|script\b|style\b|template\b)([^>]+>)",
