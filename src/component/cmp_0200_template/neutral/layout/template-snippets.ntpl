@@ -86,16 +86,16 @@
     {:snip; carousel-active-0 >>
         active
     :}
-    {:filled; current->theme->carousel >>
+    {:filled; local::current->carousel >>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                {:each; current->theme->carousel key image >> {:;:}
+                {:each; local::current->carousel key image >> {:;:}
                     <div class="carousel-item {:snip; carousel-active-{:;key:} :}" data-bs-interval="8000">
                         <img src="{:;image:}" class="d-block w-100">
                     </div>
                 :}
             </div>
-            {:filled; current->theme->carousel->1 >>
+            {:filled; local::current->carousel->1 >>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">{:trans; Previous :}</span>

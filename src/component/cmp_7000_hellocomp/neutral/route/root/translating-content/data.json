@@ -6,11 +6,9 @@
                 "description": "Strategy for translating content.",
                 "h1": "Translating content"
             },
-            "theme": {
-                "carousel": [
-                    "/img/carousel.jpg"
-                ]
-            }
+            "carousel": [
+                "/img/carousel.jpg"
+            ]
         }
     }
 }

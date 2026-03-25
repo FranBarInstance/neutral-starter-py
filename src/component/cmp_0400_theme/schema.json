@@ -25,7 +25,9 @@
             }
         },
         "data": {
-            "current": {}
+            "current": {
+                "carousel": []
+            }
         }
     },
     "data": {
@@ -45,10 +47,9 @@
                 },
                 "spin": "current:template:spin-set-spin4",
                 "allow_themes": [
-                    "studio"
+                    "studio-asymmetric"
                 ],
-                "allow_colors": [],
-                "carousel": []
+                "allow_colors": []
             },
             "menu": {
                 "session:": {
