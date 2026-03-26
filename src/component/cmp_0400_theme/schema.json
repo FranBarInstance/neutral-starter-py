@@ -33,7 +33,7 @@
     "data": {
         "current": {
             "theme": {
-                "theme": "studio-asymmetric",
+                "theme": "default",
                 "color": "",
                 "class": {
                     "container": "container p-0 p-md-2",

@@ -39,6 +39,7 @@
         "current": {
             "theme": {
                 "allow_themes": [
+                    "default",
                     "amber-roar",
                     "aurora",
                     "autumn-harvest",
@@ -63,6 +64,7 @@
                     "techno-splash"
                 ],
                 "allow_themes_all": [
+                    "default",
                     "amber-roar",
                     "aurora",
                     "autumn-harvest",
