@@ -21,8 +21,8 @@
 {:* --- Profile Form Snippet --- *:}
 {:snip; user_0yt2sa:user_profile-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/profile/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
-        <div class="row">
-            <div class="col-12">
+        <div class="row g-2">
+            <div class="col-12 col-md-6">
                 {:* --- Field: alias --- *:}
                 <div class="input-group">
                     <span class="input-group-text {:;x-icons->x-icon-user:} {:snip; is-invalid:alias :}"></span>
@@ -43,7 +43,28 @@
                     </div>
                 </div>
                 {:snip; error-msg:alias :}
-                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-12 col-md-6">
+                {:* --- Field: dark_mode --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;x-icons->x-icon-theme-light-dark:} {:snip; is-invalid:dark_mode :}"></span>
+                    <div class="form-floating">
+                        <select
+                            id="user_profile-dark_mode"
+                            name="dark_mode"
+                            class="form-select {:snip; is-invalid:dark_mode :}"
+                            placeholder="{:trans; Dark mode :}"
+                            aria-label="{:trans; Dark mode :}"
+                            data-forms-autoselect-option="{:;CONTEXT->POST->dark_mode:}{:else; {:;USER->profile->properties->dark_mode:} :}"
+                        >
+                            <option value="">{:trans; auto :}</option>
+                            <option value="on">{:trans; Force On :}</option>
+                            <option value="off">{:trans; Force Off :}</option>
+                        </select>
+                        <label for="user_profile-dark_mode">{:trans; Dark mode :}</label>
+                    </div>
+                </div>
+                {:snip; error-msg:dark_mode :}
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: locale --- *:}
@@ -69,7 +90,6 @@
                     </div>
                 </div>
                 {:snip; error-msg:locale :}
-                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: country --- *:}
@@ -92,7 +112,6 @@
                     </div>
                 </div>
                 {:snip; error-msg:region :}
-                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: theme --- *:}
@@ -117,7 +136,6 @@
                     </div>
                 </div>
                 {:snip; error-msg:theme :}
-                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: color --- *:}
@@ -142,34 +160,10 @@
                     </div>
                 </div>
                 {:snip; error-msg:color :}
-                <div class="{:;local::current->forms->field-spacing:}"></div>
-            </div>
-            <div class="col-12">
-                {:* --- Field: dark_mode --- *:}
-                <div class="input-group">
-                    <span class="input-group-text {:;x-icons->x-icon-theme-light-dark:} {:snip; is-invalid:dark_mode :}"></span>
-                    <div class="form-floating">
-                        <select
-                            id="user_profile-dark_mode"
-                            name="dark_mode"
-                            class="form-select {:snip; is-invalid:dark_mode :}"
-                            placeholder="{:trans; Dark mode :}"
-                            aria-label="{:trans; Dark mode :}"
-                            data-forms-autoselect-option="{:;CONTEXT->POST->dark_mode:}{:else; {:;USER->profile->properties->dark_mode:} :}"
-                        >
-                            <option value="">{:trans; auto :}</option>
-                            <option value="on">{:trans; Force On :}</option>
-                            <option value="off">{:trans; Force Off :}</option>
-                        </select>
-                        <label for="user_profile-dark_mode">{:trans; Dark mode :}</label>
-                    </div>
-                </div>
-                {:snip; error-msg:dark_mode :}
-                <div class="{:;local::current->forms->field-send-spacing:}"></div>
             </div>
             <div class="col-12">
                 {:* --- Submit Area --- *:}
-                <div class="row gx-2">
+                <div class="row gx-2 mt-2">
                     <div class="col-2">
                         <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light">
                             <span class="{:;x-icons->x-icon-reload:}"></span>
