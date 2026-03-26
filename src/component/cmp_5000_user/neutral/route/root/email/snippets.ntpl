@@ -276,7 +276,7 @@
         {:!filled; user_emails >>
             <div class="text-muted">{:trans; No emails found. :}</div>
         :}
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush border-0">
             {:each; user_emails k email >>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span class="text-break">{:&;email->email:}</span>
