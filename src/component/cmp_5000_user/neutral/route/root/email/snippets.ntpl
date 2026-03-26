@@ -309,7 +309,7 @@
             </h2>
             <div id="collapsepin" class="accordion-collapse collapse" aria-labelledby="heading-pin" data-bs-parent="#user_email-content">
                 <div class="accordion-body p-3">
-                    {:snip; user_0yt2sa:user_email-add-container :}
+                    {:snip; user_0yt2sa:user_email-pin-container :}
                 </div>
             </div>
         </div>
