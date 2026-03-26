@@ -438,49 +438,59 @@
 
 {:* --- Account Content Snippet --- *:}
 {:snip; user_0yt2sa:user_account-content >>
-    <div id="user_account-content">
-        <div class="row g-3">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">{:trans; Change password :}</div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                {:snip; user_0yt2sa:user_account-password-pin-container :}
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {:snip; user_0yt2sa:user_account-password-change-container :}
-                            </div>
+    <div class="accordion mb-3" id="user_account-content">
+        <div class="accordion-item border-1">
+            <h2 class="accordion-header" id="heading-password">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsepassword" aria-expanded="false" aria-controls="collapsepassword">
+                    {:trans; Change password :}
+                </button>
+            </h2>
+            <div id="collapsepassword" class="accordion-collapse collapse" aria-labelledby="heading-password" data-bs-parent="#user_account-content">
+                <div class="accordion-body p-3">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-5">
+                            {:snip; user_0yt2sa:user_account-password-pin-container :}
+                        </div>
+                        <div class="col-12 col-md-7">
+                            {:snip; user_0yt2sa:user_account-password-change-container :}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">{:trans; Change birthdate :}</div>
-                    <div class="card-body">
-                        <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                {:snip; user_0yt2sa:user_account-birthdate-pin-container :}
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {:snip; user_0yt2sa:user_account-birthdate-change-container :}
-                            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-birthdate">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsebirthdate" aria-expanded="false" aria-controls="collapsebirthdate">
+                    {:trans; Change birthdate :}
+                </button>
+            </h2>
+            <div id="collapsebirthdate" class="accordion-collapse collapse" aria-labelledby="heading-birthdate" data-bs-parent="#user_account-content">
+                <div class="accordion-body p-3">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-5">
+                            {:snip; user_0yt2sa:user_account-birthdate-pin-container :}
+                        </div>
+                        <div class="col-12 col-md-7">
+                            {:snip; user_0yt2sa:user_account-birthdate-change-container :}
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">{:trans; Change login :}</div>
-                    <div class="card-body">
-                        {:snip; user_0yt2sa:user_account-login-change-container :}
-                        <div class="alert alert-secondary mt-3">
-                            <p class="mb-0">
-                                {:trans; Add your email here: :}
-                                <a href="{:;user_0yt2sa->manifest->route:}/email" class="ms-1 alert-link">{:trans; Emails :}</a>
-                            </p>
-                        </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-login">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapselogin" aria-expanded="false" aria-controls="collapselogin">
+                    {:trans; Change login :}
+                </button>
+            </h2>
+            <div id="collapselogin" class="accordion-collapse collapse" aria-labelledby="heading-login" data-bs-parent="#user_account-content">
+                <div class="accordion-body p-3">
+                    {:snip; user_0yt2sa:user_account-login-change-container :}
+                    <div class="alert alert-secondary mt-3">
+                        <p class="mb-0">
+                            {:trans; Add your email here: :}
+                            <a href="{:;user_0yt2sa->manifest->route:}/email" class="ms-1 alert-link">{:trans; Emails :}</a>
+                        </p>
                     </div>
                 </div>
             </div>

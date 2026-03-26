@@ -288,38 +288,52 @@
 
 {:* --- Email Content Snippet --- *:}
 {:snip; user_0yt2sa:user_email-content >>
-    <div id="user_email-content">
-        <div class="row g-3">
-            <div class="col-12 col-lg-6">
-                <div class="card">
-                    <div class="card-header">{:trans; Current Emails :}</div>
-                    <div class="card-body">
-                        {:snip; user_0yt2sa:user_email-list :}
-                    </div>
+    <div class="accordion mb-3" id="user_email-content">
+        <div class="accordion-item border-1">
+            <h2 class="accordion-header" id="heading-current">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsecurrent" aria-expanded="true" aria-controls="collapsecurrent">
+                {:trans; Current Emails :}
+                </button>
+            </h2>
+            <div id="collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="heading-current" data-bs-parent="#user_email-content">
+                <div class="accordion-body p-3">
+                    {:snip; user_0yt2sa:user_email-list :}
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
-                <div class="card">
-                    <div class="card-header">{:trans; Send PIN :}</div>
-                    <div class="card-body">
-                        {:snip; user_0yt2sa:user_email-pin-container :}
-                    </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-pin">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsepin" aria-expanded="false" aria-controls="collapsepin">
+                    {:trans; Send PIN :}
+                </button>
+            </h2>
+            <div id="collapsepin" class="accordion-collapse collapse" aria-labelledby="heading-pin" data-bs-parent="#user_email-content">
+                <div class="accordion-body p-3">
+                    {:snip; user_0yt2sa:user_email-add-container :}
                 </div>
             </div>
-            <div class="col-12 -col-lg-6">
-                <div class="card">
-                    <div class="card-header">{:trans; Add Email :}</div>
-                    <div class="card-body">
-                        {:snip; user_0yt2sa:user_email-add-container :}
-                    </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-add">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseadd" aria-expanded="false" aria-controls="collapseadd">
+                    {:trans; Add Email :}
+                </button>
+            </h2>
+            <div id="collapseadd" class="accordion-collapse collapse" aria-labelledby="heading-add" data-bs-parent="#user_email-content">
+                <div class="accordion-body p-3">
+                    {:snip; user_0yt2sa:user_email-add-container :}
                 </div>
             </div>
-            <div class="col-12 -col-lg-6">
-                <div class="card">
-                    <div class="card-header">{:trans; Delete Email :}</div>
-                    <div class="card-body">
-                        {:snip; user_0yt2sa:user_email-delete-container :}
-                    </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-delete">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsedelete" aria-expanded="false" aria-controls="collapsedelete">
+                    {:trans; Delete Email :}
+                </button>
+            </h2>
+            <div id="collapsedelete" class="accordion-collapse collapse" aria-labelledby="heading-delete" data-bs-parent="#user_email-content">
+                <div class="accordion-body p-3">
+                    {:snip; user_0yt2sa:user_email-delete-container :}
                 </div>
             </div>
         </div>
