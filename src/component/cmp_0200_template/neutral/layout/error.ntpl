@@ -13,7 +13,7 @@
 {:*
     Snippets for navbar and drawer
 *:}
-{:^include; {:flg; require :} >> #/template-nav-snippets.ntpl :}
+{:^include; {:flg; require :} >> #/template-error-nav-snippets.ntpl :}
 
 {:*
     Spin

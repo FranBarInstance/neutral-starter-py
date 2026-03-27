@@ -1,0 +1,38 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:*
+    Main drawer
+*:}
+{:snip; current:template:main-drawer-error >> :}
+
+{:*
+    Main navbar
+*:}
+{:snip; current:template:main-navbar-error >>
+    <div class="{:;current->theme->class->body_navbar_bg :}">
+        <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block {:;current->theme->class->body_navbar_bg :} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :} {:;current->theme->class->body_navbar_fixed:}">
+            <div class="container">
+                <a href="{:;current->site->home_link:}" class="btn border-0 shadow-none p-0 px-1 me-2" type="button">
+                    <span title="{:trans; Home :}" class="navbar-toggler-icon"></span>
+                </a>
+                <a href="{:;current->menu->session:{:;HAS_SESSION:}->main->home->link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
+                    <span class="page-is-loading small page-loader-spin">{:snip; spin-1x :}</span>
+                    <span class="page-has-loaded nav-brand-text me-md-2 d-none">{:trans; {:;current->site->name:} :}</span>
+                </a>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="{:;current->site->home_link:}" class="nav-link" title="{:trans; Home :}">
+                            <i class="{:;x-icons->home:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; Home :}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {:* Padding for fixed navbar *:}
+        <div id="main-navbar-hidden" class="v-hidden {:;current->theme->class->body_navbar_bg :} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :}">
+            &nbsp;
+        </div>
+    </div>
+:}
+
+{:^;:}

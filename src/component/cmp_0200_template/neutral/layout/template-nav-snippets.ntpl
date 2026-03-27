@@ -171,7 +171,7 @@
 *:}
 {:snip; current:template:body-lateral-bar >>
     <div class="p-3">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none border-bottom pb-3">
+        <a href="{:;current->site->home_link:}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none border-bottom pb-3">
             <span class="fs-4 {:;x-icons->x-icon-webapp:} me-2 text-primary"></span>
             <span class="fs-5 fw-bold">Neutral TS</span>
         </a>

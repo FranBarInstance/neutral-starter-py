@@ -16,8 +16,8 @@
         {:snip; current:template:theme-workaround-css:{:;current->theme->theme:} :}
     </head>
     <body class="{:;current->theme->class->body:}">
-        {:snip; current:template:main-navbar :}
-        {:snip; current:template:main-drawer :}
+        {:snip; current:template:main-navbar-error :}
+        {:snip; current:template:main-drawer-error :}
         {:snip; current:template:page-h1 :}
         <div class="container mt-4 template-main-container">
             <main class="">
@@ -33,7 +33,7 @@
                 <div class="container">
                     <div class="row text-center">
                         <div class="error-code-lg">{:;HTTP_ERROR->code:}</div>
-                        <a class="fs-5 text text-decoration-none" href="/"><i class="{:;x-icons->x-icon-home:}" aria-hidden="true"></i>  {:trans; Go home :}</a>
+                        <a class="fs-5 text text-decoration-none" href="{:;current->site->home_link:}"><i class="{:;x-icons->x-icon-home:}" aria-hidden="true"></i>  {:trans; Go home :}</a>
                     </div>
                 </div>
             </main>

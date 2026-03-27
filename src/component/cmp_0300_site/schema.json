@@ -43,7 +43,8 @@
                 "description": "Neutral TS Skeleton for PWA in Python !",
                 "cover": "/img/cover.jpg",
                 "logo": "/img/logo.jpg",
-                "static": "/"
+                "static": "/",
+                "home_link": "/"
             }
         },
         "navbar": {

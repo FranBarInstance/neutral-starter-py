@@ -60,7 +60,7 @@
         }
         function utilReloadPageHome() {
             if (document.querySelector('.util-reload-page-home')) {
-                setTimeout(function() { top.location.href = "/"; }, 300);
+                setTimeout(function() { top.location.href = "{:;current->site->home_link:}"; }, 300);
             }
         }
         function utilRedirection() {
