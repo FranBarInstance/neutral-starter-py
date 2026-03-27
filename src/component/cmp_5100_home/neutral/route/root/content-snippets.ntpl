@@ -13,7 +13,7 @@
                         <span class="badge rounded-pill bg-primary fw-semibold">Flask</span>
                         <span class="badge rounded-pill bg-primary fw-semibold">Open Source</span>
                     </div>
-                    <h1 class="display-3 fw-bold mb-3">{:trans; Neutral TS Starter Py :}</h1>
+                    <h1 class="display-3 mb-3">{:trans; Neutral TS Starter Py :}</h1>
                     <p class="lead opacity-75 mb-4">{:trans; A modular, opinionated starter kit for building Progressive Web Applications using Python (Flask) on the backend and Neutral TS as a universal templating engine. :}</p>
                     <div class="d-flex flex-wrap gap-2 mb-3">
                         <a class="btn btn-light btn-lg px-4 fw-semibold toggles-ignore" href="https://github.com/FranBarInstance/neutral-starter-py">Get Started</a>
