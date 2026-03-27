@@ -287,6 +287,48 @@ Notes:
 - It does not need to know which presets exist in advance. It simply updates the active preset stylesheet.
 - Full loader documentation, attributes, dark-mode behavior and detailed examples: [btdt/docs/btdt.md](btdt/docs/btdt.md).
 
+## Manual Modular Customization
+
+BTDT is designed to be fully modular. While using the [Visual Designer](https://franbarinstance.github.io/bootstrap-dynamic-themes/btdt/editor/) is the recommended way to create a consistent look, you can also mix and match individual modules manually in your HTML.
+
+This is useful for quick experiments or when you only want to change one specific aspect (like the font) without importing or generating a full preset.
+
+### Example: Changing only the Font
+Link the desired font module after the base Bootstrap CSS:
+
+```html
+<head>
+    <link rel="stylesheet" href="btdt/css/bootstrap.min.css">
+    <link rel="stylesheet" href="btdt/themes/fonts/quicksand.min.css">
+</head>
+```
+
+### Example: Changing only the Color Palette
+Link the color module after the base Bootstrap CSS:
+
+```html
+<head>
+    <link rel="stylesheet" href="btdt/css/bootstrap.min.css">
+    <link rel="stylesheet" href="btdt/themes/colors/slate.min.css">
+</head>
+```
+
+### Mixing Modules
+You can combine multiple modules (colors, fonts, styles) to create your own theme directly in HTML:
+
+```html
+<head>
+    <link rel="stylesheet" href="btdt/css/bootstrap.min.css">
+
+    <!-- Custom modular mix -->
+    <link rel="stylesheet" href="btdt/themes/fonts/inter.min.css">
+    <link rel="stylesheet" href="btdt/themes/colors/amber.min.css">
+    <link rel="stylesheet" href="btdt/themes/styles/personality-asymmetric.css">
+</head>
+```
+
+You can find all available modules in the `btdt/themes/` subdirectories. There are over 50+ color palettes and 100+ typography modules ready to use.
+
 ## Dynamic Contrast & Theming
 
 A common challenge in Bootstrap 5+ is handling accessibility and contrast dynamically without bloating the HTML with `data-bs-theme` attributes.
