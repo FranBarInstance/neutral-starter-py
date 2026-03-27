@@ -22,7 +22,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a href="{:;current->site->home_link:}" class="nav-link" title="{:trans; Home :}">
-                            <i class="{:;x-icons->home:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; Home :}</span>
+                            <i class="{:;x-icons->x-icon-home:}" aria-hidden="true"></i> <span class="d-none d-md-inline">{:trans; Home :}</span>
                         </a>
                     </li>
                 </ul>
