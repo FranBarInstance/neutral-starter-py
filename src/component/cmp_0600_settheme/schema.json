@@ -64,6 +64,26 @@
                     "studio-sketch",
                     "techno-splash"
                 ],
+                "allow_colors": [
+                    "primary",
+                    "dark",
+                    "light",
+                    "body-tertiary",
+                    "white"
+                ],
+                "allow_colors_all": [
+                    "primary",
+                    "dark",
+                    "secondary",
+                    "light",
+                    "body-tertiary",
+                    "white",
+                    "danger",
+                    "warning",
+                    "info",
+                    "success",
+                    "transparent"
+                ],
                 "allow_themes_all": [
                     "default",
                     "amber-roar",
@@ -124,8 +144,7 @@
                     "techno-splash",
                     "vintage-journal",
                     "wild"
-                ],
-                "allow_colors": []
+                ]
             },
             "menu": {
                 "session:": {

@@ -135,8 +135,8 @@
     Main navbar
 *:}
 {:snip; current:template:main-navbar >>
-    <div class="{:;current->theme->class->body_navbar_bg:}">
-        <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block {:;current->theme->class->body_navbar_bg :} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :} {:;current->theme->class->body_navbar_fixed:}">
+    <div class="bg-{:;current->theme->color:}">
+        <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block {:;current->theme->color :} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :} {:;current->theme->class->body_navbar_fixed:}">
             <div class="container">
                 {:snip; current:template:main-drawer-button :}
                 <a href="{:;current->menu->session:{:;HAS_SESSION:}->main->home->link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
@@ -155,7 +155,7 @@
             </div>
         </nav>
         {:* Padding for fixed navbar *:}
-        <div id="main-navbar-hidden" class="v-hidden {:;current->theme->class->body_navbar_bg :} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :}">
+        <div id="main-navbar-hidden" class="v-hidden {:;current->theme->color :} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :}">
             &nbsp;
         </div>
     </div>

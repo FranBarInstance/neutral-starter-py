@@ -2,14 +2,14 @@
 
 {:snip; current:template:cache-key >>
     {:;current->theme->theme:}
-    {:;current->theme->color:}
+    bg-{:;current->theme->color:}
     {:;HAS_SESSION:}
     {:;CONTEXT->HEADERS->Requested-With-Ajax:}
 :}
 
 {:snip; current:template:error-cache-key >>
     {:;current->theme->theme:}
-    {:;current->theme->color:}
+    bg-{:;current->theme->color:}
     {:;HAS_SESSION:}
     {:;CONTEXT->HEADERS->Requested-With-Ajax:}
     {:;HTTP_ERROR->code:}

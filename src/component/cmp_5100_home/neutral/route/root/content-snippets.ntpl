@@ -4,7 +4,7 @@
 *:}
 
 {:snip; current:template:body-hero >>
-    <div class="{:;current->theme->class->body_navbar_bg:} py-3 p-md-5">
+    <div class="bg-{:;current->theme->color:} py-3 p-md-5">
         <div class="container py-4">
             <div class="row align-items-center gy-4">
                 <div class="col-lg-8">
