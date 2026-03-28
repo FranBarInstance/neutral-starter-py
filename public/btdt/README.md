@@ -117,6 +117,57 @@ Copy the `btdt/` folder to your project root.
 
 ### 2. Choose Implementation Method
 
+#### CDN via jsDelivr
+If you prefer not to copy the `btdt/` folder into your project, you can load BTDT directly from jsDelivr using the GitHub package URL:
+
+```text
+https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/
+```
+
+Each asset keeps the same internal project path. For example:
+
+```text
+https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/css/bootstrap.min.css
+https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js
+https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/preset/studio.min.css
+https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/modes/dark.min.css
+```
+
+Example with direct CSS links:
+
+```html
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/css/bootstrap.min.css">
+    <link id="theme-preset" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/preset/studio.min.css">
+    <link id="theme-preset-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/modes/dark.min.css" media="not all">
+</head>
+
+<body>
+    ...
+    <script src="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js"></script>
+</body>
+```
+
+Example with the JS loader:
+
+```html
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/css/bootstrap.min.css">
+    <script data-preset="studio" src="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js"></script>
+</head>
+```
+
+In this CDN setup, `btdt.min.js` detects the base path automatically from its own `src`, so `btdt.load(...)` and dark mode asset resolution keep working without extra configuration.
+
+If you need to override the asset location manually, you can still set `data-base-path` explicitly:
+
+```html
+<script
+    data-base-path="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/"
+    data-preset="studio"
+    src="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js"></script>
+```
+
 #### Option A: Native CSS (Maximum Performance)
 Best for static sites where speed is the only priority. Zero JS dependency for initial load.
 
