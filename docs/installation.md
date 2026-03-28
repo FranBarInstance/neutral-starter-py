@@ -4,7 +4,7 @@ This document explains how to install **Neutral TS Starter Py** using either the
 
 ## 1. Prerequisites
 
-- Python 3.10+
+- Python 3.10 to 3.14
 - `git`
 - `pip`
 - Linux/macOS shell (`sh`) or Windows PowerShell (depending on your platform)
@@ -39,13 +39,13 @@ Important:
 ### 2.2 Linux/macOS
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.sh | sh
 ```
 
 ### 2.3 Windows PowerShell
 
 ```powershell
-powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.ps1 | iex"
+powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.ps1 | iex"
 ```
 
 ## 3. Manual Installation
@@ -107,6 +107,11 @@ Example:
 
 For `cmp_8100_localdev` use `/local-admin-[random]`.
 
+Note:
+
+- `cmp_8100_localdev` keeps `/local-dev` as its default route in `manifest.json`.
+- The recommended install flow overrides that route through `custom.json` to a randomized `/local-admin-[random]` path.
+
 ### 3.6 Bootstrap databases
 
 ```bash
@@ -123,8 +128,11 @@ Then update in `config/.env` for local-only `cmp_8100_localdev` access:
 
 - `DEV_ADMIN_USER=admin@example.com`
 - `DEV_ADMIN_PASSWORD=your-password`
-- `DEV_ADMIN_LOCAL_ONLY=true`
 - `DEV_ADMIN_ALLOWED_IPS=127.0.0.1,::1`
+
+Optional hardening:
+
+- `DEV_ADMIN_LOCAL_ONLY=true`
 
 ### 3.8 Run application
 
@@ -136,7 +144,7 @@ Default URL: `http://localhost:5000`
 
 ## 4. `config/.env` Variables to Configure
 
-This section focuses on the most relevant variables from `config/.env.example`.
+This section focuses on the most relevant variables from `config/.env.example`, plus a few supported advanced variables that may be added manually when needed.
 
 ### 4.1 Minimum required
 
@@ -151,8 +159,8 @@ This section focuses on the most relevant variables from `config/.env.example`.
 - `CONFIG_DB_PATH`: Optional path for central component overrides.
 - `DEV_ADMIN_USER`
 - `DEV_ADMIN_PASSWORD`
-- `DEV_ADMIN_LOCAL_ONLY`
 - `DEV_ADMIN_ALLOWED_IPS`
+- `DEV_ADMIN_LOCAL_ONLY` (supported advanced setting, default runtime value: `true`)
 - `LIMITER_STORAGE_URI`: Use shared backend (for example Redis) in multi-instance deployments.
 - `DEFAULT_LIMITS`, `SIGNIN_LIMITS`, `SIGNUP_LIMITS`: Review anti-abuse thresholds.
 - `VALIDATE_SIGNUP`: Enable if you require validated signup flow.
