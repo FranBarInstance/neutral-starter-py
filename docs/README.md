@@ -2,7 +2,7 @@
 
 ## Overview
 
-**[Neutral TS Starter Py](https://github.com/FranBarInstance/neutral-ts-starter-py)** is a modular, security-focused boilerplate for building Progressive Web Applications. It utilizes **Python (Flask)** for the backend and the **[Neutral TS](https://github.com/FranBarInstance/neutralts)**  for the frontend—a language-agnostic, logic-less templating engine.
+**[Neutral TS Starter Py](https://github.com/FranBarInstance/neutral-starter-py)** is a modular, security-focused boilerplate for building Progressive Web Applications. It utilizes **Python (Flask)** for the backend and the **[Neutral TS](https://github.com/FranBarInstance/neutralts)**  for the frontend—a language-agnostic, logic-less templating engine.
 
 Key features include:
 - **Component-Based Architecture**: Everything is isolated and modular, allowing for easy extension and overrides.
