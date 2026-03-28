@@ -1,5 +1,5 @@
 :root {
-    --theme-drawer-tabs-w: 74px;
+    --theme-drawer-tabs-w: 60px;
     --theme-drawer-panel-w: 260px;
     --theme-drawer-full-w: calc(var(--theme-drawer-tabs-w) + var(--theme-drawer-panel-w));
     --theme-drawer-speed: .16s;
@@ -54,21 +54,45 @@ body.theme-drawer-preload .template-main-container {
 
 #theme-drawer-body-content {
     flex: 1;
+    height: 100%;
     min-height: 0;
     display: flex;
     align-items: stretch;
     padding-top: var(--theme-navbar-h);
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 #theme-drawer-tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
     min-width: var(--theme-drawer-tabs-w);
+    min-height: 0;
+    max-height: 100%;
     width: var(--theme-drawer-tabs-w);
-    overflow-y: auto;
+    overflow: hidden;
     overflow-x: hidden;
     flex-shrink: 0;
 }
 
+.theme-drawer-tabs-scroll {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 #theme-drawer-tabs .drawer-btn {
+    align-self: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
     padding: 1px 8px;
     margin-bottom: 15px;
     display: flex;
@@ -97,7 +121,9 @@ body.theme-drawer-preload .template-main-container {
 
 #theme-drawer-tabs-content {
     flex: 1;
+    height: 100%;
     min-width: 0;
+    min-height: 0;
     overflow-y: auto;
     overflow-x: hidden;
 }

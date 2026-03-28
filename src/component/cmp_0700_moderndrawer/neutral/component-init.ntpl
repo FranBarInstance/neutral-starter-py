@@ -20,6 +20,9 @@
     </button>
 :}
 
+{:snip; current:template:main-drawer-items-icons-size >>
+    x-icon-20px
+:}
 
 {:*
     Modern drawer
@@ -30,10 +33,12 @@
     <nav id="theme-drawer" class="shadow bg-body theme-drawer theme-drawer-preload  {:snip; moderndrawer_0yt2sa:state :}{:else; theme-drawer-state-hidden :}" aria-labelledby="theme-drawer-label">
         <div class="p-0" id="theme-drawer-body-content">
             <div class="nav flex-column nav-pills align-items-center py-3 px-2 bg-light border-end" id="theme-drawer-tabs" role="tablist" aria-orientation="vertical">
-                <button class="btn p-2 pt-1 mb-3 ms-1" id="theme-drawer-tabs-toggle-btn" title="{:trans; Toggle menu :}" data-title="{:trans; Toggle menu :}" type="button" aria-controls="theme-drawer" aria-expanded="false" aria-label="{:trans; Toggle menu :}">
-                    <i title="{:trans; Menu :}" class="{:;x-icons->x-icon-menu-open:}" aria-hidden="true"></i>
-                </button>
-                {:snip; current:template:main-drawer-items-icons :}
+                <div class="theme-drawer-tabs-scroll w-100">
+                    <button class="drawer-btn nav-link ms-1" id="theme-drawer-tabs-toggle-btn" title="{:trans; Toggle menu :}" data-title="{:trans; Toggle menu :}" type="button" aria-controls="theme-drawer" aria-expanded="false" aria-label="{:trans; Toggle menu :}">
+                        <i title="{:trans; Menu :}" class="{:;x-icons->x-icon-menu-open:} {:snip; current:template:main-drawer-items-icons-size :}" aria-hidden="true"></i>
+                    </button>
+                    {:snip; current:template:main-drawer-items-icons :}
+                </div>
             </div>
             <div class="tab-content text-truncate w-100 drawer-tabs-content-min-height bg-body" id="theme-drawer-tabs-content">
                 <div class="theme-drawer-content-header border-bottom px-3 py-3">
@@ -48,17 +53,17 @@
                 {:snip; current:template:main-drawer-items-menu :}
             </div>
         </div>
-        {:*  <div class="border-top bg-body-tertiary px-3 py-3">
+        <div class="border-top bg-white ms-1 px-2 py-2">
             <div class="d-flex align-items-center gap-3">
                 <div class="d-flex align-items-center justify-content-center flex-shrink-0 theme-drawer-footer-icon">
                     <i class="{:;x-icons->x-icon-webapp:} fs-4" aria-hidden="true"></i>
                 </div>
                 <div class="theme-drawer-footer-copy text-truncate">
-                    <div class="fw-semibold small">{:trans; {:;current->drawer->name:} :}</div>
-                    <div class="text-body-secondary small">{:trans; Navigation :}</div>
+                    <a class="btn btn-white" href="{:;current->site->home_link:}">{:trans; {:;current->drawer->name:} :}</a>
+                    <button class="pwa_0yt2sa-install-show pwa_0yt2sa-install-click btn btn-white"> {:trans; Install APP :}</button>
                 </div>
             </div>
-        </div>  *:}
+        </div>
     </nav>
 :}
 

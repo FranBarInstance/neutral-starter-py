@@ -31,6 +31,10 @@
     </ul>
 :}
 
+{:snip; current:template:main-drawer-items-icons-size >>
+    x-icon-24px
+:}
+
 {:snip; current:template:main-drawer-button >>
     <button class="btn border-0 shadow-none p-0 px-1 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#theme-drawer" aria-controls="theme-drawer">
         <span title="{:trans; Menu :}" class="navbar-toggler-icon"></span>
@@ -41,7 +45,7 @@
     {:each; current->drawer->menu->session:{:;HAS_SESSION:} tabs menu >>
         {:filled; menu >>
             <button id="theme-drawer-tabs-{:;tabs:}-btn" title="{:trans; {:;menu->name:} :}" class="drawer-btn nav-link" data-bs-toggle="pill" data-bs-target="#theme-drawer-tabs-{:;tabs:}" type="button" role="tab" aria-controls="theme-drawer-tabs-{:;tabs:}" aria-selected="true">
-                <i class="{:;x-icons->{:;menu->icon:}:} x-icon-24px" aria-hidden="true"></i>
+                <i class="{:;x-icons->{:;menu->icon:}:} {:snip; current:template:main-drawer-items-icons-size :}" aria-hidden="true"></i>
             </button>
         :}
     :}
