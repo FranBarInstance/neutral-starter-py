@@ -135,7 +135,7 @@
     Main navbar
 *:}
 {:snip; current:template:main-navbar >>
-    <div class="{:;current->theme->class->body_navbar_bg :}">
+    <div class="{:;current->theme->class->body_navbar_bg:}">
         <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block {:;current->theme->class->body_navbar_bg :} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :} {:;current->theme->class->body_navbar_fixed:}">
             <div class="container">
                 {:snip; current:template:main-drawer-button :}

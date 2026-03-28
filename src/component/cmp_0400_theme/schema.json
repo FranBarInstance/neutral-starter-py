@@ -40,7 +40,7 @@
                     "body_main": "",
                     "body_lateral_bar": "",
                     "body": "",
-                    "body_navbar_bg": "bg-primary",
+                    "body_navbar_bg": "bg-dark",
                     "body_navbar_size": "py-2 py-md-3",
                     "body_navbar_class": "navbar-expand _border-clean",
                     "body_navbar_fixed": "fixed-top"
