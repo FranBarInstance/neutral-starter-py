@@ -15,7 +15,9 @@
         }
     },
     "config": {
-        "menu-drawer-enable": true,
-        "menu-navbar-enable": true
+        "menu-theme-drawer-enable": true,
+        "menu-theme-navbar-enable": true,
+        "menu-color-drawer-enable": true,
+        "menu-color-navbar-enable": false
     }
 }

@@ -5,32 +5,98 @@
                 "en": {
                     "Theme": "Theme",
                     "Color": "Color",
-                    "Colors": "Colors"
+                    "Colors": "Colors",
+                    "primary": "Primary",
+                    "dark": "Dark",
+                    "secondary": "Secondary",
+                    "light": "Light",
+                    "body-tertiary": "Tertiary",
+                    "white": "White",
+                    "danger": "Danger",
+                    "warning": "Warning",
+                    "info": "Info",
+                    "success": "Success",
+                    "transparent": "Transparent"
                 },
                 "es": {
                     "Theme": "Tema",
                     "Color": "Color",
-                    "Colors": "Colores"
+                    "Colors": "Colores",
+                    "primary": "Primary",
+                    "dark": "Dark",
+                    "secondary": "Secondary",
+                    "light": "Light",
+                    "body-tertiary": "Tertiary",
+                    "white": "White",
+                    "danger": "Danger",
+                    "warning": "Warning",
+                    "info": "Info",
+                    "success": "Success",
+                    "transparent": "Transparent"
                 },
                 "de": {
                     "Theme": "Thema",
                     "Color": "Farbe",
-                    "Colors": "Farben"
+                    "Colors": "Farben",
+                    "primary": "Primary",
+                    "dark": "Dark",
+                    "secondary": "Secondary",
+                    "light": "Light",
+                    "body-tertiary": "Tertiary",
+                    "white": "White",
+                    "danger": "Danger",
+                    "warning": "Warning",
+                    "info": "Info",
+                    "success": "Success",
+                    "transparent": "Transparent"
                 },
                 "fr": {
                     "Theme": "Thème",
                     "Color": "Couleur",
-                    "Colors": "Couleurs"
+                    "Colors": "Couleurs",
+                    "primary": "Primary",
+                    "dark": "Dark",
+                    "secondary": "Secondary",
+                    "light": "Light",
+                    "body-tertiary": "Tertiary",
+                    "white": "White",
+                    "danger": "Danger",
+                    "warning": "Warning",
+                    "info": "Info",
+                    "success": "Success",
+                    "transparent": "Transparent"
                 },
                 "ar": {
                     "Theme": "الموضوع",
                     "Color": "اللون",
-                    "Colors": "الألوان"
+                    "Colors": "الألوان",
+                    "primary": "Primary",
+                    "dark": "Dark",
+                    "secondary": "Secondary",
+                    "light": "Light",
+                    "body-tertiary": "Tertiary",
+                    "white": "White",
+                    "danger": "Danger",
+                    "warning": "Warning",
+                    "info": "Info",
+                    "success": "Success",
+                    "transparent": "Transparent"
                 },
                 "zh": {
                     "Theme": "主题",
                     "Color": "颜色",
-                    "Colors": "颜色"
+                    "Colors": "颜色",
+                    "primary": "Primary",
+                    "dark": "Dark",
+                    "secondary": "Secondary",
+                    "light": "Light",
+                    "body-tertiary": "Tertiary",
+                    "white": "White",
+                    "danger": "Danger",
+                    "warning": "Warning",
+                    "info": "Info",
+                    "success": "Success",
+                    "transparent": "Transparent"
                 }
             }
         }
@@ -158,10 +224,12 @@
         "navbar": {
             "menu": {
                 "session:": {
-                    "theme": {}
+                    "theme": {},
+                    "color": {}
                 },
                 "session:true": {
-                    "theme": {}
+                    "theme": {},
+                    "color": {}
                 }
             }
         }

@@ -6,11 +6,13 @@
                     "signin": {},
                     "signup": {},
                     "theme": {},
+                    "color": {},
                     "language": {}
                 },
                 "session:true": {
                     "signout": {},
                     "theme": {},
+                    "color": {},
                     "language": {}
                 }
             }

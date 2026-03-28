@@ -2,13 +2,25 @@
 
 {:snip; settheme_0yt2sa-body-end >>
     {:eval;
-        {:;settheme_0yt2sa->manifest->config->menu-drawer-enable:}
-        {:;settheme_0yt2sa->manifest->config->menu-navbar-enable:}
+        {:;settheme_0yt2sa->manifest->config->menu-theme-drawer-enable:}
+        {:;settheme_0yt2sa->manifest->config->menu-theme-navbar-enable:}
+        {:;settheme_0yt2sa->manifest->config->menu-color-drawer-enable:}
+        {:;settheme_0yt2sa->manifest->config->menu-color-navbar-enable:}
         >>
         {:filled; current->theme->allow_themes->1 >>
             <script nonce="{:;CSP_NONCE:}">
                 document.addEventListener('DOMContentLoaded', () => {
                     const icons = document.querySelectorAll(`a[href="?{:;THEME_KEY:}={:;current->theme->theme:}"] i`);
+                    icons.forEach(icon => {
+                        icon.className = '{:;x-icons->x-icon-check:} me-1';
+                    });
+                });
+            </script>
+        :}
+        {:filled; current->theme->allow_colors->1 >>
+            <script nonce="{:;CSP_NONCE:}">
+                document.addEventListener('DOMContentLoaded', () => {
+                    const icons = document.querySelectorAll(`a[href="?{:;THEME_COLOR_KEY:}={:;current->theme->color:}"] i`);
                     icons.forEach(icon => {
                         icon.className = '{:;x-icons->x-icon-check:} me-1';
                     });
