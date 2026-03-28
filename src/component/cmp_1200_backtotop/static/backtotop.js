@@ -67,6 +67,7 @@
             this.isNavbarHidden = false;
             this.isAtTop = true;
             this.wasFixedInitially = false;
+            this.navbarBackground = null;
 
             this.navbar = document.querySelector(this.config.navbarSelector);
             this.navbarSpacer = document.querySelector(this.config.navbarHiddenSelector);
@@ -119,8 +120,10 @@
         setupInitialStyles() {
             if (this.navbar) {
                 this.wasFixedInitially = this.navbar.classList.contains(this.config.classes.fixed);
+                this.captureNavbarBackground();
                 this.navbar.style.transition = this.config.transitions.navbar;
                 this.navbar.classList.add(this.config.classes.atTop);
+                this.applyNavbarBackground();
                 // Pre-calculate spacer height if needed
                 this.updateSpacer();
             }
@@ -140,6 +143,41 @@
                     this.navbarSpacer.style.height = '0px';
                     this.navbarSpacer.style.display = 'none';
                 }
+            }
+        }
+
+        captureNavbarBackground() {
+            if (!this.navbar) return;
+
+            const navbarStyle = window.getComputedStyle(this.navbar);
+            const wrapperStyle = this.navbar.parentElement
+                ? window.getComputedStyle(this.navbar.parentElement)
+                : null;
+
+            const navbarColor = navbarStyle.backgroundColor;
+            const wrapperColor = wrapperStyle ? wrapperStyle.backgroundColor : '';
+            const navbarImage = navbarStyle.backgroundImage;
+            const wrapperImage = wrapperStyle ? wrapperStyle.backgroundImage : '';
+
+            const hasVisibleColor = (color) => color && color !== 'transparent' && color !== 'rgba(0, 0, 0, 0)';
+            const hasVisibleImage = (image) => image && image !== 'none';
+
+            this.navbarBackground = {
+                color: hasVisibleColor(navbarColor) ? navbarColor : wrapperColor,
+                image: hasVisibleImage(navbarImage) ? navbarImage : wrapperImage
+            };
+        }
+
+        applyNavbarBackground() {
+            if (!this.navbar || !this.navbarBackground) return;
+
+            if (this.navbarBackground.color) {
+                this.navbar.style.backgroundColor = this.navbarBackground.color;
+            }
+            if (this.navbarBackground.image && this.navbarBackground.image !== 'none') {
+                this.navbar.style.backgroundImage = this.navbarBackground.image;
+            } else {
+                this.navbar.style.backgroundImage = 'none';
             }
         }
 
@@ -184,6 +222,7 @@
                 if (this.isAtTop) {
                     this.navbar.classList.add(this.config.classes.scrolled);
                     this.navbar.classList.remove(this.config.classes.atTop);
+                    this.applyNavbarBackground();
 
                     // Smart Fix: ensure navbar is fixed so it can "stay" while hidden
                     if (!this.navbar.classList.contains(this.config.classes.fixed)) {
@@ -196,6 +235,7 @@
                 if (!this.isAtTop) {
                     this.navbar.classList.remove(this.config.classes.scrolled);
                     this.navbar.classList.add(this.config.classes.atTop);
+                    this.applyNavbarBackground();
 
                     // Revert Smart Fix if it wasn't initially fixed
                     if (!this.wasFixedInitially) {
@@ -243,6 +283,7 @@
                 this.navbar.classList.remove(this.config.classes.hidden);
                 this.navbar.style.transform = 'translateY(0)';
                 this.navbar.style.opacity = '1';
+                this.applyNavbarBackground();
                 this.isNavbarHidden = false;
             }
         }
@@ -252,6 +293,8 @@
                 this.navbar.classList.remove(this.config.classes.hidden);
                 this.navbar.style.transform = 'translateY(0)';
                 this.navbar.style.opacity = '1';
+                this.captureNavbarBackground();
+                this.applyNavbarBackground();
                 this.isNavbarHidden = false;
                 this.upScrollDistance = 0;
             }
