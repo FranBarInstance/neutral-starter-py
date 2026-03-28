@@ -4,8 +4,6 @@
     {:eval;
         {:;settheme_0yt2sa->manifest->config->menu-theme-drawer-enable:}
         {:;settheme_0yt2sa->manifest->config->menu-theme-navbar-enable:}
-        {:;settheme_0yt2sa->manifest->config->menu-color-drawer-enable:}
-        {:;settheme_0yt2sa->manifest->config->menu-color-navbar-enable:}
         >>
         {:filled; current->theme->allow_themes->1 >>
             <script nonce="{:;CSP_NONCE:}">
@@ -17,6 +15,11 @@
                 });
             </script>
         :}
+    :}
+    {:eval;
+        {:;settheme_0yt2sa->manifest->config->menu-color-drawer-enable:}
+        {:;settheme_0yt2sa->manifest->config->menu-color-navbar-enable:}
+        >>
         {:filled; current->theme->allow_colors->1 >>
             <script nonce="{:;CSP_NONCE:}">
                 document.addEventListener('DOMContentLoaded', () => {

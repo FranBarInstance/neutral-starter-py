@@ -133,6 +133,7 @@
                 "allow_colors": [
                     "primary",
                     "dark",
+                    "secondary",
                     "light",
                     "body-tertiary",
                     "white"
