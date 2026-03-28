@@ -83,8 +83,8 @@ fi
 PYTHON_VERSION="$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
 PYTHON_MAJOR="$(printf "%s" "$PYTHON_VERSION" | cut -d. -f1)"
 PYTHON_MINOR="$(printf "%s" "$PYTHON_VERSION" | cut -d. -f2)"
-if [ "$PYTHON_MAJOR" -ne 3 ] || [ "$PYTHON_MINOR" -lt 10 ] || [ "$PYTHON_MINOR" -gt 13 ]; then
-  echo "ERROR: Python 3.10 to 3.13 is required (found $PYTHON_VERSION)." >&2
+if [ "$PYTHON_MAJOR" -ne 3 ] || [ "$PYTHON_MINOR" -lt 10 ] || [ "$PYTHON_MINOR" -gt 14 ]; then
+  echo "ERROR: Python 3.10 to 3.14 is required (found $PYTHON_VERSION)." >&2
   exit 1
 fi
 

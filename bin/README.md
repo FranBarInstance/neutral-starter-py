@@ -115,8 +115,8 @@ Manages project components: list, enable, disable, and reorder.
 # List only disabled components with details
 ./bin/cmp list disabled -v
 
-# Enable a component
-./bin/cmp enable aichat
+# Enable a disabled component
+./bin/cmp enable examplesign
 
 # Disable a component
 ./bin/cmp disable hellocomp
@@ -124,6 +124,38 @@ Manages project components: list, enable, disable, and reorder.
 # Change component order from 7000 to 7100
 ./bin/cmp reorder hellocomp 7100
 ```
+
+Current repository note:
+
+- The disabled example component in the repository is currently `_cmp_6000_examplesign`, so `examplesign` is a valid real example for `enable`.
+
+### `create_test_users.py`
+
+Creates multiple development/test users and assigns a rotating set of default RBAC roles.
+
+Current rotating roles:
+
+- `owner`
+- `admin`
+- `manager`
+- `moderator`
+- `support`
+- `editor`
+- `billing`
+- `api`
+- `tester`
+
+Usage:
+
+```bash
+source .venv/bin/activate && python bin/create_test_users.py --count 9
+```
+
+Optional arguments:
+
+- `--prefix` (default: `testuser`)
+- `--count` (default: `10`, valid range: `1..100`)
+- `--password` (default: `Test1234!`)
 
 ### `install.sh` (Linux/macOS)
 
@@ -137,9 +169,14 @@ Includes:
 - copy from `config/.env.example` to `config/.env` + `SECRET_KEY` generation
 - automatic generation of randomized routes in:
   - `src/component/cmp_7040_admin/custom.json` -> `/admin-[random]`
-  - `src/component/cmp_8100_localdev/custom.json` -> `/local-dev-[random]`
+  - `src/component/cmp_8100_localdev/custom.json` -> `/local-admin-[random]`
 - `bootstrap_db.py`
-- required creation of `admin` user (prompts for data) and update of `DEV_ADMIN_*` in `.env` for `localdev` access
+- required creation of an `admin` user (prompts for data) and update of `DEV_ADMIN_*` in `.env` for isolated `localdev` access
+
+Important route note:
+
+- `cmp_8100_localdev` keeps `/local-dev` as its component default route in `manifest.json`.
+- The installers intentionally override that route in `custom.json` to a randomized `/local-admin-[random]` path.
 
 Remote usage:
 
