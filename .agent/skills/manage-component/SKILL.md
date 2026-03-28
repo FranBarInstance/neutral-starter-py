@@ -9,16 +9,17 @@ This skill guides you through creating a completely new component in the Neutral
 
 - **IMPORTANT**: The components are isolated parts, and nothing should be changed outside of their directory structure.
 - **IMPORTANT**: Do not translate the component unless the user explicitly requests it.
+- **IMPORTANT**: Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agent/README.md`.
 
 If you need additional information for a specific case:
 
-- Use `view_file` on `src/component/_cmp_6000_examplesign` or `src/component/_cmp_7000_hellocomp` as a component forms example.
-- Use `view_file` on `src/component/cmp_7000_hellocomp` or `src/component/_cmp_7000_hellocomp` as a component example.
-- Use `view_file` on `docs/component.md` for component architecture details.
-- Use `view_file` on `docs/dispatcher.md` for request handler patterns and business logic.
-- Use `view_file` on `docs/templates-neutrats.md` for NTPL syntax reference.
-- Use `view_file` on `docs/development-style-guide.md` for routing and template organization.
-- Use `view_file` on `docs/model.md` for database interaction patterns.
+- Review `src/component/_cmp_6000_examplesign` or `src/component/_cmp_7000_hellocomp` as a component forms example.
+- Review `src/component/cmp_7000_hellocomp` or `src/component/_cmp_7000_hellocomp` as a component example.
+- Consult `docs/component.md` for component architecture details.
+- Consult `docs/dispatcher.md` for request handler patterns and business logic.
+- Consult `docs/templates-neutrats.md` for NTPL syntax reference.
+- Consult `docs/development-style-guide.md` for routing and template organization.
+- Consult `docs/model.md` for database interaction patterns.
 
 ## Directory Structure
 
@@ -314,7 +315,7 @@ Use `nonce` in `<script>` and `<style>` tags.
 | `{:obj; config :}` | Execute external script |
 | `{:;:}` | Unprintable (empty)
 
-Use `view_file` on `docs/templates-neutrats.md` for NTPL syntax reference.
+Consult `docs/templates-neutrats.md` for NTPL syntax reference.
 
 ## Implementation Checklist
 

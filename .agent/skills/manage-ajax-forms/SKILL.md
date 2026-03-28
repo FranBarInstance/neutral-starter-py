@@ -14,6 +14,7 @@ This skill guides you through the creation and management of forms using Neutral
 - **IMPORTANT**: All user-facing text must be wrapped in `{:trans; ... :}` for internationalization.
 - **IMPORTANT**: Every `content-snippets.ntpl` file must end with `{:^;:}` (render trigger).
 - **IMPORTANT**: AJAX response templates (`ajax/content-snippets.ntpl`) must NOT include `{:data; ... :}`. Only page-level templates include data files.
+- **IMPORTANT**: Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agent/README.md`.
 - If you need additional context, read `docs/templates-neutrats-ajax.md` or `docs/ajax-neutral-requests.md`.
 - Look at `src/component/cmp_6000_examplesign` for a complete working example.
 - The component `cmp_6000_examplesign` might be disabled. Look for it as `src/component/cmp_6000_examplesign` or `src/component/_cmp_6000_examplesign`.
