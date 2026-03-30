@@ -174,6 +174,15 @@ This avoids mixing initialization-time schema directives with runtime template e
 - Folder names can change (for example `cmp_7000_hellocomp`), while UUID is the stable identity (for example `hellocomp_0yt2sa`).
 - When describing links, settings, or cross-component references, use UUID-based wording.
 
+### Test Stability Rule (IMPORTANT)
+
+- Tests must not depend on the component directory name such as `cmp_1000_name`, because the numeric prefix can change.
+- In component tests, resolve the component directory dynamically from `__file__`, for example with `Path(__file__).resolve().parents[1]`.
+- Read `manifest.json` from that computed component root and derive route expectations from `manifest["route"]` instead of hardcoding URLs when the route belongs to the component.
+- When a test needs to read component files such as `neutral/component-init.ntpl`, build the path from the computed component root instead of using literals like `src/component/cmp_XXXX_name/...`.
+- If a test imports Python modules from the component package and the folder name may change, build the import path dynamically from the current component directory name.
+- This rule also applies to example components stored as `_cmp_*` or temporarily enabled variants such as `_cmp_6000_examplesign`: tests should work with whichever variant exists in the repository state.
+
 ## Python Initialization
 
 ### __init__.py

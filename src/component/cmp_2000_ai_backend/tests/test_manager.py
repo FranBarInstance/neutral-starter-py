@@ -1,8 +1,15 @@
 """Tests for AI Backend Manager."""
 
+import importlib
 import json
+from pathlib import Path
 import pytest
 from unittest.mock import MagicMock, patch, mock_open
+
+COMPONENT_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_NAME = COMPONENT_ROOT.name
+MANAGER_MODULE = f"component.{PACKAGE_NAME}.lib.ai_backend_0yt2sa.manager"
+BASE_PROVIDER_MODULE = f"component.{PACKAGE_NAME}.lib.ai_backend_0yt2sa.providers.base"
 
 
 class TestAIManager:
@@ -41,24 +48,24 @@ class TestAIManager:
     @pytest.fixture
     def manager(self, sample_config):
         """Create AIManager instance with mocked providers."""
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager.OpenAIProvider') as mock_openai, \
-             patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager.OllamaProvider') as mock_ollama:
+        with patch(f"{MANAGER_MODULE}.OpenAIProvider") as mock_openai, \
+             patch(f"{MANAGER_MODULE}.OllamaProvider") as mock_ollama:
 
             mock_openai_instance = MagicMock()
             mock_ollama_instance = MagicMock()
             mock_openai.return_value = mock_openai_instance
             mock_ollama.return_value = mock_ollama_instance
 
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager import AIManager
+            AIManager = importlib.import_module(MANAGER_MODULE).AIManager
             mgr = AIManager(config=sample_config)
             return mgr
 
     def test_init_with_config(self, sample_config):
         """Test initialization with provided config."""
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager.OpenAIProvider') as mock_openai, \
-             patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager.OllamaProvider') as mock_ollama:
+        with patch(f"{MANAGER_MODULE}.OpenAIProvider") as mock_openai, \
+             patch(f"{MANAGER_MODULE}.OllamaProvider") as mock_ollama:
 
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager import AIManager
+            AIManager = importlib.import_module(MANAGER_MODULE).AIManager
             mgr = AIManager(config=sample_config)
 
             assert mgr.config == sample_config
@@ -127,9 +134,9 @@ class TestAIManager:
     @patch('pathlib.Path.exists', return_value=True)
     def test_load_config_from_manifest(self, mock_exists):
         """Test loading config from manifest file."""
-        from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager import AIManager
+        AIManager = importlib.import_module(MANAGER_MODULE).AIManager
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager.OllamaProvider'):
+        with patch(f"{MANAGER_MODULE}.OllamaProvider"):
             mgr = AIManager()
 
         assert isinstance(mgr.config, dict)
@@ -144,11 +151,11 @@ class TestAIManager:
             }
         }
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager.OpenAIProvider') as mock_openai:
+        with patch(f"{MANAGER_MODULE}.OpenAIProvider") as mock_openai:
             mock_instance = MagicMock()
             mock_openai.return_value = mock_instance
 
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.manager import AIManager
+            AIManager = importlib.import_module(MANAGER_MODULE).AIManager
             mgr = AIManager(config=legacy_config)
 
         assert 'openai' in mgr.profiles
@@ -159,7 +166,7 @@ class TestBaseProvider:
 
     def test_base_provider_init(self):
         """Test BaseProvider initialization."""
-        from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.base import BaseProvider
+        BaseProvider = importlib.import_module(BASE_PROVIDER_MODULE).BaseProvider
 
         # Create a concrete implementation for testing
         class TestProvider(BaseProvider):

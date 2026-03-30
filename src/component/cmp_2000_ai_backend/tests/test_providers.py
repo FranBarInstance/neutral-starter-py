@@ -1,7 +1,16 @@
 """Tests for AI Backend Providers."""
 
+import importlib
+from pathlib import Path
 import pytest
 from unittest.mock import MagicMock, patch
+
+COMPONENT_ROOT = Path(__file__).resolve().parents[1]
+PACKAGE_NAME = COMPONENT_ROOT.name
+OPENAI_MODULE = f"component.{PACKAGE_NAME}.lib.ai_backend_0yt2sa.providers.openai"
+ANTHROPIC_MODULE = f"component.{PACKAGE_NAME}.lib.ai_backend_0yt2sa.providers.anthropic"
+GOOGLE_MODULE = f"component.{PACKAGE_NAME}.lib.ai_backend_0yt2sa.providers.google"
+OLLAMA_MODULE = f"component.{PACKAGE_NAME}.lib.ai_backend_0yt2sa.providers.ollama"
 
 
 class TestOpenAIProvider:
@@ -17,8 +26,8 @@ class TestOpenAIProvider:
 
     def test_init_without_library(self, config):
         """Test initialization raises ImportError when library not installed."""
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', None):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai import OpenAIProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", None):
+            OpenAIProvider = importlib.import_module(OPENAI_MODULE).OpenAIProvider
 
             with pytest.raises(ImportError):
                 OpenAIProvider(config)
@@ -27,8 +36,8 @@ class TestOpenAIProvider:
         """Test successful initialization."""
         mock_client_class = MagicMock()
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', mock_client_class):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai import OpenAIProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", mock_client_class):
+            OpenAIProvider = importlib.import_module(OPENAI_MODULE).OpenAIProvider
 
             provider = OpenAIProvider(config)
 
@@ -46,8 +55,8 @@ class TestOpenAIProvider:
         mock_response.choices[0].message.content = "Generated text"
         mock_client.chat.completions.create.return_value = mock_response
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', mock_client_class):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai import OpenAIProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", mock_client_class):
+            OpenAIProvider = importlib.import_module(OPENAI_MODULE).OpenAIProvider
 
             provider = OpenAIProvider(config)
             result = provider.generate("Hello")
@@ -65,8 +74,8 @@ class TestOpenAIProvider:
         mock_response.choices[0].message.content = "Generated text"
         mock_client.chat.completions.create.return_value = mock_response
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', mock_client_class):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai import OpenAIProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", mock_client_class):
+            OpenAIProvider = importlib.import_module(OPENAI_MODULE).OpenAIProvider
 
             provider = OpenAIProvider(config)
             result = provider.generate("Hello", system="You are helpful")
@@ -89,8 +98,8 @@ class TestOpenAIProvider:
         mock_response.choices[0].message.content = "Generated text"
         mock_client.chat.completions.create.return_value = mock_response
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', mock_client_class):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai import OpenAIProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", mock_client_class):
+            OpenAIProvider = importlib.import_module(OPENAI_MODULE).OpenAIProvider
 
             provider = OpenAIProvider(config)
             result = provider.generate("Hello", model="gpt-3.5-turbo")
@@ -112,8 +121,8 @@ class TestAnthropicProvider:
 
     def test_init_without_library(self, config):
         """Test initialization raises ImportError when library not installed."""
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.anthropic.anthropic', None):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.anthropic import AnthropicProvider
+        with patch(f"{ANTHROPIC_MODULE}.anthropic", None):
+            AnthropicProvider = importlib.import_module(ANTHROPIC_MODULE).AnthropicProvider
 
             with pytest.raises(ImportError):
                 AnthropicProvider(config)
@@ -130,8 +139,8 @@ class TestAnthropicProvider:
         mock_message.content = [mock_content]
         mock_client.messages.create.return_value = mock_message
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.anthropic.anthropic', mock_anthropic_module):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.anthropic import AnthropicProvider
+        with patch(f"{ANTHROPIC_MODULE}.anthropic", mock_anthropic_module):
+            AnthropicProvider = importlib.import_module(ANTHROPIC_MODULE).AnthropicProvider
 
             provider = AnthropicProvider(config)
             result = provider.generate("Hello")
@@ -152,8 +161,8 @@ class TestGoogleProvider:
 
     def test_init_without_library(self, config):
         """Test initialization raises ImportError when library not installed."""
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.google.genai', None):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.google import GoogleProvider
+        with patch(f"{GOOGLE_MODULE}.genai", None):
+            GoogleProvider = importlib.import_module(GOOGLE_MODULE).GoogleProvider
 
             with pytest.raises(ImportError):
                 GoogleProvider(config)
@@ -168,8 +177,8 @@ class TestGoogleProvider:
         mock_response.text = "Generated text"
         mock_client.models.generate_content.return_value = mock_response
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.google.genai', mock_genai):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.google import GoogleProvider
+        with patch(f"{GOOGLE_MODULE}.genai", mock_genai):
+            GoogleProvider = importlib.import_module(GOOGLE_MODULE).GoogleProvider
 
             provider = GoogleProvider(config)
             result = provider.generate("Hello")
@@ -193,8 +202,8 @@ class TestOllamaProvider:
         """Test initialization with base_url."""
         mock_client_class = MagicMock()
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', mock_client_class):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.ollama import OllamaProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", mock_client_class):
+            OllamaProvider = importlib.import_module(OLLAMA_MODULE).OllamaProvider
 
             provider = OllamaProvider(config)
 
@@ -208,8 +217,8 @@ class TestOllamaProvider:
         config = {}  # Empty config
         mock_client_class = MagicMock()
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', mock_client_class):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.ollama import OllamaProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", mock_client_class):
+            OllamaProvider = importlib.import_module(OLLAMA_MODULE).OllamaProvider
 
             provider = OllamaProvider(config)
 
@@ -228,8 +237,8 @@ class TestOllamaProvider:
         mock_response.choices[0].message.content = "Generated text"
         mock_client.chat.completions.create.return_value = mock_response
 
-        with patch('component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.openai.OpenAI', mock_client_class):
-            from component.cmp_2000_ai_backend.lib.ai_backend_0yt2sa.providers.ollama import OllamaProvider
+        with patch(f"{OPENAI_MODULE}.OpenAI", mock_client_class):
+            OllamaProvider = importlib.import_module(OLLAMA_MODULE).OllamaProvider
 
             provider = OllamaProvider(config)
             result = provider.generate("Hello")

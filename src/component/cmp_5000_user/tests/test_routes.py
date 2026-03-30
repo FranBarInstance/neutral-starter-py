@@ -1,6 +1,11 @@
-"""Tests for the cmp_5000_user component routes."""
+"""Tests for the user component routes."""
 
-BASE_ROUTE = "/user"
+import json
+from pathlib import Path
+
+COMPONENT_ROOT = Path(__file__).resolve().parents[1]
+MANIFEST = json.loads((COMPONENT_ROOT / "manifest.json").read_text(encoding="utf-8"))
+BASE_ROUTE = MANIFEST["route"]
 
 
 class TestUserRoutes:
