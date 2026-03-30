@@ -1,0 +1,17 @@
+/* Inconsolata - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(inconsolata-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(inconsolata-700-normal.ttf) format('truetype');
+}

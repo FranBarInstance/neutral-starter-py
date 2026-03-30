@@ -1,0 +1,9 @@
+/* Abril Fatface - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(abril-fatface-400-normal.ttf) format('truetype');
+}

@@ -1,0 +1,9 @@
+/* Neucha - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Neucha';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(neucha-400-normal.ttf) format('truetype');
+}

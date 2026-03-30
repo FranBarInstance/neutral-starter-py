@@ -16,6 +16,7 @@ This project is organized as a standalone module (`btdt/`) that can be easily dr
 │   ├── css/              # Bootstrap base CSS and shared theme rules
 │   ├── docs/             # Internal design docs
 │   ├── editor/           # Visual theme editor
+│   ├── fonts/            # Local font files (WOFF2/TTF) with licenses
 │   ├── img/              # Demo assets
 │   ├── js/               # Runtime loader, editor engine and config catalogs
 │   ├── scripts/          # Maintenance utilities
@@ -45,9 +46,13 @@ The visual editor also includes a browser-side helper at [`btdt/js/minify.js`](b
 It is designed to mirror the preset flow from [`btdt/scripts/minify/minify.py`](btdt/scripts/minify/minify.py):
 
 - Resolves local `@import` rules recursively
+- Inlines font CSS modules (converting relative URLs to work from the preset location)
 - Leaves external or media-qualified `@import` rules untouched
 - Hoists remaining `@import` rules to the top
 - Minifies the final combined stylesheet
+
+> [!NOTE]
+> **Local Fonts**: All 58+ fonts are now hosted locally in `btdt/fonts/` with their OFL licenses. When presets are minified, the font CSS is inlined with rewritten URLs so the preset remains self-contained. For production, only `btdt/fonts/` and `btdt/themes/preset/` are needed.
 
 This feature is only available when the editor is served over `http://` or `https://`, because it relies on `fetch()` to read the imported CSS files. When the editor is opened via `file://`, the bundled export UI is disabled and shows a "not available on file://" message.
 
@@ -106,6 +111,43 @@ You can ask your AI assistant to:
 - **Compose presets**: "Create a 'Minimalist' preset using the Inter font and White palette."
 
 The AI will follow the established architecture, ensuring link legibility and Zero-CORS metadata compatibility.
+
+## Local Fonts System
+
+BTDT includes 58+ Google Fonts hosted locally in `btdt/fonts/` with their OFL licenses. This provides:
+
+- **Privacy**: No external requests to Google Fonts CDN
+- **Offline capability**: Works without internet after initial load
+- **GDPR compliance**: No data leakage to third parties
+- **Performance**: Fonts load from the same origin
+
+### Adding New Fonts
+
+You can add fonts in two ways:
+
+**Option 1: Ask your AI assistant**
+> "Integrate the 'Montserrat' font from Google Fonts."
+
+The AI will use the provided utilities to download and set up the font automatically.
+
+**Option 2: Use the command-line tools**
+
+```bash
+# Add a single font (downloads font files + creates theme CSS)
+python3 btdt/scripts/add-fonts.py "Font Name"
+
+# Examples:
+python3 btdt/scripts/add-fonts.py "Montserrat"
+python3 btdt/scripts/add-fonts.py "Playfair Display"
+```
+
+After adding fonts, regenerate the catalogs:
+
+```bash
+python3 btdt/scripts/minify-all.py     # Update .min.css files
+```
+
+For advanced usage and other font utilities, see [`btdt/scripts/README.md`](btdt/scripts/README.md).
 
 ## Implementation in Production
 
@@ -353,6 +395,9 @@ Link the desired font module after the base Bootstrap CSS:
     <link rel="stylesheet" href="btdt/themes/fonts/quicksand.min.css">
 </head>
 ```
+
+> [!NOTE]
+> Font modules in `btdt/themes/fonts/` import from `btdt/fonts/` (local font files). When using presets minified with `minify-all.py`, the fonts are inlined automatically with correct relative paths, so no separate font CSS link is needed.
 
 ### Example: Changing only the Color Palette
 Link the color module after the base Bootstrap CSS:

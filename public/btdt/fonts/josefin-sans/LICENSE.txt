@@ -1,0 +1,9 @@
+Font: josefin-sans
+Source: https://fonts.google.com/specimen/josefin+sans
+
+This font is available on Google Fonts. Please visit the specimen page above
+to view the license information (typically SIL Open Font License 1.1).
+
+For license details, see:
+- https://github.com/google/fonts/tree/main/ofl/josefin-sans/
+- https://scripts.sil.org/OFL

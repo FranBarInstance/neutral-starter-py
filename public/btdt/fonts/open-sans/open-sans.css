@@ -1,0 +1,17 @@
+/* Open Sans - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(open-sans-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(open-sans-700-normal.ttf) format('truetype');
+}

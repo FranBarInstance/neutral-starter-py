@@ -1,0 +1,17 @@
+/* Quicksand - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(quicksand-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(quicksand-700-normal.ttf) format('truetype');
+}

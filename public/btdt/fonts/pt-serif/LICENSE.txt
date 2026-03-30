@@ -1,0 +1,9 @@
+Font: pt-serif
+Source: https://fonts.google.com/specimen/pt+serif
+
+This font is available on Google Fonts. Please visit the specimen page above
+to view the license information (typically SIL Open Font License 1.1).
+
+For license details, see:
+- https://github.com/google/fonts/tree/main/ofl/pt-serif/
+- https://scripts.sil.org/OFL

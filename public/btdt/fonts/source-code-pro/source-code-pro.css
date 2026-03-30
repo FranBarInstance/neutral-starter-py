@@ -1,0 +1,17 @@
+/* Source Code Pro - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(source-code-pro-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(source-code-pro-700-normal.ttf) format('truetype');
+}

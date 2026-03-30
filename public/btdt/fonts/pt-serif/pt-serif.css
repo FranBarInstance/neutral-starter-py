@@ -1,0 +1,17 @@
+/* PT Serif - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(pt-serif-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(pt-serif-700-normal.ttf) format('truetype');
+}

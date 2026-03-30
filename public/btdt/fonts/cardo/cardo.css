@@ -1,0 +1,17 @@
+/* Cardo - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Cardo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(cardo-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cardo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(cardo-700-normal.ttf) format('truetype');
+}

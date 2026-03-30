@@ -1,0 +1,17 @@
+/* Lato - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(lato-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(lato-700-normal.ttf) format('truetype');
+}

@@ -1,0 +1,9 @@
+Font: cabin-sketch
+Source: https://fonts.google.com/specimen/cabin+sketch
+
+This font is available on Google Fonts. Please visit the specimen page above
+to view the license information (typically SIL Open Font License 1.1).
+
+For license details, see:
+- https://github.com/google/fonts/tree/main/ofl/cabin-sketch/
+- https://scripts.sil.org/OFL

@@ -1,0 +1,17 @@
+/* Syne - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(syne-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Syne';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(syne-700-normal.ttf) format('truetype');
+}

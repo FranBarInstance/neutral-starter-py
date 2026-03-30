@@ -1,0 +1,9 @@
+Font: source-sans-pro
+Source: https://fonts.google.com/specimen/source+sans+pro
+
+This font is available on Google Fonts. Please visit the specimen page above
+to view the license information (typically SIL Open Font License 1.1).
+
+For license details, see:
+- https://github.com/google/fonts/tree/main/ofl/source-sans-pro/
+- https://scripts.sil.org/OFL

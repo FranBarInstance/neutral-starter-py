@@ -1,0 +1,17 @@
+/* Cabin Sketch - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Cabin Sketch';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(cabin-sketch-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cabin Sketch';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(cabin-sketch-700-normal.ttf) format('truetype');
+}

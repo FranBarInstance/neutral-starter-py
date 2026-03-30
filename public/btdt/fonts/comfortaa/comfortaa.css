@@ -1,0 +1,17 @@
+/* Comfortaa - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(comfortaa-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(comfortaa-700-normal.ttf) format('truetype');
+}

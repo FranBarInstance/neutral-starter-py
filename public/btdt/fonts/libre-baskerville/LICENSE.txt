@@ -1,0 +1,9 @@
+Font: libre-baskerville
+Source: https://fonts.google.com/specimen/libre+baskerville
+
+This font is available on Google Fonts. Please visit the specimen page above
+to view the license information (typically SIL Open Font License 1.1).
+
+For license details, see:
+- https://github.com/google/fonts/tree/main/ofl/libre-baskerville/
+- https://scripts.sil.org/OFL

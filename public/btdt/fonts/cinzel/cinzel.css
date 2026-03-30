@@ -1,0 +1,17 @@
+/* Cinzel - Downloaded from Google Fonts */
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(cinzel-400-normal.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(cinzel-700-normal.ttf) format('truetype');
+}

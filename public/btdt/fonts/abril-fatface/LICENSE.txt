@@ -1,0 +1,9 @@
+Font: abril-fatface
+Source: https://fonts.google.com/specimen/abril+fatface
+
+This font is available on Google Fonts. Please visit the specimen page above
+to view the license information (typically SIL Open Font License 1.1).
+
+For license details, see:
+- https://github.com/google/fonts/tree/main/ofl/abril-fatface/
+- https://scripts.sil.org/OFL
