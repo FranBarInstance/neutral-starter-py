@@ -1,7 +1,7 @@
 {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
 {:snip; backtotop_0yt2sa-head >>
-    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;current->site->static:}css/backtotop.min.css" />
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;backtotop_0yt2sa->manifest->route:}/css/backtotop.min.css" />
 :}
 
 {:snip; backtotop_0yt2sa-body-end >>
@@ -19,7 +19,7 @@
             scrollToBehavior: 'smooth'
         };
     </script>
-    <script nonce="{:;CSP_NONCE:}" src="{:;current->site->static:}js/backtotop.min.js"></script>
+    <script nonce="{:;CSP_NONCE:}" src="{:;backtotop_0yt2sa->manifest->route:}/js/backtotop.min.js"></script>
 :}
 
 {:moveto; /head >> {:snip; backtotop_0yt2sa-head :} :}

@@ -3,7 +3,7 @@
     "name": "Material Icons",
     "description": "Provides material icons snippets",
     "version": "0.0.0",
-    "route": "",
+    "route": "/materialicons",
     "security": {
         "routes_auth": {
             "/": false

@@ -3,7 +3,7 @@
     "name": "marked",
     "description": "Provides marked for markdown parsing",
     "version": "0.0.0",
-    "route": "",
+    "route": "/marked",
     "security": {
         "routes_auth": {
             "/": false

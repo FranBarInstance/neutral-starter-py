@@ -2,7 +2,7 @@
 
 {:moveto; /body >>
     <script nonce="{:;CSP_NONCE:}" type="module">
-        import { marked } from 'https://cdnjs.cloudflare.com/ajax/libs/marked/16.3.0/lib/marked.esm.js';
+        import { marked } from '{:;marked_0yt2sa->manifest->route:}/marked.esm.js';
         window.marked = marked;
     </script>
 :}

@@ -1,5 +1,5 @@
 {:snip; materialicons_0yt2sa-head >>
-    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;materialicons_0yt2sa->manifest->route:}/materialdesignicons.min.css" />
 :}
 
 {:moveto; /head >> {:snip; materialicons_0yt2sa-head :} :}

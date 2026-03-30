@@ -3,7 +3,7 @@
     "name": "Back To Top",
     "description": "Provides back to top button and hide navbar",
     "version": "0.0.0",
-    "route": "",
+    "route": "/backtotop",
     "security": {
         "routes_auth": {
             "/": false
