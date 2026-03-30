@@ -11,7 +11,7 @@
                 </div>
                 <div class="row g-2">
                     <div class="col-auto">
-                        <a href="{:;current->site->sign_links->reminder:}" class="btn btn-light btn-sm {:;x-icons->x-icon-sign-reminder:} {:param; disabled-reminder :}"> {:trans; Reminder :}</a>
+                        <a href="{:;current->site->sign_links->reminder:}" class="btn btn-light btn-sm {:;x-icons->x-icon-sign-reminder:} {:param; disabled-reminder :}"> <span class="d-none d-md-inline">{:trans; Reminder :}</span></a>
                     </div>
                     <div class="col text-end">
                         <a href="{:;current->site->sign_links->in:}" class="btn btn-light btn-sm {:;x-icons->x-icon-sign-in:} {:param; disabled-login :}"> {:trans; Sign in :}</a>
