@@ -2,7 +2,7 @@
 
 A professional, real-time theme customizer and modular engine for Bootstrap 5. An alternative to **Bootswatch**.
 
-[**🚀 Live Demo & Visual Designer**](https://franbarinstance.github.io/bootstrap-dynamic-themes/btdt/editor/)
+[**Live Demo & Visual Designer**](https://franbarinstance.github.io/bootstrap-dynamic-themes/btdt/editor/)
 
 **This is a production-ready theme system.** Use the included visual designer to create your look, and drop the self-contained module into your project.
 
@@ -116,7 +116,7 @@ The AI will follow the established architecture, ensuring link legibility and Ze
 
 BTDT includes 58+ Google Fonts hosted locally in `btdt/fonts/` with their OFL licenses. This provides:
 
-- **Privacy**: No external requests to Google Fonts CDN
+- **Privacy**: No external requests to third-party font services
 - **Offline capability**: Works without internet after initial load
 - **GDPR compliance**: No data leakage to third parties
 - **Performance**: Fonts load from the same origin
@@ -158,57 +158,6 @@ Copy the `btdt/` folder to your project root.
 > **Production Safety**: Add `btdt/editor/` to your `.gitignore` to keep the customizer out of your public environment.
 
 ### 2. Choose Implementation Method
-
-#### CDN via jsDelivr
-If you prefer not to copy the `btdt/` folder into your project, you can load BTDT directly from jsDelivr using the GitHub package URL:
-
-```text
-https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/
-```
-
-Each asset keeps the same internal project path. For example:
-
-```text
-https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/css/bootstrap.min.css
-https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js
-https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/preset/studio.min.css
-https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/modes/dark.min.css
-```
-
-Example with direct CSS links:
-
-```html
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/css/bootstrap.min.css">
-    <link id="theme-preset" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/preset/studio.min.css">
-    <link id="theme-preset-dark" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/themes/modes/dark.min.css" media="not all">
-</head>
-
-<body>
-    ...
-    <script src="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js"></script>
-</body>
-```
-
-Example with the JS loader:
-
-```html
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/css/bootstrap.min.css">
-    <script data-preset="studio" src="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js"></script>
-</head>
-```
-
-In this CDN setup, `btdt.min.js` detects the base path automatically from its own `src`, so `btdt.load(...)` and dark mode asset resolution keep working without extra configuration.
-
-If you need to override the asset location manually, you can still set `data-base-path` explicitly:
-
-```html
-<script
-    data-base-path="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/"
-    data-preset="studio"
-    src="https://cdn.jsdelivr.net/gh/franbarinstance/bootstrap-dynamic-themes@1.1.2/btdt/js/btdt.min.js"></script>
-```
 
 #### Option A: Native CSS (Maximum Performance)
 Best for static sites where speed is the only priority. Zero JS dependency for initial load.
