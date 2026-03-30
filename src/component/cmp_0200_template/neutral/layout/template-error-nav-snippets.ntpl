@@ -15,9 +15,9 @@
                 <a href="{:;current->site->home_link:}" class="btn border-0 shadow-none p-0 px-1 me-2" type="button">
                     <span title="{:trans; Home :}" class="navbar-toggler-icon"></span>
                 </a>
-                <a href="{:;current->menu->session:{:;HAS_SESSION:}->main->home->link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
+                <a href="{:;current->site->home_link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
                     <span class="page-is-loading small page-loader-spin">{:snip; spin-1x :}</span>
-                    <span class="page-has-loaded nav-brand-text me-md-2 d-none">{:trans; {:;current->site->name:} :}</span>
+                    <span class="page-has-loaded nav-brand-text me-md-2 d-none fw-normal">{:trans; {:;current->site->name:} :}</span>
                 </a>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">

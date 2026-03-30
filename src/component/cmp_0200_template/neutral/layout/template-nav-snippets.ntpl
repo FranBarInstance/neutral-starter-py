@@ -139,9 +139,9 @@
         <nav id="main-navbar" class="navbar main-navbar main-navbar-visible d-block bg-{:;current->theme->color:} {:;current->theme->class->body_navbar_class :} {:;current->theme->class->body_navbar_size :} {:;current->theme->class->body_navbar_fixed:}">
             <div class="container">
                 {:snip; current:template:main-drawer-button :}
-                <a href="{:;current->menu->session:{:;HAS_SESSION:}->main->home->link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
+                <a href="{:;current->site->home_link:}" class="navbar-brand mx-1 me-md-3 navbar-brand-img">
                     <span class="page-is-loading small page-loader-spin">{:snip; spin-1x :}</span>
-                    <span class="page-has-loaded nav-brand-text me-md-2 d-none">{:trans; {:;current->site->name:} :}</span>
+                    <span class="page-has-loaded nav-brand-text me-md-2 d-none fw-normal">{:trans; {:;current->site->name:} :}</span>
                 </a>
                 <ul class="template-main-navbar-right-content navbar-nav ms-auto">
                     {:snip; current:template:main-navbar-right-content :}
