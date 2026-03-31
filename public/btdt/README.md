@@ -43,7 +43,7 @@ This project is organized as a standalone module (`btdt/`) that can be easily dr
 
 The visual editor also includes a browser-side helper at [`btdt/js/minify.js`](btdt/js/minify.js) for generating a **single bundled and minified preset CSS** from the current configuration.
 
-It is designed to mirror the preset flow from [`btdt/scripts/minify/minify.py`](btdt/scripts/minify/minify.py):
+It is designed to mirror the preset flow from [`btdt/scripts/minify.py`](btdt/scripts/minify.py):
 
 - Resolves local `@import` rules recursively
 - Inlines font CSS modules (converting relative URLs to work from the preset location)
@@ -150,10 +150,24 @@ python3 btdt/scripts/minify-all.py     # Update .min.css files
 
 For advanced usage and other font utilities, see [`btdt/scripts/README.md`](btdt/scripts/README.md).
 
+> [!NOTE]
+> Only the minification utilities require a virtual environment. The shared
+> environment lives at `btdt/scripts/.venv`; see
+> [`btdt/scripts/README.md`](btdt/scripts/README.md) for the installation
+> summary and dependency setup.
+
 ## Implementation in Production
 
 ### 1. Integration
 Copy the `btdt/` folder to your project root.
+
+If you want to prepare a production-ready package automatically, use
+[`btdt/scripts/export-runtime.py`](btdt/scripts/export-runtime.py). It creates
+the `btdt/` export structure in a destination folder and copies only the assets
+needed at runtime. You can also pass a specific preset list with `--presets` so
+only the presets you actually use, plus their required fonts, are exported
+instead of copying the full catalog. For detailed usage and related utilities,
+see [`btdt/scripts/README.md`](btdt/scripts/README.md).
 
 > [!IMPORTANT]
 > **Production Safety**: Add `btdt/editor/` to your `.gitignore` to keep the customizer out of your public environment.
