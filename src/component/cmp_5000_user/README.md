@@ -19,7 +19,9 @@ Component for user profile management.
 ## Functionality
 
 ### User Profile
+- **Username**: Optional public identifier used by the public profile-image route
 - **Alias**: User display name
+- **Profile image**: Stores the selected image id for the profile avatar
 - **Locale**: Preferred language (e.g., es, en, fr)
 - **Region**: Geographic region (optional)
 - **Properties**: Additional properties in JSON format (optional)
@@ -66,6 +68,7 @@ GET /u/profile
 Page with form to edit profile data.
 
 **Form fields:**
+- `username` (optional): Public username with restricted format
 - `alias` (required): Display name (2-50 characters)
 - `locale` (required): Language code (2-10 characters)
 - `region` (optional): Geographic region (max 20 characters)
@@ -82,6 +85,8 @@ Page with form to edit profile data.
 2. **AJAX**: Forms use `{:fetch; ... :}` to load and send data via AJAX with the `LTOKEN` token.
 
 3. **Data Loading**: User data is loaded from the database using the `userId` from the request context.
+
+4. **Public Image Cache Invalidation**: When the profile form changes the username, the handler invalidates the cached public profile-image responses for the old and new `username` values. This targets the public image route `<image manifest.route>/p/<username>` through the shared image helper cache invalidation API.
 
 ## Testing
 

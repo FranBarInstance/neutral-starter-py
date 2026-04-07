@@ -30,7 +30,7 @@ def get_username_image(username: str) -> Response:
         response.headers["Cache-Control"] = Config.STATIC_CACHE_IMG_PROFILE_CONTROL
         return response
 
-    profile = User().get_profile_by_username(username)
+    profile = User(Config.DB_PWA, Config.DB_PWA_TYPE).get_public_profile_by_username(username)
     image_id = str(profile.get("imageId") or "").strip()
     if not image_id:
         response = Response(_read_image_file(PROFILE_IMAGE), mimetype="image/webp", status=200)
@@ -55,7 +55,7 @@ def get_username_image(username: str) -> Response:
 @cache.cached(timeout=Config.CACHE_IMG)
 def get_image_variant(image_id: str, variant: str) -> Response:
     """Serve one stored image variant."""
-    image_variant = Image().get_variant(image_id, variant)
+    image_variant = Image().get_public_variant(image_id, variant)
     if image_variant is None:
         response = Response(_read_image_file(NOT_FOUND_IMAGE), mimetype="image/webp", status=404)
         response.headers["Cache-Control"] = Config.STATIC_CACHE_IMG_CONTROL

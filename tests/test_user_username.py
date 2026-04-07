@@ -6,6 +6,7 @@ import sqlite3
 
 from app.bootstrap_db import bootstrap_databases
 from app.config import Config
+from constants import UNCONFIRMED, UNVALIDATED
 from core.user import User
 
 
@@ -22,6 +23,12 @@ def _bootstrap_user(tmp_path):
         db_image_type="sqlite",
     )
     return User(f"sqlite:///{pwa_db}", "sqlite"), pwa_db
+
+
+def _activate_user(user, user_id):
+    """Remove signup disabled flags so a profile becomes publicly resolvable."""
+    user.delete_user_disabled(user_id, Config.DISABLED[UNCONFIRMED])
+    user.delete_user_disabled(user_id, Config.DISABLED[UNVALIDATED])
 
 
 def test_bootstrap_seeds_reserved_username_blacklist(tmp_path):
@@ -177,3 +184,49 @@ def test_validate_username_change_rejects_taken_and_blacklisted_usernames(tmp_pa
     assert taken["error"] == "TAKEN"
     assert blacklisted["success"] is False
     assert blacklisted["error"] == "BLACKLISTED"
+
+
+def test_public_profile_by_username_hides_disabled_user(tmp_path, monkeypatch):
+    """Public username lookup must not resolve when the user is disabled."""
+    monkeypatch.setattr(Config, "USERNAME_CHANGE_COOLDOWN", 0)
+    user, _ = _bootstrap_user(tmp_path)
+
+    created = user.create(
+        {
+            "username": "public-user-123",
+            "alias": "Public User",
+            "email": "public1@example.com",
+            "password": "password123",
+            "birthdate": "2000-01-01",
+            "locale": "en",
+        }
+    )
+
+    _activate_user(user, created["userId"])
+
+    assert user.get_public_profile_by_username("public-user-123")["profileId"] == str(created["profileId"])
+    assert user.set_user_disabled(created["userId"], Config.DISABLED["moderated"], "disabled") is True
+    assert user.get_public_profile_by_username("public-user-123") == {}
+
+
+def test_public_profile_by_username_hides_disabled_profile(tmp_path, monkeypatch):
+    """Public username lookup must not resolve when the profile is disabled."""
+    monkeypatch.setattr(Config, "USERNAME_CHANGE_COOLDOWN", 0)
+    user, _ = _bootstrap_user(tmp_path)
+
+    created = user.create(
+        {
+            "username": "public-profile-123",
+            "alias": "Public Profile",
+            "email": "public2@example.com",
+            "password": "password123",
+            "birthdate": "2000-01-01",
+            "locale": "en",
+        }
+    )
+
+    _activate_user(user, created["userId"])
+
+    assert user.get_public_profile_by_username("public-profile-123")["profileId"] == str(created["profileId"])
+    assert user.set_profile_disabled(created["profileId"], Config.DISABLED["moderated"], "disabled") is True
+    assert user.get_public_profile_by_username("public-profile-123") == {}

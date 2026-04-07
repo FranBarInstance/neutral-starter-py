@@ -99,6 +99,69 @@ class AdminRequestHandler(RequestHandler):
         can_moderate = "moderator" in roles
         return can_full, can_moderate
 
+    def _image_site_links(self) -> tuple[str, str]:
+        """Return public profile and variant image links from current schema data."""
+        current = self.schema_data.get("current", {}) or {}
+        site = current.get("site", {}) if isinstance(current, dict) else {}
+        profile_link = str(site.get("image_link_profile") or site.get("image_link") or "").strip()
+        variant_link = str(site.get("image_link_variant") or site.get("image_link") or "").strip()
+        return profile_link, variant_link
+
+    def _get_profile_cache_targets(self, profile_id: str) -> list[dict]:
+        """Resolve one profile cache target with profile id and username."""
+        normalized_profile_id = str(profile_id or "").strip()
+        if not normalized_profile_id:
+            return []
+        result = self.user.model.exec(
+            "user",
+            "get-profile-by-profileid",
+            {"profileId": normalized_profile_id},
+        )
+        rows = result.get("rows", []) if result else []
+        if not rows or not rows[0]:
+            return []
+        row = rows[0]
+        return [{
+            "profileId": str(row[0] or "").strip(),
+            "username": str(row[2] or "").strip(),
+        }]
+
+    def _get_user_profile_cache_targets(self, user_id: str) -> list[dict]:
+        """Resolve all profile cache targets for one user."""
+        normalized_user_id = str(user_id or "").strip()
+        if not normalized_user_id:
+            return []
+        result = self.user.model.exec(
+            "user",
+            "admin-get-profiles-by-userid",
+            {"userId": normalized_user_id},
+        )
+        rows = result.get("rows", []) if result else []
+        targets = []
+        for row in rows:
+            targets.append(
+                {
+                    "profileId": str(row[0] or "").strip(),
+                    "username": str(row[2] or "").strip(),
+                }
+            )
+        return targets
+
+    def _invalidate_public_profile_images(self, profile_id: str, username: str = "") -> None:
+        """Invalidate all cached public images for one profile."""
+        profile_link, variant_link = self._image_site_links()
+        Image().invalidate_all_public_profile_images_cache(
+            profile_id=profile_id,
+            username=username,
+            profile_image_link=profile_link,
+            variant_image_link=variant_link,
+        )
+
+    def _invalidate_public_user_images(self, user_id: str) -> None:
+        """Invalidate all cached public images for all profiles owned by one user."""
+        for target in self._get_user_profile_cache_targets(user_id):
+            self._invalidate_public_profile_images(target["profileId"], target["username"])
+
 
 class AdminHomeRequestHandler(AdminRequestHandler):
     """Handler for admin home route (/admin/)."""
@@ -523,6 +586,8 @@ class AdminUserRequestHandler(AdminRequestHandler):
                 state["error"] = "Unable to update user disabled status."
                 return
 
+            self._invalidate_public_user_images(user_id)
+
             state["message"] = "User disabled status updated."
             state["search"] = user_id
             return
@@ -551,6 +616,8 @@ class AdminUserRequestHandler(AdminRequestHandler):
                 state["error"] = "Unable to remove disabled status."
                 return
 
+            self._invalidate_public_user_images(user_id)
+
             state["message"] = "User disabled status removed."
             state["search"] = user_id
             return
@@ -567,9 +634,13 @@ class AdminUserRequestHandler(AdminRequestHandler):
                 state["error"] = "Delete confirmation failed. Type DELETE to confirm."
                 return
 
+            cache_targets = self._get_user_profile_cache_targets(user_id)
             if not self.user.delete_user(user_id):
                 state["error"] = "Unable to delete user."
                 return
+
+            for target in cache_targets:
+                self._invalidate_public_profile_images(target["profileId"], target["username"])
 
             state["message"] = "User deleted."
             return
@@ -785,6 +856,10 @@ class AdminProfileRequestHandler(AdminRequestHandler):
                 state["error"] = "Unable to update profile disabled status."
                 return
 
+            cache_targets = self._get_profile_cache_targets(profile_id)
+            for target in cache_targets:
+                self._invalidate_public_profile_images(target["profileId"], target["username"])
+
             state["message"] = "Profile disabled status updated."
             state["search"] = profile_id
             return
@@ -819,6 +894,10 @@ class AdminProfileRequestHandler(AdminRequestHandler):
             if not self.user.delete_profile_disabled(profile_id, reason):
                 state["error"] = "Unable to remove profile disabled status."
                 return
+
+            cache_targets = self._get_profile_cache_targets(profile_id)
+            for target in cache_targets:
+                self._invalidate_public_profile_images(target["profileId"], target["username"])
 
             state["message"] = "Profile disabled status removed."
             state["search"] = profile_id

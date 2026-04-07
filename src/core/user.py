@@ -378,6 +378,60 @@ class User:  # pylint: disable=too-many-public-methods
             "modified": row[11] or "",
         }
 
+    def get_public_profile_by_username(self, username: str) -> dict:
+        """Return one public profile row only when user and profile are enabled."""
+        normalized = self.normalize_username(username)
+        if not normalized:
+            return {}
+
+        result = self.model.exec("user", "get-public-profile-by-username", {"username": normalized})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return {}
+
+        row = result["rows"][0]
+        return {
+            "profileId": row[0] or "",
+            "userId": row[1] or "",
+            "username": row[2] or "",
+            "username_changed_at": row[3] or "",
+            "imageId": row[4] or "",
+            "alias": row[5] or "",
+            "locale": row[6] or "",
+            "region": row[7] or "",
+            "properties": row[8] or "",
+            "lasttime": row[9] or "",
+            "created": row[10] or "",
+            "modified": row[11] or "",
+        }
+
+    def get_public_profile_by_profileid(self, profile_id: str) -> dict:
+        """Return one public profile row only when user and profile are enabled."""
+        profile_id = str(profile_id or "").strip()
+        if not profile_id:
+            return {}
+
+        result = self.model.exec("user", "get-public-profile-by-profileid", {"profileId": profile_id})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return {}
+
+        row = result["rows"][0]
+        return {
+            "profileId": row[0] or "",
+            "userId": row[1] or "",
+            "username": row[2] or "",
+            "username_changed_at": row[3] or "",
+            "imageId": row[4] or "",
+            "alias": row[5] or "",
+            "locale": row[6] or "",
+            "region": row[7] or "",
+            "properties": row[8] or "",
+            "lasttime": row[9] or "",
+            "created": row[10] or "",
+            "modified": row[11] or "",
+        }
+
     def create(self, data) -> dict:  # pylint: disable=too-many-return-statements
         """Create a new user with the provided data."""
 

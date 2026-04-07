@@ -124,8 +124,14 @@
     "get-profile-by-profileid": {
         "@portable": "SELECT profileId, userId, username, username_changed_at, imageId, alias, locale, region, properties, lasttime, created, modified FROM user_profile WHERE profileId = :profileId LIMIT 1"
     },
+    "get-public-profile-by-profileid": {
+        "@portable": "SELECT up.profileId, up.userId, up.username, up.username_changed_at, up.imageId, up.alias, up.locale, up.region, up.properties, up.lasttime, up.created, up.modified FROM user_profile up INNER JOIN user ON user.userId = up.userId WHERE up.profileId = :profileId AND NOT EXISTS (SELECT 1 FROM user_disabled WHERE user_disabled.userId = up.userId) AND NOT EXISTS (SELECT 1 FROM profile_disabled WHERE profile_disabled.profileId = up.profileId) LIMIT 1"
+    },
     "get-profile-by-username": {
         "@portable": "SELECT profileId, userId, username, username_changed_at, imageId, alias, locale, region, properties, lasttime, created, modified FROM user_profile WHERE username = :username LIMIT 1"
+    },
+    "get-public-profile-by-username": {
+        "@portable": "SELECT up.profileId, up.userId, up.username, up.username_changed_at, up.imageId, up.alias, up.locale, up.region, up.properties, up.lasttime, up.created, up.modified FROM user_profile up INNER JOIN user ON user.userId = up.userId WHERE up.username = :username AND NOT EXISTS (SELECT 1 FROM user_disabled WHERE user_disabled.userId = up.userId) AND NOT EXISTS (SELECT 1 FROM profile_disabled WHERE profile_disabled.profileId = up.profileId) LIMIT 1"
     },
     "get-blacklisted-username": {
         "@portable": "SELECT username, reason, expires_at FROM username_blacklist WHERE username = :username AND (expires_at IS NULL OR expires_at > :now) LIMIT 1"

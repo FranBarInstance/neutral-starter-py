@@ -1,9 +1,6 @@
 """Request handlers for user profile management."""
 
-from urllib.parse import urlsplit
-
 from app.config import Config
-from app.extensions import cache
 from core.image import Image
 from core.mail import Mail
 from core.request_handler import RequestHandler
@@ -140,7 +137,7 @@ class UserProfileFormHandler(FormRequestHandler):
             }
             return False
 
-        self._invalidate_profile_image_cache(previous_username, username)
+        self._invalidate_public_profile_username_cache(previous_username, username)
 
         if isinstance(self.schema_data.get("USER"), dict) and "profile" in self.schema_data["USER"]:
             self.schema_data["USER"]["profile"]["username"] = username
@@ -162,25 +159,22 @@ class UserProfileFormHandler(FormRequestHandler):
         }
         return True
 
-    def _invalidate_profile_image_cache(self, *usernames) -> None:
-        """Invalidate cached profile image responses for the provided usernames."""
+    def _invalidate_public_profile_username_cache(self, *usernames) -> None:
+        """Invalidate cached public `/p/<username>` profile image responses."""
         current = self.schema_data.get("current", {}) or {}
         site = current.get("site", {}) if isinstance(current, dict) else {}
         image_link = str(site.get("image_link_profile") or site.get("image_link") or "").strip()
-        image_path = urlsplit(image_link).path.rstrip("/")
-        if not image_path:
+        if not image_link:
             return
 
         seen = set()
+        image_helper = Image()
         for username in usernames:
             normalized = (username or "").strip()
             if not normalized or normalized in seen:
                 continue
             seen.add(normalized)
-            try:
-                cache.delete(f"view/{image_path}/{normalized}")
-            except Exception:  # pragma: no cover - cache backend errors should not block profile saves
-                continue
+            image_helper.invalidate_public_username_cache(normalized, image_link)
 
     def post(self) -> bool:
         """Handle POST request — validate and update user profile."""

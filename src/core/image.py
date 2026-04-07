@@ -7,12 +7,15 @@ import re
 import time
 import uuid
 from dataclasses import dataclass
+from urllib.parse import urlsplit
 
 from PIL import Image as PilImage
 from PIL import ImageOps, UnidentifiedImageError
 from app.config import Config
+from app.extensions import cache
 from constants import DELETED
 from core.model import Model
+from core.user import User
 
 
 @dataclass
@@ -114,6 +117,11 @@ class Image:
             "mediumUrl": f"{base}/{image_id}/medium",
             "fullUrl": f"{base}/{image_id}/full",
         }
+
+    @staticmethod
+    def _cache_path(link_or_path: str) -> str:
+        """Normalize one public image link into a cache path prefix."""
+        return urlsplit(str(link_or_path or "").strip()).path.rstrip("/")
 
     @staticmethod
     def _normalize_mode(image: PilImage.Image) -> PilImage.Image:
@@ -351,6 +359,66 @@ class Image:
             width=int(meta[variant_info["width"]]),
             height=int(meta[variant_info["height"]]),
         )
+
+    def get_public_variant(self, image_id: str, variant: str) -> ImageVariant | None:
+        """Return one public image variant only when the owner profile is public."""
+        meta = self.get_meta(image_id)
+        if not meta:
+            return None
+
+        profile_id = str(meta.get("profileId") or "").strip()
+        if not profile_id:
+            return None
+
+        if not User(Config.DB_PWA, Config.DB_PWA_TYPE).get_public_profile_by_profileid(profile_id):
+            return None
+
+        return self.get_variant(image_id, variant)
+
+    def invalidate_public_username_cache(self, username: str, profile_image_link: str = "") -> None:
+        """Invalidate one cached public profile image response by username."""
+        profile_path = self._cache_path(profile_image_link)
+        normalized = str(username or "").strip()
+        if not profile_path or not normalized:
+            return
+        try:
+            cache.delete(f"view/{profile_path}/{normalized}")
+        except Exception:  # pragma: no cover - cache backend errors should not block app flows
+            return
+
+    def invalidate_all_public_profile_images_cache(
+        self,
+        profile_id: str,
+        username: str = "",
+        profile_image_link: str = "",
+        variant_image_link: str = "",
+    ) -> None:
+        """Invalidate all cached public image responses for one profile."""
+        normalized_profile_id = str(profile_id or "").strip()
+        if not normalized_profile_id:
+            return
+
+        self.invalidate_public_username_cache(username, profile_image_link)
+
+        variant_path = self._cache_path(variant_image_link)
+        if not variant_path:
+            return
+
+        result = self.model.exec(
+            "image",
+            "list-by-profileid-all",
+            {"profileId": normalized_profile_id, "limit": 10000, "offset": 0},
+        )
+        rows = self._result_rows_to_dicts(result)
+        for row in rows:
+            image_id = str(row.get("imageId") or "").strip()
+            if not image_id:
+                continue
+            for variant in ("thumb", "medium", "full"):
+                try:
+                    cache.delete(f"view/{variant_path}/{image_id}/{variant}")
+                except Exception:  # pragma: no cover - cache backend errors should not block app flows
+                    continue
 
     def delete_image(self, image_id: str, profile_id: str | None = None) -> bool:
         """Disable one image by adding entry to image_disabled table."""
