@@ -203,6 +203,23 @@ Practical rule:
 
 This is why the public lookup queries in the model use `NOT EXISTS (...)` against `image_disabled`.
 
+Public delivery now applies one more rule on top of that:
+
+- an image is not publicly visible if its owning profile is not publicly visible
+
+In current code that means public delivery must also fail when either of these is true:
+
+- the owner profile has any row in `profile_disabled`
+- the owner user has any row in `user_disabled`
+
+So the effective public rule is:
+
+- image must not be disabled in `image_disabled`
+- owner profile must not be disabled in `profile_disabled`
+- owner user must not be disabled in `user_disabled`
+
+The username-based profile image route and the image-variant route both follow that stricter public visibility rule.
+
 ### Admin visibility
 
 Admin views are different:
@@ -322,6 +339,8 @@ Important helpers include:
   returns visible metadata only
 - `get_variant()`
   returns a visible stored variant
+- `get_public_variant()`
+  returns a publicly visible stored variant only when the owner profile is publicly visible
 - `delete_image()`
   logical delete using `image_disabled`
 - `delete_by_profile()`
@@ -334,6 +353,10 @@ Important helpers include:
   removes one disabled reason
 - `restore_image()`
   restores logically deleted images by clearing deleted reasons
+- `invalidate_public_username_cache()`
+  invalidates one cached public profile-image response for `/p/<username>`
+- `invalidate_all_public_profile_images_cache()`
+  invalidates all cached public image responses for one profile, including `/p/<username>` and `/v/<image_id>/<variant>`
 
 ## Public Delivery Contract
 
@@ -350,6 +373,31 @@ Other components should not hardcode those routes. They should use schema data:
 - `current.site.image_link_profile`
 - `current.site.image_link_variant`
 
+Current public delivery behavior is:
+
+- `<manifest.route>/p/<username>` resolves only when that username belongs to a public profile
+- `<manifest.route>/v/<image_id>/<variant>` resolves only when that image is visible and its owner profile is public
+- when the owner user or profile is disabled, public delivery must stop even if the image row itself is still active
+
+## Cache Invalidation
+
+Public image delivery uses route-level response caching.
+
+Because image ids are immutable but profile visibility and usernames can change, public cache invalidation is handled in application logic.
+
+Current invalidation helpers are:
+
+- `invalidate_public_username_cache()`
+- `invalidate_all_public_profile_images_cache()`
+
+Current expected usage:
+
+- profile updates that change username should invalidate `/p/<old-username>` and `/p/<new-username>`
+- user or profile disable/enable actions should invalidate all public cached images for the affected profile
+- deleting a user should invalidate all public cached images for all affected profiles before or together with the delete flow
+
+This keeps cache behavior aligned with the public visibility rules described above.
+
 This document does not replace the delivery component documentation, but the storage model and those public routes are part of the same subsystem and should stay aligned.
 
 ## Operational Rules Summary
@@ -359,5 +407,6 @@ This document does not replace the delivery component documentation, but the sto
 - there is no FK from images to profiles
 - there is a local FK from `image_disabled` to `image`
 - public queries must exclude any image that has any disabled row
+- public delivery must also exclude images whose owner user or profile is disabled
 - delete is logical first, physical later
 - physical cleanup should be a separate scheduled task
