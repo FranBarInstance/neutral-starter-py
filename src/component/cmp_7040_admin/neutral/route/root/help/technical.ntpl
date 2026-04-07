@@ -1,0 +1,27 @@
+<div class="card mb-4">
+    <div class="card-body">
+        <h3 class="card-title">{:trans; Technical documentation :}</h3>
+        <p class="text-muted mb-3">
+            {:trans; This section documents the admin component structure, routes, and technical behavior shared by all installations. :}
+        </p>
+
+        <div class="list-group list-group-flush">
+            <div class="list-group-item px-0">
+                <strong>{:trans; Base route :}</strong>
+                <code>{:;admin_0yt2sa->manifest->route:}</code>
+            </div>
+            <div class="list-group-item px-0">
+                <strong>{:trans; Sections :}</strong>
+                <span>{:trans; help, user, profile, image, post :}</span>
+            </div>
+            <div class="list-group-item px-0">
+                <strong>{:trans; Access model :}</strong>
+                <span>{:trans; admin and moderator roles :}</span>
+            </div>
+            <div class="list-group-item px-0">
+                <strong>{:trans; Image route notes :}</strong>
+                <span>{:trans; image list, exact moderation view, and AJAX load more are documented in the route snippets and README files. :}</span>
+            </div>
+        </div>
+    </div>
+</div>

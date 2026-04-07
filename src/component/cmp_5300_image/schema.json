@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "site": {
+                "image_link": "[:;data->image_0yt2sa->manifest->route:]",
+                "image_link_profile": "[:;data->image_0yt2sa->manifest->route:]/p",
+                "image_link_variant": "[:;data->image_0yt2sa->manifest->route:]/v"
+            }
+        }
+    }
+}

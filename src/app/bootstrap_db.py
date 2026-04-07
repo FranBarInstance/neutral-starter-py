@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from core.model import Model
+from core.user import RESERVED_USERNAMES
 
 
 
@@ -14,24 +15,39 @@ def _run_operation(model, model_name: str, operation: str, data=None) -> None:
         raise RuntimeError(f"{model_name}.{operation} failed: {detail}")
 
 
+def _seed_reserved_usernames(model) -> None:
+    """Insert the built-in reserved usernames into the blacklist."""
+    for username in RESERVED_USERNAMES:
+        _run_operation(
+            model,
+            "user",
+            "upsert-username-blacklist",
+            {
+                "username": username,
+                "reason": "reserved",
+                "expires_at": None,
+                "created": 0,
+            },
+        )
+
+
 def bootstrap_databases(
     db_pwa_url: str,
     db_pwa_type: str,
     db_safe_url: str,
     db_safe_type: str,
-    db_files_url: str,
-    db_files_type: str,
+    db_image_url: str,
+    db_image_type: str,
 ) -> None:
-    """Create/upgrade core schema in pwa/safe/files databases."""
+    """Create/upgrade core schema in pwa/safe/image databases."""
     pwa_model = Model(db_pwa_url, db_pwa_type.lower())
     safe_model = Model(db_safe_url, db_safe_type.lower())
-    files_model = Model(db_files_url, db_files_type.lower())
+    image_model = Model(db_image_url, db_image_type.lower())
 
     _run_operation(pwa_model, "app", "setup-base")
     _run_operation(pwa_model, "user", "setup-base")
     _run_operation(pwa_model, "user", "setup-rbac")
+    _seed_reserved_usernames(pwa_model)
 
     _run_operation(safe_model, "session", "setup-base")
-
-    # For files DB there is currently no schema in the project.
-    _run_operation(files_model, "app", "sentence-example")
+    _run_operation(image_model, "image", "setup-base")

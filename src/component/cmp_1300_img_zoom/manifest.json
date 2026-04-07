@@ -1,0 +1,17 @@
+{
+    "uuid": "img_zoom_0yt2sa",
+    "name": "Image Zoom",
+    "description": "Generic utility to show images in full size with a dark overlay on click",
+    "version": "0.0.1",
+    "route": "/img-zoom",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
+}

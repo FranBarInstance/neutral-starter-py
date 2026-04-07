@@ -1,0 +1,185 @@
+{:snip; admin_0yt2sa:image-feedback >>
+    {:filled; admin_image->error >>
+        <div class="alert alert-danger">{:&;admin_image->error:}</div>
+    :}
+
+    {:filled; admin_image->message >>
+        <div class="alert alert-success">{:&;admin_image->message:}</div>
+    :}
+:}
+
+{:snip; admin_0yt2sa:image-filters >>
+    <form method="get" class="card card-body mb-4">
+        <div class="row g-2 align-items-end">
+            <div class="col-12 col-lg-4">
+                <label class="form-label" for="admin-image-search">{:trans; Search imageId or profileId :}</label>
+                <input id="admin-image-search" class="form-control" name="search" value="{:&;admin_image->search:}" placeholder="img_... or prof_...">
+            </div>
+            <div class="col-12 col-lg-3">
+                <label class="form-label" for="admin-image-disabled-filter">{:trans; Image Status filter :}</label>
+                <select id="admin-image-disabled-filter" class="form-select" name="disabled_filter">
+                    <option value="">{:trans; All image states :}</option>
+                    {:each; admin_image->disabled_options dk drow >>
+                        <option value="{:&;drow->code:}"{:same; /{:;admin_image->disabled_filter:}/{:&;drow->code:}/ >> selected :}>{:&;drow->name:} ({:&;drow->code:})</option>
+                    :}
+                </select>
+            </div>
+            <div class="col-12 col-lg-3">
+                <label class="form-label" for="admin-image-order">{:trans; Order by :}</label>
+                <select id="admin-image-order" class="form-select" name="order">
+                    <option value="created"{:same; /{:;admin_image->order:}/created/ >> selected :}>{:trans; Upload date :}</option>
+                    <option value="disabled_created_date"{:same; /{:;admin_image->order:}/disabled_created_date/ >> selected :}>{:trans; Status created date :}</option>
+                    <option value="disabled_modified_date"{:same; /{:;admin_image->order:}/disabled_modified_date/ >> selected :}>{:trans; Status modified date :}</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-2 d-grid">
+                <a class="btn btn-sm btn-secondary w-100 mb-2" href="{:;admin_0yt2sa->manifest->route:}/image">{:trans; Clear filters :}</a>
+                <button class="btn btn-primary w-100" type="submit">{:trans; Apply filters :}</button>
+            </div>
+        </div>
+    </form>
+:}
+
+{:snip; admin_0yt2sa:image-moderation-form >>
+    {:bool; admin_image->can_full >>
+        <form method="post" class="mb-0">
+            <input type="hidden" name="ltoken" value="{:&;admin_image->ltoken:}">
+            <input type="hidden" name="search" value="{:&;admin_image->search:}">
+            <input type="hidden" name="disabled_filter" value="{:&;admin_image->disabled_filter:}">
+            <input type="hidden" name="order" value="{:&;admin_image->order:}">
+            <input type="hidden" name="image_id" value="{:&;admin_image->exact_image->imageId:}">
+            <select class="form-select form-select-sm mb-2" name="reason">
+                <option value="">{:trans; Select status :}</option>
+                <option value="{:;admin_image->reason_deleted:}">{:trans; deleted :}</option>
+                <option value="{:;admin_image->reason_moderated:}">{:trans; moderated :}</option>
+                <option value="{:;admin_image->reason_spam:}">{:trans; spam :}</option>
+            </select>
+            <input class="form-control form-control-sm mb-2" name="description" placeholder="{:trans; description (required for moderated) :}">
+            <div class="d-grid gap-2">
+                <button class="btn btn-sm btn-outline-warning" type="submit" name="action" value="set-image-disabled">{:trans; Set image status :}</button>
+                <button class="btn btn-sm btn-outline-success" type="submit" name="action" value="remove-image-disabled">{:trans; Remove image status :}</button>
+            </div>
+        </form>
+    :}
+    {:!bool; admin_image->can_full >>
+        <form method="post" class="mb-0">
+            <input type="hidden" name="ltoken" value="{:&;admin_image->ltoken:}">
+            <input type="hidden" name="search" value="{:&;admin_image->search:}">
+            <input type="hidden" name="disabled_filter" value="{:&;admin_image->disabled_filter:}">
+            <input type="hidden" name="order" value="{:&;admin_image->order:}">
+            <input type="hidden" name="image_id" value="{:&;admin_image->exact_image->imageId:}">
+            <select class="form-select form-select-sm mb-2" name="reason">
+                <option value="">{:trans; Select status :}</option>
+                <option value="{:;admin_image->reason_moderated:}">{:trans; moderated :}</option>
+                <option value="{:;admin_image->reason_spam:}">{:trans; spam :}</option>
+            </select>
+            <input class="form-control form-control-sm mb-2" name="description" placeholder="{:trans; required for moderated :}">
+            <div class="d-grid gap-2">
+                <button class="btn btn-sm btn-outline-warning" type="submit" name="action" value="set-image-disabled">{:trans; Set image status :}</button>
+                <button class="btn btn-sm btn-outline-success" type="submit" name="action" value="remove-image-disabled">{:trans; Remove image status :}</button>
+            </div>
+        </form>
+    :}
+:}
+
+{:snip; admin_0yt2sa:image-moderation >>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row g-4 align-items-start">
+                <div class="col-12 col-lg-5">
+                    <div class="bg-white rounded border p-2">
+                        <a
+                            href="{:;current->site->image_link_variant:}/{:&;admin_image->exact_image->imageId:}/full"
+                            class="d-block text-decoration-none"
+                            title="{:&;admin_image->exact_image->imageId:}"
+                        >
+                            <img
+                                src="{:;current->site->image_link_variant:}/{:&;admin_image->exact_image->imageId:}/medium"
+                                alt="{:&;admin_image->exact_image->imageId:}"
+                                class="img-fluid rounded img-zoomable w-100"
+                                data-zoom-src="{:;current->site->image_link_variant:}/{:&;admin_image->exact_image->imageId:}/full"
+                            >
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-7">
+                    <div class="card border-0 bg-light">
+                        <div class="card-body">
+                            <div class="d-grid gap-2 mb-3">
+                                <a class="btn btn-sm btn-outline-info" href="{:;admin_0yt2sa->manifest->route:}/profile?search={:&;admin_image->exact_image->profileId:}">
+                                    {:trans; Profile :}
+                                </a>
+                                <a class="btn btn-sm btn-outline-secondary" href="{:;admin_0yt2sa->manifest->route:}/image?search={:&;admin_image->exact_image->profileId:}">
+                                    {:trans; By profile :}
+                                </a>
+                            </div>
+                            {:snip; admin_0yt2sa:image-moderation-form :}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+:}
+
+{:snip; admin_0yt2sa:image-grid-items >>
+    {:each; admin_image->images idx image >>
+        <div class="col-auto">
+            <div class="border rounded overflow-hidden bg-white">
+                <img
+                    src="{:;current->site->image_link_variant:}/{:&;image->imageId:}/thumb"
+                    alt="{:&;image->imageId:}"
+                    class="rounded img-zoomable w-100"
+                    data-zoom-src="{:;current->site->image_link_variant:}/{:&;image->imageId:}/full"
+                >
+                <div class="d-grid gap-1 mt-1">
+                    <a class="btn btn-sm btn-outline-info" href="{:;admin_0yt2sa->manifest->route:}/profile?search={:&;image->profileId:}">
+                        {:trans; Profile :}
+                    </a>
+                    <a class="btn btn-sm btn-outline-secondary" href="{:;admin_0yt2sa->manifest->route:}/image?search={:&;image->profileId:}">
+                        {:trans; By profile :}
+                    </a>
+                    <a class="btn btn-sm btn-outline-primary" href="{:;admin_0yt2sa->manifest->route:}/image?search={:&;image->imageId:}">
+                        {:trans; Moderate :}
+                    </a>
+                </div>
+            </div>
+        </div>
+    :}
+:}
+
+{:snip; admin_0yt2sa:image-grid-next >>
+    <div id="admin-image-grid-next-{:;admin_image->offset:}" class="col-12 mt-2">
+        {:bool; admin_image->has_more >>
+            <div class="text-center">
+                <button
+                    type="button"
+                    class="btn btn-outline-primary neutral-fetch-click click-load-spin w-50 mt-3"
+                    data-url="{:;admin_0yt2sa->manifest->route:}/image/ajax?search={:&;admin_image->search:}&disabled_filter={:&;admin_image->disabled_filter:}&order={:&;admin_image->order:}&offset={:&;admin_image->next_offset:}"
+                    data-wrap="admin-image-grid-next-{:;admin_image->offset:}"
+                >
+                    {:trans; Load more :}
+                </button>
+            </div>
+        :}
+    </div>
+:}
+
+{:snip; admin_0yt2sa:image-grid-batch >>
+    {:snip; admin_0yt2sa:image-grid-items :}
+    {:snip; admin_0yt2sa:image-grid-next :}
+:}
+
+{:snip; admin_0yt2sa:image-main >>
+    {:filled; current->site->image_link_variant >>
+        {:bool; admin_image->exact_image_search >>
+            {:snip; admin_0yt2sa:image-moderation :}
+        :}{:else;
+            <div id="admin-image-grid-list" class="row g-2 justify-content-center">
+                {:snip; admin_0yt2sa:image-grid-batch :}
+            </div>
+        :}
+    :}{:else;
+        <div class="alert alert-warning">{:trans; Image delivery route is not available. :}</div>
+    :}
+:}

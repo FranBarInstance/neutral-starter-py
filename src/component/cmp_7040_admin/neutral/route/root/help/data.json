@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Help",
+                "description": "Admin help and documentation",
+                "h1": "Help"
+            }
+        }
+    }
+}

@@ -18,14 +18,83 @@
     :}
 :}
 
+{:snip; user_profile-imageid-preview-url >>
+    {:eval; {:;USER->profile->imageId:} >>
+        {:;current->site->image_link_variant:}/{:;USER->profile->imageId:}/thumb
+    :}{:else;
+        /img/profile.jpg
+    :}
+:}
+
 {:* --- Profile Form Snippet --- *:}
 {:snip; user_0yt2sa:user_profile-form >>
     {:fetch; |{:;user_0yt2sa->manifest->route:}/profile/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:}| >>
-        <div class="row g-2">
+        <div class="row g-0 gx-2">
+            {:!filled; USER->profile->username >>
+                <div class="col-12">
+                    <div class="alert alert-info {:;x-icons->x-icon-info:} mb-2">
+                        {:trans; The profile image will not be visible without "username" :}
+                    </div>
+                </div>
+            :}
+            <div class="col-auto">
+                {:* --- Field: imageid --- *:}
+                <div class="input-group">
+                    <img
+                        src="{:snip; user_profile-imageid-preview-url:}"
+                        alt="{:trans; Profile picture:}"
+                        class="user_profile-imageid-preview"
+                        width="58" height="58"
+                    >
+                    <input
+                        type="hidden"
+                        id="user_profile-imageid"
+                        name="imageid"
+                        class="user_profile-imageid"
+                        value="{:;CONTEXT->POST->imageid:}{:else; {:;USER->profile->imageId:} :}"
+                    >
+                </div>
+                {:snip; error-msg:imageid :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-white h-100 user-profile-remove-image">
+                    <i class="{:;x-icons->x-icon-remove:}"></i> {:trans; Remove image :}
+                </button>
+            </div>
+            <div class="col"></div>
+            <div class="col-12 col-md-6">
+                {:* --- Field: username --- *:}
+                <div class="input-group">
+                    <span class="input-group-text {:;x-icons->x-icon-username:} {:snip; is-invalid:username :}"></span>
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            id="user_profile-username"
+                            name="username"
+                            value="{:;CONTEXT->POST->username:}{:else; {:;USER->profile->username:} :}"
+                            class="form-control {:snip; is-invalid:username :}"
+                            placeholder="{:trans; Username :}"
+                            aria-label="{:trans; Username :}"
+                            minlength="{:;current_forms->user_profile->rules->username->minlength:}"
+                            maxlength="{:;current_forms->user_profile->rules->username->maxlength:}"
+                            pattern="{:;current_forms->user_profile->rules->username->pattern:}"
+                        >
+                        <label for="user_profile-username">{:trans; Username :}</label>
+                    </div>
+                    <button type="button" class="input-group-text user-profile-clear-username">
+                        <i class="{:;x-icons->x-icon-remove:}"></i>
+                    </button>
+                </div>
+                {:snip; error-msg:username :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
+            </div>
+            <div class="col-12 p-0 m-0"></div>
+
             <div class="col-12 col-md-6">
                 {:* --- Field: alias --- *:}
                 <div class="input-group">
-                    <span class="input-group-text {:;x-icons->x-icon-user:} {:snip; is-invalid:alias :}"></span>
+                    <span class="input-group-text {:;x-icons->x-icon-user-alias:} {:snip; is-invalid:alias :}"></span>
                     <div class="form-floating">
                         <input
                             type="text"
@@ -43,6 +112,7 @@
                     </div>
                 </div>
                 {:snip; error-msg:alias :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: dark_mode --- *:}
@@ -65,6 +135,7 @@
                     </div>
                 </div>
                 {:snip; error-msg:dark_mode :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: locale --- *:}
@@ -90,6 +161,7 @@
                     </div>
                 </div>
                 {:snip; error-msg:locale :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: country --- *:}
@@ -112,6 +184,7 @@
                     </div>
                 </div>
                 {:snip; error-msg:region :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: theme --- *:}
@@ -136,6 +209,7 @@
                     </div>
                 </div>
                 {:snip; error-msg:theme :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12 col-md-6">
                 {:* --- Field: color --- *:}
@@ -160,10 +234,34 @@
                     </div>
                 </div>
                 {:snip; error-msg:color :}
+                <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
             <div class="col-12">
+                <div class="accordion" id="upload-profile-picture">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading-upload-profile-picture">
+                            <button class="accordion-button collapsed px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseupload-profile-picture" aria-expanded="false" aria-controls="collapseupload-profile-picture">
+                                <span class="{:;x-icons->x-icon-images:} me-3"></span> {:trans; Upload profile picture :}
+                            </button>
+                        </h2>
+                        <div id="collapseupload-profile-picture" class="accordion-collapse collapse" aria-labelledby="heading-upload-profile-picture" data-bs-parent="#upload-profile-picture">
+                            <div class="accordion-body p-1">
+                                {:code;
+                                    {:param; max-images >> 1 :}
+                                    {:param; force-album >> profile :}
+                                    {:param; fields-to-fill >> user_profile-imageid :}
+                                    {:param; url-to-fill >> user_profile-imageid-preview :}
+                                    {:snip; album_image_0yt2sa:image-field :}
+                                :}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="{:;local::current->forms->field-send-spacing:}"></div>
+            <div class="col-12">
                 {:* --- Submit Area --- *:}
-                <div class="row gx-2 mt-2">
+                <div class="row gx-2 mt-3">
                     <div class="col-2">
                         <button type="button" title="{:trans; Reload form :}" class="fetch-form-button-reset w-100 btn btn-light">
                             <span class="{:;x-icons->x-icon-reload:}"></span>
@@ -184,6 +282,53 @@
     :}
 :}
 
+{:moveto; /body >>
+    <script nonce="{:;CSP_NONCE:}">
+        function bindUserProfileRemoveImage() {
+            document.querySelectorAll('.user-profile-remove-image').forEach(function (button) {
+                if (button.dataset.userProfileRemoveImageBound === 'true') {
+                    return;
+                }
+                button.dataset.userProfileRemoveImageBound = 'true';
+                button.addEventListener('click', function () {
+                    document.querySelectorAll('img.user_profile-imageid-preview').forEach(function (image) {
+                        image.src = '/img/profile.jpg';
+                        image.classList.remove('d-none');
+                    });
+                    document.querySelectorAll('.user_profile-imageid').forEach(function (input) {
+                        input.value = '';
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                    });
+                });
+            });
+        }
+
+        function bindUserProfileClearUsername() {
+            document.querySelectorAll('.user-profile-clear-username').forEach(function (button) {
+                if (button.dataset.userProfileClearUsernameBound === 'true') {
+                    return;
+                }
+                button.dataset.userProfileClearUsernameBound = 'true';
+                button.addEventListener('click', function () {
+                    var input = document.getElementById('user_profile-username');
+                    if (!input) {
+                        return;
+                    }
+                    input.value = '';
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', bindUserProfileRemoveImage);
+        document.addEventListener('DOMContentLoaded', bindUserProfileClearUsername);
+        window.addEventListener('neutralFetchCompleted', bindUserProfileRemoveImage);
+        window.addEventListener('neutralFetchCompleted', bindUserProfileClearUsername);
+    </script>
+:}
+
 {:* --- Profile Error Snippet --- *:}
 {:snip; user_0yt2sa:user_profile-error >>
     <div class="alert alert-danger">
@@ -201,10 +346,7 @@
                 <div class="alert alert-success">
                     <p><i class="{:;x-icons->x-icon-check:} me-2"></i>{:trans; Profile updated successfully :}</p>
                 </div>
-                {:code;
-                    {:param; url >> {:;user_0yt2sa->manifest->route:} :}
-                    {:snip; util:redirection :}
-                :}
+                {:snip; util:reload-page-self :}
             :}
 
             {:* If form result failed *:}
@@ -223,7 +365,7 @@
 {:snip; user_0yt2sa:user_profile-content >>
     <div id="user_profile-content">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body p-2 p-md-3">
                 {:snip; user_0yt2sa:user_profile-form-container :}
             </div>
         </div>

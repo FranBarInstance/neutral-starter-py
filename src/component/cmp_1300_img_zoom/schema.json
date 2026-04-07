@@ -1,0 +1,26 @@
+{
+    "inherit": {
+        "locale": {
+            "trans": {
+                "en": {
+                    "ref:img_zoom:close": "Click to close"
+                },
+                "es": {
+                    "ref:img_zoom:close": "Click para cerrar"
+                },
+                "de": {
+                    "ref:img_zoom:close": "Klicken zum Schliessen"
+                },
+                "fr": {
+                    "ref:img_zoom:close": "Cliquer pour fermer"
+                },
+                "ar": {
+                    "ref:img_zoom:close": "انقر للإغلاق"
+                },
+                "zh": {
+                    "ref:img_zoom:close": "点击关闭"
+                }
+            }
+        }
+    }
+}

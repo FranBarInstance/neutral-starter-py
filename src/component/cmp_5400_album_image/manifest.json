@@ -1,0 +1,17 @@
+{
+    "uuid": "album_image_0yt2sa",
+    "name": "Album Image",
+    "description": "Upload, browse and select images by album",
+    "version": "0.0.0",
+    "route": "/album-image",
+    "security": {
+        "routes_auth": {
+            "/": true
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
+}

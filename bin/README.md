@@ -64,8 +64,8 @@ Optional arguments:
 - `--db-pwa-type` - override DB_PWA type
 - `--db-safe-url` - override DB_SAFE URL
 - `--db-safe-type` - override DB_SAFE type
-- `--db-files-url` - override DB_FILES URL
-- `--db-files-type` - override DB_FILES type
+- `--db-image-url` - override DB_IMAGE URL
+- `--db-image-type` - override DB_IMAGE type
 - `--quiet` - print only errors
 
 With custom URLs (recommended for local testing):
@@ -74,7 +74,7 @@ With custom URLs (recommended for local testing):
 source .venv/bin/activate && python bin/bootstrap_db.py \
   --db-pwa-url sqlite:////tmp/neutral-install/pwa.db \
   --db-safe-url sqlite:////tmp/neutral-install/safe.db \
-  --db-files-url sqlite:////tmp/neutral-install/files.db
+  --db-image-url sqlite:////tmp/neutral-install/image.db
 ```
 
 ### `cmp.py` (Component Management)
@@ -153,7 +153,7 @@ source .venv/bin/activate && python bin/create_test_users.py --count 9
 
 Optional arguments:
 
-- `--prefix` (default: `testuser`)
+- `--prefix` (default: `testuser`) prefix used for alias/email test data
 - `--count` (default: `10`, valid range: `1..100`)
 - `--password` (default: `Test1234!`)
 

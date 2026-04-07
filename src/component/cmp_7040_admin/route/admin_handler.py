@@ -14,6 +14,7 @@ from constants import (
     UNVALIDATED,
     RBAC_DEFAULT_ROLES,
 )
+from core.image import Image
 from core.request_handler import RequestHandler
 from utils.tokens import ltoken_check
 
@@ -135,6 +136,235 @@ class AdminPostRequestHandler(AdminRequestHandler):
             "can_full": can_full,
             "can_moderate": can_moderate,
         }
+        return self.view.render()
+
+
+class AdminImageRequestHandler(AdminRequestHandler):
+    """Handler for admin image management route (/admin/image)."""
+
+    # pylint: disable=too-few-public-methods
+
+    @staticmethod
+    def _default_image_state() -> dict:
+        return {
+            "message": "",
+            "error": "",
+            "search": "",
+            "disabled_filter": "",
+            "order": "created",
+            "limit": 33,
+            "offset": 0,
+            "has_more": False,
+            "next_offset": 0,
+            "images": [],
+            "exact_image_search": False,
+            "exact_image": {},
+            "disabled_options": [
+                item
+                for item in AdminRequestHandler._build_disabled_options()
+                if item["code"] in {
+                    Config.DISABLED[MODERATED],
+                    Config.DISABLED[SPAM],
+                }
+            ],
+            "can_full": False,
+            "can_moderate": False,
+            "is_dev_or_admin": False,
+        }
+
+    def _build_image_state(self, can_full: bool, can_moderate: bool) -> dict:
+        state = self._default_image_state()
+        state["can_full"] = can_full
+        state["can_moderate"] = can_moderate
+        state["is_dev_or_admin"] = can_full
+        state["search"] = (request.values.get("search") or "").strip()
+
+        requested_disabled_filter = (request.values.get("disabled_filter") or "").strip()
+        disabled_codes = {str(item["code"]) for item in state["disabled_options"]}
+        state["disabled_filter"] = requested_disabled_filter if requested_disabled_filter in disabled_codes else ""
+
+        requested_order = (request.values.get("order") or "").strip().lower()
+        allowed_orders = {
+            "created",
+            "disabled_created_date",
+            "disabled_modified_date",
+        }
+        state["order"] = requested_order if requested_order in allowed_orders else "created"
+        try:
+            requested_offset = int(request.values.get("offset", 0))
+        except (TypeError, ValueError):
+            requested_offset = 0
+        state["offset"] = max(0, requested_offset)
+        return state
+
+    def _resolve_profile_summaries(self, profile_ids: set[str]) -> dict[str, dict]:
+        """Resolve user/profile display data for image rows."""
+        summaries = {}
+        for profile_id in profile_ids:
+            if not profile_id:
+                continue
+            result = self.user.model.exec("user", "get-profile-by-profileid", {"profileId": profile_id})
+            rows = result.get("rows", []) if result else []
+            if not rows or not rows[0]:
+                summaries[profile_id] = {
+                    "profileId": profile_id,
+                    "userId": "",
+                    "username": "",
+                    "alias": "",
+                    "locale": "",
+                }
+                continue
+            row = rows[0]
+            summaries[profile_id] = {
+                "profileId": row[0] or "",
+                "userId": row[1] or "",
+                "username": row[2] or "",
+                "alias": row[5] or "",
+                "locale": row[6] or "",
+            }
+        return summaries
+
+    def _fill_image_list(self, state: dict) -> None:
+        image_helper = Image()
+        images = image_helper.admin_list_images(
+            order_by=state["order"],
+            search=state["search"],
+            disabled_reason=state["disabled_filter"],
+            limit=state["limit"] + 1,
+            offset=state["offset"],
+        )
+        state["has_more"] = len(images) > state["limit"]
+        state["images"] = images[: state["limit"]]
+        state["next_offset"] = state["offset"] + len(state["images"])
+
+        disabled_labels = {
+            int(code): name
+            for name, code in Config.DISABLED.items()
+        }
+        profile_summaries = self._resolve_profile_summaries(
+            {str(row.get("profileId") or "").strip() for row in state["images"]}
+        )
+
+        for image_row in state["images"]:
+            image_row["creator_profile"] = profile_summaries.get(
+                str(image_row.get("profileId") or "").strip(),
+                {},
+            )
+            disabled_items = []
+            for item in image_row.get("disabled", []):
+                try:
+                    reason_code = int(item.get("reason"))
+                except (TypeError, ValueError):
+                    continue
+                disabled_items.append(
+                    {
+                        "reason": reason_code,
+                        "name": disabled_labels.get(reason_code, str(reason_code)),
+                        "description": item.get("description") or "",
+                        "created": item.get("created"),
+                        "modified": item.get("modified"),
+                    }
+                )
+            image_row["disabled"] = disabled_items
+
+        search_value = str(state.get("search") or "").strip()
+        exact_image = next(
+            (
+                row for row in state["images"]
+                if str(row.get("imageId") or "").strip() == search_value
+            ),
+            None,
+        )
+        if exact_image:
+            state["exact_image_search"] = True
+            state["exact_image"] = exact_image
+            state["has_more"] = False
+
+    def _apply_image_action(self, state: dict, can_full: bool, can_moderate: bool) -> None:
+        """Apply image status actions with security validation."""
+        if request.method != "POST":
+            return
+
+        posted_ltoken = (request.form.get("ltoken") or "").strip()
+        if not ltoken_check(posted_ltoken, self.schema_data["CONTEXT"].get("UTOKEN")):
+            state["error"] = "Invalid form token."
+            return
+
+        action = (request.form.get("action") or "").strip()
+        image_id = (request.form.get("image_id") or "").strip()
+        reason_raw = (request.form.get("reason") or "").strip()
+        description = (request.form.get("description") or "").strip()
+
+        if image_id and not self._is_valid_id(image_id):
+            state["error"] = "Invalid image_id format."
+            return
+
+        if not image_id:
+            state["error"] = "image_id is required."
+            return
+
+        try:
+            reason = int(reason_raw)
+        except ValueError:
+            state["error"] = "Invalid disabled reason."
+            return
+
+        allowed_image_reasons = {
+            Config.DISABLED[DELETED],
+            Config.DISABLED[MODERATED],
+            Config.DISABLED[SPAM],
+        }
+        if reason not in allowed_image_reasons:
+            state["error"] = "Allowed image reasons are deleted, moderated, or spam."
+            return
+
+        if can_moderate and not can_full:
+            allowed = {Config.DISABLED[MODERATED], Config.DISABLED[SPAM]}
+            if reason not in allowed:
+                state["error"] = "Moderators can only set or remove moderated or spam."
+                return
+
+        if reason == Config.DISABLED[MODERATED] and not description and action == "set-image-disabled":
+            state["error"] = "Description is required for moderated."
+            return
+
+        image_helper = Image()
+
+        if action == "set-image-disabled":
+            if not image_helper.set_image_disabled(image_id, reason, description):
+                state["error"] = "Unable to update image disabled status."
+                return
+            state["message"] = "Image disabled status updated."
+            state["search"] = image_id
+            return
+
+        if action == "remove-image-disabled":
+            if not image_helper.delete_image_disabled(image_id, reason):
+                state["error"] = "Unable to remove image disabled status."
+                return
+            state["message"] = "Image disabled status removed."
+            state["search"] = image_id
+            return
+
+        state["error"] = "Unknown action."
+
+    def render_route(self):
+        """Render admin image management page."""
+        self.schema_data["dispatch_result"] = True
+
+        can_full, can_moderate = self._get_role_permissions()
+
+        state = self._build_image_state(can_full=can_full, can_moderate=can_moderate)
+        self._apply_image_action(state, can_full=can_full, can_moderate=can_moderate)
+        self._fill_image_list(state)
+
+        state["ltoken"] = self.schema_data.get("LTOKEN")
+        state["timestamp"] = int(time.time())
+        state["reason_deleted"] = Config.DISABLED[DELETED]
+        state["reason_moderated"] = Config.DISABLED[MODERATED]
+        state["reason_spam"] = Config.DISABLED[SPAM]
+
+        self.schema_data["admin_image"] = state
         return self.view.render()
 
 

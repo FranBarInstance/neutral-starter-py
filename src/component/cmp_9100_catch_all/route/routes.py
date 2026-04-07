@@ -25,7 +25,7 @@ def serve_static_file(asset_path) -> Response:
     return dispatch.view.render_error()
 
 
-@bp.route('/', defaults={'path_value': ''}, methods=['GET'])
+@bp.route('/', defaults={'_path_value': ''}, methods=['GET'])
 @bp.route('/<path:_path_value>', methods=['GET'])
 def serve_dynamic_content(_path_value) -> Response:
     """Serve dynamic content through RequestHandler."""

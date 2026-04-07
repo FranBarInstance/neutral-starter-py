@@ -1,0 +1,38 @@
+{
+    "data": {
+        "current_forms": {
+            "album_image_batch_action": {
+                "check_fields": [
+                    "action",
+                    "target_album",
+                    "confirm",
+                    "album-image-edit-image-id"
+                ],
+                "validation": {
+                    "minfields": 0,
+                    "maxfields": 10,
+                    "allow_fields": [
+                        "action",
+                        "target_album",
+                        "confirm",
+                        "album-image-edit-image-id"
+                    ]
+                },
+                "rules": {
+                    "action": {
+                        "required": true
+                    },
+                    "target_album": {
+                        "required": false
+                    },
+                    "confirm": {
+                        "required": true
+                    },
+                    "album-image-edit-image-id": {
+                        "required": true
+                    }
+                }
+            }
+        }
+    }
+}

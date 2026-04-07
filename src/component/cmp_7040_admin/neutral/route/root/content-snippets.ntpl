@@ -6,11 +6,17 @@
         <p>{:trans; Roles in session: :} <code>{:&;admin_home->roles:}</code></p>
 
         <div class="list-group">
+            <a class="list-group-item list-group-item-action" href="{:;admin_0yt2sa->manifest->route:}/help">
+                {:trans; Help :}
+            </a>
             <a class="list-group-item list-group-item-action" href="{:;admin_0yt2sa->manifest->route:}/user">
                 {:trans; Users :}
             </a>
             <a class="list-group-item list-group-item-action" href="{:;admin_0yt2sa->manifest->route:}/profile">
                 {:trans; Profiles :}
+            </a>
+            <a class="list-group-item list-group-item-action" href="{:;admin_0yt2sa->manifest->route:}/image">
+                {:trans; Images :}
             </a>
             <a class="list-group-item list-group-item-action" href="{:;admin_0yt2sa->manifest->route:}/post">
                 {:trans; Posts :}

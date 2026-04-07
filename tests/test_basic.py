@@ -64,7 +64,7 @@ def test_permissions_policy_header_when_configured():
         SECRET_KEY = "test_secret_key"
         DB_PWA = "sqlite:///:memory:"
         DB_SAFE = "sqlite:///:memory:"
-        DB_FILES = "sqlite:///:memory:"
+        DB_IMAGE = "sqlite:///:memory:"
         MAIL_METHOD = "dummy"
         PERMISSIONS_POLICY = "geolocation=(), microphone=(), camera=(), payment=()"
 

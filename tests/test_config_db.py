@@ -73,7 +73,7 @@ def test_db_override_has_priority_over_custom_json(tmp_path):
         SECRET_KEY = "test_secret_key"
         DB_PWA = "sqlite:///:memory:"
         DB_SAFE = "sqlite:///:memory:"
-        DB_FILES = "sqlite:///:memory:"
+        DB_IMAGE = "sqlite:///:memory:"
         MAIL_METHOD = "dummy"
         CONFIG_DB_PATH = str(db_path)
 

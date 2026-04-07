@@ -32,6 +32,11 @@ class TestAdminRoutesAccess:
         response = client.get(f"{BASE_ROUTE}/profile")
         assert response.status_code in [302, 401, 403, 404]
 
+    def test_admin_image_route_requires_auth(self, client):
+        """Test /admin/image requires authentication."""
+        response = client.get(f"{BASE_ROUTE}/image")
+        assert response.status_code in [302, 401, 403, 404]
+
     def test_admin_post_route_requires_auth(self, client):
         """Test /admin/post requires authentication."""
         response = client.get(f"{BASE_ROUTE}/post")
@@ -71,6 +76,12 @@ class TestAdminRequestHandler:
         module = importlib.import_module(f"component.{PACKAGE_NAME}.route.admin_handler")
         AdminProfileRequestHandler = module.AdminProfileRequestHandler
         assert AdminProfileRequestHandler is not None
+
+    def test_admin_image_handler_imports(self):
+        """Test that AdminImageRequestHandler can be imported."""
+        module = importlib.import_module(f"component.{PACKAGE_NAME}.route.admin_handler")
+        AdminImageRequestHandler = module.AdminImageRequestHandler
+        assert AdminImageRequestHandler is not None
 
     def test_admin_post_handler_imports(self):
         """Test that AdminPostRequestHandler can be imported."""

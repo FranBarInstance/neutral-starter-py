@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Admin Images",
+                "description": "Administer uploaded images and image moderation status",
+                "h1": "Images"
+            }
+        }
+    }
+}

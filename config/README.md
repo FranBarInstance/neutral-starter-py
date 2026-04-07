@@ -154,14 +154,20 @@ Important note:
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `VALIDATE_SIGNUP` | Keep signup accounts unvalidated until confirmation flow finishes. | `true` |
+| `REQUIRES_USER_EMAIL` | Require each account to keep at least one email address attached. | `true` |
 | `SESSION_TOKEN_LENGTH` | Session token entropy length for token generation. | `32` |
 | `SESSION_IDLE_EXPIRES_SECONDS` | Session idle timeout in seconds. | `2592000` |
 | `UTOKEN_IDLE_EXPIRES_SECONDS` | User-security token idle timeout in seconds. | `14400` |
 | `FTOKEN_EXPIRES_SECONDS` | Form token expiration in seconds. | `240` |
 | `PIN_EXPIRES_SECONDS` | PIN expiration in seconds. | `86400` |
+| `PIN_ACCOUNT_EXPIRES_SECONDS` | PIN expiration for account/profile flows in seconds. | `900` |
 | `TOKEN_LENGTH` | Generic token generation length. | `32` |
 | `PIN_MIN` | Minimum PIN numeric value. | `100000` |
 | `PIN_MAX` | Maximum PIN numeric value. | `999999` |
+| `USERNAME_MIN_LENGTH` | Minimum allowed username length after normalization. | `3` |
+| `USERNAME_MAX_LENGTH` | Maximum allowed username length. | `30` |
+| `USERNAME_RELEASED_TTL` | Seconds to reserve a released username in `username_blacklist`; `0` keeps it forever. | `2592000` |
+| `USERNAME_CHANGE_COOLDOWN` | Minimum seconds between username changes; `0` disables cooldown. | `604800` |
 | `UUID_MIN` | Lower bound for generated numeric IDs. | `1000000000000` |
 | `UUID_MAX` | Upper bound for generated numeric IDs. | `9999999999999` |
 
@@ -203,17 +209,30 @@ Important note:
 | `DB_SAFE_PORT` | DB port. | empty |
 | `DB_SAFE_PATH` | SQLite folder path (used when sqlite). | `../storage` |
 
-### Database - Files
+### Database - Image
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `DB_FILES_TYPE` | DB engine. | `sqlite` |
-| `DB_FILES_NAME` | Database name / sqlite file name. | `files.db` |
-| `DB_FILES_USER` | DB username. | empty |
-| `DB_FILES_PASSWORD` | DB password. | empty |
-| `DB_FILES_HOST` | DB host. | `localhost` |
-| `DB_FILES_PORT` | DB port. | empty |
-| `DB_FILES_PATH` | SQLite folder path (used when sqlite). | `../storage` |
+| `DB_IMAGE_TYPE` | DB engine. | `sqlite` |
+| `DB_IMAGE_NAME` | Database name / sqlite file name. | `image.db` |
+| `DB_IMAGE_USER` | DB username. | empty |
+| `DB_IMAGE_PASSWORD` | DB password. | empty |
+| `DB_IMAGE_HOST` | DB host. | `localhost` |
+| `DB_IMAGE_PORT` | DB port. | empty |
+| `DB_IMAGE_PATH` | SQLite folder path (used when sqlite). | `../storage` |
+
+### Image Processing
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `IMAGE_THUMB_SIZE` | Thumbnail size (square). | `100` |
+| `IMAGE_MEDIUM_WIDTH` | Medium image width. | `420` |
+| `IMAGE_FULL_WIDTH` | Full image width. | `1920` |
+| `IMAGE_WEBP_QUALITY` | WebP quality used during encoding. | `85` |
+| `IMAGE_MAX_FILE_BYTES` | Maximum accepted size for a single uploaded file. | `10485760` |
+| `IMAGE_MAX_UPLOAD_BYTES` | Maximum accepted upload size in bytes. | `20971520` |
+| `IMAGE_ALLOWED_MIME` | Comma-separated allow-list of accepted MIME types. | `image/jpeg,image/png,image/webp,image/gif` |
+| `IMAGE_MAX_PIXELS` | Maximum allowed decoded image area in pixels. | `25000000` |
 
 ### Content Security Policy (CSP)
 

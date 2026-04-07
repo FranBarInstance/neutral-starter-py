@@ -1,0 +1,17 @@
+{
+    "uuid": "image_0yt2sa",
+    "name": "Image Variant Delivery",
+    "description": "Serve stored image variants by image id",
+    "version": "0.0.0",
+    "route": "/i",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    }
+}

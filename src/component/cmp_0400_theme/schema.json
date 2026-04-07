@@ -33,7 +33,7 @@
     "data": {
         "current": {
             "theme": {
-                "theme": "sketch",
+                "theme": "studio-underline",
                 "color": "primary",
                 "class": {
                     "container": "container p-0 p-md-2",
@@ -46,7 +46,7 @@
                 },
                 "spin": "current:template:spin-set-spin4",
                 "allow_themes": [
-                    "sketch"
+                    "studio-underline"
                 ],
                 "allow_colors": [
                     "primary"

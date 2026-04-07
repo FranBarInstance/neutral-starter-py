@@ -21,7 +21,7 @@ class TestConfig(Config):
     # Use memory databases for isolation
     DB_PWA = "sqlite:///:memory:"
     DB_SAFE = "sqlite:///:memory:"
-    DB_FILES = "sqlite:///:memory:"
+    DB_IMAGE = "sqlite:///:memory:"
     # Disable features that might require external services
     MAIL_METHOD = "dummy"
 

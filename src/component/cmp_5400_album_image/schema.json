@@ -1,0 +1,28 @@
+{
+    "data": {
+        "current": {
+            "drawer": {
+                "menu": {
+                    "session:true": {
+                        "user": {
+                            "name": "User",
+                            "tabs": "user",
+                            "icon": "x-icon-user"
+                        }
+                    }
+                }
+            },
+            "menu": {
+                "session:true": {
+                    "user": {
+                        "album-image": {
+                            "text": "Album Images",
+                            "link": "[:;data->album_image_0yt2sa->manifest->route:]",
+                            "icon": "x-icon-images"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

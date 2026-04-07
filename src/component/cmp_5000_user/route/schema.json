@@ -3,13 +3,17 @@
         "current_forms": {
             "user_profile": {
                 "check_fields": [
+                    "imageid",
+                    "username",
                     "alias",
                     "locale"
                 ],
                 "validation": {
                     "minfields": 1,
-                    "maxfields": 8,
+                    "maxfields": 10,
                     "allow_fields": [
+                        "imageid",
+                        "username",
                         "alias",
                         "locale",
                         "region",
@@ -21,6 +25,19 @@
                     ]
                 },
                 "rules": {
+                    "imageid": {
+                        "required": false,
+                        "maxlength": 64,
+                        "pattern": "^[0-9a-fA-F-]*$",
+                        "regex": "^$|^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+                    },
+                    "username": {
+                        "required": false,
+                        "minlength": 0,
+                        "maxlength": 30,
+                        "pattern": "^$|^[a-z0-9]([a-z0-9-]*[a-z0-9])?$",
+                        "regex": "^$|^[a-z0-9]([a-z0-9-]*[a-z0-9])?$"
+                    },
                     "alias": {
                         "required": true,
                         "minlength": 2,

@@ -4,27 +4,42 @@
             "trans": {
                 "es": {
                     "Admin": "Administrador",
+                    "Help": "Ayuda",
                     "Users": "Usuarios",
+                    "Profiles": "Perfiles",
+                    "Images": "Imágenes",
                     "Posts": "Publicaciones"
                 },
                 "de": {
                     "Admin": "Administrator",
+                    "Help": "Hilfe",
                     "Users": "Benutzer",
+                    "Profiles": "Profile",
+                    "Images": "Bilder",
                     "Posts": "Beiträge"
                 },
                 "fr": {
                     "Admin": "Administrateur",
+                    "Help": "Aide",
                     "Users": "Utilisateurs",
+                    "Profiles": "Profils",
+                    "Images": "Images",
                     "Posts": "Publications"
                 },
                 "ar": {
                     "Admin": "مدير",
+                    "Help": "مساعدة",
                     "Users": "المستخدمون",
+                    "Profiles": "الملفات الشخصية",
+                    "Images": "الصور",
                     "Posts": "المنشورات"
                 },
                 "zh": {
                     "Admin": "管理员",
+                    "Help": "帮助",
                     "Users": "用户",
+                    "Profiles": "个人资料",
+                    "Images": "图片",
                     "Posts": "帖子"
                 }
             }
@@ -45,10 +60,25 @@
                             "link": "[:;data->admin_0yt2sa->manifest->route:]/user",
                             "icon": "x-icon-user"
                         },
+                        "admin-profiles": {
+                            "text": "Profiles",
+                            "link": "[:;data->admin_0yt2sa->manifest->route:]/profile",
+                            "icon": "x-icon-profile"
+                        },
+                        "admin-images": {
+                            "text": "Images",
+                            "link": "[:;data->admin_0yt2sa->manifest->route:]/image",
+                            "icon": "x-icon-images"
+                        },
                         "admin-posts": {
                             "text": "Posts",
                             "link": "[:;data->admin_0yt2sa->manifest->route:]/post",
                             "icon": "x-icon-edit"
+                        },
+                        "admin-help": {
+                            "text": "Help",
+                            "link": "[:;data->admin_0yt2sa->manifest->route:]/help",
+                            "icon": "x-icon-help"
                         }
                     }
                 }

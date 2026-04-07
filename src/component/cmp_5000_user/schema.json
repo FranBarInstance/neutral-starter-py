@@ -71,6 +71,7 @@
                             "link": "[:;data->user_0yt2sa->manifest->route:]/account",
                             "icon": "x-icon-lock"
                         },
+                        "album-image": {},
                         "logout": {
                             "text": "Sign out",
                             "link": "[:;data->sign_0yt2sa->manifest->route:]/out",

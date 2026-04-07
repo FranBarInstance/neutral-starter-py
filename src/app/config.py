@@ -71,6 +71,13 @@ class Config: # pylint: disable=too-few-public-methods
 
     STATIC_FOLDER = os.path.join(BASE_DIR, "..", "public")
     STATIC_CACHE_CONTROL = config.get('STATIC_CACHE_CONTROL', "max-age=14400")
+    CACHE_IMG = int(config.get('CACHE_IMG', 31536000))
+    STATIC_CACHE_IMG_CONTROL = config.get(
+        'STATIC_CACHE_IMG_CONTROL', "max-age=31536000, public, immutable"
+    )
+    STATIC_CACHE_IMG_PROFILE_CONTROL = config.get(
+        'STATIC_CACHE_IMG_PROFILE_CONTROL', "max-age=120, public"
+    )
     CONFIG_DB_PATH = (
         config.get('CONFIG_DB_PATH', '')
         or os.path.join(BASE_DIR, "..", "config", "config.db")
@@ -115,6 +122,10 @@ class Config: # pylint: disable=too-few-public-methods
     TOKEN_LENGTH = int(config.get('TOKEN_LENGTH', 32))
     PIN_MIN = int(config.get('PIN_MIN', 100000))
     PIN_MAX = int(config.get('PIN_MAX', 999999))
+    USERNAME_MIN_LENGTH = int(config.get('USERNAME_MIN_LENGTH', 3))
+    USERNAME_MAX_LENGTH = int(config.get('USERNAME_MAX_LENGTH', 30))
+    USERNAME_RELEASED_TTL = int(config.get('USERNAME_RELEASED_TTL', 2592000))
+    USERNAME_CHANGE_COOLDOWN = int(config.get('USERNAME_CHANGE_COOLDOWN', 604800))
 
     UUID_MIN = int(config.get('UUID_MIN', 1000000000000))
     UUID_MAX = int(config.get('UUID_MAX', 9999999999999))
@@ -167,13 +178,13 @@ class Config: # pylint: disable=too-few-public-methods
     DB_SAFE_HOST = config.get('DB_SAFE_HOST', 'localhost')
     DB_SAFE_PORT = config.get('DB_SAFE_PORT', '')
     DB_SAFE_PATH = config.get('DB_SAFE_PATH', '') or os.path.join(BASE_DIR, "..", 'storage')  # SQLite  # pylint: disable=line-too-long
-    DB_FILES_TYPE = config.get('DB_FILES_TYPE', 'sqlite').lower()
-    DB_FILES_NAME = config.get('DB_FILES_NAME', 'files.db')
-    DB_FILES_USER = config.get('DB_FILES_USER', '')
-    DB_FILES_PASSWORD = config.get('DB_FILES_PASSWORD', '')
-    DB_FILES_HOST = config.get('DB_FILES_HOST', 'localhost')
-    DB_FILES_PORT = config.get('DB_FILES_PORT', '')
-    DB_FILES_PATH = config.get('DB_FILES_PATH', '') or os.path.join(BASE_DIR, "..", 'storage')  # SQLite  # pylint: disable=line-too-long
+    DB_IMAGE_TYPE = config.get('DB_IMAGE_TYPE', 'sqlite').lower()
+    DB_IMAGE_NAME = config.get('DB_IMAGE_NAME', 'image.db')
+    DB_IMAGE_USER = config.get('DB_IMAGE_USER', '')
+    DB_IMAGE_PASSWORD = config.get('DB_IMAGE_PASSWORD', '')
+    DB_IMAGE_HOST = config.get('DB_IMAGE_HOST', 'localhost')
+    DB_IMAGE_PORT = config.get('DB_IMAGE_PORT', '')
+    DB_IMAGE_PATH = config.get('DB_IMAGE_PATH', '') or os.path.join(BASE_DIR, "..", 'storage')  # SQLite  # pylint: disable=line-too-long
 
     if DB_PWA_TYPE == 'sqlite':
         DB_PWA = f"sqlite:///{Path(DB_PWA_PATH).joinpath(f'{DB_PWA_NAME}')}"
@@ -185,10 +196,25 @@ class Config: # pylint: disable=too-few-public-methods
     else:
         DB_SAFE = f"{DB_SAFE_TYPE}://{DB_SAFE_USER}:{DB_SAFE_PASSWORD}@{DB_SAFE_HOST}:{DB_SAFE_PORT}/{DB_SAFE_NAME}"  # pylint: disable=line-too-long
 
-    if DB_FILES_TYPE == 'sqlite':
-        DB_FILES = f"sqlite:///{Path(DB_FILES_PATH).joinpath(f'{DB_FILES_NAME}')}"
+    if DB_IMAGE_TYPE == 'sqlite':
+        DB_IMAGE = f"sqlite:///{Path(DB_IMAGE_PATH).joinpath(f'{DB_IMAGE_NAME}')}"
     else:
-        DB_FILES = f"{DB_FILES_TYPE}://{DB_FILES_USER}:{DB_FILES_PASSWORD}@{DB_FILES_HOST}:{DB_FILES_PORT}/{DB_FILES_NAME}"  # pylint: disable=line-too-long
+        DB_IMAGE = f"{DB_IMAGE_TYPE}://{DB_IMAGE_USER}:{DB_IMAGE_PASSWORD}@{DB_IMAGE_HOST}:{DB_IMAGE_PORT}/{DB_IMAGE_NAME}"  # pylint: disable=line-too-long
+
+    # Image processing
+    IMAGE_THUMB_SIZE = int(config.get('IMAGE_THUMB_SIZE', 100))
+    IMAGE_MEDIUM_WIDTH = int(config.get('IMAGE_MEDIUM_WIDTH', 420))
+    IMAGE_FULL_WIDTH = int(config.get('IMAGE_FULL_WIDTH', 1920))
+    IMAGE_WEBP_QUALITY = int(config.get('IMAGE_WEBP_QUALITY', 85))
+    IMAGE_MAX_ALBUMS = int(config.get('IMAGE_MAX_ALBUMS', 100))
+    IMAGE_MAX_PER_ALBUM = int(config.get('IMAGE_MAX_PER_ALBUM', 1000))
+    IMAGE_MAX_FILE_BYTES = int(config.get('IMAGE_MAX_FILE_BYTES', 10485760))
+    IMAGE_MAX_UPLOAD_BYTES = int(config.get('IMAGE_MAX_UPLOAD_BYTES', 20971520))
+    IMAGE_ALLOWED_MIME = config.get(
+        'IMAGE_ALLOWED_MIME',
+        'image/jpeg,image/png,image/webp,image/gif'
+    )
+    IMAGE_MAX_PIXELS = int(config.get('IMAGE_MAX_PIXELS', 25000000))
 
     # CSP Whitelist - Convert comma separated strings to lists
     CSP_ALLOWED_SCRIPT = config.get('CSP_ALLOWED_SCRIPT', '').split(',')

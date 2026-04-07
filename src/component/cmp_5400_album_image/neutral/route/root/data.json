@@ -1,0 +1,11 @@
+{
+    "data": {
+        "current": {
+            "route": {
+                "title": "Album Images",
+                "description": "Upload and manage album images",
+                "h1": "Album Images"
+            }
+        }
+    }
+}

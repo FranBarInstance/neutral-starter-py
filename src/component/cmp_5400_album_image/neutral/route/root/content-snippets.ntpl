@@ -1,0 +1,153 @@
+{:data; #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;current->theme->class->container:}">
+        <div class="album-image-edit-preview-container">
+            <div class="album-image-edit-preview-empty alert alert-light {:;x-icons->x-icon-info:}">
+                {:trans; Select images to move, delete, ... :}
+            </div>
+        </div>
+        {:fetch; |{:;album_image_0yt2sa->manifest->route:}/field/batch-action/ajax/{:;LTOKEN:}|form||{:;local::current->forms->class:} px-2 py-3 mb-4|album-image-batch-form| >>
+            <input type="hidden" name="album-image-edit-image-id" value="">
+            <div class="row align-items-stretch g-2">
+                <div class="col-12 col-md-4">
+                    <div class="form-floating">
+                        <select name="action" class="form-select batch-action-select" required>
+                            <option value=""></option>
+                            <option value="move">{:trans; Move to album :}</option>
+                            <option value="delete">{:trans; Delete permanently :}</option>
+                        </select>
+                        <label>{:trans; Action :}</label>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 batch-action-target-album">
+                    <div class="input-group">
+                        <div class="form-floating w-75">
+                            <input type="text" name="target_album" class="form-control" placeholder="{:trans; Enter album name :}" required>
+                            <label>{:trans; Target Album :}</label>
+                        </div>
+                        <div class="form-floating w-25">
+                            <select class="form-select batch-action-target-album-select">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="d-flex h-100 gap-2">
+                        <button type="submit" class="btn btn-primary w-100 h-100 flex-grow-1 batch-action-submit" disabled>
+                            {:trans; Apply changes :}
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 mt-3">
+                    <div class="form-check user-select-none">
+                        <input class="form-check-input batch-action-confirm" type="checkbox" name="confirm" value="1" id="batch-action-confirm" autocomplete="off" required>
+                        <label class="form-check-label cursor-pointer" for="batch-action-confirm">
+                            {:trans; I confirm these changes :}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        :}
+
+        <script nonce="{:;CSP_NONCE:}">
+            (function() {
+                var form = document.getElementById('album-image-batch-form');
+                if (!form) return;
+
+                var actionSelect = form.querySelector('.batch-action-select');
+                var targetAlbum = form.querySelector('.batch-action-target-album');
+                var targetAlbumInput = targetAlbum.querySelector('input');
+                var confirmCheckbox = form.querySelector('.batch-action-confirm');
+                var submitBtn = form.querySelector('.batch-action-submit');
+                var targetAlbumSelect = form.querySelector('.batch-action-target-album-select');
+
+                // Fetch available albums and populate select
+                if (targetAlbumSelect) {
+                    fetch('{:;album_image_0yt2sa->manifest->route:}/field/albums', {
+                        headers: { 'Requested-With-Ajax': 'true' }
+                    })
+                    .then(function(res) { return res.json(); })
+                    .then(function(data) {
+                        if (data.success && data.items) {
+                            data.items.forEach(function(album) {
+                                var option = document.createElement('option');
+                                option.value = album;
+                                option.textContent = album;
+                                targetAlbumSelect.appendChild(option);
+                            });
+                        }
+                    });
+
+                    // Pre-fill input when an album is selected
+                    targetAlbumSelect.addEventListener('change', function() {
+                        if (this.value) {
+                            targetAlbumInput.value = this.value;
+                            this.value = "";
+                        }
+                    });
+                }
+
+                // Toggle target album input
+                actionSelect.addEventListener('change', function() {
+                    if (this.value === 'delete') {
+                        targetAlbumInput.disabled = true;
+                        if (targetAlbumSelect) targetAlbumSelect.disabled = true;
+                        targetAlbumInput.removeAttribute('required');
+                        submitBtn.className = submitBtn.className.replace('btn-warning', 'btn-danger');
+                    } else {
+                        targetAlbumInput.disabled = false;
+                        if (targetAlbumSelect) targetAlbumSelect.disabled = false;
+                        targetAlbumInput.setAttribute('required', 'required');
+                        submitBtn.className = submitBtn.className.replace('btn-danger', 'btn-warning');
+                    }
+                    resetCheckbox();
+                });
+
+                // Toggle submit button
+                confirmCheckbox.addEventListener('change', function() {
+                    submitBtn.disabled = !this.checked;
+                });
+
+                function resetCheckbox() {
+                    confirmCheckbox.checked = false;
+                    submitBtn.disabled = true;
+                }
+
+                // Uncheck when interacting with other fields or clicking away
+                targetAlbumInput.addEventListener('focus', resetCheckbox);
+                actionSelect.addEventListener('focus', resetCheckbox);
+                document.addEventListener('click', function(e) {
+                    if (!confirmCheckbox.checked) return;
+                    if (e.target.closest('.batch-action-submit') ||
+                        e.target.closest('.batch-action-confirm') ||
+                        e.target.closest('label[for="batch-action-confirm"]')) {
+                        return;
+                    }
+                    resetCheckbox();
+                });
+
+                // Always start unchecked and disable button
+                resetCheckbox();
+
+                // Uncheck when form is submitted or neutral fetch completes
+                form.addEventListener('submit', function() {
+                    setTimeout(resetCheckbox, 50);
+                });
+
+                window.addEventListener('neutralFetchCompleted', resetCheckbox);
+            })();
+        </script>
+        {:code;
+            {:param; max-images >> 100 :}
+            {:param; list-limit >> 60 :}
+            {:param; fields-to-fill >> album-image-edit-image-id :}
+            {:param; url-to-fill >> album-image-edit-image-url :}
+            {:snip; album_image_0yt2sa:image-field :}
+        :}
+
+    </div>
+    <script nonce="{:;CSP_NONCE:}" src="{:;album_image_0yt2sa->manifest->route:}/static/album-image-edit.js?v={:;album_image_0yt2sa->manifest->version:}"></script>
+:}
+{:^;:}

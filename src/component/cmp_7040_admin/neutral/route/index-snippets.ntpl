@@ -20,3 +20,5 @@
 {:locale;
     #/locale-{:lang;:}.json
 :}
+
+{:include; {:flg; require :} >> #/image-snippets.ntpl :}

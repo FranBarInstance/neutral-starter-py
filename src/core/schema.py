@@ -103,6 +103,8 @@ class Schema:
 
         if self.req.method == "POST":
             self.data['CONTEXT']['POST'].update(self.req.form)
+            for field_name in self.req.files.keys():
+                self.data['CONTEXT']['FILES'][field_name] = self.req.files.getlist(field_name)
 
         self.data['CONTEXT']['HEADERS'].update(self.req.headers)
 

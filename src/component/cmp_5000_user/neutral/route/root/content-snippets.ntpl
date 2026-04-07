@@ -7,10 +7,16 @@
                 <div class="col-12 col-md-6 col-lg-4 mb-3">
                     <div class="row">
                         <div class="col-12 mb-2">
+                            <div class="text-muted"><i class="{:;x-icons->x-icon-username:}"></i> {:trans; Username :}</div>
+                            <div class="">
+                                {:filled; USER->profile->username >> @{:;USER->profile->username:} :}{:else; <span class="text-muted">{:trans; Not set:}</span> :}
+                            </div>
+                        </div>
+                        <div class="col-12">
                             <div class="text-muted"><i class="{:;x-icons->x-icon-map:}"></i> {:trans; Country :}</div>
                             <div class="">{:trans; {:;USER->profile->region:}{:else; auto :} :}</div>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mt-2">
                             <div class="text-muted"><i class="{:;x-icons->x-icon-locale:}"></i> {:trans; Language :}</div>
                             <div class="">{:eval; {:;USER->profile->locale:} >>
                                 {:trans; ref:locale:{:;USER->profile->locale:} :}
@@ -52,15 +58,30 @@
     </div>
 :}
 
+{:snip; user-profile-image-url >>
+    {:coalesce;
+        {:!filled; USER->profile->imageId >>
+            /img/profile.jpg
+        :}
+        {:!filled; USER->profile->username >>
+            /img/profile.jpg
+        :}
+        {:code;
+           {:;current->site->image_link_profile:}/{:;USER->profile->username:}?v={:hash; {:;USER->profile->imageId:} :}
+        :}
+    :}
+:}
+
 {:snip; current:template:body-main-content >>
     <div class="{:;current->theme->class->container:}">
         <div class="card mb-4">
             <div class="card-header bg-primary py-5"></div>
             <div class="card-body pt-0">
                 <div class="d-flex flex-column flex-md-row align-items-center align-items-md-end text-center text-md-start">
-                    <img src="/img/profile.jpg" alt="Foto de perfil" class="rounded-circle border border-4 border-white bg-white translate-middle-y" width="120" height="120">
+                    <img src="{:snip; user-profile-image-url:}" alt="{:trans; Profile picture:}" class="rounded-circle border border-4 border-white bg-white translate-middle-y" width="107" height="107">
                     <div class="ms-md-3">
                         <h1 class="h3 mb-1">{:;USER->profile->alias:}</h1>
+                        <div class="text-muted mb-2">{:filled; USER->profile->username >> @{:;USER->profile->username:} :}</div>
                         {:each; USER->profile_roles k v >>
                         <span class="badge bg-secondary me-2">{:trans; {:;RBAC_DEFAULT_ROLES->{:;v:}->name:} :}</span>
                         :}

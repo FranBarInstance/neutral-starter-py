@@ -1,0 +1,103 @@
+{:*
+    Reusable album required CSS and JS
+*:}
+{:snip; album_image_0yt2sa:image-field-required >>
+    {:moveto; /head >>
+        <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;album_image_0yt2sa->manifest->route:}/static/album-image.css?v={:;album_image_0yt2sa->manifest->version:}">
+    :}
+    {:moveto; /body >>
+        <script nonce="{:;CSP_NONCE:}" src="{:;album_image_0yt2sa->manifest->route:}/static/album-image-field.js?v={:;album_image_0yt2sa->manifest->version:}"></script>
+    :}
+:}
+
+
+{:*
+    Reusable album image field
+*:}
+{:snip; album_image_0yt2sa:image-field >>
+    {:snip; album_image_0yt2sa:image-field-required :}
+    <div
+        class="album-image-field"
+        data-upload-url="{:;album_image_0yt2sa->manifest->route:}/field/upload"
+        data-list-url="{:;album_image_0yt2sa->manifest->route:}/field/list"
+        data-albums-url="{:;album_image_0yt2sa->manifest->route:}/field/albums"
+        data-max-images="{:param; max-images :}{:else; 1 :}"
+        data-list-limit="{:param; list-limit :}{:else; 21 :}"
+        data-upload-delay-ms="{:param; upload-delay-ms :}{:else; 100 :}"
+        data-force-album="{:param; force-album :}"
+        data-fields-to-fill="{:param; fields-to-fill :}"
+        data-url-to-fill="{:param; url-to-fill :}"
+    >
+
+    <div class="card album-image-dropzone p-3 -py-md-4 text-center mb-3">
+        <div class="album-image-dropzone-copy">
+            <div class="fw-medium">
+                <span class="{:;x-icons->x-icon-images:} me-2"></span>
+                <span>{:trans; Click to choose files :}</span>
+                <span class="d-none d-md-inline">{:trans; or drag and drop images here :}</span>
+                <div class="text-muted small">{:trans; Max images: :} {:param; max-images :}{:else; 1 :}</div>
+            </div>
+        </div>
+        <input type="file" class="album-image-field-input d-none" accept="image/*">
+    </div>
+
+    <div class="album-image-field-error alert alert-danger mt-3 d-none"></div>
+    <div class="album-image-field-spinner-template d-none">
+        <div class="album-image-field-status-icon text-primary shadow-sm bg-white">
+            {:snip; spin-1x :}
+        </div>
+    </div>
+    <div class="album-image-field-remove-icon-template d-none"><span class="{:;x-icons->x-icon-remove:}"></span></div>
+    <div class="album-image-field-success-icon-template d-none">
+        <div class="album-image-field-status-icon text-white shadow-sm bg-success">
+            <span class="{:;x-icons->x-icon-check:}"></span>
+        </div>
+    </div>
+    <div class="album-image-field-pending-grid d-none mb-2"></div>
+
+    <div class="row g-2 align-items-stretch mb-3">
+        <div class="col-12 col-md-4">
+            <div class="form-floating">
+                <input
+                    type="text"
+                    class="form-control album-image-field-album"
+                    placeholder="gallery"
+                    value="{:param; force-album :}{:else; gallery :}"
+                    {:eval; {:param; force-album :} >> readonly :}
+                >
+                <label>{:trans; Album name :}</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-floating">
+                <select class="form-select album-image-field-album-select" {:eval; {:param; force-album :} >> disabled :}>
+                    {:eval; {:param; force-album :} >>
+                        <option value="{:param; force-album :}">{:param; force-album :}</option>
+                    :}{:else;
+                        <option value="">...</option>
+                    :}
+                </select>
+                <label>{:trans; Existing album :}</label>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="d-flex h-100 gap-2">
+                <button type="button" class="btn btn-outline-danger h-100 album-image-reset-button" title="{:trans; Clear selection :}" disabled>
+                    <span class="{:;x-icons->x-icon-remove:}"></span>
+                </button>
+                <button type="button" class="btn btn-primary h-100 flex-grow-1 album-image-upload-button" disabled>
+                    <span class="album-image-upload-spinner d-none me-2">{:snip; spin-1x :}</span>
+                    <span class="album-image-upload-text">{:trans; Upload :}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="album-image-field-grid"></div>
+    <div class="album-image-field-pagination text-center mt-3 d-none">
+        <button type="button" class="btn btn-sm btn-outline-secondary w-50 album-image-load-more">
+            {:trans; Load more :} <i class="{:;x-icons->x-icon-down:} x-icon-lg"></i>
+        </button>
+    </div>
+:}
+
+{:^;:}

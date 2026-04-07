@@ -206,8 +206,8 @@ def create_app(config_class=Config, debug=None):
             db_pwa_type=app.config["DB_PWA_TYPE"],
             db_safe_url=app.config["DB_SAFE"],
             db_safe_type=app.config["DB_SAFE_TYPE"],
-            db_files_url=app.config["DB_FILES"],
-            db_files_type=app.config["DB_FILES_TYPE"],
+            db_image_url=app.config["DB_IMAGE"],
+            db_image_type=app.config["DB_IMAGE_TYPE"],
         )
 
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)

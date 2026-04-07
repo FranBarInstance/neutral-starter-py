@@ -1,0 +1,19 @@
+{:coalesce;
+    {:same; /{:;form_result->status:}/success/ >>
+        <div class="alert alert-success">
+            <p><i class="{:;x-icons->x-icon-check:} me-2"></i>{:trans; {:;form_result->message:} :}</p>
+        </div>
+        {:snip; util:reload-page-self :}
+    :}
+
+    {:same; /{:;form_result->status:}/fail/ >>
+        <div class="alert alert-danger px-3 py-3 border rounded mb-4">
+            <h5><i class="{:;x-icons->x-icon-error:} me-2"></i>{:trans; ERROR :}</h5>
+            <p class="mb-0">{:trans; {:;form_result->message:} :}</p>
+            <div class="mt-3">
+                <button type="button" onclick="window.location.reload()" class="btn btn-outline-danger w-100">{:trans; Retry :}</button>
+            </div>
+        </div>
+    :}
+:}
+{:^;:}

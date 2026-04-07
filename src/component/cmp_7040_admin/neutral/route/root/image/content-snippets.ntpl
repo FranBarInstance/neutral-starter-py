@@ -1,0 +1,11 @@
+{:data; #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;current->theme->class->container:} mb-3">
+        {:snip; admin_0yt2sa:image-feedback :}
+        {:snip; admin_0yt2sa:image-filters :}
+        {:snip; admin_0yt2sa:image-main :}
+    </div>
+:}
+
+{:^;:}

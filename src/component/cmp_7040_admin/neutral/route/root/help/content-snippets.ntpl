@@ -1,0 +1,10 @@
+{:data; #/data.json :}
+
+{:snip; current:template:body-main-content >>
+    <div class="{:;current->theme->class->container:} py-4">
+        {:include; {:flg; require :} >> #/technical.ntpl :}
+        {:include; {:flg; require :} >> #/policy.ntpl :}
+    </div>
+:}
+
+{:^;:}

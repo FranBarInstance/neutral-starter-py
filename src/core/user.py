@@ -6,6 +6,7 @@ import random
 from datetime import datetime, timezone
 import time
 import json
+import regex
 import bcrypt
 from constants import (
     USER_EXISTS,
@@ -18,6 +19,21 @@ from utils.sbase64url import sbase64url_sha256, sbase64url_token
 from app.config import Config
 from .model import Model
 # import pprint
+
+USERNAME_REGEX = regex.compile(r"^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
+RESERVED_USERNAMES = (
+    "about", "abuse", "account", "accounts", "admin", "administrator", "amazon",
+    "anonymous", "api", "app", "assets", "auth", "avatar", "avatars", "bot",
+    "config", "contact", "create", "dashboard", "default", "delete", "demo",
+    "edit", "example", "facebook", "feedback", "google", "guest", "help",
+    "home", "image", "images", "index", "instagram", "install", "login",
+    "logout", "media", "meta", "microsoft", "mod", "moderator", "my",
+    "netflix", "new", "null", "official", "profile", "public", "private",
+    "register", "report", "root", "sample", "settings", "setup", "signup",
+    "staff", "static", "support", "system", "team", "test", "twitter",
+    "undefined", "update", "upgrade", "upload", "uploads", "user", "users",
+    "whatsapp",
+)
 
 
 class User:  # pylint: disable=too-many-public-methods
@@ -61,6 +77,9 @@ class User:  # pylint: disable=too-many-public-methods
             "profile": {
                 "id": "",
                 "userId": "",
+                "username": "",
+                "username_changed_at": "",
+                "imageId": "",
                 "alias": "",
                 "locale": "",
                 "region": "",
@@ -104,6 +123,9 @@ class User:  # pylint: disable=too-many-public-methods
                 "profile": {
                     "id": first_row.get("user_profile.profileId") or "",
                     "userId": user_id,
+                    "username": first_row.get("user_profile.username") or "",
+                    "username_changed_at": first_row.get("user_profile.username_changed_at") or "",
+                    "imageId": first_row.get("user_profile.imageId") or "",
                     "alias": first_row.get("user_profile.alias") or "",
                     "locale": first_row.get("user_profile.locale") or "",
                     "region": first_row.get("user_profile.region") or "",
@@ -141,9 +163,13 @@ class User:  # pylint: disable=too-many-public-methods
         }
 
     def _build_user_profile_params(self, profile_id, user_id, data):
+        username = self.normalize_username(data.get("username")) or None
         return {
             "profileId": profile_id,
             "userId": user_id,
+            "username": username,
+            "username_changed_at": self.now if username else None,
+            "imageId": data.get("imageId"),
             "region": data['region'].strip() if 'region' in data else None,
             "locale": data['locale'],
             "alias": data['alias'].strip(),
@@ -179,7 +205,180 @@ class User:  # pylint: disable=too-many-public-methods
             "expires": self.now + int(expires_seconds or Config.PIN_EXPIRES_SECONDS)
         }
 
-    def create(self, data) -> dict:
+    @staticmethod
+    def normalize_username(username: str | None) -> str:
+        """Normalize external username input before validation."""
+        return (username or "").strip().lower()
+
+    @staticmethod
+    def username_pattern() -> str:
+        """Expose the canonical username regex pattern."""
+        return USERNAME_REGEX.pattern
+
+    def is_valid_username(self, username: str | None) -> bool:
+        """Validate username against length, ASCII and regex rules."""
+        normalized = self.normalize_username(username)
+        if not normalized:
+            return False
+        if not normalized.isascii():
+            return False
+        if len(normalized) < Config.USERNAME_MIN_LENGTH:
+            return False
+        if len(normalized) > Config.USERNAME_MAX_LENGTH:
+            return False
+        return bool(USERNAME_REGEX.fullmatch(normalized))
+
+    def username_exists(self, username: str, exclude_profile_id: str = "") -> bool:
+        """Check whether a username is already assigned to another profile."""
+        normalized = self.normalize_username(username)
+        if not normalized:
+            return False
+        result = self.model.exec("user", "check-username-exists", {"username": normalized})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return False
+        owner_profile_id = str(result["rows"][0][0] or "")
+        return bool(owner_profile_id and owner_profile_id != str(exclude_profile_id or "").strip())
+
+    def get_blacklisted_username(self, username: str, now: int | None = None) -> dict:
+        """Return blacklist data for an active username reservation."""
+        normalized = self.normalize_username(username)
+        if not normalized:
+            return {}
+        result = self.model.exec(
+            "user",
+            "get-blacklisted-username",
+            {"username": normalized, "now": int(now or time.time())},
+        )
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return {}
+        row = result["rows"][0]
+        return {
+            "username": row[0] or "",
+            "reason": row[1] or "",
+            "expires_at": row[2],
+        }
+
+    def is_username_available(self, username: str, exclude_profile_id: str = "") -> bool:
+        """Check if a username can be assigned right now."""
+        normalized = self.normalize_username(username)
+        if not normalized:
+            return True
+        if not self.is_valid_username(normalized):
+            return False
+        if self.username_exists(normalized, exclude_profile_id=exclude_profile_id):
+            return False
+        return not bool(self.get_blacklisted_username(normalized))
+
+    def reserve_released_username(self, username: str) -> bool:
+        """Blacklist a released username according to installation TTL."""
+        normalized = self.normalize_username(username)
+        if not normalized:
+            return True
+        ttl = int(Config.USERNAME_RELEASED_TTL)
+        expires_at = None if ttl <= 0 else int(time.time()) + ttl
+        result = self.model.exec(
+            "user",
+            "upsert-username-blacklist",
+            {
+                "username": normalized,
+                "reason": "released",
+                "expires_at": expires_at,
+                "created": int(time.time()),
+            },
+        )
+        if self.model.has_error:
+            return False
+        return bool(result and result.get("success"))
+
+    def validate_username_change(  # pylint: disable=too-many-return-statements
+        self,
+        profile_id: str,
+        username: str,
+    ) -> dict:
+        """Validate a username update against cooldown, uniqueness and blacklist."""
+        profile_id = str(profile_id or "").strip()
+        result = self.model.exec("user", "get-profile-by-profileid", {"profileId": profile_id})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return {"success": False, "error": "PROFILE_NOT_FOUND"}
+
+        row = result["rows"][0]
+        current_username = self.normalize_username(row[2] if len(row) > 2 else "")
+        username_changed_at = row[3] if len(row) > 3 else None
+        normalized = self.normalize_username(username)
+
+        if normalized == current_username:
+            return {
+                "success": True,
+                "changed": False,
+                "username": current_username,
+                "current_username": current_username,
+            }
+
+        if normalized and not self.is_valid_username(normalized):
+            return {"success": False, "error": "INVALID"}
+
+        cooldown = int(Config.USERNAME_CHANGE_COOLDOWN)
+        if normalized and cooldown > 0 and username_changed_at:
+            try:
+                elapsed = int(time.time()) - int(username_changed_at)
+            except (TypeError, ValueError):
+                elapsed = cooldown
+            if elapsed < cooldown:
+                return {
+                    "success": False,
+                    "error": "COOLDOWN",
+                    "available_in": cooldown - elapsed,
+                }
+
+        if normalized and self.username_exists(normalized, exclude_profile_id=profile_id):
+            return {"success": False, "error": "TAKEN"}
+
+        blacklist_entry = self.get_blacklisted_username(normalized) if normalized else {}
+        if blacklist_entry:
+            return {
+                "success": False,
+                "error": "BLACKLISTED",
+                "reason": blacklist_entry.get("reason", ""),
+            }
+
+        return {
+            "success": True,
+            "changed": True,
+            "username": normalized,
+            "current_username": current_username,
+        }
+
+    def get_profile_by_username(self, username: str) -> dict:
+        """Return one profile row resolved by exact username."""
+        normalized = self.normalize_username(username)
+        if not normalized:
+            return {}
+
+        result = self.model.exec("user", "get-profile-by-username", {"username": normalized})
+        if self.model.has_error or not result or not result.get("rows") or not result["rows"][0]:
+            self.model.clear_error()
+            return {}
+
+        row = result["rows"][0]
+        return {
+            "profileId": row[0] or "",
+            "userId": row[1] or "",
+            "username": row[2] or "",
+            "username_changed_at": row[3] or "",
+            "imageId": row[4] or "",
+            "alias": row[5] or "",
+            "locale": row[6] or "",
+            "region": row[7] or "",
+            "properties": row[8] or "",
+            "lasttime": row[9] or "",
+            "created": row[10] or "",
+            "modified": row[11] or "",
+        }
+
+    def create(self, data) -> dict:  # pylint: disable=too-many-return-statements
         """Create a new user with the provided data."""
 
         # Required fields validation
@@ -215,6 +414,14 @@ class User:  # pylint: disable=too-many-public-methods
 
         target = str(Config.DISABLED[UNCONFIRMED])
         pin_params = self._build_user_pin_params(target, user_id)
+        username = self.normalize_username(data.get("username"))
+        if username and not self.is_username_available(username, exclude_profile_id=profile_id):
+            return {
+                'success': False,
+                'error': 'USERNAME_NOT_AVAILABLE',
+                'message': 'Username is not available'
+            }
+        data["username"] = username
 
         # Create user, profile, email, disabled and disabled_unvalidated records
         result = self.model.exec('user', 'create', [
@@ -242,6 +449,7 @@ class User:  # pylint: disable=too-many-public-methods
         return {
             'success': True,
             'alias': data['alias'],
+            'username': data['username'],
             'userId': user_id,
             'profileId': profile_id,
             'token': pin_params['token'],
@@ -301,7 +509,15 @@ class User:  # pylint: disable=too-many-public-methods
                         self.model.exec('user', 'delete-disabled', {
                             "reason": unconfirmed, "userId": user_data_list[0]['userId']
                         })
-                        self.model.exec('user', 'delete-pin', {"target": target, "userId": user_data_list[0]['userId'], "pin": pin})
+                        self.model.exec(
+                            'user',
+                            'delete-pin',
+                            {
+                                "target": target,
+                                "userId": user_data_list[0]['userId'],
+                                "pin": pin,
+                            },
+                        )
                         user_data['user_disabled'].pop(Config.DISABLED_KEY.get(key, key))
 
         return user_data
@@ -354,6 +570,9 @@ class User:  # pylint: disable=too-many-public-methods
                 'profile': {
                     'id': user_row.get('user_profile.profileId', ''),
                     'userId': user_row.get('userId'),
+                    'username': user_row.get('user_profile.username', ''),
+                    'username_changed_at': user_row.get('user_profile.username_changed_at', ''),
+                    'imageId': user_row.get('user_profile.imageId', ''),
                     'alias': user_row.get('user_profile.alias', ''),
                     'locale': user_row.get('user_profile.locale', ''),
                     'region': user_row.get('user_profile.region', ''),
@@ -1067,6 +1286,11 @@ class User:  # pylint: disable=too-many-public-methods
             return False
 
         db_properties_str = result_props["rows"][0][0]
+        current_image_id = result_props["rows"][0][1] if len(result_props["rows"][0]) > 1 else None
+        current_username = self.normalize_username(
+            result_props["rows"][0][2] if len(result_props["rows"][0]) > 2 else ""
+        )
+        current_username_changed_at = result_props["rows"][0][3] if len(result_props["rows"][0]) > 3 else None
         try:
             current_properties = json.loads(db_properties_str) if db_properties_str else {}
         except json.JSONDecodeError:
@@ -1080,9 +1304,27 @@ class User:  # pylint: disable=too-many-public-methods
             current_properties.update(new_properties)
 
         merged_properties = json.dumps(current_properties)
+        image_id = current_image_id
+        if "imageId" in data:
+            image_id = (data.get("imageId") or "").strip() or None
+
+        username = current_username
+        username_changed_at = current_username_changed_at
+        if "username" in data:
+            username_validation = self.validate_username_change(profile_id, data.get("username"))
+            if not username_validation.get("success"):
+                return False
+            username = username_validation.get("username", current_username)
+            if username_validation.get("changed"):
+                if not self.reserve_released_username(current_username):
+                    return False
+                username_changed_at = self.now if username else None
 
         params = {
             "profileId": profile_id,
+            "username": username or None,
+            "username_changed_at": username_changed_at,
+            "imageId": image_id,
             "alias": data.get("alias"),
             "region": data.get("region"),
             "locale": data.get("locale"),

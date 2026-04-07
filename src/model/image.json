@@ -1,0 +1,100 @@
+{
+    "setup-base": {
+        "@portable": [
+            "CREATE TABLE IF NOT EXISTS image (imageId VARCHAR(64) NOT NULL PRIMARY KEY, profileId VARCHAR(64) NOT NULL, albumCode VARCHAR(64) NOT NULL, thumbImg BLOB NOT NULL, mediumImg BLOB NOT NULL, fullImg BLOB NOT NULL, thumbWidth INT NOT NULL, thumbHeight INT NOT NULL, mediumWidth INT NOT NULL, mediumHeight INT NOT NULL, fullWidth INT NOT NULL, fullHeight INT NOT NULL, thumbBytes INT NOT NULL, mediumBytes INT NOT NULL, fullBytes INT NOT NULL, created INT(11) NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS image_disabled (reason INT NOT NULL, imageId VARCHAR(64) NOT NULL, description VARCHAR(256), modified BIGINT NOT NULL, created BIGINT NOT NULL, PRIMARY KEY (reason, imageId), FOREIGN KEY (imageId) REFERENCES image(imageId) ON DELETE CASCADE)",
+            "CREATE INDEX IF NOT EXISTS idx_image_profileId ON image(profileId)",
+            "CREATE INDEX IF NOT EXISTS idx_image_profile_album ON image(profileId, albumCode)",
+            "CREATE INDEX IF NOT EXISTS idx_image_created ON image(created)",
+            "CREATE INDEX IF NOT EXISTS idx_image_disabled_imageId ON image_disabled(imageId)",
+            "CREATE INDEX IF NOT EXISTS idx_image_disabled_modified ON image_disabled(modified)"
+        ],
+        "@sqlite": "@portable",
+        "@postgresql": [
+            "CREATE TABLE IF NOT EXISTS image (imageId VARCHAR(64) NOT NULL PRIMARY KEY, profileId VARCHAR(64) NOT NULL, albumCode VARCHAR(64) NOT NULL, thumbImg BYTEA NOT NULL, mediumImg BYTEA NOT NULL, fullImg BYTEA NOT NULL, thumbWidth INT NOT NULL, thumbHeight INT NOT NULL, mediumWidth INT NOT NULL, mediumHeight INT NOT NULL, fullWidth INT NOT NULL, fullHeight INT NOT NULL, thumbBytes INT NOT NULL, mediumBytes INT NOT NULL, fullBytes INT NOT NULL, created INT NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS image_disabled (reason INT NOT NULL, imageId VARCHAR(64) NOT NULL, description VARCHAR(256), modified BIGINT NOT NULL, created BIGINT NOT NULL, PRIMARY KEY (reason, imageId), FOREIGN KEY (imageId) REFERENCES image(imageId) ON DELETE CASCADE)",
+            "CREATE INDEX IF NOT EXISTS idx_image_profileId ON image(profileId)",
+            "CREATE INDEX IF NOT EXISTS idx_image_profile_album ON image(profileId, albumCode)",
+            "CREATE INDEX IF NOT EXISTS idx_image_created ON image(created)",
+            "CREATE INDEX IF NOT EXISTS idx_image_disabled_imageId ON image_disabled(imageId)",
+            "CREATE INDEX IF NOT EXISTS idx_image_disabled_modified ON image_disabled(modified)"
+        ],
+        "@mysql": [
+            "CREATE TABLE IF NOT EXISTS image (imageId VARCHAR(64) NOT NULL PRIMARY KEY, profileId VARCHAR(64) NOT NULL, albumCode VARCHAR(64) NOT NULL, thumbImg LONGBLOB NOT NULL, mediumImg LONGBLOB NOT NULL, fullImg LONGBLOB NOT NULL, thumbWidth INT UNSIGNED NOT NULL, thumbHeight INT UNSIGNED NOT NULL, mediumWidth INT UNSIGNED NOT NULL, mediumHeight INT UNSIGNED NOT NULL, fullWidth INT UNSIGNED NOT NULL, fullHeight INT UNSIGNED NOT NULL, thumbBytes INT UNSIGNED NOT NULL, mediumBytes INT UNSIGNED NOT NULL, fullBytes INT UNSIGNED NOT NULL, created INT(11) NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS image_disabled (reason INT NOT NULL, imageId VARCHAR(64) NOT NULL, description VARCHAR(256), modified BIGINT NOT NULL, created BIGINT NOT NULL, PRIMARY KEY (reason, imageId), FOREIGN KEY (imageId) REFERENCES image(imageId) ON DELETE CASCADE)",
+            "CREATE INDEX IF NOT EXISTS idx_image_profileId ON image(profileId)",
+            "CREATE INDEX IF NOT EXISTS idx_image_profile_album ON image(profileId, albumCode)",
+            "CREATE INDEX IF NOT EXISTS idx_image_created ON image(created)",
+            "CREATE INDEX IF NOT EXISTS idx_image_disabled_imageId ON image_disabled(imageId)",
+            "CREATE INDEX IF NOT EXISTS idx_image_disabled_modified ON image_disabled(modified)"
+        ],
+        "@mariadb": "@mysql"
+    },
+    "get-by-imageid": {
+        "@portable": "SELECT imageId, profileId, albumCode, thumbImg, mediumImg, fullImg, thumbWidth, thumbHeight, mediumWidth, mediumHeight, fullWidth, fullHeight, thumbBytes, mediumBytes, fullBytes, created FROM image WHERE imageId = :imageId AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId)"
+    },
+    "get-thumb-by-imageid": {
+        "@portable": "SELECT thumbImg FROM image WHERE imageId = :imageId AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId)"
+    },
+    "get-medium-by-imageid": {
+        "@portable": "SELECT mediumImg FROM image WHERE imageId = :imageId AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId)"
+    },
+    "get-full-by-imageid": {
+        "@portable": "SELECT fullImg FROM image WHERE imageId = :imageId AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId)"
+    },
+    "get-meta-by-imageid": {
+        "@portable": "SELECT imageId, profileId, albumCode, thumbWidth, thumbHeight, mediumWidth, mediumHeight, fullWidth, fullHeight, thumbBytes, mediumBytes, fullBytes, created FROM image WHERE imageId = :imageId AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId)"
+    },
+    "list-by-profileid": {
+        "@portable": "SELECT imageId, profileId, albumCode, thumbWidth, thumbHeight, mediumWidth, mediumHeight, fullWidth, fullHeight, thumbBytes, mediumBytes, fullBytes, created FROM image WHERE profileId = :profileId AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId) ORDER BY created DESC LIMIT :limit OFFSET :offset"
+    },
+    "list-by-profileid-all": {
+        "@portable": "SELECT imageId, profileId, albumCode, thumbWidth, thumbHeight, mediumWidth, mediumHeight, fullWidth, fullHeight, thumbBytes, mediumBytes, fullBytes, created FROM image WHERE profileId = :profileId ORDER BY created DESC LIMIT :limit OFFSET :offset"
+    },
+    "list-by-profileid-albumcode": {
+        "@portable": "SELECT imageId, profileId, albumCode, thumbWidth, thumbHeight, mediumWidth, mediumHeight, fullWidth, fullHeight, thumbBytes, mediumBytes, fullBytes, created FROM image WHERE profileId = :profileId AND albumCode = :albumCode AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId) ORDER BY created DESC LIMIT :limit OFFSET :offset"
+    },
+    "list-distinct-albumcodes-by-profileid": {
+        "@portable": "SELECT DISTINCT albumCode FROM image WHERE profileId = :profileId AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId) ORDER BY albumCode ASC"
+    },
+    "insert": {
+        "@portable": "INSERT INTO image (imageId, profileId, albumCode, thumbImg, mediumImg, fullImg, thumbWidth, thumbHeight, mediumWidth, mediumHeight, fullWidth, fullHeight, thumbBytes, mediumBytes, fullBytes, created) VALUES (:imageId, :profileId, :albumCode, :thumbImg, :mediumImg, :fullImg, :thumbWidth, :thumbHeight, :mediumWidth, :mediumHeight, :fullWidth, :fullHeight, :thumbBytes, :mediumBytes, :fullBytes, :created)"
+    },
+    "delete": {
+        "@portable": "DELETE FROM image WHERE imageId = :imageId"
+    },
+    "delete-by-profileid": {
+        "@portable": "DELETE FROM image WHERE profileId = :profileId"
+    },
+    "count-by-profileid-albumcode": {
+        "@portable": "SELECT COUNT(*) FROM image WHERE profileId = :profileId AND albumCode = :albumCode AND NOT EXISTS (SELECT 1 FROM image_disabled WHERE image_disabled.imageId = image.imageId)"
+    },
+    "update-album": {
+        "@portable": "UPDATE image SET albumCode = :albumCode WHERE imageId = :imageId"
+    },
+    "admin-get-image-disabled-by-imageid": {
+        "@portable": "SELECT reason, description, created, modified FROM image_disabled WHERE imageId = :imageId ORDER BY reason ASC"
+    },
+    "admin-get-image-disabled-by-profileid": {
+        "@portable": "SELECT image_disabled.reason, image_disabled.description, image_disabled.created, image_disabled.modified, image_disabled.imageId, image.albumCode FROM image_disabled INNER JOIN image ON image.imageId = image_disabled.imageId WHERE image.profileId = :profileId ORDER BY image_disabled.created DESC"
+    },
+    "admin-list-images-created": {
+        "@portable": "SELECT image.imageId, image.profileId, image.albumCode, image.thumbWidth, image.thumbHeight, image.mediumWidth, image.mediumHeight, image.fullWidth, image.fullHeight, image.thumbBytes, image.mediumBytes, image.fullBytes, image.created FROM image WHERE (:search = '' OR image.imageId = :search OR image.profileId = :search) AND (:disabled_reason = '' OR EXISTS (SELECT 1 FROM image_disabled idf WHERE idf.imageId = image.imageId AND idf.reason = :disabled_reason)) ORDER BY image.created DESC LIMIT :limit OFFSET :offset"
+    },
+    "admin-list-images-disabled-created-date": {
+        "@portable": "SELECT image.imageId, image.profileId, image.albumCode, image.thumbWidth, image.thumbHeight, image.mediumWidth, image.mediumHeight, image.fullWidth, image.fullHeight, image.thumbBytes, image.mediumBytes, image.fullBytes, image.created, COALESCE(MAX(image_disabled.created), 0) AS disabled_created_lasttime FROM image LEFT JOIN image_disabled ON image_disabled.imageId = image.imageId WHERE (:search = '' OR image.imageId = :search OR image.profileId = :search) AND (:disabled_reason = '' OR EXISTS (SELECT 1 FROM image_disabled idf WHERE idf.imageId = image.imageId AND idf.reason = :disabled_reason)) GROUP BY image.imageId, image.profileId, image.albumCode, image.thumbWidth, image.thumbHeight, image.mediumWidth, image.mediumHeight, image.fullWidth, image.fullHeight, image.thumbBytes, image.mediumBytes, image.fullBytes, image.created ORDER BY disabled_created_lasttime DESC, image.created DESC LIMIT :limit OFFSET :offset"
+    },
+    "admin-list-images-disabled-modified-date": {
+        "@portable": "SELECT image.imageId, image.profileId, image.albumCode, image.thumbWidth, image.thumbHeight, image.mediumWidth, image.mediumHeight, image.fullWidth, image.fullHeight, image.thumbBytes, image.mediumBytes, image.fullBytes, image.created, COALESCE(MAX(image_disabled.modified), 0) AS disabled_modified_lasttime FROM image LEFT JOIN image_disabled ON image_disabled.imageId = image.imageId WHERE (:search = '' OR image.imageId = :search OR image.profileId = :search) AND (:disabled_reason = '' OR EXISTS (SELECT 1 FROM image_disabled idf WHERE idf.imageId = image.imageId AND idf.reason = :disabled_reason)) GROUP BY image.imageId, image.profileId, image.albumCode, image.thumbWidth, image.thumbHeight, image.mediumWidth, image.mediumHeight, image.fullWidth, image.fullHeight, image.thumbBytes, image.mediumBytes, image.fullBytes, image.created ORDER BY disabled_modified_lasttime DESC, image.created DESC LIMIT :limit OFFSET :offset"
+    },
+    "upsert-image-disabled": {
+        "@portable": "INSERT INTO image_disabled (reason, imageId, description, created, modified)\nVALUES (:reason, :imageId, :description, :created, :modified)\nON CONFLICT (reason, imageId) DO UPDATE\nSET\n    description = excluded.description,\n    modified = excluded.modified",
+        "@sqlite": "@portable",
+        "@postgresql": "@portable",
+        "@mysql": "INSERT INTO image_disabled (reason, imageId, description, created, modified)\nVALUES (:reason, :imageId, :description, :created, :modified)\nON DUPLICATE KEY UPDATE\n    description = VALUES(description),\n    modified = VALUES(modified)",
+        "@mariadb": "@mysql"
+    },
+    "delete-image-disabled": {
+        "@portable": "DELETE FROM image_disabled WHERE reason = :reason and imageId = :imageId"
+    }
+}

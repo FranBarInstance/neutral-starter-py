@@ -1,6 +1,10 @@
 """Request handlers for user profile management."""
 
+from urllib.parse import urlsplit
+
 from app.config import Config
+from app.extensions import cache
+from core.image import Image
 from core.mail import Mail
 from core.request_handler import RequestHandler
 from core.request_handler_form import FormRequestHandler
@@ -61,20 +65,52 @@ class UserProfileFormHandler(FormRequestHandler):
 
     def _validate_post_profile(self) -> bool:
         """Validate POST tokens and form fields for profile form."""
+        self.schema_data["CONTEXT"]["POST"]["username"] = self.user.normalize_username(
+            self.schema_data["CONTEXT"]["POST"].get("username")
+        )
         if not self.valid_form_tokens_post():
             return False
         if not self.valid_form_validation():
             return False
         if self.any_error_form_fields("ref:user_profile_form_error"):
             return False
+
+        image_id = (self.schema_data["CONTEXT"]["POST"].get("imageid") or "").strip()
+        if image_id:
+            image_meta = Image().get_meta(image_id)
+            if not image_meta or image_meta.get("profileId") != self._get_current_profile_id():
+                self.error["field"]["imageid"] = "ref:user_profile_form_error_value"
+                return False
+
+        validation = self.user.validate_username_change(
+            self._get_current_profile_id(),
+            self.schema_data["CONTEXT"]["POST"].get("username"),
+        )
+        if not validation.get("success"):
+            error_map = {
+                "COOLDOWN": "ref:user_profile_form_error_username_cooldown",
+                "TAKEN": "ref:user_profile_form_error_username_taken",
+                "BLACKLISTED": "ref:user_profile_form_error_username_blacklisted",
+            }
+            self.error["field"]["username"] = error_map.get(
+                validation.get("error"),
+                "ref:user_profile_form_error_regex",
+            )
+            return False
         return True
 
     def _save_profile(self, profile_id) -> bool:
         """Save profile data using the User core helper."""
 
+        current_profile = self.schema_data.get("USER", {}).get("profile", {}) or {}
+        previous_username = (current_profile.get("username") or "").strip()
+        username = self.user.normalize_username(
+            self.schema_data["CONTEXT"]["POST"].get("username")
+        )
         alias = (self.schema_data["CONTEXT"]["POST"].get("alias") or "").strip()
         locale = (self.schema_data["CONTEXT"]["POST"].get("locale") or "").strip()
         region = (self.schema_data["CONTEXT"]["POST"].get("region") or "").strip()
+        image_id = (self.schema_data["CONTEXT"]["POST"].get("imageid") or "").strip()
 
         # Build properties with theme configurations
         properties = {}
@@ -88,6 +124,8 @@ class UserProfileFormHandler(FormRequestHandler):
         properties["dark_mode"] = dark_mode
 
         data = {
+            "username": username,
+            "imageId": image_id,
             "alias": alias,
             "region": region,
             "locale": locale,
@@ -102,10 +140,15 @@ class UserProfileFormHandler(FormRequestHandler):
             }
             return False
 
+        self._invalidate_profile_image_cache(previous_username, username)
+
         if isinstance(self.schema_data.get("USER"), dict) and "profile" in self.schema_data["USER"]:
+            self.schema_data["USER"]["profile"]["username"] = username
             self.schema_data["USER"]["profile"]["alias"] = alias
             self.schema_data["USER"]["profile"]["locale"] = locale
             self.schema_data["USER"]["profile"]["region"] = region or ""
+            self.schema_data["USER"]["profile"]["imageId"] = image_id
+            self.schema_data["USER"]["profile"]["username_changed_at"] = int(self.user.now) if username else ""
             # Load current existing dict then merge our changes so session doesn't wipe previous items
             current_props = self.schema_data["USER"]["profile"].get("properties", {})
             if not isinstance(current_props, dict):
@@ -118,6 +161,26 @@ class UserProfileFormHandler(FormRequestHandler):
             "message": "ref:user_profile_form_success"
         }
         return True
+
+    def _invalidate_profile_image_cache(self, *usernames) -> None:
+        """Invalidate cached profile image responses for the provided usernames."""
+        current = self.schema_data.get("current", {}) or {}
+        site = current.get("site", {}) if isinstance(current, dict) else {}
+        image_link = str(site.get("image_link_profile") or site.get("image_link") or "").strip()
+        image_path = urlsplit(image_link).path.rstrip("/")
+        if not image_path:
+            return
+
+        seen = set()
+        for username in usernames:
+            normalized = (username or "").strip()
+            if not normalized or normalized in seen:
+                continue
+            seen.add(normalized)
+            try:
+                cache.delete(f"view/{image_path}/{normalized}")
+            except Exception:  # pragma: no cover - cache backend errors should not block profile saves
+                continue
 
     def post(self) -> bool:
         """Handle POST request — validate and update user profile."""

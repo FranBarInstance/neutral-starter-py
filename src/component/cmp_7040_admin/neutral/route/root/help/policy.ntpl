@@ -1,0 +1,8 @@
+<div class="card">
+    <div class="card-body">
+        <h3 class="card-title">{:trans; Instance policy :}</h3>
+        <p class="text-muted mb-0">
+            {:trans; This section is a placeholder for installation-specific policy, moderation criteria, escalation rules, and internal operating notes. :}
+        </p>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{:*
+    Image Zoom Generic Utility
+*:}
+
+{:snip; img_zoom_0yt2sa-head >>
+    <link nonce="{:;CSP_NONCE:}" rel="stylesheet" href="{:;img_zoom_0yt2sa->manifest->route:}/img-zoom.css?v={:;img_zoom_0yt2sa->manifest->version:}" />
+:}
+
+{:snip; img_zoom_0yt2sa-body >>
+    <script nonce="{:;CSP_NONCE:}" src="{:;img_zoom_0yt2sa->manifest->route:}/img-zoom.js?v={:;img_zoom_0yt2sa->manifest->version:}"></script>
+:}
+
+{:moveto; /head >> {:snip; img_zoom_0yt2sa-head :} :}
+{:moveto; /body >> {:snip; img_zoom_0yt2sa-body :} :}

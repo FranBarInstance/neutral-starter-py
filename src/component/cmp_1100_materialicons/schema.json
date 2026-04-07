@@ -41,6 +41,7 @@
             "x-icon-sign-out": "x-icon mdi mdi-logout",
             "x-icon-sign-up": "x-icon mdi mdi-account-plus-outline",
             "x-icon-user": "x-icon mdi mdi-account-outline",
+            "x-icon-username": "x-icon mdi mdi-target-account",
             "x-icon-users": "x-icon mdi mdi-account-supervisor-circle-outline",
             "x-icon-subscriptions": "x-icon mdi mdi-card-account-mail-outline",
             "x-icon-channel": "x-icon mdi mdi-broadcast",

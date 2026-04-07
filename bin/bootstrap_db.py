@@ -22,8 +22,8 @@ def _build_parser():
     parser.add_argument("--db-pwa-type", default=None, help="Override DB_PWA type")
     parser.add_argument("--db-safe-url", default=None, help="Override DB_SAFE URL")
     parser.add_argument("--db-safe-type", default=None, help="Override DB_SAFE type")
-    parser.add_argument("--db-files-url", default=None, help="Override DB_FILES URL")
-    parser.add_argument("--db-files-type", default=None, help="Override DB_FILES type")
+    parser.add_argument("--db-image-url", default=None, help="Override DB_IMAGE URL")
+    parser.add_argument("--db-image-type", default=None, help="Override DB_IMAGE type")
     parser.add_argument("--quiet", action="store_true", help="Print only errors")
     return parser
 
@@ -48,20 +48,20 @@ def main() -> int:
     db_pwa_type = (args.db_pwa_type or Config.DB_PWA_TYPE).lower()
     db_safe_url = args.db_safe_url or Config.DB_SAFE
     db_safe_type = (args.db_safe_type or Config.DB_SAFE_TYPE).lower()
-    db_files_url = args.db_files_url or Config.DB_FILES
-    db_files_type = (args.db_files_type or Config.DB_FILES_TYPE).lower()
+    db_image_url = args.db_image_url or Config.DB_IMAGE
+    db_image_type = (args.db_image_type or Config.DB_IMAGE_TYPE).lower()
 
     try:
         _log("[pwa] setup app/user/rbac schema + seed roles", args.quiet)
         _log("[safe] setup session schema", args.quiet)
-        _log("[files] probe connection", args.quiet)
+        _log("[image] setup image schema", args.quiet)
         bootstrap_databases(
             db_pwa_url=db_pwa_url,
             db_pwa_type=db_pwa_type,
             db_safe_url=db_safe_url,
             db_safe_type=db_safe_type,
-            db_files_url=db_files_url,
-            db_files_type=db_files_type,
+            db_image_url=db_image_url,
+            db_image_type=db_image_type,
         )
 
         _log("bootstrap_db completed", args.quiet)
