@@ -140,7 +140,7 @@
             })();
         </script>
         {:code;
-            {:param; max-images >> 100 :}
+            {:param; max-images >> 25 :}
             {:param; list-limit >> 60 :}
             {:param; fields-to-fill >> album-image-edit-image-id :}
             {:param; url-to-fill >> album-image-edit-image-url :}
