@@ -37,13 +37,13 @@
                     </div>
                 </div>
             :}
-            <div class="col-auto">
+            <div class="col-12 col-md-6">
                 {:* --- Field: imageid --- *:}
-                <div class="input-group">
+                <div class="input-group flex-nowrap">
                     <img
                         src="{:snip; user_profile-imageid-preview-url:}"
                         alt="{:trans; Profile picture:}"
-                        class="user_profile-imageid-preview"
+                        class="user_profile-imageid-preview position-relative z-1"
                         width="58" height="58"
                     >
                     <input
@@ -53,16 +53,13 @@
                         class="user_profile-imageid"
                         value="{:;CONTEXT->POST->imageid:}{:else; {:;USER->profile->imageId:} :}"
                     >
+                    <button type="button" class="user-profile-remove-image input-group-text flex-grow-1">
+                        <i class="{:;x-icons->x-icon-remove:} me-1"></i>{:trans; Remove image :}
+                    </button>
                 </div>
                 {:snip; error-msg:imageid :}
                 <div class="{:;local::current->forms->field-spacing:}"></div>
             </div>
-            <div class="col-auto">
-                <button type="button" class="btn btn-white h-100 user-profile-remove-image">
-                    <i class="{:;x-icons->x-icon-remove:}"></i> {:trans; Remove image :}
-                </button>
-            </div>
-            <div class="col"></div>
             <div class="col-12 col-md-6">
                 {:* --- Field: username --- *:}
                 <div class="input-group">
