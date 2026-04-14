@@ -9,7 +9,7 @@ This skill guides you through creating a completely new component in the Neutral
 
 - **IMPORTANT**: The components are isolated parts, and nothing should be changed outside of their directory structure.
 - **IMPORTANT**: Do not translate the component unless the user explicitly requests it.
-- **IMPORTANT**: Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agent/README.md`.
+- **IMPORTANT**: Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agents/README.md`.
 
 If you need additional information for a specific case:
 

@@ -27,7 +27,7 @@ This project is organized as a standalone module (`btdt/`) that can be easily dr
 │   │   ├── preset/       # Ready-to-use combined themes
 │   │   └── styles/       # UI style modules (spacing, shadows, borders, etc.)
 │   └── index.html        # Showcase / demo page
-├── .agent/skills/        # Optional AI workflows for extending the catalog
+├── .agents/skills/        # Optional AI workflows for extending the catalog
 ├── .gitignore.example
 └── README.md
 ```
@@ -102,7 +102,7 @@ Unlike many Bootstrap customization workflows that require complex SCSS/SASS set
 
 ## AI-Assisted Development
 
-This project includes a set of **AI Skills** located in `.agent/skills/`. These allow an AI assistant to extend the project while maintaining professional standards.
+This project includes a set of **AI Skills** located in `.agents/skills/`. These allow an AI assistant to extend the project while maintaining professional standards.
 
 You can ask your AI assistant to:
 - **Create a new color theme**: "Create a premium dark theme inspired by Cyberpunk visuals."

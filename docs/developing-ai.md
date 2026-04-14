@@ -30,7 +30,7 @@ What does this mean for an AI?
 
 One of the biggest challenges when working with AI on software projects is the **loss of context** between conversations. Each new interaction starts practically from scratch, leading to inconsistencies and having to repeat instructions.
 
-The solution proposed by this paradigm is the creation of a repository of **"skills"** accessible to the AI, typically in a folder like `.agent/skills`. These are definitions of "abilities" that the AI must read to align its behavior with the project's architecture.
+The solution proposed by this paradigm is the creation of a repository of **"skills"** accessible to the AI, typically in a folder like `.agents/skills`. These are definitions of "abilities" that the AI must read to align its behavior with the project's architecture.
 
 **How do they work in practice?**
 
@@ -49,7 +49,7 @@ If the *skills* are the "manual," the **prompt** is the "work order." A good pro
 
 An effective prompt contains key elements:
 
-> *"Your task is to create the component `[name]`, which must [functional description]. Use route: `/my-route`. To complete this task, review: - `.agent/skills/manage-component/SKILL.md` - `.agent/skills/manage-templates/SKILL.md` - `src/component/[example_component]` (as an example). Define routes dynamically if needed, following the pattern used by other components."*
+> *"Your task is to create the component `[name]`, which must [functional description]. Use route: `/my-route`. To complete this task, review: - `.agents/skills/manage-component/SKILL.md` - `.agents/skills/manage-templates/SKILL.md` - `src/component/[example_component]` (as an example). Define routes dynamically if needed, following the pattern used by other components."*
 
 This strategy includes:
 

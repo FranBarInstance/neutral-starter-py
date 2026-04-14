@@ -5,7 +5,7 @@
 - Do not use global/system Python tools when `.venv` is available.
 - For linting, prefer:
   `source .venv/bin/activate && python -m pylint <paths>`
-- Check the `.agent/skills/` directory for available skills.
+- Check the `.agents/skills/` directory for available skills.
 
 ## Do Not Use Absolute Paths
 - Never use absolute system paths anywhere in this repository.
@@ -45,7 +45,7 @@
 
 
 ## Available Local Skills
-- Review `.agent/skills/*/SKILL.md` before acting when the task matches one of these skills.
+- Review `.agents/skills/*/SKILL.md` before acting when the task matches one of these skills.
 - Prefer the smallest applicable skill set. If multiple skills match, use them in this order: component structure, templates, AJAX forms, translations.
 - Example components may exist as `cmp_*` or `_cmp_*`. Always use the variant that exists in the repository state.
 - Respect component isolation: when a skill targets a component, avoid changing files outside that component unless the user explicitly asks for it.
@@ -53,20 +53,20 @@
 ### `manage-component`
 - Summary: component creation and structural component changes in Neutral TS.
 - Use when creating a new component or modifying an existing component's architecture, routes, manifest, schema, models, static files, backend logic, or tests.
-- Read: `.agent/skills/manage-component/SKILL.md`
+- Read: `.agents/skills/manage-component/SKILL.md`
 
 ### `manage-neutral-templates`
 - Summary: NTPL templates, route data, snippets, and template-driven page structure.
 - Use when creating or editing `.ntpl` files, route `data.json`, shared snippets, or template-driven page structure in Neutral TS.
-- Read: `.agent/skills/manage-neutral-templates/SKILL.md`
+- Read: `.agents/skills/manage-neutral-templates/SKILL.md`
 
 ### `manage-ajax-forms`
 - Summary: AJAX forms, modal flows, validation, and `{:fetch; ... :}` interactions.
 - Use when building or modifying Neutral TS forms, AJAX form flows, modal forms, validation schemas, or `{:fetch; ... :}` interactions.
-- Read: `.agent/skills/manage-ajax-forms/SKILL.md`
+- Read: `.agents/skills/manage-ajax-forms/SKILL.md`
 - Except in exceptional cases, use Ajax for all forms.
 
 ### `translate-component`
 - Summary: extraction and maintenance of translations for a single component.
 - Use when extracting, creating, or updating translations for a component from `.ntpl`, `data.json`, `schema.json`, or route locale files.
-- Read: `.agent/skills/translate-component/SKILL.md`
+- Read: `.agents/skills/translate-component/SKILL.md`

@@ -7,7 +7,7 @@ description: Create or modify components translations. Extract and translate web
 
 This skill allows the agent to automatically find, extract, and translate strings within Neutral TS template files (`*.ntpl`) and route data files (`data.json`), and update the corresponding localization files (`locale-xx.json` or `locale.json`).
 
-- Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agent/README.md`.
+- Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agents/README.md`.
 - Consult `docs/translation-component.md` for more advanced options.
 - Review `src/component/cmp_7000_hellocomp` as a component example.
 

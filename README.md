@@ -294,7 +294,7 @@ The primary goal of this application is to provide developers with agentic, AI-p
 
 To support this workflow, the project includes:
 
-- **Skills**: Agent skill definitions under `.agent/skills`.
+- **Skills**: Agent skill definitions under `.agents/skills`.
 - **Technical Documentation**: Detailed implementation guides in the `docs/` directory.
 
 By reading these skills and technical guides, AI can create components and related functionality on demand in a way that aligns with this project's architecture and conventions.
@@ -309,8 +309,8 @@ Your task is to create the component component_name, which must [functional desc
 Use route: /my-route
 
 To complete this task, review:
-- .agent/skills/manage-component/SKILL.md
-- .agent/skills/manage-neutral-templates/SKILL.md
+- .agents/skills/manage-component/SKILL.md
+- .agents/skills/manage-neutral-templates/SKILL.md
 - src/component/component_name (as a component example)
 
 Define routes dynamically if needed, following the pattern used by other components.

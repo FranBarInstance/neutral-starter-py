@@ -7,7 +7,7 @@ description: Create or modify Neutral TS web template files (.ntpl) following th
 
 Create, modify, and manage Neutral TS (NTPL) template files following the official Neutral TS syntax, security standards, and architectural patterns.
 
-Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agent/README.md`.
+Example components may exist as `cmp_*` or `_cmp_*`. Use the variant that exists in the current repository state. See `.agents/README.md`.
 
 Review `src/component/cmp_7000_hellocomp` or `src/component/_cmp_7000_hellocomp` as a component example.
 Consult `docs/templates-neutrats.md` for more template options.
