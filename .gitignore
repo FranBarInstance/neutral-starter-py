@@ -63,7 +63,7 @@ coverage.xml
 docs/_build/
 .idea/
 
-bin/create_test_users.py
+scripts/create_test_users.py
 src/component/cmp_0250_forms/neutral/plugins
 .codex
 btdt/editor/

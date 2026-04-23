@@ -1,4 +1,4 @@
-# Bin Scripts
+# Scripts
 
 This directory contains operational project scripts (support tasks, maintenance, and development utilities).
 
@@ -8,13 +8,13 @@ This directory contains operational project scripts (support tasks, maintenance,
 - Recommended base command:
 
 ```bash
-source .venv/bin/activate && python bin/<script>.py
+source .venv/bin/activate && python scripts/<script>.py
 ```
 
 On Windows:
 
 ```bat
-.venv\Scripts\python.exe bin\<script>.py
+.venv\Scripts\python.exe scripts\<script>.py
 ```
 
 ## Available Scripts
@@ -26,7 +26,7 @@ Creates a user in the database using the project's internal logic (`core.user.Us
 Usage:
 
 ```bash
-source .venv/bin/activate && python bin/create_user.py "Nombre" "email@dominio.com" "password" "1990-05-20"
+source .venv/bin/activate && python scripts/create_user.py "Nombre" "email@dominio.com" "password" "1990-05-20"
 ```
 
 Optional arguments:
@@ -40,7 +40,7 @@ Optional arguments:
 Example:
 
 ```bash
-source .venv/bin/activate && python bin/create_user.py "Ana" "ana@example.com" "MiPass123!" "1992-11-03" --locale es --region ES --role admin --role editor
+source .venv/bin/activate && python scripts/create_user.py "Ana" "ana@example.com" "MiPass123!" "1992-11-03" --locale es --region ES --role admin --role editor
 ```
 
 ### `bootstrap_db.py`
@@ -55,7 +55,7 @@ Includes:
 Basic usage:
 
 ```bash
-source .venv/bin/activate && python bin/bootstrap_db.py
+source .venv/bin/activate && python scripts/bootstrap_db.py
 ```
 
 Optional arguments:
@@ -71,7 +71,7 @@ Optional arguments:
 With custom URLs (recommended for local testing):
 
 ```bash
-source .venv/bin/activate && python bin/bootstrap_db.py \
+source .venv/bin/activate && python scripts/bootstrap_db.py \
   --db-pwa-url sqlite:////tmp/neutral-install/pwa.db \
   --db-safe-url sqlite:////tmp/neutral-install/safe.db \
   --db-image-url sqlite:////tmp/neutral-install/image.db
@@ -82,23 +82,23 @@ source .venv/bin/activate && python bin/bootstrap_db.py \
 Manages project components: list, enable, disable, and reorder.
 
 **Wrapper scripts available:**
-- `bin/cmp` (Linux/macOS) - activates venv automatically
-- `bin/cmp.bat` (Windows) - activates venv automatically
+- `scripts/cmp` (Linux/macOS) - activates venv automatically
+- `scripts/cmp.bat` (Windows) - activates venv automatically
 
 **Commands:**
 
 ```bash
 # List components
-./bin/cmp list [all|enabled|disabled] [-v]
+./scripts/cmp list [all|enabled|disabled] [-v]
 
 # Enable a disabled component
-./bin/cmp enable <name>
+./scripts/cmp enable <name>
 
 # Disable an enabled component
-./bin/cmp disable <name>
+./scripts/cmp disable <name>
 
 # Change component load order
-./bin/cmp reorder <name> <order>
+./scripts/cmp reorder <name> <order>
 ```
 
 **Component name formats accepted:**
@@ -110,19 +110,19 @@ Manages project components: list, enable, disable, and reorder.
 
 ```bash
 # List all components
-./bin/cmp list
+./scripts/cmp list
 
 # List only disabled components with details
-./bin/cmp list disabled -v
+./scripts/cmp list disabled -v
 
 # Enable a disabled component
-./bin/cmp enable examplesign
+./scripts/cmp enable examplesign
 
 # Disable a component
-./bin/cmp disable hellocomp
+./scripts/cmp disable hellocomp
 
 # Change component order from 7000 to 7100
-./bin/cmp reorder hellocomp 7100
+./scripts/cmp reorder hellocomp 7100
 ```
 
 Current repository note:
@@ -148,7 +148,7 @@ Current rotating roles:
 Usage:
 
 ```bash
-source .venv/bin/activate && python bin/create_test_users.py --count 9
+source .venv/bin/activate && python scripts/create_test_users.py --count 9
 ```
 
 Optional arguments:
@@ -181,7 +181,7 @@ Important route note:
 Remote usage:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/scripts/install.sh | sh
 ```
 
 ### `install.ps1` (Windows PowerShell)
@@ -191,7 +191,7 @@ Equivalent interactive installer for Windows.
 Remote usage:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.ps1 | iex"
+powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/scripts/install.ps1 | iex"
 ```
 
 ## Convention for Future Scripts

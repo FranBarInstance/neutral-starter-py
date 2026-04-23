@@ -13,8 +13,8 @@ This document explains how to install **Neutral TS Starter Py** using either the
 
 Automatic installers are provided for:
 
-- Linux/macOS: `bin/install.sh`
-- Windows: `bin/install.ps1`
+- Linux/macOS: `scripts/install.sh`
+- Windows: `scripts/install.ps1`
 
 ### 2.1 What the automatic installer does
 
@@ -28,8 +28,8 @@ Automatic installers are provided for:
 - Generates randomized admin routes:
   - `src/component/cmp_7040_admin/custom.json` -> `/admin-[random]`
   - `src/component/cmp_8100_localdev/custom.json` -> `/local-admin-[random]`
-- Runs DB bootstrap (`bin/bootstrap_db.py`).
-- Creates an `admin` role user with `bin/create_user.py`.
+- Runs DB bootstrap (`scripts/bootstrap_db.py`).
+- Creates an `admin` role user with `scripts/create_user.py`.
 - Writes `DEV_ADMIN_*` values to `config/.env` for isolated `localdev` access.
 
 Important:
@@ -39,13 +39,13 @@ Important:
 ### 2.2 Linux/macOS
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/scripts/install.sh | sh
 ```
 
 ### 2.3 Windows PowerShell
 
 ```powershell
-powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/bin/install.ps1 | iex"
+powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/main/scripts/install.ps1 | iex"
 ```
 
 ## 3. Manual Installation
@@ -115,13 +115,13 @@ Note:
 ### 3.6 Bootstrap databases
 
 ```bash
-python bin/bootstrap_db.py
+python scripts/bootstrap_db.py
 ```
 
 ### 3.7 Create initial admin user
 
 ```bash
-python bin/create_user.py "Admin" "admin@example.com" "your-password" "1990-01-01" --locale es --role admin
+python scripts/create_user.py "Admin" "admin@example.com" "your-password" "1990-01-01" --locale es --role admin
 ```
 
 Then update in `config/.env` for local-only `cmp_8100_localdev` access:

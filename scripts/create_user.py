@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 def _bootstrap_path() -> None:
-    """Ensure project src/ is importable when script is run from bin/."""
+    """Ensure project src/ is importable when script is run from scripts/."""
     project_root = Path(__file__).resolve().parent.parent
     src_path = project_root / "src"
     sys.path.insert(0, str(src_path))

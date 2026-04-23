@@ -70,8 +70,8 @@ HTTP Response
 
 The project includes interactive installers:
 
-- `bin/install.sh` for Linux/macOS
-- `bin/install.ps1` for Windows PowerShell
+- `scripts/install.sh` for Linux/macOS
+- `scripts/install.ps1` for Windows PowerShell
 
 Installer features:
 
@@ -84,20 +84,20 @@ Installer features:
   - `src/component/cmp_7040_admin/custom.json` as `/admin-[random]`
   - `src/component/cmp_8100_localdev/custom.json` as `/local-admin-[random]`
 - Randomized admin routes are generated during installation as an extra hardening measure against automated scraping/scanning of default admin URLs. This is not security by itself; core protection remains authentication/authorization and rate limiting.
-- Bootstraps databases with `bin/bootstrap_db.py`.
-- Creates an `admin` role user via `bin/create_user.py` (asks for user data).
+- Bootstraps databases with `scripts/bootstrap_db.py`.
+- Creates an `admin` role user via `scripts/create_user.py` (asks for user data).
 - Writes `DEV_ADMIN_*` values into `config/.env` for isolated `localdev` access.
 
 Linux/macOS:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/scripts/install.sh | sh
 ```
 
 Windows PowerShell:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/bin/install.ps1 | iex"
+powershell -ExecutionPolicy Bypass -NoProfile -Command "iwr -useb https://raw.githubusercontent.com/FranBarInstance/neutral-starter-py/master/scripts/install.ps1 | iex"
 ```
 
 Important: first sign-in may require the PIN generated for the created user. Keep that PIN from the installer output.
@@ -138,7 +138,7 @@ pip install -r requirements.txt
 source .venv/bin/activate
 
 # Create/upgrade local DB schema (recommended first run)
-python bin/bootstrap_db.py
+python scripts/bootstrap_db.py
 
 # Optional debug guard (enabled only when all conditions are met)
 # 1) set DEBUG_EXPIRE and DEBUG_FILE in config/.env

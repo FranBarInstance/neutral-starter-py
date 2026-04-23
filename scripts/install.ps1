@@ -212,7 +212,7 @@ Write-Host "Admin route: $adminRoute"
 Write-Host "Local admin route: $localAdminRoute"
 
 Write-Host "Bootstrapping databases..."
-& $venvPython "bin/bootstrap_db.py"
+& $venvPython "scripts/bootstrap_db.py"
 
 $adminName = Read-Value -Prompt "ADMIN user alias" -Default "Admin"
 $adminEmail = Read-Value -Prompt "ADMIN user email" -Default "admin@example.com"
@@ -236,7 +236,7 @@ $adminBirthdate = Read-Value -Prompt "ADMIN user birthdate (YYYY-MM-DD)" -Defaul
 $adminLocale = Read-Value -Prompt "ADMIN user locale" -Default "es"
 
 Write-Host "Creating ADMIN user..."
-& $venvPython "bin/create_user.py" $adminName $adminEmail $adminPassword $adminBirthdate --locale $adminLocale --role admin
+& $venvPython "scripts/create_user.py" $adminName $adminEmail $adminPassword $adminBirthdate --locale $adminLocale --role admin
 
 Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_USER" -Value $adminEmail
 Set-EnvValue -Path "config/.env" -Key "DEV_ADMIN_PASSWORD" -Value $adminPassword

@@ -182,7 +182,7 @@ echo "Admin route: $ADMIN_ROUTE"
 echo "Local admin route: $LOCAL_ADMIN_ROUTE"
 
 echo "Bootstrapping databases..."
-python bin/bootstrap_db.py
+python scripts/bootstrap_db.py
 
 ADMIN_NAME="$(prompt_default "ADMIN user alias" "Admin")"
 ADMIN_EMAIL="$(prompt_default "ADMIN user email" "admin@example.com")"
@@ -199,7 +199,7 @@ ADMIN_BIRTHDATE="$(prompt_default "ADMIN user birthdate (YYYY-MM-DD)" "1990-01-0
 ADMIN_LOCALE="$(prompt_default "ADMIN user locale" "es")"
 
 echo "Creating ADMIN user..."
-python bin/create_user.py "$ADMIN_NAME" "$ADMIN_EMAIL" "$ADMIN_PASSWORD" "$ADMIN_BIRTHDATE" --locale "$ADMIN_LOCALE" --role admin
+python scripts/create_user.py "$ADMIN_NAME" "$ADMIN_EMAIL" "$ADMIN_PASSWORD" "$ADMIN_BIRTHDATE" --locale "$ADMIN_LOCALE" --role admin
 
 set_env_value "config/.env" "DEV_ADMIN_USER" "$ADMIN_EMAIL"
 set_env_value "config/.env" "DEV_ADMIN_PASSWORD" "$ADMIN_PASSWORD"
