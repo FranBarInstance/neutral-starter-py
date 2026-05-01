@@ -1,5 +1,7 @@
 """Tests for public image visibility rules."""
 
+# pylint: disable=duplicate-code
+
 from __future__ import annotations
 
 import io
@@ -13,7 +15,7 @@ from core.image import Image
 from core.user import User
 
 
-class _UploadFile:
+class _UploadFile:  # pylint: disable=too-few-public-methods
     """Minimal upload file stub for image helper tests."""
 
     def __init__(self, data: bytes, filename: str = "test.png", mimetype: str = "image/png"):

@@ -1,5 +1,7 @@
 """Tests for username generation and profile username updates."""
 
+# pylint: disable=duplicate-code
+
 from __future__ import annotations
 
 import sqlite3
@@ -206,7 +208,7 @@ def test_public_profile_by_username_hides_disabled_user(tmp_path, monkeypatch):
 
     assert user.get_public_profile_by_username("public-user-123")["profileId"] == str(created["profileId"])
     assert user.set_user_disabled(created["userId"], Config.DISABLED["moderated"], "disabled") is True
-    assert user.get_public_profile_by_username("public-user-123") == {}
+    assert not user.get_public_profile_by_username("public-user-123")
 
 
 def test_public_profile_by_username_hides_disabled_profile(tmp_path, monkeypatch):
@@ -229,4 +231,4 @@ def test_public_profile_by_username_hides_disabled_profile(tmp_path, monkeypatch
 
     assert user.get_public_profile_by_username("public-profile-123")["profileId"] == str(created["profileId"])
     assert user.set_profile_disabled(created["profileId"], Config.DISABLED["moderated"], "disabled") is True
-    assert user.get_public_profile_by_username("public-profile-123") == {}
+    assert not user.get_public_profile_by_username("public-profile-123")

@@ -1,5 +1,7 @@
 """Tests for database bootstrap helper."""
 
+# pylint: disable=duplicate-code
+
 from __future__ import annotations
 
 import sqlite3

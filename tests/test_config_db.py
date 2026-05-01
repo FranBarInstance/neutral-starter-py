@@ -43,10 +43,10 @@ def test_get_component_custom_override_reads_json_object(tmp_path):
             INSERT INTO custom(comp_uuid, value_json, enabled, updated_at)
             VALUES(?, ?, 1, 0)
             """,
-            ("hellocomp_0yt2sa", json.dumps(override)),
+            ("example_uuid", json.dumps(override)),
         )
 
-    payload = get_component_custom_override(str(db_path), "hellocomp_0yt2sa")
+    payload = get_component_custom_override(str(db_path), "example_uuid")
     assert payload == override
 
 
@@ -56,8 +56,17 @@ def test_db_override_has_priority_over_custom_json(tmp_path):
     ensure_config_db(str(db_path))
 
     override = {
-        "manifest": {"route": "/hello-db"},
-        "schema": {"data": {"db-flag": "enabled"}},
+        "manifest": {
+            "config": {
+                "profiles": {
+                    "ollama_local": {
+                        "ollama": {
+                            "model": "db-selected-model"
+                        }
+                    }
+                }
+            }
+        }
     }
     with sqlite3.connect(str(db_path)) as conn:
         conn.execute(
@@ -65,10 +74,10 @@ def test_db_override_has_priority_over_custom_json(tmp_path):
             INSERT INTO custom(comp_uuid, value_json, enabled, updated_at)
             VALUES(?, ?, 1, 0)
             """,
-            ("hellocomp_0yt2sa", json.dumps(override)),
+            ("ai_backend_0yt2sa", json.dumps(override)),
         )
 
-    class _DbConfig(Config):
+    class _DbConfig(Config):  # pylint: disable=too-few-public-methods
         TESTING = True
         SECRET_KEY = "test_secret_key"
         DB_PWA = "sqlite:///:memory:"
@@ -80,12 +89,13 @@ def test_db_override_has_priority_over_custom_json(tmp_path):
     try:
         app = create_app(_DbConfig, debug=True)
 
-        comp = app.components.collection["hellocomp_0yt2sa"]
-        comp_schema = app.components.component_schema["hellocomp_0yt2sa"]
+        comp = app.components.collection["ai_backend_0yt2sa"]
 
-        # cmp_7000_hellocomp/custom.json sets /HelloComponent, DB must win.
-        assert comp["manifest"]["route"] == "/hello-db"
-        assert comp_schema["data"]["db-flag"] == "enabled"
+        # The active AI backend component has custom.json config; DB must win conflicts.
+        assert (
+            comp["manifest"]["config"]["profiles"]["ollama_local"]["ollama"]["model"]
+            == "db-selected-model"
+        )
     finally:
         # Cleanup component modules to avoid affecting other tests
         _cleanup_component_modules()
