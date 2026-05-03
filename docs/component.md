@@ -75,7 +75,7 @@ cmp_NNNN_name/
 src/component/cmp_NNNN_name/
 ├── manifest.json                         # Component identity (REQUIRED)
 ├── schema.json                           # Configuration, menus
-├── custom.json                           # Local overrides (NEVER commit)
+├── custom.json                           # User overrides (NEVER commit, add to .gitignore)
 ├── __init__.py                           # Component initialization (if needed)
 ├── README.md                             # Component documentation
 ├── route/                                # Backend (Python/Flask)
@@ -330,10 +330,9 @@ Local overrides for development or deployment-specific configuration.
 ```
 
 **Important:**
-- Never commit `custom.json` to version control
+- **Never commit `custom.json` to version control** (to protect user-specific overrides during updates)
 - Add to `.gitignore`
-- Use for local development overrides only
-- Production overrides should use `config/config.db` table `custom`
+- Overrides in `config.db` (table `custom`) take precedence over `custom.json`
 
 ### 3.4 config/config.db Overrides
 
@@ -1372,7 +1371,7 @@ flake8 src/component/cmp_NNNN_name
 - [ ] **Configuration Files**
   - [ ] Create `manifest.json` with unique UUID
   - [ ] Create `schema.json` with menu entries
-  - [ ] Create `custom.json` for local overrides (add to .gitignore)
+  - [ ] Create `custom.json` for user overrides (add to .gitignore)
   - [ ] Create `README.md` with component documentation
 
 - [ ] **Backend Implementation**
@@ -1602,7 +1601,7 @@ Run `pylint` for new Python files before merging.
 - [ ] Configure `TRUSTED_PROXY_CIDRS` for reverse proxies
 - [ ] Set `DEBUG_EXPIRE=0` in production
 - [ ] Remove debug BIFs from templates
-- [ ] Remove `custom.json` from deployment
+- [ ] Remove any temporary `custom.json` (user-specific overrides should be managed by the installer/user)
 - [ ] Verify all translations are complete
 - [ ] Run full test suite
 - [ ] Run security scan (bandit, pylint)

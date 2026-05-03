@@ -57,7 +57,7 @@ Components are loaded alphabetically based on their folder name (`cmp_NNNN_name`
 *   **Anatomy of a Component**:
     *   `manifest.json`: Registration info (UUID, Name, Route).
     *   `schema.json`: Configuration data (menus, constants, translations).
-    *   `custom.json`: *Local-only* overrides (never committed to git).
+    *   `custom.json`: Component-level overrides (never committed to git to protect user preferences).
     *   `config/config.db` (table `custom`): Optional centralized per-component overrides keyed by UUID (`comp_uuid`) with JSON payload in `value_json`.
     *   `route/`: Python backend logic (Blueprints, RequestHandlers).
     *   `neutral/`: Frontend templates (`.ntpl`).
