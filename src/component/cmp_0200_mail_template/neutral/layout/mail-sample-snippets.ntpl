@@ -11,8 +11,8 @@
 :}
 
 {:snip; mail_template_0yt2sa:theme-footer >>
-    snip; mail_template_0yt2sa:theme-footer <br>
-    https://mail-theme-footer
+    snippet: mail_template_0yt2sa:theme-footer <br>
+    https://github.com/FranBarInstance/neutral-starter-py
     <br><br>
     {:trans; Terms of use :} - {:trans; Subscriptions :}
 :}
