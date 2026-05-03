@@ -1,3 +1,6 @@
+"""
+Mail template component
+"""
 from app.components import set_current_mail_template
 
 def init_component(component, component_schema, _schema):
