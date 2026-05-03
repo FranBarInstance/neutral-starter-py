@@ -4,24 +4,24 @@
     Register snippets
 *:}
 
-{:snip; mail-theme-head-begin >>
+{:snip; mail_template_0yt2sa:theme-head-begin >>
     <title>{:trans; ref:email-reminder-title :}</title>
 :}
 
-{:snip; mail-theme-blocks >>
+{:snip; mail_template_0yt2sa:theme-blocks >>
 
     {:code;
-        {:param; url-link >> {:snip; url-home :} :}
-        {:param; url-img >> {:snip; url-logo :} :}
-        {:param; text >> {:snip; brand-text :} :}
-        {:snip; mail-theme-brand :}
+        {:param; url-link >> {:snip; mail_template_0yt2sa:url-home :} :}
+        {:param; url-img >> {:snip; mail_template_0yt2sa:url-logo :} :}
+        {:param; text >> {:snip; mail_template_0yt2sa:brand-text :} :}
+        {:snip; mail_template_0yt2sa:theme-brand :}
     :}
 
     {:code;
-        {:param; url-link >> {:snip; url-home :} :}
-        {:param; url-img >> {:snip; url-cover :} :}
-        {:param; img-text >> {:snip; cover-text :} :}
-        {:snip; mail-theme-block-img-hero :}
+        {:param; url-link >> {:snip; mail_template_0yt2sa:url-home :} :}
+        {:param; url-img >> {:snip; mail_template_0yt2sa:url-cover :} :}
+        {:param; img-text >> {:snip; mail_template_0yt2sa:cover-text :} :}
+        {:snip; mail_template_0yt2sa:theme-block-img-hero :}
     :}
 
     {:code;
@@ -31,13 +31,13 @@
         {:param; p3 >> :}
         {:param; p4 >> :}
         {:param; p5 >> :}
-        {:snip; mail-theme-block-text :}
+        {:snip; mail_template_0yt2sa:theme-block-text :}
     :}
 
     {:code;
-        {:param; url-link >> {:snip; auth-link :} :}
+        {:param; url-link >> {:snip; mail_template_0yt2sa:auth-link :} :}
         {:param; txt-link >> {:trans; ref:email-reminder-btn-text :} :}
-        {:snip; mail-theme-block-button-primary :}
+        {:snip; mail_template_0yt2sa:theme-block-button-primary :}
     :}
 
     {:code;
@@ -48,19 +48,19 @@
         {:param; p4 >> :}
         {:param; p5 >> :}
         {:param; p2 >> :}
-        {:snip; mail-theme-block-text :}
+        {:snip; mail_template_0yt2sa:theme-block-text :}
     :}
 
     {:code;
-        {:param; txt >> {:snip; pin :} :}
-        {:snip; mail-theme-block-outline :}
+        {:param; txt >> {:snip; mail_template_0yt2sa:pin :} :}
+        {:snip; mail_template_0yt2sa:theme-block-outline :}
     :}
 
     {:code;
         {:param; h1 >>  :}
         {:param; p1 >> {:trans; ref:email-reminder-expires :} {:trans; ref:email-reminder-if-expires :} :}
         {:param; p2 >> {:trans; ref:email-reminder-tanks :} :}
-        {:snip; mail-theme-block-text :}
+        {:snip; mail_template_0yt2sa:theme-block-text :}
     :}
 
 :}

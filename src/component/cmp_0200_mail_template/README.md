@@ -66,23 +66,23 @@ All templates have access to these shared snippets with automatic fallbacks:
 
 | Snippet | Description | Fallback |
 |---------|-------------|----------|
-| `{:snip; url-home :}` | Home URL | `current->site->url` |
-| `{:snip; url-logo :}` | Logo image URL | `{url-home}{site->logo}` |
-| `{:snip; url-cover :}` | Cover/hero image URL | `{url-home}{site->cover}` |
-| `{:snip; brand-text :}` | Brand name | `current->site->name` |
-| `{:snip; cover-text :}` | Cover image alt text | `current->site->cover_text` |
-| `{:snip; logo-text :}` | Logo alt text | `current->site->name` |
-| `{:snip; auth-link :}` | Authentication link | `url-home` |
-| `{:snip; pin :}` | PIN code | Empty string |
+| `{:snip; mail_template_0yt2sa:url-home :}` | Home URL | `current->site->url` |
+| `{:snip; mail_template_0yt2sa:url-logo :}` | Logo image URL | `{url-home}{site->logo}` |
+| `{:snip; mail_template_0yt2sa:url-cover :}` | Cover/hero image URL | `{url-home}{site->cover}` |
+| `{:snip; mail_template_0yt2sa:brand-text :}` | Brand name | `current->site->name` |
+| `{:snip; mail_template_0yt2sa:cover-text :}` | Cover image alt text | `current->site->cover_text` |
+| `{:snip; mail_template_0yt2sa:logo-text :}` | Logo alt text | `current->site->name` |
+| `{:snip; mail_template_0yt2sa:auth-link :}` | Authentication link | `url-home` |
+| `{:snip; mail_template_0yt2sa:pin :}` | PIN code | Empty string |
 
 ### Usage Example
 
 ```ntpl
 {:code;
-    {:param; url-link >> {:snip; url-home :} :}
-    {:param; url-img >> {:snip; url-logo :} :}
-    {:param; text >> {:snip; brand-text :} :}
-    {:snip; mail-theme-brand :}
+    {:param; url-link >> {:snip; mail_template_0yt2sa:url-home :} :}
+    {:param; url-img >> {:snip; mail_template_0yt2sa:url-logo :} :}
+    {:param; text >> {:snip; mail_template_0yt2sa:brand-text :} :}
+    {:snip; mail_template_0yt2sa:theme-brand :}
 :}
 ```
 
@@ -181,31 +181,31 @@ To add a new email template (e.g., `welcome`):
    ```ntpl
    {:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
 
-   {:snip; mail-theme-head-begin >>
+   {:snip; mail_template_0yt2sa:theme-head-begin >>
        <title>{:trans; ref:email-welcome-title :}</title>
    :}
 
-   {:snip; mail-theme-blocks >>
+   {:snip; mail_template_0yt2sa:theme-blocks >>
 
        {:code;
-           {:param; url-link >> {:snip; url-home :} :}
-           {:param; url-img >> {:snip; url-logo :} :}
-           {:param; text >> {:snip; brand-text :} :}
-           {:snip; mail-theme-brand :}
+           {:param; url-link >> {:snip; mail_template_0yt2sa:url-home :} :}
+           {:param; url-img >> {:snip; mail_template_0yt2sa:url-logo :} :}
+           {:param; text >> {:snip; mail_template_0yt2sa:brand-text :} :}
+           {:snip; mail_template_0yt2sa:theme-brand :}
        :}
 
        {:code;
-           {:param; url-link >> {:snip; url-home :} :}
-           {:param; url-img >> {:snip; url-cover :} :}
-           {:param; img-text >> {:snip; cover-text :} :}
-           {:snip; mail-theme-block-img-hero :}
+           {:param; url-link >> {:snip; mail_template_0yt2sa:url-home :} :}
+           {:param; url-img >> {:snip; mail_template_0yt2sa:url-cover :} :}
+           {:param; img-text >> {:snip; mail_template_0yt2sa:cover-text :} :}
+           {:snip; mail_template_0yt2sa:theme-block-img-hero :}
        :}
 
        {:code;
            {:param; h1 >> {:trans; ref:email-welcome-subject :} :}
            {:param; p1 >> {:trans; ref:email-welcome-text :} :}
            {:param; p2 >> :}
-           {:snip; mail-theme-block-text :}
+           {:snip; mail_template_0yt2sa:theme-block-text :}
        :}
 
    :}

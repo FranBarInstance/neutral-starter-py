@@ -6,7 +6,7 @@
     param: url-img
     param: text
 *:}
-{:snip; mail-theme-brand >>
+{:snip; mail_template_0yt2sa:theme-brand >>
     <tr>
         <td style="background-color: {:;local::block-background-brand-color:};">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -36,7 +36,7 @@
     param: url-img
     param: img-text
 *:}
-{:snip; mail-theme-block-img-hero >>
+{:snip; mail_template_0yt2sa:theme-block-img-hero >>
     <tr>
         <td style="background-color: {:;local::block-background-brand-color:};">
             <a target="_blank" href="{:param;url-link:}">
@@ -54,7 +54,7 @@
     param: p4
     param: p5
 *:}
-{:snip; mail-theme-block-text >>
+{:snip; mail_template_0yt2sa:theme-block-text >>
     <tr>
         <td style="background-color: {:;local::block-background-color:};">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -89,7 +89,7 @@
     param: url-link
     param: txt-link
 *:}
-{:snip; mail-theme-block-button-primary >>
+{:snip; mail_template_0yt2sa:theme-block-button-primary >>
     <tr>
         <td style="background-color: {:;local::block-background-color:};">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -112,7 +112,7 @@
 {:*
     param: txt
 *:}
-{:snip; mail-theme-block-outline >>
+{:snip; mail_template_0yt2sa:theme-block-outline >>
     <tr>
         <td style="background-color: {:;local::block-background-color:};">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -135,7 +135,7 @@
 {:*
     param: p1
 *:}
-{:snip; mail-theme-block-background >>
+{:snip; mail_template_0yt2sa:theme-block-background >>
     <tr>
         <!-- Bulletproof Background Images c/o https://backgrounds.cm -->
         <td style="text-align: center; background-color: {:;local::background-color:};">
@@ -178,7 +178,7 @@
     param: url-img2
     param: p2
 *:}
-{:snip; mail-theme-block-columns-2 >>
+{:snip; mail_template_0yt2sa:theme-block-columns-2 >>
     <tr>
         <td align="center" valign="top" style="font-size:0; padding: 10px; background-color: {:;local::block-background-color:};">
             <!--[if mso]>
@@ -247,7 +247,7 @@
     param: url-img3
     param: p3
 *:}
-{:snip; mail-theme-block-columns-3 >>
+{:snip; mail_template_0yt2sa:theme-block-columns-3 >>
     <tr>
         <td align="center" valign="top" style="font-size:0; padding: 10px; background-color: {:;local::block-background-color:};">
             <!--[if mso]>
@@ -337,7 +337,7 @@
     param: h2
     param: p
 *:}
-{:snip; mail-theme-block-img-left >>
+{:snip; mail_template_0yt2sa:theme-block-img-left >>
     <tr>
         <td dir="ltr" height="100%" valign="top" width="100%" style="font-size:0; padding: 10px; background-color: {:;local::block-background-color:};">
             <!--[if mso]>
@@ -382,7 +382,7 @@
     param: h2
     param: p
 *:}
-{:snip; mail-theme-block-img-right >>
+{:snip; mail_template_0yt2sa:theme-block-img-right >>
     <tr>
         <!-- dir=rtl is where the magic happens. This can be changed to dir=ltr to swap the alignment on wide while maintaining stack order on narrow. -->
         <td dir="rtl" height="100%" valign="top" width="100%" style="font-size:0; padding: 10px; text-align: left; background-color: {:;local::block-background-color:};">
@@ -423,7 +423,7 @@
     </tr>
 :}
 
-{:snip; mail-theme-block-spacer >>
+{:snip; mail_template_0yt2sa:theme-block-spacer >>
     <tr>
         <td aria-hidden="true" height="20" style="font-size: 0px; line-height: 0px; background-color: {:;local::block-background-color:};">
             &nbsp;
@@ -431,7 +431,7 @@
     </tr>
 :}
 
-{:snip; mail-theme-block-spacer-bg >>
+{:snip; mail_template_0yt2sa:theme-block-spacer-bg >>
     <tr>
         <td aria-hidden="true" height="20" style="font-size: 0px; line-height: 0px;">
             &nbsp;
@@ -439,18 +439,18 @@
     </tr>
 :}
 
-{:*  {:snip; mail-theme-footer >>
-    <webversion style="color: {:snip; mail-theme-color :}; text-decoration: underline; font-weight: bold;">View as a Web Page</webversion>
+{:*  {:snip; mail_template_0yt2sa:theme-footer >>
+    <webversion style="color: {:snip; mail_template_0yt2sa:theme-color :}; text-decoration: underline; font-weight: bold;">View as a Web Page</webversion>
     <br><br>
     Company Name<br><span class="unstyle-auto-detected-links">123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890</span>
     <br><br>
-    <unsubscribe style="color: {:snip; mail-theme-color :}; text-decoration: underline;">unsubscribe</unsubscribe>
+    <unsubscribe style="color: {:snip; mail_template_0yt2sa:theme-color :}; text-decoration: underline;">unsubscribe</unsubscribe>
 :}  *:}
 
 
-{:*  {:snip; mail-theme-footer >>
+{:*  {:snip; mail_template_0yt2sa:theme-footer >>
     {:trans; This message was generated in: :}<br>
-    {:snip; theme-url-home :}
+    {:snip; mail_template_0yt2sa:url-home :}
     <br><br>
     {:filled; currentEmail>originIp >>
         {:trans; From user IP: :}<br>
