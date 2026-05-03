@@ -284,6 +284,37 @@ Pass `theme-color` in `layout_data` to activate:
 mail.send("register", mail_data, layout_data={"theme-color": "corporate"})
 ```
 
+## Testing & Visual Verification
+
+The component includes an automated integration test suite to verify snippet resolution and data injection. These tests leverage the `MAIL_METHOD = 'file'` feature to generate real HTML files for manual inspection.
+
+### Running Tests
+
+To run the rendering tests and see the visual output:
+
+```bash
+source .venv/bin/activate
+pytest -s src/component/cmp_0200_mail_template/tests/test_mail_rendering.py
+```
+
+### Visual Artifacts
+
+After running the tests, you can find the rendered emails in the `tmp/mail-html-test/` directory. These files use placeholder images (via [placehold.co](https://placehold.co)) to allow local browser viewing:
+
+- `tmp/mail-html-test/test_mail_pin.html`: Standard verification PIN email.
+- `tmp/mail-html-test/test_mail_account-pin.html`: Security/Account change PIN email.
+- `tmp/mail-html-test/test_mail_register.html`: New user registration email.
+- `tmp/mail-html-test/test_mail_reminder.html`: Password reminder email.
+- `tmp/mail-html-test/test_mail_sample.html`: A comprehensive sample showcasing all available theme blocks.
+- `tmp/mail-html-test/test_mail_fallback.html`: Robustness test showing how the system handles missing data (displays "PIN ERROR").
+
+### Continuous Integration
+
+These tests strictly verify that:
+1. No unresolved snippet tags (`{:snip; ... :}`) remain in the output.
+2. No unresolved translation tags (`{:trans; ... :}`) remain.
+3. Essential data (like the PIN or Token) is correctly injected into the final HTML.
+
 ## References
 
 - [Mail System Documentation](../../docs/mail-system.md) - Complete mail system architecture
