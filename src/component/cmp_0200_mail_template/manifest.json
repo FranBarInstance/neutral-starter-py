@@ -1,0 +1,18 @@
+{
+    "uuid": "mail_template_0yt2sa",
+    "name": "Mail Template",
+    "description": "Template management and preparation for email rendering",
+    "version": "0.0.0",
+    "route": "",
+    "security": {
+        "routes_auth": {
+            "/": false
+        },
+        "routes_role": {
+            "/": [
+                "*"
+            ]
+        }
+    },
+    "config":{}
+}

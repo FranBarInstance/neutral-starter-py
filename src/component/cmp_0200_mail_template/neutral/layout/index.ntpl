@@ -13,12 +13,17 @@
 {:*
     Overwrite the data for the color theme if any
 *:}
-{:^data; #/local-data-{:;mail_data->theme-color:}.json :}
+{:^data; #/local-data-{:;current_mail->theme-color:}.json :}
 
 {:*
-    Snippet for content
+    Common theme snippets
 *:}
-{:^include; {:flg; require :} >> #/{:;mail_data->template:}-snippets.ntpl :}
+{:^include; {:flg; require :} >> #/snippets.ntpl :}
+
+{:*
+    Specific content mail snippets
+*:}
+{:^include; {:flg; require :} >> #/mail-{:;current_mail->content_template:}-snippets.ntpl :}
 
 {:*
     App init and configure snippet

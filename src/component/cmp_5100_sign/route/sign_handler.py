@@ -14,7 +14,7 @@ from utils.utils import format_ua
 class SignRequestHandler(FormRequestHandler):
     """Base class for handling authentication form validation logic."""
 
-    def __init__(
+    def __init__( # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         prepared_request,
         comp_route: str = "",
@@ -93,8 +93,19 @@ class SignRequestHandler(FormRequestHandler):
         ):
             return False
 
+        reminder_payload = reminder_data.get("reminder_data")
+        if not reminder_payload:
+            return False
+
+        mail_data = {
+            "to": reminder_payload.get("email"),
+            "subject": "Password reminder",
+            "expires": Config.PIN_EXPIRES_SECONDS // 3600,
+            **reminder_payload
+        }
+
         mail = Mail(self.schema.properties)
-        mail.send("reminder", reminder_data.get("reminder_data"))
+        mail.send("reminder", mail_data)
 
         return True
 
@@ -181,8 +192,15 @@ class SignUpRequestHandler(SignRequestHandler):
 
             return False
 
+        mail_data = {
+            "to": user_result['user_data'].get("email"),
+            "subject": "Confirm your registration",
+            "expires": Config.PIN_EXPIRES_SECONDS // 3600,
+            **user_result['user_data']
+        }
+
         mail = Mail(self.schema.properties)
-        mail.send("register", user_result['user_data'])
+        mail.send("register", mail_data)
 
         return True
 
@@ -299,7 +317,7 @@ class SignPinRequestHandler(SignRequestHandler):
             return "reminder"
         return None
 
-    def form_get(self, pin_token) -> bool:
+    def form_get(self, pin_token) -> bool: # pylint: disable=arguments-differ
         """Validate token and prepare PIN page."""
         if not self.valid_form_tokens_get():
             return False
@@ -343,7 +361,7 @@ class SignPinRequestHandler(SignRequestHandler):
 
         return True
 
-    def form_post(self, pin_token) -> bool:
+    def form_post(self, pin_token) -> bool: # pylint: disable=arguments-differ
         """Validate token+PIN, confirm user, and create session."""
         self.schema_data["sign_pin_token"] = pin_token
         if not self.validate_pin_post("ref:sign_pin_form_error"):

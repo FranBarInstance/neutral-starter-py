@@ -71,3 +71,4 @@ btdt/scripts/
 /none
 .kilocode
 .specify
+pyproject.toml

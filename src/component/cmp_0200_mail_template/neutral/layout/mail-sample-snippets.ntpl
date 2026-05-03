@@ -24,14 +24,14 @@
     *:}
 
     {:code;
-        {:param; url-link >> {:;mail_data->url_home:} :}
-        {:param; url-img >> {:;mail_data->logo:} :}
+        {:param; url-link >> {:snip; url-home :} :}
+        {:param; url-img >> {:snip; url-logo :} :}
         {:param; text >> mail-theme-brand :}
         {:snip; mail-theme-brand :}
     :}
 
     {:code;
-        {:param; url-link >> {:;mail_data->url_home:} :}
+        {:param; url-link >> {:snip; url-home :} :}
         {:param; url-img >> https://picsum.photos/400/200 :}
         {:param; img-text >> mail-theme-block-img-hero :}
         {:snip; mail-theme-block-img-hero :}

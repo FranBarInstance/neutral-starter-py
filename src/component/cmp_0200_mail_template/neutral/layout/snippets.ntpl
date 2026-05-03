@@ -1,0 +1,41 @@
+{:* Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE) *:}
+
+{:snip; {:flg; static :} url-home >>
+    {:;current_mail->url_home:}{:else; {:;current->site->url:}/ :}
+:}
+
+{:snip; {:flg; static :} url-logo >>
+    {:;current_mail->logo:}{:else; {:snip; url-home :}{:;current->site->logo:} :}
+:}
+
+{:snip; {:flg; static :} url-cover >>
+    {:;current_mail->cover:}{:else; {:snip; url-home :}{:;current->site->cover:} :}
+:}
+
+{:snip; {:flg; static :} brand-text >>
+    {:;current_mail->brand_text:}{:else; {:;current->site->name:} :}
+:}
+
+{:snip; {:flg; static :} cover-text >>
+    {:;current_mail->cover_text:}{:else; {:;current->site->cover_text:} :}
+:}
+
+{:snip; {:flg; static :} logo-text >>
+    {:;current_mail->logo_text:}{:else; {:;current->site->name:} :}
+:}
+
+{:snip; {:flg; static :} auth-link >>
+    {:;current_mail->auth_link:}{:else; {:;current->site->url:}{:;current->site->sign_links->pin:}/{:;current_mail->token:} :}
+:}
+
+{:snip; {:flg; static :} login-link >>
+    {:;current_mail->login_link:}{:else; {:;current->site->url:}{:;current->site->sign_links->in:} :}
+:}
+
+{:snip; {:flg; static :} reminder-link >>
+    {:;current_mail->reminder_link:}{:else; {:;current->site->url:}{:;current->site->sign_links->reminder:} :}
+:}
+
+{:snip; {:flg; static :} pin >>
+    {:;current_mail->pin:}{:else; PIN ERROR :}
+:}

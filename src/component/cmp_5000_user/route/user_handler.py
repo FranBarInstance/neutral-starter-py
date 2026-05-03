@@ -291,7 +291,7 @@ class UserEmailPinFormHandler(FormRequestHandler):
             return True
 
         profile = self.schema_data.get("USER", {}).get("profile", {}) or {}
-        minutes = max(1, (Config.PIN_ACCOUNT_EXPIRES_SECONDS + 59) // 60)
+        hours = max(1, Config.PIN_ACCOUNT_EXPIRES_SECONDS // 3600)
         mail_data = {
             "to": email,
             "subject": "Email verification PIN",
@@ -299,10 +299,10 @@ class UserEmailPinFormHandler(FormRequestHandler):
             "locale": profile.get("locale", "en"),
             "pin": pin_params.get("pin", ""),
             "token": pin_params.get("token", ""),
-            "expires_minutes": minutes,
+            "expires": hours,
         }
         mail = Mail(self.schema.properties)
-        mail.send("email-pin", mail_data)
+        mail.send("pin", mail_data)
 
         self.form_submit["result"] = {
             "success": "true",
@@ -568,7 +568,7 @@ class UserAccountPasswordPinFormHandler(FormRequestHandler):
             return True
 
         profile = self.schema_data.get("USER", {}).get("profile", {}) or {}
-        minutes = max(1, (Config.PIN_ACCOUNT_EXPIRES_SECONDS + 59) // 60)
+        hours = max(1, Config.PIN_ACCOUNT_EXPIRES_SECONDS // 3600)
         mail_data = {
             "to": email,
             "subject": "Security PIN",
@@ -576,7 +576,7 @@ class UserAccountPasswordPinFormHandler(FormRequestHandler):
             "locale": profile.get("locale", "en"),
             "pin": pin_params.get("pin", ""),
             "token": pin_params.get("token", ""),
-            "expires_minutes": minutes,
+            "expires": hours,
         }
         mail = Mail(self.schema.properties)
         mail.send("account-pin", mail_data)
@@ -704,7 +704,7 @@ class UserAccountBirthdatePinFormHandler(FormRequestHandler):
             return True
 
         profile = self.schema_data.get("USER", {}).get("profile", {}) or {}
-        minutes = max(1, (Config.PIN_ACCOUNT_EXPIRES_SECONDS + 59) // 60)
+        hours = max(1, Config.PIN_ACCOUNT_EXPIRES_SECONDS // 3600)
         mail_data = {
             "to": email,
             "subject": "Security PIN",
@@ -712,7 +712,7 @@ class UserAccountBirthdatePinFormHandler(FormRequestHandler):
             "locale": profile.get("locale", "en"),
             "pin": pin_params.get("pin", ""),
             "token": pin_params.get("token", ""),
-            "expires_minutes": minutes,
+            "expires": hours,
         }
         mail = Mail(self.schema.properties)
         mail.send("account-pin", mail_data)

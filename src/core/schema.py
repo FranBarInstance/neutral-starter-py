@@ -61,6 +61,14 @@ class Schema:
         self.data['VENV_DIR'] = Config.VENV_DIR
         self.data['TEMPLATE_LAYOUT'] = os.path.join(template_dir, 'layout', Config.TEMPLATE_NAME)
         self.data['TEMPLATE_ERROR'] = os.path.join(template_dir, 'layout', Config.TEMPLATE_NAME_ERROR)  # pylint: disable=line-too-long
+        
+        # Mail template layout
+        if 'mail_template' in self.data['current']:
+            mail_template_dir = self.data['current']['mail_template']['dir']
+            self.data['MAIL_TEMPLATE_LAYOUT'] = os.path.join(
+                mail_template_dir, 'layout', Config.MAIL_TEMPLATE_NAME
+            )
+
         self.data['TEMPLATE_MAIL'] = Config.TEMPLATE_MAIL
         self.data['FTOKEN_EXPIRES_SECONDS'] = Config.FTOKEN_EXPIRES_SECONDS
         self.data['LANG_KEY'] = Config.LANG_KEY

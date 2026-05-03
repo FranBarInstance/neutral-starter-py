@@ -392,3 +392,15 @@ def set_current_template(component, component_schema):
     component_schema['data']['CURRENT_COMP_ROUTE'] = Config.COMP_ROUTE_ROOT
 
     return template_dir, template_route
+
+def set_current_mail_template(component, component_schema):
+    """Set the current mail template for the app."""
+    template_dir = os.path.join(component['path'], 'neutral')
+
+    component_schema.setdefault('data', {})
+    component_schema['data'].setdefault('current', {})
+    component_schema['data']['current']['mail_template'] = {
+        'dir': template_dir
+    }
+
+    return template_dir

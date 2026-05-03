@@ -1,129 +1,172 @@
-# Copyright (C) 2025 https://github.com/FranBarInstance/neutral-starter-py (See LICENCE)
-
 """Mail Class"""
 
-import json
-import math
+import re
 import smtplib
-import copy
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from subprocess import Popen, PIPE
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from app.config import Config
 
 if Config.NEUTRAL_IPC:
-    from neutral_ipc_template import NeutralIpcTemplate as NeutralTemplate
+    from neutral_ipc_template import NeutralIpcTemplate as NeutralTemplate # pylint: disable=no-name-in-module,import-error
 else:
-    from neutraltemplate import NeutralTemplate
+    from neutraltemplate import NeutralTemplate # pylint: disable=no-name-in-module,import-error
 
 
-class Mail():
-    """
-    Mail class for sending emails.
-    """
-
-    DEFAULT_SCHEMA = {
-        "config": {
-            "comments": "remove",
-            "cache_prefix": "neutral-cache-mail",
-            "cache_dir": "",
-            "cache_on_post": False,
-            "cache_on_get": False,
-            "cache_on_cookies": False,
-            "cache_disable": True,  # In the case of email, caching could be problematic.
-            "filter_all": False,
-            "disable_js": True
-        },
-        "inherit": {
-            "locale": {
-                "current": "en"
-            },
-        },
-        "data": {
-            "mail_data": {},
-            "HTTP_ERROR": {},
-            "dispatch_result": False
-        }
-    }
+class MailTemplate: # pylint: disable=too-few-public-methods
+    """Email template rendering via NeutralTemplate."""
 
     def __init__(self, schema: dict) -> None:
-        """Initialize the Mail class."""
         self.schema = schema
-        self.template_layout = Config.TEMPLATE_MAIL + '/index.ntpl'
-        self.site = self.schema['data']['current']['site']
-        self.auth_link = self.site['url'] + self.site['sign_links']['pin']
-        self.login_link = self.site['url'] + self.site['sign_links']['in']
-        self.reminder_link = self.site['url'] + self.site['sign_links']['reminder']
-        self.defaults = {
-            "template": 'sample',
-            "url_home": self.site['url'],
-            "logo": self.site['url'] + '/' + self.site['logo'],
-            "cover": self.site['url'] + '/' + self.site['cover'],
-            "brand_text": self.site['name'],
-            "cover_text": self.site['name'],
-            "login_link": self.login_link,
-            "reminder_link": self.reminder_link,
-            "auth_link": self.auth_link,
-            "auth_pin": '',
-            "user_alias": '',
-            "expires": math.floor(int(Config.PIN_EXPIRES_SECONDS) / 60 / 60),
-        }
-        self.default_schema = copy.deepcopy(self.DEFAULT_SCHEMA)
-        self.default_schema['inherit']['locale']['current'] = self.schema['inherit']['locale']['current']
 
-    def send(self, template: str, user_data: dict) -> None:
-        """Send an email."""
-        self.default_schema['inherit']['locale']['current'] = user_data.get('locale', 'en')
-        self.default_schema['data']['mail_data'] = {**self.defaults, **self.schema['data']['mail_data']}
-        self.default_schema['data']['mail_data']["template"] = template
-        self.default_schema['data']['mail_data']["auth_link"] = self.auth_link + '/' + user_data.get('token', '')
-        self.default_schema['data']['mail_data']["auth_pin"] = user_data.get('pin', '')
-        self.default_schema['data']['mail_data']["user_alias"] = user_data.get('alias', '')
+    def render(self, tpl: str) -> str:
+        """Renders the NTPL layout with the prepared schema."""
+        template = NeutralTemplate(tpl, schema_obj=self.schema)
+        return template.render()
 
-        template = NeutralTemplate(self.template_layout, json.dumps(self.default_schema))
-        body = template.render()
 
-        if Config.MAIL_METHOD == 'sendmail':
-            self.send_via_sendmail(body, user_data)
-        elif Config.MAIL_METHOD == 'smtp':
-            self.send_via_smtp(body, user_data)
-        elif Config.MAIL_METHOD == 'file':
-            with open(Config.MAIL_TO_FILE, "w", encoding="utf-8") as file:
-                file.write(body)
-        else:
-            print("Invalid sending method")
+class MailSend: # pylint: disable=too-few-public-methods
+    """Email transport."""
 
-    def send_via_sendmail(self, body: str, user_data: dict) -> None:
-        """Send email using sendmail/postfix."""
-        sender = user_data.get('from') or Config.MAIL_SENDER
-        return_path = Config.MAIL_RETURN_PATH
+    def __init__(self) -> None:
+        self.method = Config.MAIL_METHOD  # 'smtp', 'sendmail', 'file'
 
-        # Create email message
-        message = MIMEMultipart()
-        message['From'] = sender
-        message['To'] = user_data['to']
-        message['Subject'] = user_data['subject']
-        message.attach(MIMEText(body, 'html'))
+    def send(self, mail_data: dict, html_body: str, text_body: str = None) -> dict:
+        """Sends email and returns a result dict.
 
-        # Send using sendmail
-        p = Popen(['/usr/sbin/sendmail', '-t', '-oi', '-f', return_path], stdin=PIPE)
-        p.communicate(message.as_string().encode('utf-8'))
+        Args:
+            mail_data: Dict with 'to', 'subject', and optional 'from'.
+                       Sender: mail_data.get('from') or Config.MAIL_SENDER
+        """
+        try:
+            to = mail_data['to']
+            subject = mail_data['subject']
+            sender = mail_data.get('from') or Config.MAIL_SENDER
 
-    def send_via_smtp(self, body: str, user_data: dict) -> None:
-        """Send email using SMTP."""
-        sender = user_data.get('from') or Config.MAIL_SENDER
+            msg = self._build_mime(to, subject, sender, html_body, text_body)
+            if self.method == 'smtp':
+                return self._send_smtp(msg, to, sender)
+            if self.method == 'sendmail':
+                return self._send_sendmail(msg)
+            if self.method == 'file':
+                return self._send_file(msg, html_body)
+            return {'success': False, 'error': f"Unknown method: {self.method}"}
+        except Exception as e: # pylint: disable=broad-exception-caught
+            return {'success': False, 'error': str(e)}
 
-        # Create email message
-        message = MIMEMultipart()
-        message['From'] = sender
-        message['To'] = user_data['to']
-        message['Subject'] = user_data['subject']
-        message.attach(MIMEText(body, 'html'))
+    def _build_mime( # pylint: disable=too-many-arguments,too-many-positional-arguments
+        self, to: str, subject: str, sender: str, html: str, text: str
+    ) -> MIMEMultipart:
+        """Builds a multipart MIME message."""
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = subject
+        msg['From'] = sender
+        msg['To'] = to
+        msg['X-Mailer'] = 'NeutralMail/2.0'
+        if text:
+            msg.attach(MIMEText(text, 'plain', 'utf-8'))
+        msg.attach(MIMEText(html, 'html', 'utf-8'))
+        return msg
 
-        # Connect to SMTP server and send
+    def _send_smtp(self, msg: MIMEMultipart, to: str, sender: str) -> dict:
+        """Sends via SMTP with optional TLS."""
         with smtplib.SMTP(Config.MAIL_SERVER, Config.MAIL_PORT) as server:
             if Config.MAIL_USE_TLS:
                 server.starttls()
             if Config.MAIL_USERNAME and Config.MAIL_PASSWORD:
                 server.login(Config.MAIL_USERNAME, Config.MAIL_PASSWORD)
-            server.sendmail(sender, user_data['to'], message.as_string())
+            server.sendmail(sender, to, msg.as_string())
+        return {'success': True, 'message_id': None, 'error': None}
+
+    def _send_sendmail(self, msg: MIMEMultipart) -> dict:
+        """Sends via local sendmail."""
+        with Popen(['/usr/sbin/sendmail', '-t', '-oi', '-f', Config.MAIL_RETURN_PATH], stdin=PIPE) as p:
+            p.communicate(msg.as_string().encode('utf-8'))
+        return {'success': True, 'message_id': None, 'error': None}
+
+    def _send_file(self, msg: MIMEMultipart, html_body: str) -> dict:
+        """Saves to file for testing."""
+        with open(Config.MAIL_TO_FILE, "w", encoding="utf-8") as f:
+            f.write(f"<!-- To: {msg['To']} -->\n")
+            f.write(f"<!-- Subject: {msg['Subject']} -->\n")
+            f.write(html_body)
+        return {'success': True, 'message_id': Config.MAIL_TO_FILE, 'error': None}
+
+
+class Mail: # pylint: disable=too-few-public-methods
+    """Email delivery orchestrator.
+
+    Pattern identical to Template: __init__(schema, tpl=None).
+    The consumer does not know file paths.
+    """
+
+    def __init__(self, schema: dict, tpl: str = None) -> None:
+        self.schema = schema
+        self.data = schema.get("data", {})
+        self.tpl = tpl or self.data.get('MAIL_TEMPLATE_LAYOUT')
+
+        if not self.tpl:
+            raise ValueError(
+                "MAIL_TEMPLATE_LAYOUT is not defined in the schema. "
+                "Make sure a mail template provider component is "
+                "active and has called set_current_mail_template()."
+            )
+
+    def send(
+        self,
+        content_template: str,
+        mail_data: dict,
+        layout_data: dict = None
+    ) -> dict:
+        """Sends an email rendering content_template inside the layout.
+
+        Args:
+            content_template: Content template identifier.
+            mail_data: Dict with mandatory 'to', 'subject';
+                       'from' optional (default: Config.MAIL_SENDER);
+                       plus template variables (token, code, etc.).
+            layout_data: Optional presentation data. The template
+                        component decides if they are needed.
+        """
+        try:
+            # 1. Prepare current_mail in schema
+            self._prepare_mail_data(content_template, mail_data, layout_data)
+
+            # 2. Render HTML
+            html_body = MailTemplate(self.schema).render(self.tpl)
+            text_body = self._html_to_text(html_body)
+
+            # 3. Send
+            result = MailSend().send(
+                mail_data=mail_data,
+                html_body=html_body,
+                text_body=text_body
+            )
+            return result
+        except Exception as e: # pylint: disable=broad-exception-caught
+            return {'success': False, 'error': str(e)}
+
+    def _prepare_mail_data(
+        self,
+        content_template: str,
+        mail_data: dict,
+        layout_data: dict = None
+    ) -> None:
+        """Sets current_mail in the schema for the NTPL layout to use."""
+        self.data['current_mail'] = {
+            'content_template': content_template,
+            **(layout_data or {}),
+            **mail_data
+        }
+
+        # Ensure the email context does not inject JS or try to cache
+        self.schema.setdefault('config', {})
+        self.schema['config']['cache_disable'] = True
+        self.schema['config']['disable_js'] = True
+
+    def _html_to_text(self, html: str) -> str:
+        """Basic HTML to plain text conversion."""
+        text = re.sub(r'<style[^>]*>.*?</style>', '', html, flags=re.DOTALL)
+        text = re.sub(r'<[^>]+>', ' ', text)
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text
