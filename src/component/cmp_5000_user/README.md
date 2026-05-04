@@ -1,96 +1,76 @@
-# User Profile Management Component
+# Component: user_0yt2sa
 
-Component for user profile management.
+User profile management component.
 
-## UUID
+## Overview
 
-`user_0yt2sa`
+Provides authenticated users with profile viewing/editing, email management (add/delete with PIN verification), and account management (password, birthdate, login email changes). All routes require authentication. User ID is always from session context — never from URL parameters.
 
 ## Routes
 
-| Route | Description | Authentication |
-|-------|-------------|---------------|
-| `/u` | User profile view (read-only) | Required |
-| `/u/profile` | Profile edit page | Required |
-| `/u/profile/ajax/<ltoken>` | AJAX form for profile editing | Required |
+### Profile
 
-**Security note:** All routes require authentication. The user ID is obtained from the request user context (`USER.id`), never from URL parameters.
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/u` | GET | Profile view (read-only) |
+| `/u/profile` | GET | Profile edit page |
+| `/u/profile/ajax/<ltoken>` | GET/POST | Profile form (AJAX) |
 
-## Functionality
+### Email
 
-### User Profile
-- **Username**: Optional public identifier used by the public profile-image route
-- **Alias**: User display name
-- **Profile image**: Stores the selected image id for the profile avatar
-- **Locale**: Preferred language (e.g., es, en, fr)
-- **Region**: Geographic region (optional)
-- **Properties**: Additional properties in JSON format (optional)
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/u/email` | GET | Email management page |
+| `/u/email/pin/ajax/<ltoken>` | GET/POST | Request PIN for new email |
+| `/u/email/add/ajax/<ltoken>` | GET/POST | Add email with PIN |
+| `/u/email/delete/ajax/<ltoken>` | GET/POST | Delete email |
 
-## Structure
+### Account
 
-```
-cmp_5000_user_local/
-├── manifest.json              # Component configuration
-├── schema.json                # Menus and inheritance configuration
-├── README.md                  # This file
-├── route/
-│   ├── __init__.py           # Blueprint initialization
-│   ├── routes.py             # Flask route definitions
-│   ├── user_handler.py       # Business logic
-│   └── schema.json           # Form validation
-├── neutral/route/
-│   ├── index-snippets.ntpl   # Auto-loaded snippets
-│   ├── form-snippets.ntpl    # Form definitions
-│   └── root/
-│       ├── data.json         # Metadata for /u
-│       ├── content-snippets.ntpl
-│       └── profile/
-│           ├── data.json
-│           ├── content-snippets.ntpl
-│           └── ajax/
-│               └── content-snippets.ntpl
-└── tests/
-    └── test_routes.py        # Component tests
-```
+| Route | Method | Description |
+|-------|--------|-------------|
+| `/u/account` | GET | Account management page |
+| `/u/account/password/pin/ajax/<ltoken>` | GET/POST | Request password change PIN |
+| `/u/account/password/ajax/<ltoken>` | GET/POST | Change password |
+| `/u/account/birthdate/pin/ajax/<ltoken>` | GET/POST | Request birthdate change PIN |
+| `/u/account/birthdate/ajax/<ltoken>` | GET/POST | Change birthdate |
+| `/u/account/login/ajax/<ltoken>` | GET/POST | Change login email |
 
-## Usage
+## Security
 
-### Access profile
-```
-GET /u
-```
-Displays the authenticated user's profile information.
+- All routes require authentication (`"/": true`)
+- User ID from `USER.userId` context, never from URL
+- Sensitive operations require PIN verification via email
+- Login email change requires current password
+- Cross-user access impossible by design
 
-### Edit profile
-```
-GET /u/profile
-```
-Page with form to edit profile data.
+## Profile Fields
 
-**Form fields:**
-- `username` (optional): Public username with restricted format
-- `alias` (required): Display name (2-50 characters)
-- `locale` (required): Language code (2-10 characters)
-- `region` (optional): Geographic region (max 20 characters)
-- `properties` (optional): JSON with additional properties
+| Field | Required | Validation |
+|-------|----------|------------|
+| `username` | No | 0-30 chars, lowercase alphanumeric + hyphens |
+| `alias` | Yes | 2-50 chars |
+| `locale` | No | 2-10 chars, language code |
+| `region` | No | Max 20 chars |
+| `imageId` | No | UUID format |
+| `theme`/`color`/`dark_mode` | No | Stored in properties JSON |
+
+## Key Flows
+
+- **Email add**: Two-step PIN (send PIN → verify + add)
+- **Password change**: Two-step PIN (send PIN → verify + change)
+- **Birthdate change**: Two-step PIN (send PIN → verify + change)
+- **Login change**: Password verification (no PIN needed)
+- **Username change**: Cooldown + taken + blacklist validation + cache invalidation
 
 ## Dependencies
 
-- `forms_0yt2sa`: Forms component (includes utilities and snippets)
-
-## Implementation Notes
-
-1. **Security**: All routes use `"/": true` in `routes_auth`, applying to all sub-routes.
-
-2. **AJAX**: Forms use `{:fetch; ... :}` to load and send data via AJAX with the `LTOKEN` token.
-
-3. **Data Loading**: User data is loaded from the database using the `userId` from the request context.
-
-4. **Public Image Cache Invalidation**: When the profile form changes the username, the handler invalidates the cached public profile-image responses for the old and new `username` values. This targets the public image route `<image manifest.route>/p/<username>` through the shared image helper cache invalidation API.
+- `forms_0yt2sa` — Form utilities and snippets
+- `ftoken_0yt2sa` — CSRF tokens
+- Core `User`, `Mail`, `Image` helpers
 
 ## Testing
 
 ```bash
-# Run component tests
-python -m pytest src/component/cmp_5000_user_local/tests/ -v
+source .venv/bin/activate && python -m pytest src/component/cmp_5000_user/tests/ -v
 ```
