@@ -31,6 +31,7 @@ This skill guides you through the process of grouping current changes into meani
 - **Security Check**: Before committing, check for sensitive or suspicious files (`.env`, tokens, credentials, keys, secrets). **Stop and ask if any are found.**
 - **Absolute Path Check**: Ensure all paths are relative to the repository. **Never include absolute system paths** (e.g., `/home/user/...`).
 - **Safety Script**: Run `.agents/skills/commit/scripts/check_commit_safety.sh` after staging each group. The script uses exit codes: **`exit 0`** means no issues; **`exit 1`** means warnings were found. Check the exit code — do **not** rely on parsing stdout.
+- **Intentional False Positives**: The safety script is intentionally strict and does **not** support automated exceptions (white-lists), as this could lead to security gaps. Expect false positives in documentation, component names (e.g., `ftoken`), or security logic. If a warning occurs, you **must** analyze the output, explain why it is a false positive, and wait for explicit human validation before proceeding.
 - **No Side Effects**: 
   - Do NOT use `--no-verify`.
   - Do NOT amend commits.
@@ -49,7 +50,7 @@ This skill guides you through the process of grouping current changes into meani
     - Add only the specific files (avoid `git add .`): `git add <files>`
     - Verify staged files: `git status`
     - Run safety script: `bash .agents/skills/commit/scripts/check_commit_safety.sh`
-    - If the script **exits with code 1**, **stop immediately and show the output to the user** before proceeding. Do not commit.
+    - If the script **exits with code 1**, **stop immediately, analyze the output for false positives, and show them to the user**. Do not proceed or commit without explicit user confirmation that the warnings are safe to ignore.
     - Create the commit: `git commit -m "<type>(<scope>): <subject>"`
 5.  **Summarize**: Provide a summary of the commits created.
 
