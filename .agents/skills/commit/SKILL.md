@@ -9,7 +9,7 @@ This skill guides you through the process of grouping current changes into meani
 
 ## Rules and Constraints
 
-- **Explicit Request**: Only perform commits when the user explicitly indicates it.
+- **MANDATORY - Explicit Request**: **NEVER** perform a commit unless the user has explicitly requested it in the current or immediate past turn. Do not assume that finishing a task implies permission to commit.
 - **Full Repository Inspection**: Before proposing any commit, inspect the current state:
   - `git status --short`
   - `git diff --stat`
@@ -40,7 +40,7 @@ This skill guides you through the process of grouping current changes into meani
 
 ## Workflow
 
-1.  **Analyze**: Run the inspection commands mentioned above to understand the pending changes.
+1.  **Analyze**: Run the inspection commands mentioned above. If the user has not explicitly asked for a commit, stop here and ask if they wish to commit the changes.
 2.  **Propose Plan**: Present a plan to the user showing:
     - The proposed commits.
     - The files included in each commit.
