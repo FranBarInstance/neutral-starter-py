@@ -70,3 +70,8 @@
 - Summary: extraction and maintenance of translations for a single component.
 - Use when extracting, creating, or updating translations for a component from `.ntpl`, `data.json`, `schema.json`, or route locale files.
 - Read: `.agents/skills/translate-component/SKILL.md`
+
+## Specifications Entry Point
+- Before making architecture, component, template, forms, security, or documentation decisions, use `.specify/OVERVIEW.md` as the entry point to the specification system.
+- From `.specify/OVERVIEW.md`, read the specific specs that apply to the current task instead of loading `.specify/` indiscriminately.
+- Treat the relevant specifications under `.specify/` as normative project guidance together with this `AGENTS.md`.
