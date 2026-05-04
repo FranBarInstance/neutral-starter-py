@@ -1,42 +1,74 @@
 # PWA Component
 
-This component provides Progressive Web App (PWA) features to the **Neutral PWA** framework. It handles service worker registration, dynamic web app manifest generation, and provides a user-friendly installation prompt.
+Progressive Web App support for Neutral TS Starter Py.
+
+## Overview
+
+Provides service worker registration, web app manifest, offline page, and install prompt. Injects PWA meta tags into HTML head and conditionally displays install button in navbar.
+
+## Routes
+
+| Route | Method | Auth | Description |
+|-------|--------|------|-------------|
+| `/service-worker.js` | GET | No | Service worker JavaScript |
+| `/pwa/manifest.json` | GET | No | Web app manifest (NTPL) |
+| `/pwa/offline.html` | GET | No | Offline fallback page |
+| `/pwa/*` | GET | No | Static assets (icons) |
+
+## Structure
+
+```
+├── manifest.json              # UUID: pwa_0yt2sa, route: ""
+├── schema.json                # Menu entries, translations
+├── route/
+│   ├── __init__.py            # Blueprint init
+│   └── routes.py              # 4 route handlers
+├── neutral/
+│   ├── component-init.ntpl    # Conditional snippet loading
+│   ├── snippets.ntpl          # Meta tags, SW registration, install JS
+│   └── route/pwa/
+│       ├── manifest.json      # Manifest template
+│       └── offline.html       # Offline page template
+├── static/
+│   └── service-worker.js      # Service worker (cache, fetch, push)
+└── tests/
+    └── test_routes.py         # Route tests
+```
 
 ## Configuration
 
-The component must be assigned to the root route (`""`) for the `service-worker.js` to function correctly. Other assets can be served from any path, which is defined in `manifest.json` via the `static-dir` property.
+| Key | Default | Purpose |
+|-----|---------|---------|
+| `enable` | `true` | Toggle PWA features |
+| `static-dir` | `"pwa"` | Asset directory name |
+| `theme_color` | `"#375A7F"` | Theme/meta color |
+| `background_color` | `"#ffffff"` | Background color |
+| `navbar_times` | `2` | Install prompt display limit |
+| `public-has-*` | `false` | Override to `public/` directory |
 
-The component is highly configurable through its `manifest.json` (via overrides in `custom.json`):
+Override via `custom.json` in component root.
 
-*   **`enable`**: Globally toggle PWA features.
-*   **`static-dir`**: Name of the directory for PWA assets (default: `pwa`).
-*   **`theme_color`** & **`background_color`**: Colors used in the manifest and HTML meta tags.
-*   **`navbar_times`**: Determines how many times the install prompt is suggested in the navigation bar.
-*   **`public-has-*`**: Flags to indicate whether to use files from the project's root `public` directory instead of the component's internal `static` folder.
+## Snippets
 
-## Customization
+- `pwa_0yt2sa-head` — Meta tags (moved to `/head`)
+- `pwa_0yt2sa-body-end` — Service worker registration + install JS (moved to `/body`)
+- `pwa_0yt2sa-main-navbar-bottom-install` — Install button (conditional)
 
-To override settings in `manifest.json`, create a `custom.json` file in the component's root directory.
+## Translations
 
-To add custom icons, simply place them in the `public/pwa` folder and change `public-has-icons` to `true` in the `custom.json` file. They will be processed and generated automatically.
+6 languages: EN, ES, DE, FR, AR, ZH
 
-Similarly, you can do the same for the service worker and the manifest by changing `public-has-service-worker` and `public-has-manifest` to `true` in the `custom.json` file:
+Key strings: "Install APP", "Internet connection required", "No connection"
 
-```json
-{
-    "schema": {},
-    "manifest": {
-        "config": {
-            "static-dir": "pwa",
-            "enable": true,
-            "navbar_times": 2,
-            "theme_color": "#375A7F",
-            "background_color": "#ffffff",
-            "public-has-icons": false,
-            "public-has-manifest": false,
-            "public-has-service-worker": false,
-            "public-has-offline": false
-        }
-    }
-}
-```
+## Menu Integration
+
+- **Main menu**: "Install APP" entry with `x-icon-webapp`
+- Hidden by default (`d-none`), shown via JS when installable
+- Available for both anonymous and authenticated users
+
+## Notes
+
+- Must use root route (`""`) for service worker scope
+- Install prompt uses `pwa_0yt2sa_count` cookie for limiting
+- Push notification support included (requires server-side integration)
+- CSP nonces on all inline scripts/styles
