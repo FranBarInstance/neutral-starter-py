@@ -71,6 +71,11 @@
 - Use when extracting, creating, or updating translations for a component from `.ntpl`, `data.json`, `schema.json`, or route locale files.
 - Read: `.agents/skills/translate-component/SKILL.md`
 
+### `commit`
+- Summary: group changes into semantic commits following repository standards.
+- Use when the user explicitly requests committing changes. Inspects the repository state, proposes a commit plan, validates with the user, and executes semantic commits.
+- Read: `.agents/skills/commit/SKILL.md`
+
 ## Specifications Entry Point
 - Before making architecture, component, template, forms, security, or documentation decisions, use `.specify/OVERVIEW.md` as the entry point to the specification system.
 - From `.specify/OVERVIEW.md`, read the specific specs that apply to the current task instead of loading `.specify/` indiscriminately.

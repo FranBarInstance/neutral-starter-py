@@ -1,89 +1,85 @@
-# Album Image Component (`album_image_0yt2sa`)
+# Album Image Component
 
-Reusable component for uploading, listing, selecting, moving, and deleting images from user albums.
+Upload, list, select, move, and delete images organized by albums.
 
-## What It Does
+## Overview
 
-- Exposes AJAX endpoints for album image management.
-- Provides the reusable Neutral snippet `{:snip; album_image_0yt2sa:image-field :}` for use in other components.
-- Lets authenticated users upload images to albums and select existing ones.
-- Returns image items with public variant URLs (`thumbUrl`, `mediumUrl`, `fullUrl`) for frontend use.
-- Includes its own root page for batch actions such as move and delete.
-
-## Reusable Snippets
-
-This component exposes reusable Neutral snippets from `/neutral/snippets.ntpl`.
-
-Main reusable snippet:
-
-- `{:snip; album_image_0yt2sa:image-field :}`
-
-That snippet is designed to be embedded in other components, for example profile editing flows, custom forms, or image-selection interfaces.
-
-Required assets are loaded through:
-
-- `{:snip; album_image_0yt2sa:image-field-required :}`
+Provides AJAX endpoints for image management and reusable NTPL snippets for embedding image selectors in other components. Includes batch action interface for bulk operations.
 
 ## Routes
 
-- `<manifest.route>` is the route defined in `manifest.json`.
-- `GET <manifest.route>/`
-  - Renders the component root page through `RequestHandler`.
-  - The root page provides batch management UI for selected images.
-- `GET <manifest.route>/field/list`
-  - Lists images for the current profile and one album.
-  - Requires header `Requested-With-Ajax`.
-- `GET <manifest.route>/field/albums`
-  - Lists album codes for the current profile.
-  - Requires header `Requested-With-Ajax`.
-- `POST <manifest.route>/field/upload`
-  - Uploads one or many images for the current profile.
-  - Requires header `Requested-With-Ajax`.
-- `POST <manifest.route>/field/delete`
-  - Deletes one image for the current profile.
-  - Requires header `Requested-With-Ajax`.
-- `GET <manifest.route>/field/batch-action/ajax/<ltoken>`
-  - Renders the batch action form used by the root page.
-- `POST <manifest.route>/field/batch-action/ajax/<ltoken>`
-  - Applies the batch action form submission for move or delete.
+| Route | Method | Auth | Description |
+|-------|--------|------|-------------|
+| `/` | GET | Yes | Root page (batch management UI) |
+| `/static/<path>` | GET | No | Static assets |
+| `/field/list` | GET | Yes | List images by album (AJAX) |
+| `/field/albums` | GET | Yes | List album codes (AJAX) |
+| `/field/upload` | POST | Yes | Upload images (AJAX) |
+| `/field/delete` | POST | Yes | Delete image (AJAX) |
+| `/field/batch-action/ajax/<ltoken>` | GET/POST | Yes | Batch action form |
 
-## Dependency on the Image Delivery Component
+## Structure
 
-This component does not decide the public image variant base URL by itself.
+```
+├── manifest.json              # UUID: album_image_0yt2sa, route: /album-image
+├── schema.json                # Menu entries
+├── route/
+│   ├── __init__.py            # Blueprint init
+│   ├── routes.py              # 7 route handlers
+│   ├── batch_action_handler.py # Form handler for batch ops
+│   └── schema.json            # Form validation
+├── neutral/
+│   ├── component-init.ntpl    # Snippet inclusion
+│   ├── snippets.ntpl          # Reusable image-field
+│   └── route/root/
+│       ├── data.json          # Route metadata
+│       ├── content-snippets.ntpl # Batch UI
+│       └── field/batch-action/ajax/
+│           └── content-snippets.ntpl
+└── static/
+    ├── album-image.css/.js    # Field widget styles/scripts
+    └── album-image-edit.js    # Batch edit functionality
+```
 
-Public variant URLs are built from the runtime value:
+## Reusable Snippets
 
-- `current.site.image_link_variant`
+| Snippet | Purpose |
+|---------|---------|
+| `album_image_0yt2sa:image-field-required` | Load CSS/JS assets |
+| `album_image_0yt2sa:image-field` | Complete image field widget |
 
-That value must be defined by the component that serves the images, currently the image delivery component (`image_0yt2sa`).
+**Snippet parameters:** `max-images`, `list-limit`, `upload-delay-ms`, `force-album`, `fields-to-fill`, `url-to-fill`
 
-## Load Order Requirement
+## AJAX Endpoints
 
-Because this component depends on `current.site.image_link_variant`, the image delivery component must be loaded first so that value is already present in schema data.
+All require `Requested-With-Ajax` header and return JSON:
 
-In practice:
+- `GET /field/list?album_code=gallery&limit=50&offset=0` — Returns images with `thumbUrl`, `mediumUrl`, `fullUrl`
+- `GET /field/albums` — Returns album codes for current profile
+- `POST /field/upload` — Upload files (field: `images` or `image`)
+- `POST /field/delete` — Delete image (field: `image_id`)
 
-- the component that serves images must set `current.site.image_link_variant`
-- this component must load after that component
+## Batch Actions
 
-## Optional Integration
+Form-based batch operations (move/delete) via `/field/batch-action/ajax/<ltoken>`:
+- Fields: `action`, `target_album`, `confirm`, `album-image-edit-image-id`
+- Ownership verified for each image before operation
 
-This component can coexist with other UI utilities that consume the image URLs it provides.
+## Dependencies
 
-For example:
+- Core `Image` class (upload, list, delete, move)
+- Core `FormRequestHandler`
+- **Must load after** `image_0yt2sa` (requires `current.site.image_link_variant`)
 
-- a zoom/lightbox utility may use `thumbUrl` and `fullUrl`
-- another component may use the snippet only for image selection without using the root page
+## Menu Integration
 
-Those integrations are external to this component and are not required for its core upload/list/select behavior.
+- **Session menu**: "Album Images" entry with `x-icon-images`
+- **Drawer menu**: "User" tab entry with `x-icon-user`
 
-## Key Files
+## Security
 
-- `/manifest.json`
-- `/schema.json`
-- `/route/routes.py`
-- `/route/batch_action_handler.py`
-- `/neutral/snippets.ntpl`
-- `/neutral/route/root/content-snippets.ntpl`
-- `/static/album-image-field.js`
-- `/static/album-image-edit.js`
+- All routes require authentication
+- All operations scoped to current `profile_id`
+- Profile ownership verified before delete/move
+- LTOKEN validation on batch form
+- CSP nonces on inline scripts

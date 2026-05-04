@@ -1,62 +1,65 @@
-# Image Delivery Component (`image_0yt2sa`)
+# Image Delivery Component
 
-Component responsible for serving public image variants and profile thumbnails.
+Serves public image variants and profile thumbnails.
 
-## What It Does
+## Overview
 
-- Serves stored image variants by image id and variant name.
-- Serves profile thumbnail images by username.
-- Returns built-in WebP placeholders when the requested image is missing.
-- Publishes image delivery routes in schema data through `current.site.image_link`, `current.site.image_link_profile`, and `current.site.image_link_variant`.
-
-## Runtime Data
-
-This component sets in the schema:
-
-- `current.site.image_link = [:;data->image_0yt2sa->manifest->route:]`
-- `current.site.image_link_profile = [:;data->image_0yt2sa->manifest->route:]/p`
-- `current.site.image_link_variant = [:;data->image_0yt2sa->manifest->route:]/v`
-
-Other components can use those values to build public image URLs without hardcoding the route.
+Provides endpoints for retrieving stored image variants by ID and profile thumbnails by username. Returns WebP images with server-side caching and rate limiting.
 
 ## Routes
 
-- `<manifest.route>` is defined in `manifest.json`.
-- `GET <manifest.route>/p/<username>`
-  - Returns the user's `thumb` profile image variant.
-  - Returns the default profile image when the user has no profile image or the `thumb` variant is not available.
-- `GET <manifest.route>/v/<image_id>/<variant>`
-  - Returns one stored image variant.
-  - Falls back to `static/404.webp` with HTTP `404` when the variant does not exist.
-- `GET <manifest.route>/` and any unmatched subroute
-  - Returns `static/404.webp` with HTTP `404`.
+| Route | Method | Auth | Description |
+|-------|--------|------|-------------|
+| `/p/<username>` | GET | No | Profile thumbnail (always returns image) |
+| `/v/<image_id>/<variant>` | GET | No | Image variant by ID (404 if missing) |
+| `/*` | GET | No | 404 fallback |
+
+## Structure
+
+```
+├── manifest.json              # UUID: image_0yt2sa, route: /i
+├── schema.json                # Route URL publication
+├── route/
+│   ├── __init__.py            # Blueprint init
+│   └── routes.py              # 3 route handlers
+└── static/
+    ├── 404.webp               # Not-found placeholder (~12KB)
+    └── profile.webp           # Default profile (~5KB)
+```
+
+## Schema Data
+
+Published in `current.site` for cross-component URL building:
+
+| Key | Value |
+|-----|-------|
+| `image_link` | `[:;data->image_0yt2sa->manifest->route:]` |
+| `image_link_profile` | `[:;data->image_0yt2sa->manifest->route:]/p` |
+| `image_link_variant` | `[:;data->image_0yt2sa->manifest->route:]/v` |
+
+**Template usage:**
+```
+<img src="{:;current->site->image_link_profile:}/username">
+<img src="{:;current->site->image_link_variant:}/image-id/thumb">
+```
 
 ## Response Behavior
 
-- Successful image responses are returned as `image/webp`.
-- Variant responses include `X-Image-Width` and `X-Image-Height`.
-- The component applies rate limiting through `Config.STATIC_LIMITS`.
-- The component applies server-side caching through `Config.CACHE_IMG`.
-- A username lookup without a usable image is not treated as an error response.
-- Cache headers are set with:
-  - `Config.STATIC_CACHE_IMG_PROFILE_CONTROL` for profile responses
-  - `Config.STATIC_CACHE_IMG_CONTROL` for generic variant responses
+- **Format**: `image/webp` for all responses
+- **Headers**: `X-Image-Width`, `X-Image-Height`, `Cache-Control`
+- **Rate limiting**: `Config.STATIC_LIMITS`
+- **Caching**: `Config.CACHE_IMG`
+- **Profile** (`/p/*`): Always returns HTTP 200 (user image or default placeholder)
+- **Variant** (`/v/*`): Returns HTTP 404 with placeholder if variant missing
 
-## Key Files
+## Dependencies
 
-- `/manifest.json`
-- `/schema.json`
-- `/route/routes.py`
-- `/static/profile.webp`
-- `/static/404.webp`
+- Core `Image` class (variant retrieval)
+- Core `User` class (profile lookup)
+- Flask-Caching, Flask-Limiter
 
-## Usage Examples
+## Notes
 
-```html
-<img src="{:;current->site->image_link_profile:}/john" alt="Profile image">
-<img src="{:;current->site->image_link_variant:}/abc123/thumb" alt="Thumbnail image">
-<img src="{:;current->site->image_link_variant:}/abc123/medium" alt="Medium image">
-<img src="{:;current->site->image_link_variant:}/abc123/full" alt="Full image">
-```
-
-In practice, other components should build those URLs from `current.site.image_link_profile` and `current.site.image_link_variant`.
+- Profile endpoint only serves `thumb` variant
+- WebP format only (no JPEG/PNG fallback)
+- Images are public (no authentication required)
