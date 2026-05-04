@@ -3,7 +3,7 @@
         "data": {
             "current": {
                 "forms": {
-                    "_class": "forms-bt5-clean border border-0",
+                    "class": "",
                     "field-spacing": "mb-2",
                     "field-send-spacing": "mt-3"
                 }
