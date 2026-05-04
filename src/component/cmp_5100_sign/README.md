@@ -1,105 +1,73 @@
-# Component: Sign (`sign_0yt2sa`)
+# Component: sign_0yt2sa
 
-The **Sign** component manages all user authentication processes, including signing in, signing up, password reminders, and signing out. It follows the standard Neutral TS Starter Py architecture, combining Flask back-end logic with NTPL front-end templates.
+Manages all user authentication: sign-in, sign-up, password reminder, PIN verification, and sign-out.
 
 ## Overview
 
 - **UUID**: `sign_0yt2sa`
 - **Route Prefix**: `/sign`
-- **Dependencies**: Requires `ftoken_0yt2sa` for form security tokens.
-
-## Key Features
-
-- **User Authentication**: Secure sign-in and sign-up flows.
-- **Session Management**: Logout functionality and session state handling.
-- **Password Recovery**: Support for password reminders via email.
-- **PIN Verification**: Supports both signup confirmation and reminder access using token + PIN.
-- **Privacy First**: Silent reminders when a user tries to register with an existing email, preventing account enumeration.
-- **Form Validation**: Comprehensive server-side and client-side validation rules defined in `schema.json`.
-- **Modals & Navigation**: Pre-configured menu entries for Navbar, Drawer, and User menus, including modal triggers for Bootstrap.
-- **Multilingual**: Built-in support for English, Spanish, French, and German.
-
-## Current Status
-
-- `signup` flow is operational: user is created, mail is sent, and account can be confirmed with PIN.
-- `PIN` flow is operational for both targets:
-  - `UNCONFIRMED` target: confirms account, removes disabled state, removes PIN, creates session.
-  - `reminder` target: one-time PIN validation, removes PIN, creates session.
-- PIN route follows the same container/ajax pattern as sign-in:
-  - Container: `/sign/pin/<pin_token>`
-  - AJAX form: `/sign/pin/form/<pin_token>/<ltoken>`
-- `VALIDATE_SIGNUP` remains `false` by default (see TODO for `UNVALIDATED` lifecycle).
-
-## File Structure
-
-- `manifest.json`: Registration metadata and dependencies.
-- `schema.json`: Menu definitions, form validation rules, and global data.
-- `route/`:
-    - `routes.py`: Flask route definitions for all authentication actions.
-    - `dispatcher_form_sign.py`: Business logic for handling form submissions and data processing.
-- `neutral/`:
-    - `component-init.ntpl`: Global snippets for authentication.
-    - `snippets-session-true.ntpl` / `snippets-session-false.ntpl`: Conditional snippets based on user session state.
-    - `route/`: NTPL templates for specific routes (in, up, out, reminder, etc.).
-
-## Configuration (`schema.json`)
-
-The component populates several menu structures:
-- **Navbar**: Adds "Sign in" and "Sign up" buttons (with modal triggers) when no session is active, and "Sign out" when logged in.
-- **Drawer**: Adds a User section in the side menu.
-- **Menu**: Accessible via user profile, providing direct links to authentication pages.
-
-### Form Validation
-Rules for `sign_in_form`, `sign_up_form`, `sign_reminder_form`, and `sign_pin_form` are strictly defined under `data -> core -> forms`. These include:
-- Required fields.
-- Regex patterns (email, password, alias).
-- Length constraints.
-- Security fields (`notrobot`, `ftoken`).
+- **Required dependency**: `ftoken_0yt2sa` `0.0.x`
 
 ## Routes
 
 | Route | Method | Description |
 |-------|--------|-------------|
-| `/sign/in` | GET | Renders the sign-in page. |
-| `/sign/in/form/<ltoken>` | GET/POST | Handles the actual sign-in form submission. |
-| `/sign/up` | GET | Renders the sign-up page. |
-| `/sign/up/form/<ltoken>` | GET/POST | Handles user registration. |
-| `/sign/reminder` | GET | Renders the password reminder page. |
-| `/sign/reminder/form/<ltoken>` | GET/POST | Processes password reminder requests. |
-| `/sign/out` | GET | Finalizes the user session and logs out. |
-| `/sign/pin/<token>` | GET | Renders the PIN verification page container. |
-| `/sign/pin/form/<token>/<ltoken>` | GET/POST | Handles the PIN form (AJAX) for verification/login. |
-| `/sign/help/<item>` | GET | Serves help content for specific auth items (cached). |
+| `/sign/in` | GET | Sign-in page |
+| `/sign/in/form/<ltoken>` | GET/POST | Sign-in form (AJAX) |
+| `/sign/up` | GET | Sign-up page |
+| `/sign/up/form/<ltoken>` | GET/POST | Sign-up form (AJAX) |
+| `/sign/reminder` | GET | Password reminder page |
+| `/sign/reminder/form/<ltoken>` | GET/POST | Reminder form (AJAX) |
+| `/sign/out` | GET | Sign-out page |
+| `/sign/out/form/<ltoken>` | GET | Execute logout (AJAX) |
+| `/sign/pin/<pin_token>` | GET | PIN verification page |
+| `/sign/pin/form/<pin_token>/<ltoken>` | GET/POST | PIN form (AJAX) |
+| `/sign/help/<item>` | GET | Help content (cached) |
+
+## Security
+
+- All routes public (auth not required) — users need access when not logged in
+- All POST forms protected by `ftoken` (CSRF) + `notrobot` honeypot
+- Rate limiting on sign-in (per-IP + per-email hashed), sign-up, reminder, PIN
+- Anti-enumeration: sign-up silently sends reminder if email exists; reminder always returns success
+- Sessions tied to User Agent
+
+## Key Flows
+
+- **Sign-in**: email + password → check credentials → check disabled states → create session
+- **Sign-up**: alias + email + password + birthdate → create user → send confirmation email → if exists, silently send reminder
+- **PIN verification**: token from email link → classify target (signup/reminder) → verify PIN → remove disabled state (if signup) → create session
+- **Reminder**: email → always return success → send PIN email if user exists
+
+## Form Validation
+
+| Form | Key Fields |
+|------|------------|
+| `sign_in_form` | email, password, notrobot, ftoken |
+| `sign_up_form` | alias (3-50), email + MX, password + match, birthdate (13-100), agree, notrobot, ftoken |
+| `sign_reminder_form` | email + MX, notrobot, ftoken |
+| `sign_pin_form` | pin (4-10 alphanumeric), notrobot, ftoken |
 
 ## Integration
 
-To link to a specific authentication page from another component, use the defined data paths:
+Sign links available via `data.current.site.sign_links`:
 
 ```html
-<!-- Sign In Link -->
-<a href="[:;data->sign_0yt2sa->manifest->route:]/in">Sign In</a>
-
-<!-- Sign Up Link -->
-<a href="[:;data->sign_0yt2sa->manifest->route:]/up">Sign Up</a>
+<a href="{:;data->sign_0yt2sa->manifest->route:}/in">Sign In</a>
+<a href="{:;data->sign_0yt2sa->manifest->route:}/up">Sign Up</a>
 ```
 
-## Security & Privacy
+## Dependencies
 
-- **Account Enumeration Protection**: During registration, if an email already exists in the database, the system will not disclose it. Instead, it silently sends a password reminder to that email.
-- **Form Protection**: All forms are protected by `ftoken` (via the `ftoken_0yt2sa` component) and a `notrobot` honeypot/validation system to prevent automated submissions.
-- **Rate Limiting**: Applied to sensitive routes (sign-in, sign-up, reminder) as defined in `app.config.Config`.
-- **Session Security**: Sessions are tied to the User Agent and use secure cookies.
+- `ftoken_0yt2sa` — CSRF tokens (required)
+- Core `User`, `Mail`, `Session` helpers
 
-## Tests
+## Known Limitations
 
-- Component test suite: `src/component/cmp_5100_sign/tests/test_sign_component.py`
-- Run only this component:
-  - `source .venv/bin/activate && pytest -q src/component/cmp_5100_sign/tests`
-- Run full project suite:
-  - `source .venv/bin/activate && pytest -q`
+- **UNVALIDATED lifecycle**: When `VALIDATE_SIGNUP=true`, users can remain blocked after confirmation. Manual admin intervention required. Default is `VALIDATE_SIGNUP=false`.
 
-## TODO
-- [ ] Define and implement the `UNVALIDATED` lifecycle (how it is cleared when `Config.VALIDATE_SIGNUP=True`); right now users can remain blocked even after confirmation.
-  - Status: not implemented yet.
-  - Current default is `VALIDATE_SIGNUP=false` (see `config/.env.example` and `src/app/config.py`) to avoid blocking signups.
-  - If `VALIDATE_SIGNUP=true` is enabled, user activation must be done manually by removing the corresponding `UNVALIDATED` entry from `user_disabled` for that user.
+## Testing
+
+```bash
+source .venv/bin/activate && pytest -q src/component/cmp_5100_sign/tests
+```
