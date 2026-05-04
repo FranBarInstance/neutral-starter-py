@@ -15,7 +15,12 @@
 /storage-dev
 /storage/*
 !/storage/README.md
+
+# for local development only
+# these files should not be committed
+# e.g. cmp_testsignin_local
 /src/component/*_local/
+
 **/custom-snippets.ntpl
 !/src/component/**/*_hellocomp/**/custom-snippets.ntpl
 **/custom.json
