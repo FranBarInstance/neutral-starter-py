@@ -341,3 +341,7 @@ This approach ensures the AI respects the intended behavior defined in the specs
 ## License
 
 See the [LICENSE](LICENSE) file for details.
+
+---
+
+## Bonus: Emoji-Free README
