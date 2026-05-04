@@ -16,9 +16,12 @@
 /storage/*
 !/storage/README.md
 
-# for local development only
-# these files should not be committed
-# e.g. cmp_testsignin_local
+# Local Development Components
+# Pattern: src/component/*_local/ - Components with _local suffix for development/testing
+# These are loaded by the runtime but ignored by git (never committed)
+# See: .specify/specs/001-component-standard/spec.md - "Local development pattern (*_local)"
+# Usage: Create cmp_XXXX_name_local/ to test without committing, rename to activate
+# Note: Different from _cmp_* (disabled components) - _local loads, _cmp_* is ignored by runtime
 /src/component/*_local/
 
 **/custom-snippets.ntpl
