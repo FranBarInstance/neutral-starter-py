@@ -340,17 +340,6 @@
     </style>
 :}
 
-{:snip; current:template:theme-workaround-css:sketchy >>
-    <style nonce="{:;CSP_NONCE:}">
-        .nav-brand-text {
-            margin-bottom: -4px;
-        }
-        .form-check-input {
-            padding: .50rem .50rem;
-        }
-    </style>
-:}
-
 {:snip; neutral.js >>
     <script nonce="{:;CSP_NONCE:}">
         var neutral_submit_loading = '{:snip; spin-1x :}';
