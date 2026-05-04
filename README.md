@@ -344,4 +344,4 @@ See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Bonus: Emoji-Free README
+### Bonus: Emoji-Free README
