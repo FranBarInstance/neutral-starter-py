@@ -1,8 +1,10 @@
-# Neutral TS Starter Py
+# Neutral TS Starter Py (AI-Ready)
+
+> **Spec-Driven by Design. Modular by Nature. Parallel-Safe by Architecture. Built for Humans & AI to Ship Together.**
 
 **Neutral TS Starter Py** is a modular, opinionated starter kit for building Progressive Web Applications (PWA) using **Python (Flask)** on the backend and **[Neutral TS](https://github.com/FranBarInstance/neutralts)** as a universal templating engine.
 
-This project is designed to be extensible via a "plug-and-play" component architecture, allowing scalability from quick prototypes to complex applications while maintaining a clean and decoupled structure.
+This project is designed to be extensible via a "plug-and-play" component architecture, allowing scalability from quick prototypes to complex applications while maintaining a clean and decoupled structure. It is **AI-Ready**: every architectural choice—from isolated components to specification files—is made so that AI assistants understand, generate, and modify code alongside you with deterministic results.
 
 ## Project Status
 
@@ -15,6 +17,7 @@ This starter is in active development.
 
 *   **Flask application factory** with component-driven routing and blueprint registration.
 *   **Modular component architecture** in `src/component` (manifest, schema, routes, templates, static assets).
+*   **AI-Ready by design** – Self-contained components with local specifications, a global project specification, and integrated agent skills that enable AI to work safely on multiple components in parallel.
 *   **Neutral TS templating (NTPL)** with snippet composition and schema-driven data.
 *   **Override model** using `custom.json` and optional `config/config.db` (`custom` table) for per-component customization.
 *   **Security defaults**: CSP, host allow-list validation, trusted proxy header guard, and security headers.
@@ -172,14 +175,14 @@ neutral-starter-py/
 │   │   └── ...                  # Other components (cmp_0100_*, cmp_0200_*, etc.)
 │   ├── core/                    # Core utilities (request handlers, helpers)
 │   ├── model/                   # Data models
-│   ├── neutral/                 # Template engine core
 │   ├── utils/                   # Utility modules
 │   ├── run.py                   # Execution script for development
 │   └── wsgi.py                  # Entry point for production (Gunicorn/uWSGI)
 ├── config/                      # General configuration files
 ├── docs/                        # Project documentation
 ├── public/                      # Public static files
-└── storage/                     # Storage directory for runtime data
+├── storage/                     # Storage directory for runtime data
+└── .agents/                     # AI agent resources (skills, specs)
 ```
 
 ## Component Architecture
@@ -196,6 +199,7 @@ The strength of this starter lies in `src/component`. Each folder there is a sel
     *   `neutral/`: HTML templates and snippets.
     *   `static/`: Specific assets (JS/CSS).
     *   `__init__.py`: Component initialization.
+    *   `.specify/`: Component-level specification that defines its contract, intended behavior, and constraints — a key ingredient of the **AI-Ready** architecture.
 
 Folders that do not start with `cmp_` are skipped by the loader. This is used for disabled/optional components (for example `_cmp_*`).
 
@@ -218,10 +222,11 @@ cmp_component_name/
 ├── static/            # Component static resources
 │   ├── component.css
 │   └── component.js
+├── .specify/          # AI-oriented component specification
 └── __init__.py        # Component initialization
 ```
 
-For a detailed example, see the [Hello Component README](src/component/cmp_7000_hellocomp/README.md). For complete technical documentation on the component architecture, refer to [docs/component.md](docs/component.md).
+For a detailed example, see the [Hello Component README](src/component/_cmp_7000_hellocomp/README.md). For complete technical documentation on the component architecture, refer to [docs/component.md](docs/component.md).
 
 ## Configuration
 
@@ -286,22 +291,24 @@ For more detailed documentation, see the `docs/` directory:
 *   `docs/component.md`: Complete guide on component architecture and creation.
 *   `docs/security-csp.md`: Security headers, CSP configuration, host allow-list, and proxy trust boundaries.
 
-## AI and Agentic Capabilities
+## AI-Ready Architecture & Agentic Capabilities
 
-The primary goal of this application is to provide developers with agentic, AI-powered capabilities:
+Neutral TS Starter Py is built from the ground up as an **AI-Ready** framework. Every design decision follows three foundational principles that make the project exceptionally friendly for AI-assisted development:
 
-- **Component Creation**: AI can generate new application components on demand. You can ask AI to create a specific component for a concrete task within the application ecosystem.
+1. **Self-Contained Components**
+   Each component under `src/component` is an isolated, pluggable module with its own routes, templates, assets, and a dedicated **specification** (`.specify/`). This creates clear boundaries so AI agents can generate, modify, or repair multiple components simultaneously without side-effects.
 
-To support this workflow, the project includes:
+2. **Spec-Driven Development**
+   A **global specification** defines the project's overall contract, and every component carries its own **local specification** inside `.specify/`. These specifications act as the single source of truth, guiding AI to understand *what* to build before writing a single line of code—transforming ambiguous requests into deterministic, reviewable outcomes. Because each component's specification is self-contained and independent, multiple AI agents can work on different components at the same time without coordination overhead or risk of conflicting changes.
 
-- **Skills**: Agent skill definitions under `.agents/skills`.
-- **Technical Documentation**: Detailed implementation guides in the `docs/` directory.
+3. **Integrated Skills & Utilities**
+   Agent skill definitions under `.agents/skills` provide standardized workflows for common tasks (component creation, template editing, testing, etc.). Combined with the technical guides in `docs/`, this gives AI assistants a complete map to operate reliably within the project's conventions.
 
-By reading these skills and technical guides, AI can create components and related functionality on demand in a way that aligns with this project's architecture and conventions.
+The result is a collaborative environment where **humans and AI agents work side-by-side**, sharing the same specifications and conventions.
 
 ### Example AI Prompt
 
-An effective example prompt:
+When instructing an AI assistant to create a new component, you can use a prompt like the one below. The assistant will leverage the specifications and skills automatically:
 
 ```text
 Your task is to create the component component_name, which must [functional description].
@@ -309,15 +316,18 @@ Your task is to create the component component_name, which must [functional desc
 Use route: /my-route
 
 To complete this task, review:
+- The global project specification (if available) and any related component specs in .specify/
 - .agents/skills/manage-component/SKILL.md
 - .agents/skills/manage-neutral-templates/SKILL.md
 - src/component/component_name (as a component example)
 
 Define routes dynamically if needed, following the pattern used by other components.
+The specifications take precedence over the example code when decisions are needed.
 ```
 
-Neutral TS template engine
---------------------------
+This approach ensures the AI respects the intended behavior defined in the specs, while still leveraging working examples for implementation details.
+
+## Neutral TS template engine
 
 - [Rust docs](https://docs.rs/neutralts/latest/neutralts/)
 - [Template docs](https://franbarinstance.github.io/neutralts-docs/docs/neutralts/doc/)
